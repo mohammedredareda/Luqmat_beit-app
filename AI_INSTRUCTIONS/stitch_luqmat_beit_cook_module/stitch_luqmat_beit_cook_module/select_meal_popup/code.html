@@ -1,0 +1,318 @@
+<!DOCTYPE html><html dir="rtl" lang="ar"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>اختيار الوجبة</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;700;800&amp;family=Tajawal:wght@400;500;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary-fixed-dim": "#b4d086",
+                      "surface-tint": "#ab3428",
+                      "tertiary-fixed-dim": "#ffb95f",
+                      "tahini-bg": "#FBF7F1",
+                      "error": "#ba1a1a",
+                      "on-tertiary": "#ffffff",
+                      "primary-container": "#a83226",
+                      "inverse-surface": "#382e27",
+                      "surface-container": "#fcebdf",
+                      "primary": "#871a11",
+                      "on-tertiary-container": "#ffcc91",
+                      "sumac-container": "#FADDD7",
+                      "on-primary-fixed-variant": "#8a1c13",
+                      "zaatar-container": "#E4EDD3",
+                      "on-error-container": "#93000a",
+                      "on-error": "#ffffff",
+                      "zaatar-secondary": "#5A7233",
+                      "secondary-container": "#d0eda0",
+                      "on-primary-container": "#ffc9c0",
+                      "secondary-fixed": "#d0eda0",
+                      "primary-fixed-dim": "#ffb4a9",
+                      "surface-container-low": "#fff1e8",
+                      "surface-container-high": "#f6e5da",
+                      "error-container": "#ffdad6",
+                      "on-secondary-fixed": "#121f00",
+                      "on-tertiary-fixed-variant": "#653e00",
+                      "on-background": "#221a13",
+                      "honey-tertiary": "#B97A1E",
+                      "surface": "#FFFFFF",
+                      "on-secondary-container": "#546c2e",
+                      "on-secondary-fixed-variant": "#374d12",
+                      "surface-container-highest": "#f0dfd4",
+                      "ink-text": "#2A211A",
+                      "honey-container": "#F7E7CC",
+                      "tertiary-fixed": "#ffddb8",
+                      "on-tertiary-fixed": "#2a1700",
+                      "on-primary": "#ffffff",
+                      "on-primary-fixed": "#410000",
+                      "inverse-on-surface": "#ffeee2",
+                      "secondary": "#4e6628",
+                      "surface-dim": "#e8d7cc",
+                      "outline": "#D9CEC1",
+                      "on-surface-variant": "#58413e",
+                      "sumac-primary": "#A83226",
+                      "tertiary-container": "#825100",
+                      "outline-variant": "#e0bfba",
+                      "muted-spice": "#71655B",
+                      "on-secondary": "#ffffff",
+                      "inverse-primary": "#ffb4a9",
+                      "surface-container-lowest": "#ffffff",
+                      "on-surface": "#221a13",
+                      "primary-fixed": "#ffdad5",
+                      "surface-variant": "#f0dfd4",
+                      "background": "#fff8f5",
+                      "tertiary": "#623c00",
+                      "surface-bright": "#fff8f5"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "sm": "8px",
+                      "md": "12px",
+                      "base": "4px",
+                      "xs": "4px",
+                      "lg": "16px",
+                      "card-padding": "14px",
+                      "gutter": "16px",
+                      "xxl": "32px",
+                      "xl": "24px"
+              },
+              "fontFamily": {
+                      "display-lg": [
+                              "Alexandria"
+                      ],
+                      "headline-sm": [
+                              "Alexandria"
+                      ],
+                      "body-sm": [
+                              "Tajawal"
+                      ],
+                      "label-lg": [
+                              "Tajawal"
+                      ],
+                      "price-display": [
+                              "Tajawal"
+                      ],
+                      "body-md": [
+                              "Tajawal"
+                      ],
+                      "headline-md": [
+                              "Alexandria"
+                      ],
+                      "body-lg": [
+                              "Tajawal"
+                      ],
+                      "title-lg": [
+                              "Alexandria"
+                      ]
+              },
+              "fontSize": {
+                      "display-lg": [
+                              "40px",
+                              {
+                                      "lineHeight": "48px",
+                                      "fontWeight": "800"
+                              }
+                      ],
+                      "headline-sm": [
+                              "18px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-sm": [
+                              "12.5px",
+                              {
+                                      "lineHeight": "18px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-lg": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "price-display": [
+                              "16px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "800"
+                              }
+                      ],
+                      "body-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "22px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-lg": [
+                              "15.5px",
+                              {
+                                      "lineHeight": "26px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "title-lg": [
+                              "17px",
+                              {
+                                      "lineHeight": "22px",
+                                      "fontWeight": "700"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.tahini-bg');
+            color: theme('colors.ink-text');
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1;
+        }
+        /* Custom scrollbar for Webkit */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: theme('colors.outline');
+            border-radius: theme('borderRadius.full');
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: theme('colors.muted-spice');
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="antialiased min-h-screen flex items-center justify-center p-lg">
+<!-- Dimmed Overlay -->
+<div aria-hidden="true" class="fixed inset-0 bg-ink-text/40 backdrop-blur-sm z-40 transition-opacity duration-300"></div>
+<!-- Dialog -->
+<div class="relative z-50 bg-surface w-full max-w-[480px] rounded-[20px] shadow-[0_32px_64px_rgba(43,33,26,0.12)] flex flex-col max-h-[795px] overflow-hidden transition-transform duration-300 transform scale-100">
+<!-- Header -->
+<div class="flex items-center justify-between px-xl py-lg border-b border-surface-variant">
+<h2 class="font-title-lg text-title-lg text-ink-text">اختيار الوجبة</h2>
+<button class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-surface-variant transition-colors text-muted-spice active:scale-95">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<!-- Search -->
+<div class="px-xl py-lg">
+<div class="relative w-full">
+<span class="absolute right-4 top-1/2 -translate-y-1/2 text-muted-spice material-symbols-outlined">search</span>
+<input class="w-full pl-4 pr-12 py-3 rounded-lg border-1.5 border-outline bg-surface focus:border-sumac-primary focus:ring-1 focus:ring-sumac-primary text-ink-text font-body-md text-body-md placeholder:text-muted-spice transition-all outline-none" placeholder="ابحث عن وجبة..." type="text">
+</div>
+</div>
+<!-- Scrollable Content -->
+<div class="flex-1 overflow-y-auto px-xl pb-xl space-y-xl">
+<!-- Step 1: Available Meals -->
+<div class="space-y-md">
+<p class="font-label-lg text-label-lg text-muted-spice">الوجبات المتاحة للعرض</p>
+<div class="grid grid-cols-2 gap-md">
+<!-- Meal Card 1 (Selected) -->
+<div class="group relative rounded-xl border-2 border-sumac-primary bg-surface overflow-hidden cursor-pointer shadow-sm transition-transform active:scale-[0.98]">
+<div class="absolute top-2 right-2 z-10 w-6 h-6 rounded-full bg-sumac-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined fill text-[16px]">check</span>
+</div>
+<div class="aspect-[4/3] w-full bg-surface-variant relative overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A beautifully plated traditional Middle Eastern mixed grill with succulent skewered meats, fresh herbs, and grilled vegetables on a warm rustic clay plate. The lighting is soft and natural, casting warm inviting shadows typical of a high-end authentic culinary photography shoot. The overall mood is appetizing and cozy, shot from a slight overhead angle." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5uF03d9zk7dHazBf4Vdf9qfWCoqvz0odAeBa8yW09c5EW9DO4Hk5kVtPCmgCQ72YHKC3UUBmWcde8WcOS9-U-vqHATcqMdXyPieAAofI9BQha5VdECNuIfR2zjgBXY6zDTWZnDSM5j-X47aQ1QVnPBIRXUlootxyfhWsvJRfVi-Fwu4WBQLqVGCWy8qZCwDKV_J0fF3guN5n3Omg8HTrQgeL8ysOHy0WhnNxXbNekGmfCbILlJL3EksB0qP3QD9AO6ZsvEvDdT7o">
+</div>
+<div class="p-card-padding">
+<h3 class="font-body-md text-body-md text-ink-text font-bold mb-1">مشاوي مشكلة</h3>
+<p class="font-price-display text-price-display text-sumac-primary">٤٥ ر.س</p>
+</div>
+</div>
+<!-- Meal Card 2 -->
+<div class="group relative rounded-xl border border-outline bg-surface overflow-hidden cursor-pointer hover:border-outline-variant hover:shadow-sm transition-all active:scale-[0.98]">
+<div class="aspect-[4/3] w-full bg-surface-variant relative overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A comforting bowl of traditional Middle Eastern lentil soup garnished with fresh parsley and a drizzle of premium olive oil, served in an artisanal ceramic bowl. Accompanied by crispy golden pita bread on the side. The lighting is warm and directional, emphasizing the rich golden hues of the soup against a neutral background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAD6Q7d-PxDIxkPNueNsvLAdK5RNVUh7GUpe_ITS2ISP44qW7YbunrpsE5isY6j3Nox22nxMxnuhCKER7LWw13pwfAwCW1LHSXa4-UrFapGqqkbUWJ0ySktOIpYMIzuBZB79M6Fw4qyIqETiJO1DKoZ8bdQup-zi6C8fP6P3vFnTIzM46POlCQ8JNCOMj-Ei4VKX0WR1EKzkRkb9ghNenCXb8w6KfYWKAXoxQZUt6plLv_2gKisdJD3l4SxQpdwjDp8sHlzkYkq-KE">
+</div>
+<div class="p-card-padding">
+<h3 class="font-body-md text-body-md text-ink-text font-bold mb-1">شوربة عدس</h3>
+<p class="font-price-display text-price-display text-sumac-primary">١٥ ر.س</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Step 2: Variations (Visible after selection) -->
+<div class="space-y-md border-t border-surface-variant pt-lg animate-fade-in-up">
+<p class="font-label-lg text-label-lg text-muted-spice">ادخل الحجم أو النوع</p>
+<div class="relative w-full">
+  <input type="text" id="variation-input" class="peer w-full px-4 py-3 rounded-xl border-1.5 border-outline bg-surface focus:border-sumac-primary focus:ring-1 focus:ring-sumac-primary text-ink-text font-body-md text-body-md placeholder-transparent outline-none transition-all" placeholder="مثال: نفر واحد، نفرين...">
+  <label for="variation-input" class="absolute right-4 -top-2.5 bg-surface px-1 text-xs text-muted-spice transition-all peer-placeholder-shown:text-body-md peer-placeholder-shown:top-3 peer-placeholder-shown:text-muted-spice peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-sumac-primary">
+    مثال: نفر واحد، نفرين...
+  </label>
+</div>
+</div>
+</div>
+<!-- Footer Actions -->
+<div class="p-xl bg-surface border-t border-surface-variant flex items-center gap-md">
+<button class="flex-1 h-12 bg-sumac-primary text-on-primary font-label-lg text-label-lg rounded-lg hover:bg-primary transition-colors active:scale-95 shadow-sm">
+                إضافة
+            </button>
+<button class="px-xl h-12 text-muted-spice font-label-lg text-label-lg rounded-lg hover:bg-surface-variant transition-colors active:scale-95">
+                إلغاء
+            </button>
+</div>
+</div>
+<script>
+        // Simple script to handle variation selection styling
+        document.querySelectorAll('input[type="radio"][name="variation"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                // Reset all labels
+                document.querySelectorAll('input[type="radio"][name="variation"]').forEach(r => {
+                    const label = r.closest('label');
+                    const priceSpan = label.querySelector('.font-price-display');
+                    label.classList.remove('border-sumac-primary', 'bg-sumac-container/20');
+                    label.classList.add('border-outline');
+                    priceSpan.classList.remove('text-sumac-primary');
+                    priceSpan.classList.add('text-muted-spice');
+                });
+                
+                // Style selected label
+                if(this.checked) {
+                    const label = this.closest('label');
+                    const priceSpan = label.querySelector('.font-price-display');
+                    label.classList.remove('border-outline', 'hover:border-outline-variant', 'hover:bg-surface-variant/50');
+                    label.classList.add('border-sumac-primary', 'bg-sumac-container/20');
+                    priceSpan.classList.remove('text-muted-spice');
+                    priceSpan.classList.add('text-sumac-primary');
+                }
+            });
+        });
+    </script>
+
+
+</body></html>

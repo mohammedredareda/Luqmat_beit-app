@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+
+<html class="light" dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Loading State - My Menu</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;700;800&amp;family=Tajawal:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface": "#FFFFFF",
+                    "honey-tertiary": "#B97A1E",
+                    "on-secondary-fixed-variant": "#374d12",
+                    "on-secondary-container": "#546c2e",
+                    "on-secondary-fixed": "#121f00",
+                    "on-background": "#221a13",
+                    "on-tertiary-fixed-variant": "#653e00",
+                    "surface-container-low": "#fff1e8",
+                    "surface-container-high": "#f6e5da",
+                    "error-container": "#ffdad6",
+                    "on-error-container": "#93000a",
+                    "on-error": "#ffffff",
+                    "zaatar-container": "#E4EDD3",
+                    "secondary-fixed": "#d0eda0",
+                    "primary-fixed-dim": "#ffb4a9",
+                    "zaatar-secondary": "#5A7233",
+                    "secondary-container": "#d0eda0",
+                    "on-primary-container": "#ffc9c0",
+                    "on-tertiary-container": "#ffcc91",
+                    "primary": "#871a11",
+                    "on-primary-fixed-variant": "#8a1c13",
+                    "sumac-container": "#FADDD7",
+                    "primary-container": "#a83226",
+                    "inverse-surface": "#382e27",
+                    "surface-container": "#fcebdf",
+                    "on-tertiary": "#ffffff",
+                    "tahini-bg": "#FBF7F1",
+                    "error": "#ba1a1a",
+                    "tertiary-fixed-dim": "#ffb95f",
+                    "surface-tint": "#ab3428",
+                    "secondary-fixed-dim": "#b4d086",
+                    "surface-bright": "#fff8f5",
+                    "tertiary": "#623c00",
+                    "primary-fixed": "#ffdad5",
+                    "background": "#fff8f5",
+                    "surface-variant": "#f0dfd4",
+                    "surface-container-lowest": "#ffffff",
+                    "on-surface": "#221a13",
+                    "inverse-primary": "#ffb4a9",
+                    "outline-variant": "#e0bfba",
+                    "muted-spice": "#71655B",
+                    "tertiary-container": "#825100",
+                    "sumac-primary": "#A83226",
+                    "surface-dim": "#e8d7cc",
+                    "outline": "#D9CEC1",
+                    "on-surface-variant": "#58413e",
+                    "on-secondary": "#ffffff",
+                    "inverse-on-surface": "#ffeee2",
+                    "on-primary-fixed": "#410000",
+                    "secondary": "#4e6628",
+                    "on-tertiary-fixed": "#2a1700",
+                    "on-primary": "#ffffff",
+                    "tertiary-fixed": "#ffddb8",
+                    "surface-container-highest": "#f0dfd4",
+                    "ink-text": "#2A211A",
+                    "honey-container": "#F7E7CC"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "16px",
+                    "xxl": "32px",
+                    "xl": "24px",
+                    "xs": "4px",
+                    "lg": "16px",
+                    "card-padding": "14px",
+                    "sm": "8px",
+                    "md": "12px",
+                    "base": "4px",
+                    "safe": "env(safe-area-inset-bottom, 16px)"
+            },
+            "fontFamily": {
+                    "display-lg": [
+                            "Alexandria"
+                    ],
+                    "headline-sm": [
+                            "Alexandria"
+                    ],
+                    "body-sm": [
+                            "Tajawal"
+                    ],
+                    "label-lg": [
+                            "Tajawal"
+                    ],
+                    "price-display": [
+                            "Tajawal"
+                    ],
+                    "body-md": [
+                            "Tajawal"
+                    ],
+                    "body-lg": [
+                            "Tajawal"
+                    ],
+                    "headline-md": [
+                            "Alexandria"
+                    ],
+                    "title-lg": [
+                            "Alexandria"
+                    ]
+            },
+            "fontSize": {
+                    "display-lg": [
+                            "40px",
+                            {
+                                    "lineHeight": "48px",
+                                    "fontWeight": "800"
+                            }
+                    ],
+                    "headline-sm": [
+                            "18px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "body-sm": [
+                            "12.5px",
+                            {
+                                    "lineHeight": "18px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "label-lg": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "price-display": [
+                            "16px",
+                            {
+                                    "lineHeight": "20px",
+                                    "fontWeight": "800"
+                            }
+                    ],
+                    "body-md": [
+                            "14px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "body-lg": [
+                            "15.5px",
+                            {
+                                    "lineHeight": "26px",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "headline-md": [
+                            "22px",
+                            {
+                                    "lineHeight": "28px",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "title-lg": [
+                            "17px",
+                            {
+                                    "lineHeight": "22px",
+                                    "fontWeight": "700"
+                            }
+                    ]
+            },
+            "animation": {
+                'shimmer': 'shimmer 2s infinite linear',
+            },
+            "keyframes": {
+                shimmer: {
+                    '0%': { backgroundPosition: '200% 0' },
+                    '100%': { backgroundPosition: '-200% 0' },
+                }
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .skeleton-shimmer {
+            background-image: linear-gradient(90deg, 
+                theme('colors.surface-variant') 0%, 
+                theme('colors.surface-container-high') 50%, 
+                theme('colors.surface-variant') 100%);
+            background-size: 200% 100%;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-tahini-bg min-h-screen text-ink-text antialiased pb-24">
+<!-- TopAppBar -->
+<header class="bg-tahini-bg fixed w-full top-0 z-40 flat no shadows text-sumac-primary">
+<div class="flex justify-between items-center w-full px-lg py-md h-16">
+<button class="hover:opacity-80 transition-opacity active:scale-95 duration-200 text-muted-spice">
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+<h1 class="font-headline-sm text-headline-sm font-bold text-sumac-primary">قائمتي</h1>
+<button class="hover:opacity-80 transition-opacity active:scale-95 duration-200 text-muted-spice">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-20 px-lg flex flex-col gap-xl w-full max-w-md mx-auto">
+<!-- Sale Status Row Skeleton -->
+<section class="flex items-center justify-between bg-surface p-card-padding rounded-xl shadow-[0_1px_4px_rgba(43,33,26,0.05)]">
+<div class="flex items-center gap-sm">
+<!-- Icon Placeholder -->
+<div class="w-10 h-10 rounded-full skeleton-shimmer animate-shimmer"></div>
+<div class="flex flex-col gap-xs">
+<!-- Label Placeholder -->
+<div class="h-5 w-24 rounded skeleton-shimmer animate-shimmer"></div>
+<!-- Subtext Placeholder -->
+<div class="h-3 w-16 rounded skeleton-shimmer animate-shimmer opacity-70"></div>
+</div>
+</div>
+<!-- Switch Placeholder -->
+<div class="w-12 h-6 rounded-full skeleton-shimmer animate-shimmer"></div>
+</section>
+<!-- Meal Cards Skeletons Grid -->
+<section class="flex flex-col gap-md">
+<!-- Skeleton Card 1 -->
+<article class="bg-surface rounded-xl overflow-hidden shadow-[0_2px_8px_rgba(43,33,26,0.04)] border border-surface-variant/30">
+<!-- Image Area -->
+<div class="aspect-[4/3] w-full skeleton-shimmer animate-shimmer"></div>
+<!-- Content Area -->
+<div class="p-card-padding flex flex-col gap-md">
+<!-- Title Bar -->
+<div class="h-6 w-3/4 rounded skeleton-shimmer animate-shimmer"></div>
+<!-- Subtitle/Description Bars -->
+<div class="flex flex-col gap-xs mt-xs">
+<div class="h-4 w-full rounded skeleton-shimmer animate-shimmer opacity-60"></div>
+<div class="h-4 w-5/6 rounded skeleton-shimmer animate-shimmer opacity-60"></div>
+</div>
+<!-- Footer/Price Row -->
+<div class="flex justify-between items-center mt-sm">
+<div class="h-5 w-1/4 rounded skeleton-shimmer animate-shimmer"></div>
+<div class="w-8 h-8 rounded-full skeleton-shimmer animate-shimmer"></div>
+</div>
+</div>
+</article>
+<!-- Skeleton Card 2 -->
+<article class="bg-surface rounded-xl overflow-hidden shadow-[0_2px_8px_rgba(43,33,26,0.04)] border border-surface-variant/30">
+<!-- Image Area -->
+<div class="aspect-[4/3] w-full skeleton-shimmer animate-shimmer"></div>
+<!-- Content Area -->
+<div class="p-card-padding flex flex-col gap-md">
+<!-- Title Bar -->
+<div class="h-6 w-2/3 rounded skeleton-shimmer animate-shimmer"></div>
+<!-- Subtitle/Description Bars -->
+<div class="flex flex-col gap-xs mt-xs">
+<div class="h-4 w-11/12 rounded skeleton-shimmer animate-shimmer opacity-60"></div>
+<div class="h-4 w-4/5 rounded skeleton-shimmer animate-shimmer opacity-60"></div>
+</div>
+<!-- Footer/Price Row -->
+<div class="flex justify-between items-center mt-sm">
+<div class="h-5 w-1/3 rounded skeleton-shimmer animate-shimmer"></div>
+<div class="w-8 h-8 rounded-full skeleton-shimmer animate-shimmer"></div>
+</div>
+</div>
+</article>
+<!-- Skeleton Card 3 -->
+<article class="bg-surface rounded-xl overflow-hidden shadow-[0_2px_8px_rgba(43,33,26,0.04)] border border-surface-variant/30">
+<!-- Image Area -->
+<div class="aspect-[4/3] w-full skeleton-shimmer animate-shimmer"></div>
+<!-- Content Area -->
+<div class="p-card-padding flex flex-col gap-md">
+<!-- Title Bar -->
+<div class="h-6 w-4/5 rounded skeleton-shimmer animate-shimmer"></div>
+<!-- Subtitle/Description Bars -->
+<div class="flex flex-col gap-xs mt-xs">
+<div class="h-4 w-full rounded skeleton-shimmer animate-shimmer opacity-60"></div>
+<div class="h-4 w-2/3 rounded skeleton-shimmer animate-shimmer opacity-60"></div>
+</div>
+<!-- Footer/Price Row -->
+<div class="flex justify-between items-center mt-sm">
+<div class="h-5 w-1/4 rounded skeleton-shimmer animate-shimmer"></div>
+<div class="w-8 h-8 rounded-full skeleton-shimmer animate-shimmer"></div>
+</div>
+</div>
+</article>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="bg-surface fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-lg pb-safe h-20 shadow-[0_-2px_10px_rgba(43,33,26,0.08)] rounded-t-xl">
+<!-- Active Tab: القائمة (Menu) -->
+<button class="flex flex-col items-center justify-center bg-sumac-container text-on-primary-fixed-variant rounded-full px-5 py-1 active:scale-90 transition-transform duration-200 font-label-lg text-label-lg">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">restaurant_menu</span>
+<span class="mt-xs">القائمة</span>
+</button>
+<!-- Inactive Tabs -->
+<button class="flex flex-col items-center justify-center text-muted-spice px-5 py-1 hover:bg-surface-container-low transition-colors active:scale-90 duration-200 font-label-lg text-label-lg">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="mt-xs">الطلبات</span>
+</button>
+<button class="flex flex-col items-center justify-center text-muted-spice px-5 py-1 hover:bg-surface-container-low transition-colors active:scale-90 duration-200 font-label-lg text-label-lg">
+<span class="material-symbols-outlined">local_offer</span>
+<span class="mt-xs">العروض</span>
+</button>
+<button class="flex flex-col items-center justify-center text-muted-spice px-5 py-1 hover:bg-surface-container-low transition-colors active:scale-90 duration-200 font-label-lg text-label-lg">
+<span class="material-symbols-outlined">person</span>
+<span class="mt-xs">حسابي</span>
+</button>
+</nav>
+</body></html>

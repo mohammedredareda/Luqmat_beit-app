@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>إنشاء حساب - Luqmat Beit</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;700;800&amp;family=Tajawal:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "zaatar-container": "#E4EDD3",
+                        "on-error": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-tertiary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "surface-tint": "#ab3428",
+                        "on-tertiary-fixed": "#2a1700",
+                        "on-primary-fixed": "#410000",
+                        "primary": "#871a11",
+                        "background": "#fff8f5",
+                        "tertiary": "#623c00",
+                        "sumac-primary": "#A83226",
+                        "secondary-container": "#d0eda0",
+                        "surface-container-high": "#f6e5da",
+                        "honey-tertiary": "#B97A1E",
+                        "surface-container-highest": "#f0dfd4",
+                        "on-background": "#221a13",
+                        "muted-spice": "#71655B",
+                        "secondary-fixed": "#d0eda0",
+                        "on-surface": "#221a13",
+                        "on-secondary-fixed-variant": "#374d12",
+                        "surface-container-lowest": "#ffffff",
+                        "surface": "#FFFFFF",
+                        "outline": "#D9CEC1",
+                        "secondary-fixed-dim": "#b4d086",
+                        "inverse-on-surface": "#ffeee2",
+                        "on-primary-fixed-variant": "#8a1c13",
+                        "on-error-container": "#93000a",
+                        "on-primary-container": "#ffc9c0",
+                        "outline-variant": "#e0bfba",
+                        "primary-fixed-dim": "#ffb4a9",
+                        "surface-container-low": "#fff1e8",
+                        "honey-container": "#F7E7CC",
+                        "error-container": "#ffdad6",
+                        "inverse-primary": "#ffb4a9",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "surface-dim": "#e8d7cc",
+                        "secondary": "#4e6628",
+                        "ink-text": "#2A211A",
+                        "sumac-container": "#FADDD7",
+                        "inverse-surface": "#382e27",
+                        "surface-container": "#fcebdf",
+                        "primary-fixed": "#ffdad5",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed": "#121f00",
+                        "surface-variant": "#f0dfd4",
+                        "on-secondary-container": "#546c2e",
+                        "zaatar-secondary": "#5A7233",
+                        "on-surface-variant": "#58413e",
+                        "primary-container": "#a83226",
+                        "tertiary-container": "#825100",
+                        "tahini-bg": "#FBF7F1",
+                        "tertiary-fixed": "#ffddb8",
+                        "on-tertiary-container": "#ffcc91",
+                        "surface-bright": "#fff8f5"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px",
+                        "2xl": "1rem"
+                    },
+                    "spacing": {
+                        "lg": "16px",
+                        "gutter": "16px",
+                        "xs": "4px",
+                        "xl": "24px",
+                        "base": "4px",
+                        "sm": "8px",
+                        "card-padding": "14px",
+                        "xxl": "32px",
+                        "md": "12px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Tajawal"],
+                        "body-sm": ["Tajawal"],
+                        "price-display": ["Tajawal"],
+                        "body-lg": ["Tajawal"],
+                        "title-lg": ["Alexandria"],
+                        "display-lg": ["Alexandria"],
+                        "headline-sm": ["Alexandria"],
+                        "headline-md": ["Alexandria"],
+                        "label-lg": ["Tajawal"]
+                    },
+                    "fontSize": {
+                        "body-md": ["14px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-sm": ["12.5px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "price-display": ["16px", { "lineHeight": "20px", "fontWeight": "800" }],
+                        "body-lg": ["15.5px", { "lineHeight": "26px", "fontWeight": "500" }],
+                        "title-lg": ["17px", { "lineHeight": "22px", "fontWeight": "700" }],
+                        "display-lg": ["40px", { "lineHeight": "48px", "fontWeight": "800" }],
+                        "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "700" }],
+                        "headline-md": ["22px", { "lineHeight": "28px", "fontWeight": "700" }],
+                        "label-lg": ["14px", { "lineHeight": "20px", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .input-transition {
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .conditional-group {
+            transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out, margin 0.3s ease-in-out;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            margin-top: 0;
+        }
+        .conditional-group.expanded {
+            max-height: 500px;
+            opacity: 1;
+            margin-top: 16px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-tahini-bg min-h-screen flex items-center justify-center p-gutter md:p-xl font-body-md text-body-md text-on-background">
+<!-- Main Container -->
+<main class="w-full max-w-[500px] bg-surface rounded-2xl shadow-[0_4px_24px_rgba(43,33,26,0.06)] overflow-hidden flex flex-col relative">
+<!-- Header Image & Branding -->
+<div class="h-32 md:h-40 relative w-full bg-surface-container-low">
+<img alt="صورة ترحيبية" class="absolute inset-0 w-full h-full object-cover opacity-80 mix-blend-multiply" data-alt="A warm, top-down photograph of hands kneading dough on a rustic wooden table lightly dusted with flour. Nearby, small bowls contain fresh green herbs and rich red spices. Soft, diffused natural light illuminates the scene, creating a comforting, artisanal culinary atmosphere with dominant warm neutral tones and subtle sumac-red accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7kgoTPMz5xEWed0_fLT3N0AU3mssRUSO80oAKU17Bqo23h_HDJehQX6iHnibXufS6myOLfBCRIRoIQLEHuC52yG1n6N84z24WOpTQYXPa4ILv9OtSdLKTtsCLl3vykIRCerGweANLxoX1wGYxwn5kBV_9Zv_8hQdihLW121Ek40POhpbAkRWYKb4h6VdryMurYCqJ7sXB_WQaJj5LL-DQQ78-7eMWrFnxFadUNNvoC-fALrmexSxHFBzpXzNF_FK9E96FZDk9dzg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface to-transparent"></div>
+<!-- Floating Back Button (Transactional context) -->
+<button class="absolute top-md right-md w-10 h-10 flex items-center justify-center bg-surface/80 backdrop-blur-sm rounded-full text-sumac-primary hover:bg-surface transition-colors shadow-sm active:scale-95">
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+<!-- Form Content -->
+<div class="p-lg md:p-xl flex flex-col -mt-lg relative z-10">
+<div class="mb-xl text-center">
+<h1 class="font-headline-md text-headline-md text-sumac-primary mb-xs">إنشاء حساب جديد</h1>
+<p class="font-body-md text-body-md text-muted-spice">انضم إلى عائلة لقمة بيت واستمتع بأشهى المأكولات</p>
+</div>
+<form action="#" class="flex flex-col gap-md" method="POST">
+<!-- Name -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-lg text-label-lg text-ink-text" for="fullName">الاسم الكامل</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute right-md top-1/2 -translate-y-1/2 text-muted-spice pointer-events-none">person</span>
+<input class="w-full pr-[44px] pl-md py-md rounded-lg border-2 border-outline bg-transparent text-on-surface placeholder:text-outline-variant focus:border-sumac-primary focus:ring-0 input-transition font-body-lg text-body-lg" id="fullName" name="fullName" placeholder="أدخل اسمك الثلاثي" type="text"/>
+</div>
+</div>
+<!-- Phone -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-lg text-label-lg text-ink-text" for="phone">رقم الهاتف</label>
+<div class="relative text-left" dir="ltr">
+<span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-muted-spice pointer-events-none">call</span>
+<input class="w-full pl-[44px] pr-md py-md rounded-lg border-2 border-outline bg-transparent text-on-surface placeholder:text-outline-variant focus:border-sumac-primary focus:ring-0 input-transition font-body-lg text-body-lg text-left" id="phone" name="phone" placeholder="+962 7X XXX XXXX" type="tel"/>
+</div>
+</div>
+<!-- Location (Auto) -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-lg text-label-lg text-ink-text" for="location">الموقع الجغرافي</label>
+<div class="relative flex items-center gap-sm">
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute right-md top-1/2 -translate-y-1/2 text-muted-spice pointer-events-none">location_on</span>
+<input class="w-full pr-[44px] pl-md py-md rounded-lg border-2 border-outline bg-surface-container-lowest text-muted-spice focus:outline-none font-body-lg text-body-lg cursor-not-allowed" id="location" name="location" placeholder="سيتم تحديد الموقع تلقائياً" readonly="" type="text"/>
+</div>
+<button class="h-[52px] px-lg bg-secondary-container text-on-secondary-container rounded-lg font-label-lg text-label-lg hover:bg-secondary-fixed transition-colors flex items-center gap-xs active:scale-95 border-2 border-transparent" type="button">
+<span class="material-symbols-outlined text-[20px]">my_location</span>
+                            تحديد
+                        </button>
+</div>
+</div>
+<!-- Address -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-lg text-label-lg text-ink-text" for="address">العنوان التفصيلي</label>
+<textarea class="w-full p-md rounded-lg border-2 border-outline bg-transparent text-on-surface placeholder:text-outline-variant focus:border-sumac-primary focus:ring-0 input-transition font-body-lg text-body-lg resize-none" id="address" name="address" placeholder="المدينة، الحي، الشارع، رقم البناية..." rows="2"></textarea>
+</div>
+<!-- Password -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-lg text-label-lg text-ink-text" for="password">كلمة المرور</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute right-md top-1/2 -translate-y-1/2 text-muted-spice pointer-events-none">lock</span>
+<input class="w-full pr-[44px] pl-[44px] py-md rounded-lg border-2 border-outline bg-transparent text-on-surface placeholder:text-outline-variant focus:border-sumac-primary focus:ring-0 input-transition font-body-lg text-body-lg" id="password" name="password" placeholder="أدخل كلمة مرور قوية" type="password"/>
+<button class="absolute left-md top-1/2 -translate-y-1/2 text-muted-spice hover:text-sumac-primary transition-colors flex items-center" type="button">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+</div>
+</div>
+<!-- Divider -->
+<hr class="border-t border-outline-variant my-sm"/>
+<!-- Role Selection Checkbox -->
+<label class="flex items-center gap-md p-md bg-surface-container-low rounded-xl border border-outline hover:bg-surface-container transition-colors cursor-pointer group">
+<div class="relative flex items-center justify-center">
+<input class="peer appearance-none w-6 h-6 rounded border-2 border-muted-spice bg-surface checked:bg-sumac-primary checked:border-sumac-primary transition-all focus:ring-2 focus:ring-sumac-primary focus:ring-offset-2" id="isCookCheckbox" type="checkbox"/>
+<span class="material-symbols-outlined absolute text-on-primary text-[18px] opacity-0 peer-checked:opacity-100 pointer-events-none transition-opacity">check</span>
+</div>
+<div class="flex flex-col flex-1">
+<span class="font-title-lg text-title-lg text-ink-text group-hover:text-sumac-primary transition-colors">التسجيل كطباخة</span>
+<span class="font-body-sm text-body-sm text-muted-spice">أرغب في تقديم وجباتي عبر المنصة</span>
+</div>
+<div class="w-10 h-10 rounded-full bg-sumac-container text-primary-fixed-dim flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">soup_kitchen</span>
+</div>
+</label>
+<!-- Conditional Group for Cook -->
+<div class="conditional-group flex flex-col gap-md bg-tahini-bg p-md rounded-xl border border-outline-variant" id="cookConditionalGroup">
+<!-- Availability -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-lg text-label-lg text-ink-text" for="availability">أوقات التوفر</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute right-md top-1/2 -translate-y-1/2 text-muted-spice pointer-events-none">schedule</span>
+<input class="w-full pr-[44px] pl-md py-md rounded-lg border-2 border-outline bg-surface text-on-surface placeholder:text-outline-variant focus:border-sumac-primary focus:ring-0 input-transition font-body-lg text-body-lg" id="availability" name="availability" placeholder="مثال: من 9 صباحاً إلى 5 مساءً" type="text"/>
+</div>
+</div>
+<!-- Short Description -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-lg text-label-lg text-ink-text" for="description">وصف قصير</label>
+<textarea class="w-full p-md rounded-lg border-2 border-outline bg-surface text-on-surface placeholder:text-outline-variant focus:border-sumac-primary focus:ring-0 input-transition font-body-lg text-body-lg resize-none" id="description" name="description" placeholder="نبذة عن خبرتك وأشهر الأطباق التي تقدمينها..." rows="3"></textarea>
+</div>
+</div>
+<!-- Primary Action -->
+<button class="w-full mt-lg h-12 bg-sumac-primary text-on-primary rounded-full font-label-lg text-label-lg shadow-md hover:shadow-lg hover:opacity-95 active:scale-[0.98] transition-all flex items-center justify-center gap-sm" type="submit">
+                    إنشاء الحساب
+                    <span class="material-symbols-outlined text-[20px]">person_add</span>
+</button>
+<!-- Login Link -->
+<div class="text-center mt-sm">
+<p class="font-body-md text-body-md text-muted-spice">
+                        لديك حساب بالفعل؟ 
+                        <a class="font-label-lg text-label-lg text-sumac-primary hover:underline underline-offset-4" href="#">تسجيل الدخول</a>
+</p>
+</div>
+</form>
+</div>
+</main>
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const isCookCheckbox = document.getElementById('isCookCheckbox');
+            const cookConditionalGroup = document.getElementById('cookConditionalGroup');
+
+            isCookCheckbox.addEventListener('change', function() {
+                if (this.checked) {
+                    cookConditionalGroup.classList.add('expanded');
+                } else {
+                    cookConditionalGroup.classList.remove('expanded');
+                }
+            });
+        });
+    </script>
+</body></html>

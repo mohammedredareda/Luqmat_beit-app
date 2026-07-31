@@ -1,0 +1,292 @@
+<!DOCTYPE html><html class="light" dir="rtl" lang="ar"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>تعديل الخصم - Luqmat Beit</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;600;700;800&amp;family=Tajawal:wght@400;500;700;800&amp;display=swap" rel="stylesheet">
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration (Brand Anchors) -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-error": "#ffffff",
+                        "surface-variant": "#f0dfd4",
+                        "primary-fixed": "#ffdad5",
+                        "tertiary-container": "#825100",
+                        "on-primary-fixed-variant": "#8a1c13",
+                        "primary": "#871a11",
+                        "zaatar-container": "#E4EDD3",
+                        "on-secondary-fixed-variant": "#374d12",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-container": "#ffcc91",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-container": "#546c2e",
+                        "outline": "#D9CEC1",
+                        "inverse-primary": "#ffb4a9",
+                        "inverse-surface": "#382e27",
+                        "honey-container": "#F7E7CC",
+                        "surface-dim": "#e8d7cc",
+                        "on-secondary-fixed": "#121f00",
+                        "muted-spice": "#71655B",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "surface-bright": "#fff8f5",
+                        "secondary-fixed-dim": "#b4d086",
+                        "error-container": "#ffdad6",
+                        "surface-container-highest": "#f0dfd4",
+                        "honey-tertiary": "#B97A1E",
+                        "sumac-primary": "#A83226",
+                        "on-surface-variant": "#58413e",
+                        "primary-fixed-dim": "#ffb4a9",
+                        "ink-text": "#2A211A",
+                        "surface-container-high": "#f6e5da",
+                        "outline-variant": "#e0bfba",
+                        "tertiary-fixed": "#ffddb8",
+                        "on-tertiary-fixed": "#2a1700",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed": "#d0eda0",
+                        "on-primary-container": "#ffc9c0",
+                        "surface-tint": "#ab3428",
+                        "tertiary": "#623c00",
+                        "sumac-container": "#FADDD7",
+                        "on-primary-fixed": "#410000",
+                        "surface-container": "#fcebdf",
+                        "on-background": "#221a13",
+                        "primary-container": "#a83226",
+                        "surface": "#FFFFFF",
+                        "surface-container-low": "#fff1e8",
+                        "zaatar-secondary": "#5A7233",
+                        "secondary-container": "#d0eda0",
+                        "tahini-bg": "#FBF7F1",
+                        "inverse-on-surface": "#ffeee2",
+                        "surface-container-lowest": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-surface": "#221a13",
+                        "background": "#fff8f5",
+                        "on-primary": "#ffffff",
+                        "secondary": "#4e6628"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "xl": "24px",
+                        "gutter": "16px",
+                        "card-padding": "14px",
+                        "lg": "16px",
+                        "xxl": "32px",
+                        "sm": "8px",
+                        "md": "12px",
+                        "base": "4px",
+                        "xs": "4px"
+                    },
+                    fontFamily: {
+                        "body-md": ["Tajawal"],
+                        "body-lg": ["Tajawal"],
+                        "price-display": ["Tajawal"],
+                        "display-lg": ["Alexandria"],
+                        "label-lg": ["Tajawal"],
+                        "title-lg": ["Alexandria"],
+                        "body-sm": ["Tajawal"],
+                        "headline-md": ["Alexandria"],
+                        "headline-sm": ["Alexandria"]
+                    },
+                    fontSize: {
+                        "body-md": ["14px", { lineHeight: "24px", fontWeight: "400" }],
+                        "body-lg": ["15.5px", { lineHeight: "26px", fontWeight: "500" }],
+                        "price-display": ["16px", { lineHeight: "20px", fontWeight: "800" }],
+                        "display-lg": ["40px", { lineHeight: "48px", fontWeight: "800" }],
+                        "label-lg": ["14px", { lineHeight: "20px", fontWeight: "700" }],
+                        "title-lg": ["17px", { lineHeight: "22px", fontWeight: "700" }],
+                        "body-sm": ["12.5px", { lineHeight: "18px", fontWeight: "400" }],
+                        "headline-md": ["22px", { lineHeight: "28px", fontWeight: "700" }],
+                        "headline-sm": ["18px", { lineHeight: "24px", fontWeight: "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Hide scrollbar for cleaner look in this mockup container */
+        ::-webkit-scrollbar { display: none; }
+        
+        /* Custom date input styling to match theme */
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            cursor: pointer;
+            opacity: 0.6;
+            transition: 0.2s;
+        }
+        input[type="date"]::-webkit-calendar-picker-indicator:hover {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-tahini-bg text-on-background font-body-md antialiased min-h-screen flex flex-col relative overflow-x-hidden selection:bg-sumac-container selection:text-sumac-primary">
+<!-- TopAppBar Container (from JSON) -->
+<div class="docked full-width top-0 z-40 bg-tahini-bg border-b border-transparent shadow-none">
+<header class="flex justify-between items-center w-full px-lg py-md h-16 max-w-2xl mx-auto">
+<!-- Back Button: RTL context means arrow_forward visually points back -->
+<button class="text-sumac-primary hover:opacity-80 transition-opacity active:scale-95 duration-200 flex items-center justify-center w-10 h-10 rounded-full hover:bg-surface-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'wght' 500;">arrow_forward</span>
+</button>
+<h1 class="font-headline-sm text-headline-sm font-bold text-sumac-primary tracking-tight">Luqmat Beit</h1>
+<!-- Trailing Action (Notifications placeholder from JSON) -->
+<button class="text-sumac-primary hover:opacity-80 transition-opacity active:scale-95 duration-200 flex items-center justify-center w-10 h-10 rounded-full hover:bg-surface-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'wght' 400;">notifications</span>
+</button>
+</header>
+</div>
+<!-- Main Content Canvas -->
+<main class="flex-1 w-full max-w-2xl mx-auto px-lg pt-md pb-32 space-y-xl">
+<!-- Page Header -->
+<div class="space-y-sm">
+<h2 class="font-headline-md text-headline-md text-ink-text">تعديل الخصم</h2>
+<p class="font-body-sm text-body-sm text-muted-spice">قم بتحديث إعدادات العرض الخاص بك.</p>
+</div>
+<!-- Target Item Card (Pre-filled Data) -->
+<div class="bg-surface rounded-xl p-card-padding shadow-[0_2px_8px_rgba(43,33,26,0.04)] border border-surface-container flex items-center gap-md">
+<div class="w-16 h-16 rounded-lg overflow-hidden shrink-0 bg-surface-container relative">
+<img class="w-full h-full object-cover" data-alt="A high-quality, professional food photography shot of Kabsa, a traditional Middle Eastern chicken and rice dish. The roasted chicken is perfectly browned, resting on a bed of spiced, golden basmati rice garnished with toasted almonds and raisins. The lighting is warm and natural, casting soft shadows, set against a clean, minimalist background that fits a modern culinary app aesthetic. Shot from a slightly overhead angle to showcase texture." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAm3ypxVFoO352bst9scXHQAFjDdnDc1nmPcvjgpwXqi8Wwtklr_HmBYAsle4DIwG1OfuuIQGNz5DRfb-hzsloGIeXHOdrZDR9PhrVfEuusPgCNzAOO6VkU1cZVUPP3pQaQZZ_woIPE3zaXcwb_jStcXHLnBgiTEaCkB5MhQ9L1cOJN23FDRF_yBzxwWMbkruZvbzPRuybeil-EBHGdhNMl51augZB6QP1W7oP6p9ZEgLtIu1JS_5m6MXW3ZOTK-gA4JVI5j4cu_cU">
+</div>
+<div class="flex-1">
+<span class="font-body-sm text-body-sm text-muted-spice block mb-1">المنتج المستهدف</span>
+<h3 class="font-title-lg text-title-lg text-ink-text leading-tight">كبسة دجاج محمرة</h3>
+</div>
+<div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-muted-spice text-[18px]">edit</span>
+</div>
+</div>
+<!-- Settings Form -->
+<form class="space-y-xl" onsubmit="event.preventDefault();">
+<!-- Discount Value Input (Pre-filled) -->
+<div class="space-y-2">
+<label class="font-label-lg text-label-lg text-ink-text block" for="discount-value">نسبة الخصم</label>
+<div class="relative">
+<input class="w-full bg-surface border border-outline rounded-lg px-md py-3 text-ink-text font-body-lg text-body-lg focus:outline-none focus:border-sumac-primary focus:ring-1 focus:ring-sumac-primary transition-shadow h-12 pr-12 text-left" dir="ltr" id="discount-value" type="number" value="20">
+<div class="absolute inset-y-0 right-0 flex items-center pr-md pointer-events-none">
+<span class="text-muted-spice font-body-lg text-body-lg">%</span>
+</div>
+</div>
+</div><div class="space-y-2">
+<label class="font-label-lg text-label-lg text-ink-text block" for="price-after-discount">السعر بعد الخصم</label>
+<div class="relative">
+<input class="w-full bg-surface-variant border border-outline rounded-lg px-md py-3 text-ink-text font-body-lg text-body-lg focus:outline-none h-12 pr-12 text-left" dir="ltr" id="price-after-discount" type="text" value="28.80" readonly="">
+<div class="absolute inset-y-0 right-0 flex items-center pr-md pointer-events-none">
+<span class="text-muted-spice font-body-lg text-body-lg">ر.س</span>
+</div>
+</div>
+</div>
+<hr class="border-outline-variant opacity-50">
+<!-- Discount Mode Selection -->
+<div class="space-y-4">
+<label class="font-label-lg text-label-lg text-ink-text block">نوع الصلاحية</label>
+<!-- Segmented Control -->
+<div class="flex p-1 bg-surface-container rounded-xl">
+<button class="flex-1 py-2 rounded-lg font-label-lg text-label-lg bg-surface shadow-[0_1px_3px_rgba(43,33,26,0.08)] text-sumac-primary transition-all duration-200 transform scale-100" id="btn-duration" onclick="setMode('duration')" type="button">
+                        حسب المدة
+                    </button>
+<button class="flex-1 py-2 rounded-lg font-label-lg text-label-lg text-muted-spice hover:text-ink-text transition-all duration-200 transform scale-100 hover:bg-surface-variant/30" id="btn-usage" onclick="setMode('usage')" type="button">
+                        حسب الاستخدام
+                    </button>
+</div>
+<!-- Dynamic Forms Container -->
+<div class="relative min-h-[100px] mt-md">
+<!-- Mode: Duration (Start/End Date) -->
+<div class="grid grid-cols-2 gap-md transition-opacity duration-300 opacity-100 visible absolute inset-0" id="form-duration">
+<div class="space-y-2">
+<label class="font-body-sm text-body-sm text-muted-spice block" for="start-date">تاريخ البدء</label>
+<input class="w-full bg-surface border border-outline rounded-lg px-md py-3 text-ink-text font-body-md focus:outline-none focus:border-sumac-primary focus:ring-1 focus:ring-sumac-primary transition-shadow h-12" id="start-date" type="date">
+</div>
+<div class="space-y-2">
+<label class="font-body-sm text-body-sm text-muted-spice block" for="end-date">تاريخ الانتهاء</label>
+<input class="w-full bg-surface border border-outline rounded-lg px-md py-3 text-ink-text font-body-md focus:outline-none focus:border-sumac-primary focus:ring-1 focus:ring-sumac-primary transition-shadow h-12" id="end-date" type="date">
+</div>
+</div>
+<!-- Mode: Usage Limit (Max Uses) -->
+<div class="space-y-2 transition-opacity duration-300 opacity-0 invisible absolute inset-0" id="form-usage">
+<label class="font-body-sm text-body-sm text-muted-spice block" for="max-uses">الحد الأقصى للاستخدام (مرات)</label>
+<input class="w-full bg-surface border border-outline rounded-lg px-md py-3 text-ink-text font-body-md focus:outline-none focus:border-sumac-primary focus:ring-1 focus:ring-sumac-primary transition-shadow h-12" id="max-uses" placeholder="مثال: 50" type="number">
+</div>
+</div>
+</div>
+</form>
+</main>
+<!-- Fixed Action Bottom Bar -->
+<div class="fixed bottom-0 left-0 w-full z-50 bg-surface border-t border-surface-variant shadow-[0_-4px_24px_rgba(43,33,26,0.06)] px-lg pb-safe pt-md pb-6">
+<div class="max-w-2xl mx-auto flex gap-md items-center">
+<button class="flex-1 bg-surface-container-high text-ink-text py-3 px-4 rounded-lg font-label-lg text-label-lg hover:bg-surface-variant transition-colors active:scale-95 duration-200" type="button">
+                إلغاء
+            </button>
+<button class="flex-[2] bg-sumac-primary text-on-primary py-3 px-4 rounded-lg font-label-lg text-label-lg hover:bg-primary transition-colors active:scale-95 duration-200 shadow-md" type="button">
+                حفظ التعديلات
+            </button>
+</div>
+</div>
+<!-- Logic for Segmented Control -->
+<script>
+        function setMode(mode) {
+            const btnDuration = document.getElementById('btn-duration');
+            const btnUsage = document.getElementById('btn-usage');
+            const formDuration = document.getElementById('form-duration');
+            const formUsage = document.getElementById('form-usage');
+
+            // Reset styles
+            const activeClasses = ['bg-surface', 'shadow-[0_1px_3px_rgba(43,33,26,0.08)]', 'text-sumac-primary'];
+            const inactiveClasses = ['text-muted-spice', 'hover:text-ink-text', 'hover:bg-surface-variant/30'];
+
+            if (mode === 'duration') {
+                // Style buttons
+                btnDuration.classList.add(...activeClasses);
+                btnDuration.classList.remove(...inactiveClasses);
+                
+                btnUsage.classList.remove(...activeClasses);
+                btnUsage.classList.add(...inactiveClasses);
+
+                // Show/Hide forms with transition
+                formUsage.classList.replace('opacity-100', 'opacity-0');
+                setTimeout(() => {
+                    formUsage.classList.replace('visible', 'invisible');
+                    formDuration.classList.replace('invisible', 'visible');
+                    formDuration.classList.replace('opacity-0', 'opacity-100');
+                }, 150);
+
+            } else if (mode === 'usage') {
+                // Style buttons
+                btnUsage.classList.add(...activeClasses);
+                btnUsage.classList.remove(...inactiveClasses);
+                
+                btnDuration.classList.remove(...activeClasses);
+                btnDuration.classList.add(...inactiveClasses);
+
+                // Show/Hide forms with transition
+                formDuration.classList.replace('opacity-100', 'opacity-0');
+                setTimeout(() => {
+                    formDuration.classList.replace('visible', 'invisible');
+                    formUsage.classList.replace('invisible', 'visible');
+                    formUsage.classList.replace('opacity-0', 'opacity-100');
+                }, 150);
+            }
+        }
+        
+        // Initialize date inputs with some dummy dates for mockup realism
+        document.addEventListener('DOMContentLoaded', () => {
+            const today = new Date().toISOString().split('T')[0];
+            const nextWeek = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+            document.getElementById('start-date').value = today;
+            document.getElementById('end-date').value = nextWeek;
+        });
+    </script>
+
+
+</body></html>

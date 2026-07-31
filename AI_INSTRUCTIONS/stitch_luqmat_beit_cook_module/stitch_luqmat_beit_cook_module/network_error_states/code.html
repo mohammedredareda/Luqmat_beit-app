@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>حالات الخطأ والشبكة - Luqmat Beit</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;700;800&amp;family=Tajawal:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#FFFFFF",
+                        "honey-tertiary": "#B97A1E",
+                        "on-secondary-fixed-variant": "#374d12",
+                        "on-secondary-container": "#546c2e",
+                        "on-secondary-fixed": "#121f00",
+                        "on-background": "#221a13",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "surface-container-low": "#fff1e8",
+                        "surface-container-high": "#f6e5da",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "on-error": "#ffffff",
+                        "zaatar-container": "#E4EDD3",
+                        "secondary-fixed": "#d0eda0",
+                        "primary-fixed-dim": "#ffb4a9",
+                        "zaatar-secondary": "#5A7233",
+                        "secondary-container": "#d0eda0",
+                        "on-primary-container": "#ffc9c0",
+                        "on-tertiary-container": "#ffcc91",
+                        "primary": "#871a11",
+                        "on-primary-fixed-variant": "#8a1c13",
+                        "sumac-container": "#FADDD7",
+                        "primary-container": "#a83226",
+                        "inverse-surface": "#382e27",
+                        "surface-container": "#fcebdf",
+                        "on-tertiary": "#ffffff",
+                        "tahini-bg": "#FBF7F1",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "surface-tint": "#ab3428",
+                        "secondary-fixed-dim": "#b4d086",
+                        "surface-bright": "#fff8f5",
+                        "tertiary": "#623c00",
+                        "primary-fixed": "#ffdad5",
+                        "background": "#fff8f5",
+                        "surface-variant": "#f0dfd4",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface": "#221a13",
+                        "inverse-primary": "#ffb4a9",
+                        "outline-variant": "#e0bfba",
+                        "muted-spice": "#71655B",
+                        "tertiary-container": "#825100",
+                        "sumac-primary": "#A83226",
+                        "surface-dim": "#e8d7cc",
+                        "outline": "#D9CEC1",
+                        "on-surface-variant": "#58413e",
+                        "on-secondary": "#ffffff",
+                        "inverse-on-surface": "#ffeee2",
+                        "on-primary-fixed": "#410000",
+                        "secondary": "#4e6628",
+                        "on-tertiary-fixed": "#2a1700",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed": "#ffddb8",
+                        "surface-container-highest": "#f0dfd4",
+                        "ink-text": "#2A211A",
+                        "honey-container": "#F7E7CC"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "16px",
+                        "xxl": "32px",
+                        "xl": "24px",
+                        "xs": "4px",
+                        "lg": "16px",
+                        "card-padding": "14px",
+                        "sm": "8px",
+                        "md": "12px",
+                        "base": "4px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Alexandria"],
+                        "headline-sm": ["Alexandria"],
+                        "body-sm": ["Tajawal"],
+                        "label-lg": ["Tajawal"],
+                        "price-display": ["Tajawal"],
+                        "body-md": ["Tajawal"],
+                        "body-lg": ["Tajawal"],
+                        "headline-md": ["Alexandria"],
+                        "title-lg": ["Alexandria"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["40px", { "lineHeight": "48px", "fontWeight": "800" }],
+                        "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "700" }],
+                        "body-sm": ["12.5px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "label-lg": ["14px", { "lineHeight": "20px", "fontWeight": "700" }],
+                        "price-display": ["16px", { "lineHeight": "20px", "fontWeight": "800" }],
+                        "body-md": ["14px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-lg": ["15.5px", { "lineHeight": "26px", "fontWeight": "500" }],
+                        "headline-md": ["22px", { "lineHeight": "28px", "fontWeight": "700" }],
+                        "title-lg": ["17px", { "lineHeight": "22px", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1;
+        }
+        
+        /* Custom scrollbar to match aesthetic */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: theme('colors.tahini-bg'); 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: theme('colors.outline'); 
+            border-radius: theme('borderRadius.full');
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: theme('colors.muted-spice'); 
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-tahini-bg text-on-surface font-body-md min-h-screen flex flex-col items-center py-xl px-lg md:px-xxl overflow-x-hidden antialiased">
+<!-- Header / Context -->
+<div class="w-full max-w-4xl mb-xl text-center">
+<h1 class="font-headline-md text-headline-md text-sumac-primary mb-sm">دليل حالات الخطأ</h1>
+<p class="font-body-md text-body-md text-muted-spice">معاينة لتصميم حالات الشبكة وأخطاء الخادم والتحقق في واجهة Luqmat Beit</p>
+</div>
+<div class="w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-xl pb-xxl">
+<!-- 1. No Internet State -->
+<div class="bg-surface rounded-xl shadow-lg border border-surface-variant overflow-hidden flex flex-col">
+<div class="bg-surface-variant px-lg py-sm border-b border-outline-variant flex items-center justify-between">
+<span class="font-label-lg text-label-lg text-muted-spice">1. انقطاع الشبكة</span>
+<div class="flex gap-xs">
+<div class="w-3 h-3 rounded-full bg-outline"></div>
+<div class="w-3 h-3 rounded-full bg-outline"></div>
+<div class="w-3 h-3 rounded-full bg-outline"></div>
+</div>
+</div>
+<div class="flex-1 flex flex-col items-center justify-center p-xxl text-center min-h-[400px]">
+<div class="w-32 h-32 mb-xl relative">
+<!-- Stylized disconnected plug illustration using placeholder -->
+<img class="w-full h-full object-contain rounded-full bg-surface-container opacity-90" data-alt="A minimalist, warm-toned illustration of a disconnected electrical plug or broken wifi signal, designed with a clean modern aesthetic on a white surface background. The style uses soft terracotta and muted spice colors, typical of a high-end food delivery app's error state, avoiding clinical tech vibes." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMNegTjXyu_8bfSLb-o8hSCbSWh5u2NgBceKxLpBuOZw0JCk4UBloNGXmDv-B53o-rBox0DrxTkdnQjj8k0CF67AbkWFyKtT4WPjoVLsNEDoe1zU-YC_71oH1BEpxu7UcU_l5AaumFP0GaJdJwyYQysfFqu42xAz_IDrCRmoCpT2OP-VxV4QfmOGknqiNyIi8pPmA4t06W6MVqk6Kn-7ZD0tUJcv9N5FOe6pwciDqPy0c-ExQc2pVgwIjxT3ZkHMRZ0xmVaJOLvsw"/>
+<div class="absolute -bottom-2 -right-2 w-10 h-10 bg-surface rounded-full flex items-center justify-center shadow-md">
+<span class="material-symbols-outlined text-sumac-primary text-2xl">wifi_off</span>
+</div>
+</div>
+<h2 class="font-title-lg text-title-lg text-ink-text mb-sm">عذراً، لا يوجد اتصال</h2>
+<p class="font-body-md text-body-md text-muted-spice max-w-[260px] mb-xl">يرجى التحقق من اتصالك بالإنترنت والمحاولة مرة أخرى.</p>
+<button class="w-full max-w-[200px] h-12 bg-sumac-primary text-on-primary rounded-lg font-label-lg text-label-lg flex items-center justify-center gap-sm shadow-[0_4px_12px_rgba(43,33,26,0.12)] hover:opacity-90 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[20px]">refresh</span>
+                    إعادة المحاولة
+                </button>
+</div>
+</div>
+<!-- 2. Server Error State -->
+<div class="bg-surface rounded-xl shadow-lg border border-surface-variant overflow-hidden flex flex-col">
+<div class="bg-surface-variant px-lg py-sm border-b border-outline-variant flex items-center justify-between">
+<span class="font-label-lg text-label-lg text-muted-spice">2. خطأ في الخادم (500)</span>
+<div class="flex gap-xs">
+<div class="w-3 h-3 rounded-full bg-outline"></div>
+<div class="w-3 h-3 rounded-full bg-outline"></div>
+<div class="w-3 h-3 rounded-full bg-outline"></div>
+</div>
+</div>
+<div class="flex-1 flex flex-col items-center justify-center p-xxl text-center min-h-[400px]">
+<div class="w-32 h-32 mb-xl relative">
+<!-- Stylized clashing pot/pan illustration -->
+<img class="w-full h-full object-contain rounded-full bg-surface-container opacity-90" data-alt="A charming, minimalist illustration of a cooking pot boiling over or clashing pans, representing a server error. The artwork uses warm, culinary-inspired colors like tahini beige, terracotta, and muted spice on a clean white background. It maintains a professional but approachable 'domestic professionalism' vibe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvbZ4ngkwj-ovFfxLPi7FbVz86uHKtbshtynhZFhe_heONhZrmD_siWLESAIV7d9zBaC9HgRBdHjy8a79fVkjIIOB328B3qTpWcp1DWwgLak0sLhzBcGGig0dNVHP-hSC5_SaajLSJIqjDi4ONKInFAtjrIRBSJMYtn9iEGQp8mjbkTD8XCauEmHTOdIc8vTuZcNGg6fYj1feQ5eA5bExG_6hRNcOFihwktBIe_y4SJ9NMPFBcEMxC_ZiBkz68hjm4ML5e9vC1Px4"/>
+<div class="absolute -bottom-2 -right-2 w-10 h-10 bg-surface rounded-full flex items-center justify-center shadow-md">
+<span class="material-symbols-outlined text-sumac-primary text-2xl">error</span>
+</div>
+</div>
+<h2 class="font-title-lg text-title-lg text-ink-text mb-sm">خطأ في الخادم</h2>
+<p class="font-body-md text-body-md text-muted-spice max-w-[260px] mb-xl">نواجه مشكلة تقنية حالياً، نحن نعمل على إصلاحها لتعود الأمور إلى طبيعتها قريباً.</p>
+<button class="w-full max-w-[200px] h-12 border-2 border-outline text-sumac-primary bg-surface rounded-lg font-label-lg text-label-lg flex items-center justify-center gap-sm hover:bg-surface-container-low active:scale-95 transition-all">
+                    تحديث الصفحة
+                </button>
+</div>
+</div>
+<!-- 3. Invalid Credentials (Login Form Error) -->
+<div class="bg-surface rounded-xl shadow-lg border border-surface-variant overflow-hidden flex flex-col md:col-span-2 max-w-xl mx-auto w-full">
+<div class="bg-surface-variant px-lg py-sm border-b border-outline-variant flex items-center justify-between">
+<span class="font-label-lg text-label-lg text-muted-spice">3. خطأ في التحقق (تسجيل الدخول)</span>
+<div class="flex gap-xs">
+<div class="w-3 h-3 rounded-full bg-outline"></div>
+<div class="w-3 h-3 rounded-full bg-outline"></div>
+<div class="w-3 h-3 rounded-full bg-outline"></div>
+</div>
+</div>
+<div class="flex-1 p-xl md:p-xxl">
+<div class="text-center mb-xl">
+<h2 class="font-headline-sm text-headline-sm text-ink-text mb-xs">أهلاً بك مجدداً</h2>
+<p class="font-body-sm text-body-sm text-muted-spice">سجل دخولك لتصفح أشهى الأطباق المنزلية</p>
+</div>
+<!-- Global Error Banner -->
+<div class="bg-error-container border border-error/20 rounded-lg p-md flex items-start gap-md mb-xl animate-fade-in">
+<span class="material-symbols-outlined text-error mt-0.5">warning</span>
+<div>
+<p class="font-label-lg text-label-lg text-on-error-container">خطأ في الدخول</p>
+<p class="font-body-sm text-body-sm text-error mt-1">رقم الهاتف أو كلمة المرور غير صحيحة، يرجى المحاولة مرة أخرى.</p>
+</div>
+</div>
+<form class="space-y-lg">
+<!-- Phone Input (Error State) -->
+<div class="space-y-xs relative">
+<label class="font-label-lg text-label-lg text-muted-spice block">رقم الهاتف</label>
+<div class="relative">
+<input class="w-full h-12 bg-surface border-2 border-error text-ink-text font-body-md rounded-lg px-md focus:outline-none focus:ring-0 focus:border-error transition-colors dir-ltr text-right" placeholder="05X XXX XXXX" type="tel" value="0501234567"/>
+<div class="absolute left-md top-1/2 -translate-y-1/2 flex items-center text-error">
+<span class="material-symbols-outlined text-[20px]">error_outline</span>
+</div>
+</div>
+</div>
+<!-- Password Input (Error State) -->
+<div class="space-y-xs relative">
+<label class="font-label-lg text-label-lg text-muted-spice block">كلمة المرور</label>
+<div class="relative">
+<input class="w-full h-12 bg-surface border-2 border-error text-ink-text font-body-md rounded-lg px-md focus:outline-none focus:ring-0 focus:border-error transition-colors" type="password" value="********"/>
+<div class="absolute left-md top-1/2 -translate-y-1/2 flex items-center gap-sm">
+<button class="text-muted-spice hover:text-ink-text focus:outline-none" type="button">
+<span class="material-symbols-outlined text-[20px]">visibility_off</span>
+</button>
+<span class="material-symbols-outlined text-[20px] text-error">error_outline</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-error flex items-center gap-1 mt-1">
+                            كلمة المرور غير صحيحة.
+                        </p>
+</div>
+<div class="flex justify-end mb-xl">
+<a class="font-body-sm text-body-sm text-sumac-primary hover:underline" href="#">نسيت كلمة المرور؟</a>
+</div>
+<button class="w-full h-12 bg-sumac-primary text-on-primary rounded-lg font-label-lg text-label-lg flex items-center justify-center shadow-[0_4px_12px_rgba(43,33,26,0.12)] hover:opacity-90 active:scale-95 transition-all" type="button">
+                        تسجيل الدخول
+                    </button>
+</form>
+</div>
+</div>
+</div>
+<script>
+        // Simple fade-in animation logic for dynamic feeling
+        document.addEventListener('DOMContentLoaded', () => {
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes fadeIn {
+                    from { opacity: 0; transform: translateY(-10px); }
+                    to { opacity: 1; transform: translateY(0); }
+                }
+                .animate-fade-in {
+                    animation: fadeIn 0.4s ease-out forwards;
+                }
+            `;
+            document.head.appendChild(style);
+            
+            // Add staggered animation to cards
+            const cards = document.querySelectorAll('.bg-surface.rounded-xl');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.animation = `fadeIn 0.5s ease-out ${index * 0.15}s forwards`;
+            });
+        });
+    </script>
+</body></html>

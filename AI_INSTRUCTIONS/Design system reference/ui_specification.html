@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مرجع التصميم — UI Specification | Home Chef App</title>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@600;700;800&family=Tajawal:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --primary:#A83226; --primary-container:#FADDD7; --on-primary-container:#6E1A11;
+    --secondary:#5A7233; --secondary-container:#E4EDD3; --on-secondary-container:#33421A;
+    --tertiary:#B97A1E; --tertiary-container:#F7E7CC; --on-tertiary-container:#5F3C08; --error:#D93025;
+    --bg:#FBF7F1; --surface:#FFFFFF; --surface-variant:#F2EBE1;
+    --outline:#D9CEC1; --outline-variant:#EAE1D6; --ink:#2A211A; --muted:#71655B;
+    --e1:0 1px 2px rgba(43,33,26,.06),0 1px 3px rgba(43,33,26,.08);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{background:var(--bg); color:var(--ink); font-family:'Tajawal',sans-serif; font-size:14.5px; line-height:1.7;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 26px 100px;}
+  h1,h2,h3{font-family:'Alexandria',sans-serif;}
+  code,.mono{font-family:'IBM Plex Mono',monospace; font-size:.85em; direction:ltr; unicode-bidi:embed;}
+
+  .cover{padding:72px 0 48px; border-bottom:1px solid var(--outline-variant); margin-bottom:44px;}
+  .kicker{font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:2px; color:var(--primary);}
+  h1{font-size:40px; font-weight:800; margin:8px 0 6px;}
+  .cover p{max-width:620px; color:var(--muted); font-size:15.5px;}
+  .meta{display:flex; gap:24px; margin-top:22px; font-size:12.5px; color:var(--muted); flex-wrap:wrap;}
+  .meta b{color:var(--ink); display:block; font-size:14px;}
+
+  .contents{display:grid; grid-template-columns:repeat(5,1fr); gap:12px; margin-bottom:52px;}
+  .cnt{background:var(--surface); border:1px solid var(--outline-variant); border-radius:14px; padding:14px; box-shadow:var(--e1);}
+  .cnt .n{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--primary); font-weight:700;}
+  .cnt .t{font-weight:700; font-size:13px; margin:4px 0 2px;}
+  .cnt .w{font-size:11.5px; color:var(--muted);}
+  .cnt .ok{color:var(--secondary); font-weight:800;}
+
+  section{margin-bottom:56px;}
+  .sec{display:flex; align-items:baseline; gap:12px; margin-bottom:6px;}
+  .sec .num{font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--primary);}
+  .sec h2{font-size:23px; font-weight:800;}
+  .sec .count{margin-inline-start:auto; font-size:12px; color:var(--muted); font-family:'IBM Plex Mono',monospace;}
+  .sec-sub{color:var(--muted); margin-bottom:20px; max-width:680px; font-size:13.5px;}
+
+  table{width:100%; border-collapse:collapse; background:var(--surface); border-radius:14px; overflow:hidden; box-shadow:var(--e1); font-size:13px;}
+  th{background:var(--surface-variant); text-align:right; padding:10px 12px; font-size:12px; font-weight:700; white-space:nowrap;}
+  td{padding:10px 12px; border-top:1px solid var(--outline-variant); vertical-align:top;}
+  td.id{font-weight:700; color:var(--primary); white-space:nowrap; font-size:12px;}
+  td.name{font-weight:700; white-space:nowrap; font-family:'Alexandria'; font-size:13px;}
+  td.fn{color:var(--muted); font-size:12.5px; min-width:220px;}
+  td.src{white-space:nowrap; font-size:11px; color:var(--on-tertiary-container); background:var(--tertiary-container);}
+  td.comps{max-width:280px;}
+  .comp{display:inline-block; font-family:'IBM Plex Mono',monospace; font-size:10px; direction:ltr; background:var(--surface-variant); border:1px solid var(--outline-variant); border-radius:6px; padding:1px 6px; margin:0 0 3px 3px; color:var(--ink);}
+
+  .files{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  .file{background:var(--surface); border:1px solid var(--outline-variant); border-radius:14px; padding:14px 16px; box-shadow:var(--e1); display:flex; gap:12px; align-items:flex-start;}
+  .file .ic{font-size:20px;}
+  .file b{display:block; font-size:13.5px;}
+  .file span{font-size:12px; color:var(--muted);}
+  .file code{font-size:10.5px; color:var(--primary);}
+
+  .note{background:var(--tertiary-container); color:var(--on-tertiary-container); border-radius:12px; padding:12px 16px; font-size:12.5px; margin-top:16px;}
+  @media(max-width:820px){.contents{grid-template-columns:1fr 1fr;} .files{grid-template-columns:1fr;} td.fn{min-width:0;}}
+  @media print{body{background:#fff;} .wrap{padding-bottom:20px;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="cover">
+  <div class="kicker">HOME CHEF APP · UI SPECIFICATION</div>
+  <h1>مرجع التصميم</h1>
+  <p>الوثيقة الجامعة لمنظومة تصميم التطبيق: جرد كامل لكل شاشة في التطبيقين، وظيفتها، مصدرها في السيناريوهات والـ Activity Diagram، والمكوّنات المستخدمة فيها من نظام «سُمّاق». هذه نقطة البداية لأي مطوّر أو مصمّم ينضم للمشروع.</p>
+  <div class="meta">
+    <div><b>الإصدار</b>v1.0</div>
+    <div><b>الشاشات</b>36 شاشة (19 طباخة + 17 زبون)</div>
+    <div><b>المكوّنات</b>44 مكوّناً</div>
+    <div><b>نظام التصميم</b>سُمّاق v1.0</div>
+  </div>
+</div>
+
+<div class="contents">
+  <div class="cnt"><div class="n">01</div><div class="t">صور الـ Wireframes</div><div class="w">ملفا الطباخة والزبون <span class="ok">✓</span></div></div>
+  <div class="cnt"><div class="n">02</div><div class="t">الـ Design System</div><div class="w">سُمّاق + app_theme.dart <span class="ok">✓</span></div></div>
+  <div class="cnt"><div class="n">03</div><div class="t">قائمة الشاشات</div><div class="w">القسمان 2 و3 أدناه <span class="ok">✓</span></div></div>
+  <div class="cnt"><div class="n">04</div><div class="t">وظيفة كل شاشة</div><div class="w">عمود «الوظيفة» <span class="ok">✓</span></div></div>
+  <div class="cnt"><div class="n">05</div><div class="t">مكوّنات كل شاشة</div><div class="w">عمود «المكوّنات» <span class="ok">✓</span></div></div>
+</div>
+
+<section>
+  <div class="sec"><span class="num">01</span><h2>خريطة الملفات</h2></div>
+  <p class="sec-sub">خمسة ملفات تشكّل المنظومة كاملة. رموز المكوّنات في الجداول أدناه معرّفة في القسم 04، وكل رمز يحيل لقسمه في وثيقة سُمّاق.</p>
+  <div class="files">
+    <div class="file"><span class="ic">📐</span><div><b>Wireframes — جهة الطباخة</b><span>19 شاشة بحالاتها · </span><code>cook_wireframes.html</code></div></div>
+    <div class="file"><span class="ic">📐</span><div><b>Wireframes — جهة الزبون</b><span>17 شاشة بحالاتها · </span><code>customer_wireframes.html</code></div></div>
+    <div class="file"><span class="ic">🎨</span><div><b>نظام التصميم «سُمّاق»</b><span>الألوان، الخطوط، المكوّنات، القواعد · </span><code>sumac_design_system.html</code></div></div>
+    <div class="file"><span class="ic">💻</span><div><b>ثيم Flutter</b><span>الترجمة الحرفية للنظام، Material 3 · </span><code>app_theme.dart</code></div></div>
+    <div class="file"><span class="ic">📋</span><div><b>مرجع التصميم (هذه الوثيقة)</b><span>الجرد الجامع والفهرس · </span><code>ui_specification.html</code></div></div>
+    <div class="file"><span class="ic">🔀</span><div><b>Activity Diagram</b><span>دورة حياة الطلب الكاملة — المصدر المرجعي للحالات · </span><code>ActivityDigram.drawio</code></div></div>
+  </div>
+</section>
+
+<section>
+  <div class="sec"><span class="num">02</span><h2>شاشات جهة الطباخة</h2><span class="count">C01 – C19</span></div>
+  <table>
+    <tr><th>الرقم</th><th>الشاشة</th><th>الوظيفة</th><th>المصدر</th><th>المكوّنات</th></tr>
+    <tr>
+      <td class="mono id">C01</td>
+      <td class="name">تسجيل الدخول</td>
+      <td class="fn">دخول مستخدم مسجَّل (زبون أو طباخة) برقم الهاتف وكلمة المرور، مع استرجاع كلمة المرور والانتقال للتسجيل</td>
+      <td class="mono src">جديد</td>
+      <td class="comps"><span class="comp">TextField</span><span class="comp">PasswordField</span><span class="comp">TextButton</span><span class="comp">PrimaryButton</span></td>
+    </tr>
+<tr>
+      <td class="mono id">C02</td>
+      <td class="name">التسجيل الموحّد</td>
+      <td class="fn">إنشاء حساب زبون افتراضياً؛ تفعيل «التسجيل كطباخة» يُظهر حقلَي أوقات التوفر والوصف</td>
+      <td class="mono src">S1 معدّلة</td>
+      <td class="comps"><span class="comp">TextField</span><span class="comp">PasswordField</span><span class="comp">Checkbox</span><span class="comp">ConditionalGroup</span><span class="comp">TextArea</span><span class="comp">PrimaryButton</span></td>
+    </tr>
+<tr>
+      <td class="mono id">C03</td>
+      <td class="name">التحقق من الرقم</td>
+      <td class="fn">إدخال رمز واتساب المكوّن من 4 خانات والتحقق منه عبر السيرفر</td>
+      <td class="mono src">S1</td>
+      <td class="comps"><span class="comp">AppBar</span><span class="comp">OTPInput</span><span class="comp">TextButton</span><span class="comp">PrimaryButton</span></td>
+    </tr>
+<tr>
+      <td class="mono id">C04</td>
+      <td class="name">صورة البروفايل</td>
+      <td class="fn">رفع صورة شخصية بعد نجاح التحقق ثم التوجيه لإضافة أول وجبة</td>
+      <td class="mono src">S1</td>
+      <td class="comps"><span class="comp">AvatarPicker</span><span class="comp">PrimaryButton</span><span class="comp">TextButton</span></td>
+    </tr>
+<tr>
+      <td class="mono id">C05</td>
+      <td class="name">قائمة الوجبات</td>
+      <td class="fn">عرض وجبات الطباخة مع تعديل/حذف لكل وجبة ومفتاح إيقاف البيع الكلي</td>
+      <td class="mono src">S3·S5·S6</td>
+      <td class="comps"><span class="comp">AppBar</span><span class="comp">Switch</span><span class="comp">MealCard</span><span class="comp">IconButton</span><span class="comp">PrimaryButton</span><span class="comp">BottomNav</span></td>
+    </tr>
+<tr>
+      <td class="mono id">C06</td>
+      <td class="name">إضافة وجبة — سعر مفرد</td>
+      <td class="fn">إدخال وجبة جديدة: صورة، اسم، وصف، مدة تحضير، الوقت اللازم قبل الطلب، أصناف، وسعر واحد</td>
+      <td class="mono src">S2</td>
+      <td class="comps"><span class="comp">AppBar</span><span class="comp">ImagePicker</span><span class="comp">TextField</span><span class="comp">TextArea</span><span class="comp">FilterChips</span><span class="comp">Switch</span><span class="comp">PrimaryButton</span></td>
+    </tr>
+<tr>
+      <td class="mono id">C07</td>
+      <td class="name">إضافة وجبة — خيارات بيع</td>
+      <td class="fn">تفعيل المفتاح يستبدل السعر المفرد بصفوف (حجم + سعر) قابلة للإضافة والحذف</td>
+      <td class="mono src">S2</td>
+      <td class="comps"><span class="comp">AppBar</span><span class="comp">ImagePicker</span><span class="comp">TextField</span><span class="comp">Switch</span><span class="comp">IconButton</span><span class="comp">PrimaryButton</span></td>
+    </tr>
+<tr>
+      <td class="mono id">C08</td>
+      <td class="name">تعديل وجبة</td>
+      <td class="fn">نفس واجهة الإضافة بحقول معبّأة مسبقاً؛ الحفظ يحدّث السلال المرتبطة Real-time</td>
+      <td class="mono src">S4</td>
+      <td class="comps"><span class="comp">AppBar</span><span class="comp">ImagePicker</span><span class="comp">TextField</span><span class="comp">TextArea</span><span class="comp">Switch</span><span class="comp">PrimaryButton</span></td>
+    </tr>
+<tr>
+      <td class="mono id">C09</td>
+      <td class="name">تأكيد حذف وجبة</td>
+      <td class="fn">حوار يمنع الحذف إذا كانت ضمن طلب مقبول، وإلا Soft Delete مع إشعار السلال (وفق S5)</td>
+      <td class="mono src">S5</td>
+      <td class="comps"><span class="comp">Dialog</span><span class="comp">DangerButton</span><span class="comp">TextButton</span></td>
+    </tr>
+<tr>
+      <td class="mono id">C10</td>
+      <td class="name">إيقاف/تفعيل البيع</td>
+      <td class="fn">تعطيل كل الوجبات مؤقتاً بمفتاح واحد وإعادة تفعيلها بنفس الآلية</td>
+      <td class="mono src">S6</td>
+      <td class="comps"><span class="comp">Switch</span><span class="comp">Dialog</span><span class="comp">Snackbar</span></td>
+    </tr>
+<tr>
+      <td class="mono id">C11</td>
+      <td class="name">الملف الشخصي</td>
+      <td class="fn">عرض بيانات الطباخة: الصورة، الاسم، الوصف، أوقات التوفر</td>
+      <td class="mono src">S7</td>
+      <td class="comps"><span class="comp">AppBar</span><span class="comp">Avatar</span><span class="comp">OutlinedButton</span><span class="comp">BottomNav</span></td>
+    </tr>
+<tr>
+      <td class="mono id">C12</td>
+      <td class="name">تعديل الملف الشخصي</td>
+      <td class="fn">تحويل الحقول لوضع قابل للتعديل وحفظ التغييرات لقاعدة البيانات</td>
+      <td class="mono src">S7</td>
+      <td class="comps"><span class="comp">AppBar</span><span class="comp">TextField</span><span class="comp">TextArea</span><span class="comp">PrimaryButton</span></td>
+    </tr>
+<tr>
+      <td class="mono id">C13</td>
+      <td class="name">العروض والخصومات</td>
+      <td class="fn">عرض العروض الحالية مع تعديل/حذف؛ زر الإضافة يعرض خيارَي «خصم» أو «عرض»</td>
+      <td class="mono src">S8</td>
+      <td class="comps"><span class="comp">AppBar</span><span class="comp">OfferCard</span><span class="comp">IconButton</span><span class="comp">PrimaryButton</span><span class="comp">BottomSheet</span><span class="comp">BottomNav</span></td>
+    </tr>
+<tr>
+      <td class="mono id">C14</td>
+      <td class="name">إنشاء خصم</td>
+      <td class="fn">خصم على وجبة واحدة: اختيار الوجبة + نسبة + مدة أو عدد استخدامات</td>
+      <td class="mono src">S8</td>
+      <td class="comps"><span class="comp">AppBar</span><span class="comp">Dropdown</span><span class="comp">TextField</span><span class="comp">PrimaryButton</span></td>
+    </tr>
+<tr>
+      <td class="mono id">C15</td>
+      <td class="name">إنشاء عرض</td>
+      <td class="fn">تجميع عدة وجبات بسعر إجمالي واحد ومدة محددة</td>
+      <td class="mono src">S8</td>
+      <td class="comps"><span class="comp">AppBar</span><span class="comp">Dropdown</span><span class="comp">FilterChips</span><span class="comp">TextField</span><span class="comp">DatePicker</span><span class="comp">PrimaryButton</span></td>
+    </tr>
+<tr>
+      <td class="mono id">C16</td>
+      <td class="name">إدارة الطلبات</td>
+      <td class="fn">فلترة الطلبات الواردة: جديد / قيد التحضير / منجز / مرفوض</td>
+      <td class="mono src">S9</td>
+      <td class="comps"><span class="comp">AppBar</span><span class="comp">Tabs</span><span class="comp">OrderCard</span><span class="comp">StatusChip</span><span class="comp">BottomNav</span></td>
+    </tr>
+<tr>
+      <td class="mono id">C17</td>
+      <td class="name">تفاصيل الطلب</td>
+      <td class="fn">عرض العناصر بكمياتها وملاحظات الزبون؛ القبول ينقل الحالة إلى «قيد التحضير»</td>
+      <td class="mono src">S9</td>
+      <td class="comps"><span class="comp">AppBar</span><span class="comp">BillRow</span><span class="comp">TotalRow</span><span class="comp">PrimaryButton</span><span class="comp">DangerButton</span></td>
+    </tr>
+<tr>
+      <td class="mono id">C18</td>
+      <td class="name">إنهاء الطلب</td>
+      <td class="fn">زر «تم التحضير» ينقل الطلب إلى Ready to Deliver بلوحة الدعم ويُشعِر الزبون</td>
+      <td class="mono src">S9</td>
+      <td class="comps"><span class="comp">OrderCard</span><span class="comp">StatusChip</span><span class="comp">PrimaryButton</span></td>
+    </tr>
+<tr>
+      <td class="mono id">C19</td>
+      <td class="name">إشعارات الطباخة</td>
+      <td class="fn">ثلاثة أنواع: طلب جديد / عامل التوصيل في الطريق / إشعارات النظام</td>
+      <td class="mono src">S10</td>
+      <td class="comps"><span class="comp">AppBar</span><span class="comp">NotificationCard</span></td>
+    </tr>
+  </table>
+</section>
+
+<section>
+  <div class="sec"><span class="num">03</span><h2>شاشات جهة الزبون</h2><span class="count">U01 – U17</span></div>
+  <table>
+    <tr><th>الرقم</th><th>الشاشة</th><th>الوظيفة</th><th>المصدر</th><th>المكوّنات</th></tr>
+    <tr>
+      <td class="mono id">U01</td>
+      <td class="name">الرئيسية</td>
+      <td class="fn">نقطة الانطلاق: بانر، أصناف، الأكثر مبيعاً، الطباخات، العروض، وقسم الخصومات الضخمة للبضائع المُعادة</td>
+      <td class="mono src">S1 معدّلة</td>
+      <td class="comps"><span class="comp">AppBar</span><span class="comp">SearchField</span><span class="comp">AdBanner</span><span class="comp">FilterChips</span><span class="comp">SectionHeader</span><span class="comp">MealCard</span><span class="comp">DiscountBadge</span><span class="comp">CookCard</span><span class="comp">RatingBadge</span><span class="comp">BottomNav</span></td>
+    </tr>
+<tr>
+      <td class="mono id">U02</td>
+      <td class="name">تفاصيل الوجبة</td>
+      <td class="fn">المكان الوحيد للإضافة إلى السلة: اختيار الحجم، الكمية، والمفضلة</td>
+      <td class="mono src">S1</td>
+      <td class="comps"><span class="comp">AppBar</span><span class="comp">ChoiceChips</span><span class="comp">QtyStepper</span><span class="comp">RatingBadge</span><span class="comp">IconButton</span><span class="comp">PrimaryButton</span></td>
+    </tr>
+<tr>
+      <td class="mono id">U03</td>
+      <td class="name">البحث والفلاتر</td>
+      <td class="fn">بحث عام مع فلاتر السعر والتقييم والمسافة والتصنيف؛ النتيجة تفتح تفاصيل الوجبة</td>
+      <td class="mono src">S2</td>
+      <td class="comps"><span class="comp">AppBar</span><span class="comp">SearchField</span><span class="comp">FilterChips</span><span class="comp">MealCard</span></td>
+    </tr>
+<tr>
+      <td class="mono id">U04</td>
+      <td class="name">بروفايل الطباخة</td>
+      <td class="fn">صفحة الطباخة: تقييم، مسافة، متابعة، وقائمتها مع بحث وفلترة داخلية</td>
+      <td class="mono src">S3</td>
+      <td class="comps"><span class="comp">AppBar</span><span class="comp">Avatar</span><span class="comp">RatingBadge</span><span class="comp">OutlinedButton</span><span class="comp">SearchField</span><span class="comp">FilterChips</span><span class="comp">MealCard</span></td>
+    </tr>
+<tr>
+      <td class="mono id">U05</td>
+      <td class="name">السلة</td>
+      <td class="fn">مقسّمة حسب الطباخات؛ ملاحظة وعداد لكل وجبة، ومعالجة الوجبة المحذوفة وفق فلو S5</td>
+      <td class="mono src">S4·S5</td>
+      <td class="comps"><span class="comp">AppBar</span><span class="comp">SectionHeader</span><span class="comp">CartItemCard</span><span class="comp">QtyStepper</span><span class="comp">IconButton</span><span class="comp">OutlinedButton</span><span class="comp">DangerButton</span><span class="comp">TotalRow</span><span class="comp">PrimaryButton</span></td>
+    </tr>
+<tr>
+      <td class="mono id">U06</td>
+      <td class="name">تأكيد الطلب</td>
+      <td class="fn">الفاتورة + تحذير تعدد الطباخات (منفصل/مجمّع) + خيارات التوصيل الثلاثة مع الجدولة + ملاحظات</td>
+      <td class="mono src">S5 + Diagram</td>
+      <td class="comps"><span class="comp">AppBar</span><span class="comp">BillRow</span><span class="comp">WarningBox</span><span class="comp">ChoiceChips</span><span class="comp">ConditionalGroup</span><span class="comp">DatePicker</span><span class="comp">TimePicker</span><span class="comp">TextArea</span><span class="comp">PrimaryButton</span></td>
+    </tr>
+<tr>
+      <td class="mono id">U07</td>
+      <td class="name">إضافة ملاحظة</td>
+      <td class="fn">Bottom Sheet من عنصر السلة؛ الملاحظة تصل للطباخة ضمن تفاصيل الطلب</td>
+      <td class="mono src">جديدة</td>
+      <td class="comps"><span class="comp">BottomSheet</span><span class="comp">TextArea</span><span class="comp">PrimaryButton</span></td>
+    </tr>
+<tr>
+      <td class="mono id">U08</td>
+      <td class="name">الفاتورة</td>
+      <td class="fn">مستند الطلب المنجز: العناصر، الخصومات، التوصيل، الإجمالي، مع تحميل/مشاركة</td>
+      <td class="mono src">جديدة</td>
+      <td class="comps"><span class="comp">AppBar</span><span class="comp">BillRow</span><span class="comp">TotalRow</span><span class="comp">OutlinedButton</span></td>
+    </tr>
+<tr>
+      <td class="mono id">U09</td>
+      <td class="name">طلباتي</td>
+      <td class="fn">كل طلبات الزبون بحالاتها الحية: الوجبة، التاريخ، الطباخة</td>
+      <td class="mono src">S7</td>
+      <td class="comps"><span class="comp">AppBar</span><span class="comp">OrderCard</span><span class="comp">StatusChip</span><span class="comp">BottomNav</span></td>
+    </tr>
+<tr>
+      <td class="mono id">U10</td>
+      <td class="name">إشعارات الزبون</td>
+      <td class="fn">تبويبان (نظام/مستخدم) مع معالجة الرفض الجزئي: متابعة بالمقبول أو إلغاء</td>
+      <td class="mono src">S8</td>
+      <td class="comps"><span class="comp">AppBar</span><span class="comp">Tabs</span><span class="comp">NotificationCard</span><span class="comp">PrimaryButton</span><span class="comp">OutlinedButton</span></td>
+    </tr>
+<tr>
+      <td class="mono id">U11</td>
+      <td class="name">استلام الطلب</td>
+      <td class="fn">عند الوصول: قبول → Delivered، أو رفض بسبب إلزامي يُقيَّم من الدعم (وفق الـ Diagram)</td>
+      <td class="mono src">Diagram</td>
+      <td class="comps"><span class="comp">Dialog</span><span class="comp">PrimaryButton</span><span class="comp">DangerButton</span><span class="comp">ConditionalGroup</span><span class="comp">TextArea</span></td>
+    </tr>
+<tr>
+      <td class="mono id">U12</td>
+      <td class="name">تقييم الوجبة</td>
+      <td class="fn">Popup نجوم بعد التسليم مع تعليق اختياري وزر إبلاغ</td>
+      <td class="mono src">S9</td>
+      <td class="comps"><span class="comp">Dialog</span><span class="comp">RatingStars</span><span class="comp">TextArea</span><span class="comp">PrimaryButton</span><span class="comp">OutlinedButton</span></td>
+    </tr>
+<tr>
+      <td class="mono id">U13</td>
+      <td class="name">نجاح التقييم</td>
+      <td class="fn">تأكيد إرسال التقييم مع دعوة لترك تعليق</td>
+      <td class="mono src">S9</td>
+      <td class="comps"><span class="comp">Snackbar</span><span class="comp">TextButton</span></td>
+    </tr>
+<tr>
+      <td class="mono id">U14</td>
+      <td class="name">السجل وإعادة الطلب</td>
+      <td class="fn">إعادة طلب سابق مباشرة إلى شاشة التأكيد متجاوزاً السلة، مع فتح الفاتورة</td>
+      <td class="mono src">S10</td>
+      <td class="comps"><span class="comp">AppBar</span><span class="comp">OrderCard</span><span class="comp">StatusChip</span><span class="comp">PrimaryButton</span><span class="comp">OutlinedButton</span></td>
+    </tr>
+<tr>
+      <td class="mono id">U15</td>
+      <td class="name">المفضلة والمتابعة</td>
+      <td class="fn">تبويبان: الوجبات المفضلة والطباخات المتابَعة</td>
+      <td class="mono src">S11</td>
+      <td class="comps"><span class="comp">AppBar</span><span class="comp">Tabs</span><span class="comp">MealCard</span><span class="comp">CookCard</span><span class="comp">IconButton</span></td>
+    </tr>
+<tr>
+      <td class="mono id">U16</td>
+      <td class="name">طلبات الولائم</td>
+      <td class="fn">طلب كميات كبيرة يُنشأ بحالة Reviewing وينتظر تحققاً بشرياً قبل التسعير</td>
+      <td class="mono src">S12</td>
+      <td class="comps"><span class="comp">AppBar</span><span class="comp">Dropdown</span><span class="comp">TextField</span><span class="comp">DatePicker</span><span class="comp">TextArea</span><span class="comp">PrimaryButton</span><span class="comp">Dialog</span></td>
+    </tr>
+<tr>
+      <td class="mono id">U17</td>
+      <td class="name">الشورتس</td>
+      <td class="fn">فيديوهات عمودية للأطباق مع تفاعل ومتابعة الطباخة</td>
+      <td class="mono src">S15</td>
+      <td class="comps"><span class="comp">VideoPlayer</span><span class="comp">IconButton</span><span class="comp">Avatar</span><span class="comp">OutlinedButton</span></td>
+    </tr>
+  </table>
+  <div class="note">🧭 <b>قاعدة مرجعية:</b> «جديد/جديدة» في عمود المصدر = شاشة أُضيفت بقرار تصميمي معتمد خارج السيناريوهات الأصلية · «Diagram» = مصدرها الـ Activity Diagram مباشرة · مساران Delivery Support وAdmin في الـ Diagram خارج نطاق تطبيقَي الموبايل (لوحات ويب مستقلة).</div>
+</section>
+
+<section style="margin-bottom:0;">
+  <div class="sec"><span class="num">04</span><h2>مسرد المكوّنات</h2><span class="count">44 مكوّناً</span></div>
+  <p class="sec-sub">كل رمز ظهر في الجداول أعلاه معرّف هنا حصراً، مع إحالته لقسمه في وثيقة سُمّاق حيث شكله وحالاته وقواعده. لا يوجد مكوّن مستخدم بلا تعريف، ولا مكوّن معرّف بلا استخدام.</p>
+  <table>
+    <tr><th>المكوّن</th><th>الوصف</th><th>قسمه في سُمّاق</th></tr>
+    <tr><td class="mono id">AppBar</td><td class="fn">الشريط العلوي — عنوان الشاشة بالوسط + رجوع/جرس</td><td class="mono src">05·التنقل</td></tr>
+<tr><td class="mono id">BottomNav</td><td class="fn">التنقل السفلي — 4 وجهات، حبة Container للنشط</td><td class="mono src">05·التنقل</td></tr>
+<tr><td class="mono id">PrimaryButton</td><td class="fn">زر رئيسي ممتلئ سُمّاق — واحد فقط بالشاشة</td><td class="mono src">05·الأزرار</td></tr>
+<tr><td class="mono id">OutlinedButton</td><td class="fn">زر ثانوي مفرّغ بحد سُمّاق</td><td class="mono src">05·الأزرار</td></tr>
+<tr><td class="mono id">TextButton</td><td class="fn">زر نصي — روابط وأفعال خفيفة</td><td class="mono src">05·الأزرار</td></tr>
+<tr><td class="mono id">DangerButton</td><td class="fn">زر تدميري مفرّغ أحمر — حذف/رفض</td><td class="mono src">05·الأزرار</td></tr>
+<tr><td class="mono id">IconButton</td><td class="fn">زر أيقونة 48px — تعديل/حذف/مفضلة</td><td class="mono src">05·الأزرار</td></tr>
+<tr><td class="mono id">TextField</td><td class="fn">حقل نصي بحد خارجي وLabel طافٍ</td><td class="mono src">05·الحقول</td></tr>
+<tr><td class="mono id">PasswordField</td><td class="fn">حقل كلمة مرور مع 👁</td><td class="mono src">05·الحقول</td></tr>
+<tr><td class="mono id">TextArea</td><td class="fn">حقل متعدد الأسطر — أوصاف وملاحظات</td><td class="mono src">05·الحقول</td></tr>
+<tr><td class="mono id">SearchField</td><td class="fn">حقل بحث بزوايا pill</td><td class="mono src">05·الحقول</td></tr>
+<tr><td class="mono id">OTPInput</td><td class="fn">4 خانات رمز تحقق</td><td class="mono src">05·الحقول</td></tr>
+<tr><td class="mono id">Dropdown</td><td class="fn">قائمة منسدلة — اختيار وجبة/تصنيف</td><td class="mono src">05·الحقول</td></tr>
+<tr><td class="mono id">DatePicker</td><td class="fn">منتقي تاريخ</td><td class="mono src">05·الحقول</td></tr>
+<tr><td class="mono id">TimePicker</td><td class="fn">منتقي وقت</td><td class="mono src">05·الحقول</td></tr>
+<tr><td class="mono id">Checkbox</td><td class="fn">مربع اختيار سُمّاق</td><td class="mono src">05·الاختيار</td></tr>
+<tr><td class="mono id">Switch</td><td class="fn">مفتاح — الأخضر = تشغيل</td><td class="mono src">05·الاختيار</td></tr>
+<tr><td class="mono id">ChoiceChips</td><td class="fn">chips اختيار مفرد — variations وخيارات التوصيل</td><td class="mono src">05·الاختيار</td></tr>
+<tr><td class="mono id">FilterChips</td><td class="fn">chips فلترة متعددة — أصناف وفلاتر بحث</td><td class="mono src">05·الاختيار</td></tr>
+<tr><td class="mono id">QtyStepper</td><td class="fn">عداد كمية − 1 +</td><td class="mono src">05·الاختيار</td></tr>
+<tr><td class="mono id">DiscountBadge</td><td class="fn">شارة خصم سُمّاق -%</td><td class="mono src">05·الاختيار</td></tr>
+<tr><td class="mono id">RatingBadge</td><td class="fn">شارة تقييم عسلية ★</td><td class="mono src">05·الاختيار</td></tr>
+<tr><td class="mono id">StatusChip</td><td class="fn">شارة حالة طلب — ألوان OrderStatusColors</td><td class="mono src">02·الحالات</td></tr>
+<tr><td class="mono id">RatingStars</td><td class="fn">نجوم تقييم تفاعلية 1–5</td><td class="mono src">05·الاختيار</td></tr>
+<tr><td class="mono id">Avatar</td><td class="fn">صورة شخصية دائرية</td><td class="mono src">05·البطاقات</td></tr>
+<tr><td class="mono id">ImagePicker</td><td class="fn">منتقي صورة وجبة (منطقة رفع)</td><td class="mono src">05·الحقول</td></tr>
+<tr><td class="mono id">AvatarPicker</td><td class="fn">منتقي صورة شخصية دائري متقطّع</td><td class="mono src">05·الحقول</td></tr>
+<tr><td class="mono id">MealCard</td><td class="fn">بطاقة وجبة 4:3 — بحالتيها المتوفرة وغير المتوفرة</td><td class="mono src">05·البطاقات</td></tr>
+<tr><td class="mono id">CartItemCard</td><td class="fn">بطاقة عنصر سلة — صورة + ملاحظة + عداد + حذف</td><td class="mono src">05·البطاقات</td></tr>
+<tr><td class="mono id">OrderCard</td><td class="fn">بطاقة طلب — رقم + حالة + إجمالي</td><td class="mono src">05·البطاقات</td></tr>
+<tr><td class="mono id">CookCard</td><td class="fn">بطاقة طباخة — صورة + تقييم + مسافة</td><td class="mono src">05·البطاقات</td></tr>
+<tr><td class="mono id">NotificationCard</td><td class="fn">بطاقة إشعار — أيقونة نوع + نص + وقت</td><td class="mono src">05·البطاقات</td></tr>
+<tr><td class="mono id">OfferCard</td><td class="fn">بطاقة عرض/خصم مع أزرار تعديل وحذف</td><td class="mono src">05·البطاقات</td></tr>
+<tr><td class="mono id">AdBanner</td><td class="fn">بانر إعلاني عريض أعلى الرئيسية</td><td class="mono src">05·البطاقات</td></tr>
+<tr><td class="mono id">SectionHeader</td><td class="fn">ترويسة قسم — عنوان + «عرض الكل»</td><td class="mono src">05·التنقل</td></tr>
+<tr><td class="mono id">BillRow</td><td class="fn">سطر فاتورة — بند + قيمة</td><td class="mono src">05·البطاقات</td></tr>
+<tr><td class="mono id">TotalRow</td><td class="fn">سطر الإجمالي المميّز بخط علوي</td><td class="mono src">05·البطاقات</td></tr>
+<tr><td class="mono id">ConditionalGroup</td><td class="fn">مجموعة حقول شرطية بإطار متقطّع + حركة 200ms</td><td class="mono src">05·الحقول</td></tr>
+<tr><td class="mono id">WarningBox</td><td class="fn">صندوق تحذير عسلي — الطلب متعدد الطباخات</td><td class="mono src">05·البطاقات</td></tr>
+<tr><td class="mono id">BottomSheet</td><td class="fn">طبقة سفلية بزوايا 24 ومقبض سحب</td><td class="mono src">05·الطبقات</td></tr>
+<tr><td class="mono id">Dialog</td><td class="fn">نافذة قرار وسطية</td><td class="mono src">05·الطبقات</td></tr>
+<tr><td class="mono id">Tabs</td><td class="fn">تبويبات بمؤشر سُمّاق سفلي</td><td class="mono src">05·التنقل</td></tr>
+<tr><td class="mono id">Snackbar</td><td class="fn">رسالة عائمة قصيرة للتأكيدات</td><td class="mono src">05·الأزرار</td></tr>
+<tr><td class="mono id">VideoPlayer</td><td class="fn">مشغّل فيديو عمودي داكن (الشورتس)</td><td class="mono src">05·البطاقات</td></tr>
+  </table>
+</section>
+
+</div>
+</body>
+</html>

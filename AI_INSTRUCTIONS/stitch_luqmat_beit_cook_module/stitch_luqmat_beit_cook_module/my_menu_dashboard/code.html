@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+
+<html class="light" dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>قائمتي - Luqmat Beit</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;700;800&amp;family=Tajawal:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "zaatar-container": "#E4EDD3",
+                    "on-error": "#ffffff",
+                    "error": "#ba1a1a",
+                    "on-tertiary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "tertiary-fixed-dim": "#ffb95f",
+                    "surface-tint": "#ab3428",
+                    "on-tertiary-fixed": "#2a1700",
+                    "on-primary-fixed": "#410000",
+                    "primary": "#871a11",
+                    "background": "#fff8f5",
+                    "tertiary": "#623c00",
+                    "sumac-primary": "#A83226",
+                    "secondary-container": "#d0eda0",
+                    "surface-container-high": "#f6e5da",
+                    "honey-tertiary": "#B97A1E",
+                    "surface-container-highest": "#f0dfd4",
+                    "on-background": "#221a13",
+                    "muted-spice": "#71655B",
+                    "secondary-fixed": "#d0eda0",
+                    "on-surface": "#221a13",
+                    "on-secondary-fixed-variant": "#374d12",
+                    "surface-container-lowest": "#ffffff",
+                    "surface": "#FFFFFF",
+                    "outline": "#D9CEC1",
+                    "secondary-fixed-dim": "#b4d086",
+                    "inverse-on-surface": "#ffeee2",
+                    "on-primary-fixed-variant": "#8a1c13",
+                    "on-error-container": "#93000a",
+                    "on-primary-container": "#ffc9c0",
+                    "outline-variant": "#e0bfba",
+                    "primary-fixed-dim": "#ffb4a9",
+                    "surface-container-low": "#fff1e8",
+                    "honey-container": "#F7E7CC",
+                    "error-container": "#ffdad6",
+                    "inverse-primary": "#ffb4a9",
+                    "on-tertiary-fixed-variant": "#653e00",
+                    "surface-dim": "#e8d7cc",
+                    "secondary": "#4e6628",
+                    "ink-text": "#2A211A",
+                    "sumac-container": "#FADDD7",
+                    "inverse-surface": "#382e27",
+                    "surface-container": "#fcebdf",
+                    "primary-fixed": "#ffdad5",
+                    "on-secondary": "#ffffff",
+                    "on-secondary-fixed": "#121f00",
+                    "surface-variant": "#f0dfd4",
+                    "on-secondary-container": "#546c2e",
+                    "zaatar-secondary": "#5A7233",
+                    "on-surface-variant": "#58413e",
+                    "primary-container": "#a83226",
+                    "tertiary-container": "#825100",
+                    "tahini-bg": "#FBF7F1",
+                    "tertiary-fixed": "#ffddb8",
+                    "on-tertiary-container": "#ffcc91",
+                    "surface-bright": "#fff8f5"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "lg": "16px",
+                    "gutter": "16px",
+                    "xs": "4px",
+                    "xl": "24px",
+                    "base": "4px",
+                    "sm": "8px",
+                    "card-padding": "14px",
+                    "xxl": "32px",
+                    "md": "12px",
+                    "safe": "env(safe-area-inset-bottom)"
+            },
+            "fontFamily": {
+                    "body-md": ["Tajawal"],
+                    "body-sm": ["Tajawal"],
+                    "price-display": ["Tajawal"],
+                    "body-lg": ["Tajawal"],
+                    "title-lg": ["Alexandria"],
+                    "display-lg": ["Alexandria"],
+                    "headline-sm": ["Alexandria"],
+                    "headline-md": ["Alexandria"],
+                    "label-lg": ["Tajawal"]
+            },
+            "fontSize": {
+                    "body-md": ["14px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-sm": ["12.5px", {"lineHeight": "18px", "fontWeight": "400"}],
+                    "price-display": ["16px", {"lineHeight": "20px", "fontWeight": "800"}],
+                    "body-lg": ["15.5px", {"lineHeight": "26px", "fontWeight": "500"}],
+                    "title-lg": ["17px", {"lineHeight": "22px", "fontWeight": "700"}],
+                    "display-lg": ["40px", {"lineHeight": "48px", "fontWeight": "800"}],
+                    "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "700"}],
+                    "headline-md": ["22px", {"lineHeight": "28px", "fontWeight": "700"}],
+                    "label-lg": ["14px", {"lineHeight": "20px", "fontWeight": "700"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        body { font-family: 'Tajawal', sans-serif; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Alexandria', sans-serif; }
+        
+        /* Custom Switch Styling */
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #5A7233; /* zaatar-secondary */
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #5A7233; /* zaatar-secondary */
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-tahini-bg text-on-background min-h-screen flex flex-col font-body-md antialiased pb-28">
+<!-- TopAppBar -->
+<header class="bg-tahini-bg flex justify-between items-center w-full px-lg py-md h-16 sticky top-0 z-40 flat no shadows">
+<button class="text-sumac-primary active:scale-95 transition-transform duration-200 hover:opacity-80 flex items-center justify-center w-10 h-10 rounded-full">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">arrow_back</span>
+</button>
+<h1 class="font-headline-sm text-headline-sm font-bold text-sumac-primary text-center flex-1">قائمتي</h1>
+<button class="text-sumac-primary active:scale-95 transition-transform duration-200 hover:opacity-80 flex items-center justify-center w-10 h-10 rounded-full">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">notifications</span>
+</button>
+</header>
+<!-- Main Content -->
+<main class="flex-1 px-lg pt-sm pb-xl flex flex-col gap-xl">
+<!-- Status Switch Card -->
+<section class="bg-surface rounded-xl p-card-padding shadow-[0_1px_2px_rgba(43,33,26,0.05)] border border-outline/30 flex justify-between items-center">
+<div class="flex flex-col">
+<span class="font-title-lg text-title-lg text-ink-text">حالة البيع</span>
+<span class="font-body-sm text-body-sm text-zaatar-secondary font-bold">مفعّل - جاهز لاستقبال الطلبات</span>
+</div>
+<div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-surface border-4 appearance-none cursor-pointer z-10 transition-transform duration-200 ease-in-out translate-x-[-100%]" id="toggle" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-zaatar-secondary cursor-pointer" for="toggle"></label>
+</div>
+</section>
+<!-- Meals List -->
+<section class="flex flex-col gap-md">
+<!-- Meal Card 1 -->
+<article class="bg-surface rounded-xl p-3 shadow-[0_2px_8px_rgba(43,33,26,0.04)] border border-outline/20 flex gap-md items-center group hover:shadow-[0_4px_12px_rgba(43,33,26,0.08)] transition-shadow duration-200">
+<div class="w-24 h-24 shrink-0 rounded-lg overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="A beautifully plated traditional Middle Eastern chicken kabsa dish, viewed from a slightly elevated angle. The vibrant yellow spiced rice is topped with perfectly roasted chicken, garnished with toasted almonds and fresh parsley. The setting is a warm, modern minimalist kitchen with bright, natural light emphasizing the warm sumac and tahini color palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVknk0lFyZsuuo0yu-xyY1f08NbAWUYBxXh08Tcyx_VKk9_qDFuXelr8hEPn7EuekOks4AHjdjMEEo6T4chOniH_wybqJRsyLysC5PjkxAuHws-_wfIiKEMoynCUYwtX5e4o0OnCT1wyEvDGefPx0b5b6f_yh6iPur4tU9R3KVDh8nmqhWQrrLlDEeTQl24aLaAKMopovczS7fdGGZQnKmfP_vjMpS5oBm8VALUgvJbgQ-KlGcBCvRiZitMUr5_9VyVtDmf97c_P8"/>
+</div>
+<div class="flex-1 flex flex-col justify-center">
+<h3 class="font-title-lg text-title-lg text-ink-text mb-1">كبسة دجاج منزلية</h3>
+<p class="font-body-sm text-body-sm text-muted-spice mb-2 line-clamp-1">تكفي شخصين، مع الدقوس والسلطة الحارة.</p>
+<div class="font-price-display text-price-display text-sumac-primary">٤٥ ر.س</div>
+</div>
+<div class="flex flex-col gap-sm shrink-0 border-r border-outline-variant pr-3">
+<button class="w-8 h-8 rounded-full flex items-center justify-center text-muted-spice hover:bg-surface-container-low hover:text-sumac-primary transition-colors active:scale-90">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 0;">edit</span>
+</button>
+<button class="w-8 h-8 rounded-full flex items-center justify-center text-muted-spice hover:bg-error-container hover:text-error transition-colors active:scale-90">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 0;">delete</span>
+</button>
+</div>
+</article>
+<!-- Meal Card 2 -->
+<article class="bg-surface rounded-xl p-3 shadow-[0_2px_8px_rgba(43,33,26,0.04)] border border-outline/20 flex gap-md items-center group hover:shadow-[0_4px_12px_rgba(43,33,26,0.08)] transition-shadow duration-200">
+<div class="w-24 h-24 shrink-0 rounded-lg overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="A close-up shot of freshly baked Middle Eastern meat fatayer (pastries). The golden-brown crusts are slightly shiny, filled with seasoned minced meat. Placed on a pristine white ceramic plate resting on a light wooden table. The lighting is soft and warm, capturing an inviting, artisanal, homemade culinary aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBoQoZFm3pn63gBJR7b23HchYzycolV1NmA30Mz2QGVr48ijp1M6UR9h0GFA_QiTOnr0dSzfBuazqIaflDYf_4YAz7XxOz3PS_nK9lb_hJiHdQOOtI4dCijdAU6iIzqVG5ep9xscmfliFckvxNKerhORGBDtBcPV_-X9-Q9Qzbun4IVXyWjLDM-YQEw_AvUQTuWE3LwCIRmQTKhkUg_SoIOje_aXeqKPKz61tnS8vj9IL0BuPXhXWEZeTWPuCInmiYLyJDW56mQ93I"/>
+</div>
+<div class="flex-1 flex flex-col justify-center">
+<h3 class="font-title-lg text-title-lg text-ink-text mb-1">فطائر لحم بالفرن</h3>
+<p class="font-body-sm text-body-sm text-muted-spice mb-2 line-clamp-1">عجينة هشة بحشوة اللحم الطازج المتبل.</p>
+<div class="font-price-display text-price-display text-sumac-primary">٢٨ ر.س</div>
+</div>
+<div class="flex flex-col gap-sm shrink-0 border-r border-outline-variant pr-3">
+<button class="w-8 h-8 rounded-full flex items-center justify-center text-muted-spice hover:bg-surface-container-low hover:text-sumac-primary transition-colors active:scale-90">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 0;">edit</span>
+</button>
+<button class="w-8 h-8 rounded-full flex items-center justify-center text-muted-spice hover:bg-error-container hover:text-error transition-colors active:scale-90">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 0;">delete</span>
+</button>
+</div>
+</article>
+<!-- Meal Card 3 -->
+<article class="bg-surface rounded-xl p-3 shadow-[0_2px_8px_rgba(43,33,26,0.04)] border border-outline/20 flex gap-md items-center opacity-60">
+<div class="w-24 h-24 shrink-0 rounded-lg overflow-hidden bg-surface-container relative">
+<div class="absolute inset-0 bg-surface/50 z-10 flex items-center justify-center">
+<span class="bg-surface text-ink-text font-body-sm text-body-sm px-2 py-1 rounded-md shadow-sm">نفدت الكمية</span>
+</div>
+<img class="w-full h-full object-cover grayscale-[30%]" data-alt="A comforting bowl of traditional lentil soup, rich golden-yellow color, garnished with a drizzle of olive oil and a sprinkle of cumin. Accompanied by crispy pita bread croutons. The setting implies a cozy, domestic kitchen with a clean, professional food presentation style, adhering to a warm minimalist aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAggg7sI1LNKri6ubD0PM3OJ70TL9Y8RtbOd4ArUx16jYkdEH6XOJ75NC4wGQwSfSfWDAJShjOBfMugodP4TVlj7GwcSbuzhNCqjku83MK9lSXBG7KwpvzT6FmZNFNT9IIydQ3qUMP55sN1pqGbtVmVBUbWMwfAJ7zZJ2aXetMbzo7QfajNiHZdTNotO8t0zyoCaWMjJGNv19QNf56wsmXTwTPexJ6FXNihFc-HnhVUpPC7IG7zICmCpfDMdDAyY3jpoNWGtSLMbW0"/>
+</div>
+<div class="flex-1 flex flex-col justify-center">
+<h3 class="font-title-lg text-title-lg text-ink-text mb-1">شوربة عدس</h3>
+<p class="font-body-sm text-body-sm text-muted-spice mb-2 line-clamp-1">محضرة على الطريقة التقليدية.</p>
+<div class="font-price-display text-price-display text-sumac-primary">١٥ ر.س</div>
+</div>
+<div class="flex flex-col gap-sm shrink-0 border-r border-outline-variant pr-3">
+<button class="w-8 h-8 rounded-full flex items-center justify-center text-muted-spice hover:bg-surface-container-low hover:text-sumac-primary transition-colors active:scale-90">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 0;">edit</span>
+</button>
+<button class="w-8 h-8 rounded-full flex items-center justify-center text-muted-spice hover:bg-error-container hover:text-error transition-colors active:scale-90">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 0;">delete</span>
+</button>
+</div>
+</article>
+</section>
+</main>
+<!-- Floating Action Button -->
+<button class="fixed bottom-[100px] left-lg w-14 h-14 bg-sumac-primary text-on-primary rounded-2xl shadow-[0_4px_16px_rgba(168,50,38,0.3)] flex items-center justify-center hover:bg-primary transition-colors active:scale-90 z-40">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">add</span>
+</button>
+<!-- BottomNavBar -->
+<nav class="bg-surface shadow-[0_-2px_10px_rgba(43,33,26,0.08)] docked full-width bottom-0 rounded-t-xl fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-lg pb-safe h-20">
+<!-- Active Item: القائمة -->
+<button class="flex flex-col items-center justify-center bg-sumac-container text-on-primary-fixed-variant rounded-full px-5 py-1 active:scale-90 transition-transform duration-200">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">restaurant_menu</span>
+<span class="font-label-lg text-label-lg mt-1">القائمة</span>
+</button>
+<!-- Inactive Item: الطلبات -->
+<button class="flex flex-col items-center justify-center text-muted-spice px-5 py-1 hover:bg-surface-container-low transition-colors active:scale-90 rounded-full">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">receipt_long</span>
+<span class="font-label-lg text-label-lg mt-1">الطلبات</span>
+</button>
+<!-- Inactive Item: العروض -->
+<button class="flex flex-col items-center justify-center text-muted-spice px-5 py-1 hover:bg-surface-container-low transition-colors active:scale-90 rounded-full">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">local_offer</span>
+<span class="font-label-lg text-label-lg mt-1">العروض</span>
+</button>
+<!-- Inactive Item: حسابي -->
+<button class="flex flex-col items-center justify-center text-muted-spice px-5 py-1 hover:bg-surface-container-low transition-colors active:scale-90 rounded-full">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">person</span>
+<span class="font-label-lg text-label-lg mt-1">حسابي</span>
+</button>
+</nav>
+<script>
+        // Simple logic for the toggle switch interaction
+        const toggle = document.getElementById('toggle');
+        const statusText = toggle.closest('section').querySelector('.text-zaatar-secondary, .text-muted-spice');
+        
+        toggle.addEventListener('change', (e) => {
+            if(e.target.checked) {
+                statusText.textContent = "مفعّل - جاهز لاستقبال الطلبات";
+                statusText.classList.remove('text-muted-spice');
+                statusText.classList.add('text-zaatar-secondary');
+            } else {
+                statusText.textContent = "متوقف - غير متاح للطلبات";
+                statusText.classList.remove('text-zaatar-secondary');
+                statusText.classList.add('text-muted-spice');
+            }
+        });
+    </script>
+</body></html>

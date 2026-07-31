@@ -1,0 +1,292 @@
+<!DOCTYPE html><html dir="rtl" lang="ar"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>طلباتي - Luqmat Beit</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;700;800&amp;family=Tajawal:wght@400;500;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "zaatar-container": "#E4EDD3",
+                        "on-error": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-tertiary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "surface-tint": "#ab3428",
+                        "on-tertiary-fixed": "#2a1700",
+                        "on-primary-fixed": "#410000",
+                        "primary": "#871a11",
+                        "background": "#fff8f5",
+                        "tertiary": "#623c00",
+                        "sumac-primary": "#A83226",
+                        "secondary-container": "#d0eda0",
+                        "surface-container-high": "#f6e5da",
+                        "honey-tertiary": "#B97A1E",
+                        "surface-container-highest": "#f0dfd4",
+                        "on-background": "#221a13",
+                        "muted-spice": "#71655B",
+                        "secondary-fixed": "#d0eda0",
+                        "on-surface": "#221a13",
+                        "on-secondary-fixed-variant": "#374d12",
+                        "surface-container-lowest": "#ffffff",
+                        "surface": "#FFFFFF",
+                        "outline": "#D9CEC1",
+                        "secondary-fixed-dim": "#b4d086",
+                        "inverse-on-surface": "#ffeee2",
+                        "on-primary-fixed-variant": "#8a1c13",
+                        "on-error-container": "#93000a",
+                        "on-primary-container": "#ffc9c0",
+                        "outline-variant": "#e0bfba",
+                        "primary-fixed-dim": "#ffb4a9",
+                        "surface-container-low": "#fff1e8",
+                        "honey-container": "#F7E7CC",
+                        "error-container": "#ffdad6",
+                        "inverse-primary": "#ffb4a9",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "surface-dim": "#e8d7cc",
+                        "secondary": "#4e6628",
+                        "ink-text": "#2A211A",
+                        "sumac-container": "#FADDD7",
+                        "inverse-surface": "#382e27",
+                        "surface-container": "#fcebdf",
+                        "primary-fixed": "#ffdad5",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed": "#121f00",
+                        "surface-variant": "#f0dfd4",
+                        "on-secondary-container": "#546c2e",
+                        "zaatar-secondary": "#5A7233",
+                        "on-surface-variant": "#58413e",
+                        "primary-container": "#a83226",
+                        "tertiary-container": "#825100",
+                        "tahini-bg": "#FBF7F1",
+                        "tertiary-fixed": "#ffddb8",
+                        "on-tertiary-container": "#ffcc91",
+                        "surface-bright": "#fff8f5"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "16px",
+                        "gutter": "16px",
+                        "xs": "4px",
+                        "xl": "24px",
+                        "base": "4px",
+                        "sm": "8px",
+                        "card-padding": "14px",
+                        "xxl": "32px",
+                        "md": "12px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Tajawal"],
+                        "body-sm": ["Tajawal"],
+                        "price-display": ["Tajawal"],
+                        "body-lg": ["Tajawal"],
+                        "title-lg": ["Alexandria"],
+                        "display-lg": ["Alexandria"],
+                        "headline-sm": ["Alexandria"],
+                        "headline-md": ["Alexandria"],
+                        "label-lg": ["Tajawal"]
+                    },
+                    "fontSize": {
+                        "body-md": ["14px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-sm": ["12.5px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "price-display": ["16px", { "lineHeight": "20px", "fontWeight": "800" }],
+                        "body-lg": ["15.5px", { "lineHeight": "26px", "fontWeight": "500" }],
+                        "title-lg": ["17px", { "lineHeight": "22px", "fontWeight": "700" }],
+                        "display-lg": ["40px", { "lineHeight": "48px", "fontWeight": "800" }],
+                        "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "700" }],
+                        "headline-md": ["22px", { "lineHeight": "28px", "fontWeight": "700" }],
+                        "label-lg": ["14px", { "lineHeight": "20px", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Hide scrollbar for clean horizontal scrolling */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        /* Shimmer loading effect */
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+        }
+        .animate-shimmer {
+            background: linear-gradient(to right, #FBF7F1 4%, #fcebdf 25%, #FBF7F1 36%);
+            background-size: 1000px 100%;
+            animation: shimmer 2s infinite linear;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-tahini-bg font-body-md text-ink-text antialiased min-h-screen pb-[100px] pt-16">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-tahini-bg dark:bg-on-background flex justify-between items-center w-full px-lg py-md h-16 shadow-[0_1px_3px_rgba(43,33,26,0.02)]">
+<button class="hover:opacity-80 transition-opacity active:scale-95 duration-200 text-sumac-primary dark:text-primary-fixed-dim flex items-center justify-center w-[48px] h-[48px]">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">notifications</span>
+</button>
+<h1 class="font-headline-sm text-headline-sm font-bold text-sumac-primary dark:text-primary-fixed-dim">Luqmat Beit</h1>
+<button class="hover:opacity-80 transition-opacity active:scale-95 duration-200 text-sumac-primary dark:text-primary-fixed-dim flex items-center justify-center w-[48px] h-[48px]">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">arrow_forward</span>
+</button>
+</header>
+<!-- Main Content -->
+<main class="w-full max-w-screen-md mx-auto relative z-10">
+<!-- Page Title & Summary -->
+<section class="px-lg pt-xl pb-md flex justify-between items-end">
+<div>
+<h2 class="font-display-lg text-display-lg text-sumac-primary mb-xs">طلباتي</h2>
+<p class="font-body-md text-body-md text-muted-spice">إدارة وتتبع مسار الطلبات الحالية والسابقة.</p>
+</div>
+</section>
+<!-- Filter Tabs -->
+<div class="px-lg pb-md sticky top-16 bg-tahini-bg z-30 shadow-[0_4px_12px_rgba(251,247,241,0.9)] backdrop-blur-sm bg-opacity-90">
+<div class="flex gap-sm overflow-x-auto no-scrollbar py-sm">
+<!-- Active Tab -->
+<button class="flex-shrink-0 px-xl py-sm rounded-full bg-sumac-primary text-on-primary font-label-lg text-label-lg shadow-[0_2px_8px_rgba(168,50,38,0.3)] transition-transform active:scale-95">
+                    جديد
+                    <span class="inline-flex items-center justify-center ml-xs bg-on-primary text-sumac-primary rounded-full w-5 h-5 text-[10px] font-bold">3</span>
+</button>
+<!-- Inactive Tabs -->
+<button class="flex-shrink-0 px-xl py-sm rounded-full bg-surface text-muted-spice border border-outline font-label-lg text-label-lg hover:bg-surface-container-lowest transition-colors active:scale-95">
+                    قيد التحضير
+                </button>
+<button class="flex-shrink-0 px-xl py-sm rounded-full bg-surface text-muted-spice border border-outline font-label-lg text-label-lg hover:bg-surface-container-lowest transition-colors active:scale-95">
+                    منجز
+                </button>
+<button class="flex-shrink-0 px-xl py-sm rounded-full bg-surface text-muted-spice border border-outline font-label-lg text-label-lg hover:bg-surface-container-lowest transition-colors active:scale-95">
+                    مرفوض
+                </button>
+</div>
+</div>
+<!-- Orders List (Bento-inspired Cards) -->
+<section class="px-lg flex flex-col gap-md pb-xl">
+<!-- Order Card 1 -->
+<article class="bg-surface rounded-xl p-lg shadow-[0_2px_12px_rgba(43,33,26,0.04)] border border-surface-container border-opacity-50 flex flex-col gap-md transition-transform hover:shadow-[0_4px_16px_rgba(43,33,26,0.08)]">
+<!-- Header -->
+<div class="flex justify-between items-start border-b border-surface-container pb-sm">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-lg bg-sumac-container flex items-center justify-center text-sumac-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">receipt_long</span>
+</div>
+<div>
+<h3 class="font-title-lg text-title-lg text-ink-text">طلب #8492</h3>
+<div class="flex items-center text-muted-spice font-body-sm text-body-sm gap-xs mt-1">
+<span class="material-symbols-outlined text-[14px]">schedule</span>
+<span>منذ 12 دقيقة</span>
+</div>
+</div>
+</div>
+<span class="bg-error-container text-on-error-container px-sm py-1 rounded font-label-lg text-[11px] uppercase tracking-wide">طلب جديد</span>
+</div>
+<!-- Items Summary -->
+<div class="flex items-center gap-md py-xs">
+<div class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 border border-surface-container">
+<img class="w-full h-full object-cover" data-alt="A beautifully plated traditional Middle Eastern chicken shawarma platter, surrounded by fresh herbs, garlic sauce, and warm pita bread. The lighting is warm and inviting, highlighting the roasted textures of the meat against a clean, modern white ceramic plate. Shot from a slightly top-down perspective, emphasizing culinary artisanal quality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQi53umXcnjAdTnCbgXIGEmtiztFMfvyErkl6yskgQMF68KWF_zqVbM_ZRFX03j68O-b4mv_J623j2a1UfySlpuzmlk3LatvlCQVaxyfzlZ7_hh6jHbvS8dLdrhwrKxSF8wWAXqSOCYVkTtWYnbs8mwLVChPEGOMcFSOL7EOqMF0_Sa4LhvmPSwjnpq_SXNHkHpB3ypQUHOQ8mOfGwSCOJ0GyEMPO538oaJCPeWYm4cTfD82sAVOt-QevURG7nHcN8TvLwsMZfvVI">
+</div>
+<div class="flex-1">
+<ul class="font-body-md text-body-md text-on-surface-variant list-disc list-inside marker:text-outline space-y-1">
+<li>2x شاورما دجاج (عربي)</li>
+<li>1x حمص بيروتي بالصنوبر</li>
+<li class="text-muted-spice text-body-sm">+ 1 عنصر إضافي</li>
+</ul>
+</div>
+</div>
+<!-- Footer / Actions -->
+<div class="flex justify-between items-center pt-sm">
+<div class="font-price-display text-price-display text-ink-text">145.00 ر.س</div>
+<div class="flex gap-sm">
+<button class="h-[40px] px-lg rounded-lg border border-outline text-muted-spice font-label-lg text-label-lg hover:bg-surface-container-low transition-colors active:scale-95">التفاصيل</button>
+<button class="h-[40px] px-lg rounded-lg bg-sumac-primary text-on-primary font-label-lg text-label-lg hover:bg-primary transition-colors shadow-[0_2px_8px_rgba(168,50,38,0.3)] active:scale-95">قبول الطلب</button>
+</div>
+</div>
+</article>
+<!-- Order Card 2 -->
+<article class="bg-surface rounded-xl p-lg shadow-[0_2px_12px_rgba(43,33,26,0.04)] border border-surface-container border-opacity-50 flex flex-col gap-md transition-transform hover:shadow-[0_4px_16px_rgba(43,33,26,0.08)]">
+<!-- Header -->
+<div class="flex justify-between items-start border-b border-surface-container pb-sm">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-lg bg-sumac-container flex items-center justify-center text-sumac-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">receipt_long</span>
+</div>
+<div>
+<h3 class="font-title-lg text-title-lg text-ink-text">طلب #8491</h3>
+<div class="flex items-center text-muted-spice font-body-sm text-body-sm gap-xs mt-1">
+<span class="material-symbols-outlined text-[14px]">schedule</span>
+<span>منذ 25 دقيقة</span>
+</div>
+</div>
+</div>
+<span class="bg-error-container text-on-error-container px-sm py-1 rounded font-label-lg text-[11px] uppercase tracking-wide">طلب جديد</span>
+</div>
+<!-- Items Summary -->
+<div class="flex items-center gap-md py-xs">
+<div class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 border border-surface-container">
+<img class="w-full h-full object-cover" data-alt="A close-up shot of freshly baked Middle Eastern Manakish topped with golden-brown halloumi cheese and a sprinkle of vibrant green zaatar. The pastry rests on a rustic wooden board, illuminated by soft, natural morning light that creates a warm, appetizing glow. The setting is clean, modern, and artisanal." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVI1WApja-FYMEdJFoP9GpU9c2Fhb5mMOMUMk1gvdIAyYudFFo8rqhPRK3WTtMuQ-zelcd37RolCBmKbnW37xJY6bqjuRvpRH9BqZAFylsYnTXnvy7_kZ0vaFEspamFX9EKzsi2LyaknDru3yTCvBBkuGXIAwPbu_tpk-YHoJIg_9i-SBPKs2z-0vz_OkGZ7dN-aUTFhN8fAamG5F7GgPSuzHX0rTvvOjV47rerfQeQszNPpuDINpj-XKupZbGra7c3kQamVxVXR8">
+</div>
+<div class="flex-1">
+<ul class="font-body-md text-body-md text-on-surface-variant list-disc list-inside marker:text-outline space-y-1">
+<li>1x مناقيش حلوم وزعتر</li>
+<li>2x عصير برتقال طازج</li>
+</ul>
+</div>
+</div>
+<!-- Footer / Actions -->
+<div class="flex justify-between items-center pt-sm">
+<div class="font-price-display text-price-display text-ink-text">54.00 ر.س</div>
+<div class="flex gap-sm">
+<button class="h-[40px] px-lg rounded-lg border border-outline text-muted-spice font-label-lg text-label-lg hover:bg-surface-container-low transition-colors active:scale-95">التفاصيل</button>
+<button class="h-[40px] px-lg rounded-lg bg-sumac-primary text-on-primary font-label-lg text-label-lg hover:bg-primary transition-colors shadow-[0_2px_8px_rgba(168,50,38,0.3)] active:scale-95">قبول الطلب</button>
+</div>
+</div>
+</article>
+<!-- End of list marker -->
+<div class="flex justify-center items-center py-xl mt-md border-t border-outline border-dashed">
+<p class="font-body-sm text-body-sm text-muted-spice">لا توجد طلبات جديدة أخرى.</p>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-lg pb-safe h-20 bg-surface dark:bg-surface-dim shadow-[0_-2px_10px_rgba(43,33,26,0.08)] dark:border-t dark:border-outline-variant rounded-t-xl">
+<!-- Tab 0: Menu -->
+<a class="flex flex-col items-center justify-center text-muted-spice dark:text-outline-variant px-5 py-1 hover:bg-surface-container-low dark:hover:bg-surface-variant transition-colors active:scale-90 duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined mb-1 group-hover:text-sumac-primary transition-colors" style="font-variation-settings: 'FILL' 0;">restaurant_menu</span>
+<span class="font-label-lg text-label-lg">القائمة</span>
+</a>
+<!-- Tab 1: Orders (ACTIVE) -->
+<a class="flex flex-col items-center justify-center bg-sumac-container dark:bg-primary-container text-on-primary-fixed-variant dark:text-on-primary-container rounded-full px-5 py-1 hover:bg-surface-container-low dark:hover:bg-surface-variant transition-colors active:scale-90 duration-200 shadow-[inset_0_-2px_4px_rgba(168,50,38,0.1)]" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">receipt_long</span>
+<span class="font-label-lg text-label-lg">الطلبات</span>
+</a>
+<!-- Tab 2: Offers -->
+<a class="flex flex-col items-center justify-center text-muted-spice dark:text-outline-variant px-5 py-1 hover:bg-surface-container-low dark:hover:bg-surface-variant transition-colors active:scale-90 duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined mb-1 group-hover:text-sumac-primary transition-colors" style="font-variation-settings: 'FILL' 0;">local_offer</span>
+<span class="font-label-lg text-label-lg">العروض</span>
+</a>
+<!-- Tab 3: Account -->
+<a class="flex flex-col items-center justify-center text-muted-spice dark:text-outline-variant px-5 py-1 hover:bg-surface-container-low dark:hover:bg-surface-variant transition-colors active:scale-90 duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined mb-1 group-hover:text-sumac-primary transition-colors" style="font-variation-settings: 'FILL' 0;">person</span>
+<span class="font-label-lg text-label-lg">حسابي</span>
+</a>
+</nav>
+</body></html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html><html lang="ar" dir="rtl" class="light" style=""><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إنشاء عرض جديد</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;700;800&amp;family=Tajawal:wght@400;500;700;800&amp;display=swap" rel="stylesheet">
+    
+    <script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary-fixed-dim": "#b4d086",
+                      "surface-tint": "#ab3428",
+                      "tertiary-fixed-dim": "#ffb95f",
+                      "tahini-bg": "#FBF7F1",
+                      "error": "#ba1a1a",
+                      "on-tertiary": "#ffffff",
+                      "primary-container": "#a83226",
+                      "inverse-surface": "#382e27",
+                      "surface-container": "#fcebdf",
+                      "primary": "#871a11",
+                      "on-tertiary-container": "#ffcc91",
+                      "sumac-container": "#FADDD7",
+                      "on-primary-fixed-variant": "#8a1c13",
+                      "zaatar-container": "#E4EDD3",
+                      "on-error-container": "#93000a",
+                      "on-error": "#ffffff",
+                      "zaatar-secondary": "#5A7233",
+                      "secondary-container": "#d0eda0",
+                      "on-primary-container": "#ffc9c0",
+                      "secondary-fixed": "#d0eda0",
+                      "primary-fixed-dim": "#ffb4a9",
+                      "surface-container-low": "#fff1e8",
+                      "surface-container-high": "#f6e5da",
+                      "error-container": "#ffdad6",
+                      "on-secondary-fixed": "#121f00",
+                      "on-tertiary-fixed-variant": "#653e00",
+                      "on-background": "#221a13",
+                      "honey-tertiary": "#B97A1E",
+                      "surface": "#FFFFFF",
+                      "on-secondary-container": "#546c2e",
+                      "on-secondary-fixed-variant": "#374d12",
+                      "surface-container-highest": "#f0dfd4",
+                      "ink-text": "#2A211A",
+                      "honey-container": "#F7E7CC",
+                      "tertiary-fixed": "#ffddb8",
+                      "on-tertiary-fixed": "#2a1700",
+                      "on-primary": "#ffffff",
+                      "on-primary-fixed": "#410000",
+                      "inverse-on-surface": "#ffeee2",
+                      "secondary": "#4e6628",
+                      "surface-dim": "#e8d7cc",
+                      "outline": "#D9CEC1",
+                      "on-surface-variant": "#58413e",
+                      "sumac-primary": "#A83226",
+                      "tertiary-container": "#825100",
+                      "outline-variant": "#e0bfba",
+                      "muted-spice": "#71655B",
+                      "on-secondary": "#ffffff",
+                      "inverse-primary": "#ffb4a9",
+                      "surface-container-lowest": "#ffffff",
+                      "on-surface": "#221a13",
+                      "primary-fixed": "#ffdad5",
+                      "surface-variant": "#f0dfd4",
+                      "background": "#fff8f5",
+                      "tertiary": "#623c00",
+                      "surface-bright": "#fff8f5"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "sm": "8px",
+                      "md": "12px",
+                      "base": "4px",
+                      "xs": "4px",
+                      "lg": "16px",
+                      "card-padding": "14px",
+                      "gutter": "16px",
+                      "xxl": "32px",
+                      "xl": "24px"
+              },
+              "fontFamily": {
+                      "display-lg": ["Alexandria"],
+                      "headline-sm": ["Alexandria"],
+                      "body-sm": ["Tajawal"],
+                      "label-lg": ["Tajawal"],
+                      "price-display": ["Tajawal"],
+                      "body-md": ["Tajawal"],
+                      "headline-md": ["Alexandria"],
+                      "body-lg": ["Tajawal"],
+                      "title-lg": ["Alexandria"]
+              },
+              "fontSize": {
+                      "display-lg": ["40px", {"lineHeight": "48px", "fontWeight": "800"}],
+                      "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "700"}],
+                      "body-sm": ["12.5px", {"lineHeight": "18px", "fontWeight": "400"}],
+                      "label-lg": ["14px", {"lineHeight": "20px", "fontWeight": "700"}],
+                      "price-display": ["16px", {"lineHeight": "20px", "fontWeight": "800"}],
+                      "body-md": ["14px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "headline-md": ["22px", {"lineHeight": "28px", "fontWeight": "700"}],
+                      "body-lg": ["15.5px", {"lineHeight": "26px", "fontWeight": "500"}],
+                      "title-lg": ["17px", {"lineHeight": "22px", "fontWeight": "700"}]
+              }
+            }
+          }
+        }
+    </script>
+    <style>
+        .custom-shadow { box-shadow: 0 2px 10px rgba(43, 33, 26, 0.08); }
+        .input-focus-ring:focus-within { border-color: #A83226; box-shadow: 0 0 0 1px #A83226; }
+        
+        /* Switch styling */
+        .toggle-checkbox:checked { right: 0; border-color: #A83226; }
+        .toggle-checkbox:checked + .toggle-label { background-color: #A83226; }
+        .toggle-checkbox { right: 0; z-index: 1; border-color: #e2e8f0; transition: all 0.3s; }
+        .toggle-label { width: 3rem; height: 1.5rem; background-color: #e2e8f0; border-radius: 9999px; transition: all 0.3s; }
+        
+        /* Webkit scrollbar for chips */
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-tahini-bg text-on-background font-body-md antialiased pb-24 md:pb-0">
+
+    <!-- Top App Bar -->
+    <header class="flex justify-between items-center w-full px-lg py-md h-16 bg-tahini-bg dark:bg-on-background sticky top-0 z-40 transition-shadow duration-300">
+        <button class="flex items-center justify-center w-12 h-12 rounded-full hover:opacity-80 transition-opacity active:scale-95 duration-200 text-sumac-primary dark:text-primary-fixed-dim" aria-label="العودة">
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">arrow_back</span>
+        </button>
+        <h1 class="font-headline-md text-headline-md font-bold text-sumac-primary dark:text-primary-fixed-dim tracking-tight">إنشاء عرض جديد</h1>
+        <div class="w-12 h-12"></div> <!-- Spacer for centering -->
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-3xl mx-auto px-lg md:px-xl py-xl space-y-xl">
+        
+        <!-- Offer Identity Section -->
+        <section class="space-y-md">
+            <!-- Offer Name -->
+            <div class="relative w-full">
+                <label for="offer-name" class="block font-label-lg text-label-lg text-muted-spice mb-xs">اسم العرض</label>
+                <div class="relative flex items-center bg-surface border border-outline rounded-lg input-focus-ring overflow-hidden transition-colors duration-200 h-12">
+                    <input type="text" id="offer-name" placeholder="مثال: عرض الغداء العائلي" class="w-full h-full px-md bg-transparent border-none focus:ring-0 font-body-lg text-body-lg text-on-background placeholder-outline-variant">
+                </div>
+            </div>
+
+            <!-- Offer Description -->
+            <div class="relative w-full">
+                <label for="offer-desc" class="block font-label-lg text-label-lg text-muted-spice mb-xs">وصف العرض (اختياري)</label>
+                <div class="relative flex items-start bg-surface border border-outline rounded-lg input-focus-ring overflow-hidden transition-colors duration-200">
+                    <textarea id="offer-desc" rows="3" placeholder="اكتب وصفاً جذاباً لعرضك..." class="w-full p-md bg-transparent border-none focus:ring-0 font-body-md text-body-md text-on-background placeholder-outline-variant resize-none"></textarea>
+                </div>
+            </div>
+        </section>
+
+        <!-- Offer Type Section -->
+        <section class="space-y-sm">
+            
+            <div class="flex overflow-x-auto hide-scrollbar gap-sm pb-xs">
+                
+                
+                
+                
+            </div>
+        </section>
+
+        <!-- Meal Selection Card -->
+        <section class="bg-surface rounded-xl p-card-padding custom-shadow space-y-md">
+            <div class="flex justify-between items-center">
+                <h2 class="font-title-lg text-title-lg text-on-background">الوجبات المشمولة</h2>
+                <span class="font-body-sm text-body-sm text-muted-spice bg-surface-container-low px-sm py-xs rounded-lg">0 وجبات</span>
+            </div>
+            
+            <!-- Empty State Placeholder (Visible when no meals) -->
+            <div class="flex flex-col items-center justify-center py-xl border-2 border-dashed border-outline-variant rounded-lg bg-surface-container-lowest">
+                <span class="material-symbols-outlined text-outline-variant text-4xl mb-sm" style="font-variation-settings: 'FILL' 0;">restaurant</span>
+                <p class="font-body-md text-body-md text-muted-spice text-center">لم تقم بإضافة أي وجبات لهذا العرض بعد.</p>
+            </div>
+
+            <!-- Add Meal Button -->
+            <button class="w-full flex items-center justify-center gap-sm py-md border-2 border-sumac-primary rounded-lg text-sumac-primary font-label-lg text-label-lg hover:bg-sumac-container transition-colors duration-200 active:scale-95">
+                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">add</span>
+                إضافة وجبة
+            </button>
+        </section>
+
+        <!-- Value & Dates Section -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-md">
+            <!-- Offer Value -->
+            <div class="relative w-full md:col-span-2">
+                <label for="offer-price" class="block font-label-lg text-label-lg text-muted-spice mb-xs">سعر العرض الإجمالي</label>
+                <div class="relative flex items-center bg-surface border border-outline rounded-lg input-focus-ring overflow-hidden transition-colors duration-200 h-12">
+                    <input type="number" id="offer-price" placeholder="0.00" class="w-full h-full px-md bg-transparent border-none focus:ring-0 font-price-display text-price-display text-on-background placeholder-outline-variant text-left dir-ltr">
+                    <span class="px-md bg-surface-container-low text-muted-spice font-body-md border-l border-outline h-full flex items-center">ل.س</span>
+                </div>
+            </div>
+
+            <!-- Start Date -->
+            <div class="relative w-full"><label for="offer-duration" class="block font-label-lg text-label-lg text-muted-spice mb-xs">عدد الأيام</label><div class="relative flex items-center bg-surface border border-outline rounded-lg input-focus-ring overflow-hidden transition-colors duration-200 h-12 px-md"><span class="material-symbols-outlined text-muted-spice ml-sm" style="font-variation-settings: 'FILL' 0;">timer</span><input type="number" id="offer-duration" placeholder="مثال: 7 أيام" class="w-full h-full bg-transparent border-none focus:ring-0 font-body-md text-body-md text-on-background"></div></div>
+
+            <!-- End Date -->
+            
+        </section>
+
+        <!-- Status Toggle -->
+        <section class="bg-surface rounded-xl p-card-padding flex justify-between items-center custom-shadow">
+            <div>
+                <h3 class="font-title-lg text-title-lg text-on-background">حالة العرض</h3>
+                <p class="font-body-sm text-body-sm text-muted-spice mt-xs">تفعيل العرض ليظهر للعملاء فوراً</p>
+            </div>
+            <div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in">
+                <input type="checkbox" name="toggle" id="status-toggle" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-surface border-4 appearance-none cursor-pointer" checked="">
+                <label for="status-toggle" class="toggle-label block overflow-hidden h-6 rounded-full bg-sumac-primary cursor-pointer"></label>
+            </div>
+        </section>
+
+        <!-- Action Buttons (Sticky on Mobile, normal flow on Desktop) -->
+        <section class="fixed bottom-0 left-0 w-full bg-tahini-bg border-t border-outline/30 p-lg shadow-[0_-4px_20px_rgba(43,33,26,0.05)] z-50 md:static md:bg-transparent md:border-none md:shadow-none md:p-0 flex flex-col gap-sm">
+            <button class="w-full h-12 bg-sumac-primary text-on-primary font-label-lg text-label-lg rounded-lg hover:opacity-90 active:scale-95 transition-all duration-200 flex items-center justify-center">
+                حفظ العرض
+            </button>
+            <button class="w-full h-12 text-muted-spice font-label-lg text-label-lg rounded-lg hover:bg-surface-container-low active:scale-95 transition-all duration-200 flex items-center justify-center">
+                إلغاء
+            </button>
+        </section>
+
+    </main>
+
+
+
+</body></html>

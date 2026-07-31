@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Order Ready - Luqmat Beit</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;700;800&amp;family=Tajawal:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "zaatar-container": "#E4EDD3",
+                        "on-error": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-tertiary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "surface-tint": "#ab3428",
+                        "on-tertiary-fixed": "#2a1700",
+                        "on-primary-fixed": "#410000",
+                        "primary": "#871a11",
+                        "background": "#fff8f5",
+                        "tertiary": "#623c00",
+                        "sumac-primary": "#A83226",
+                        "secondary-container": "#d0eda0",
+                        "surface-container-high": "#f6e5da",
+                        "honey-tertiary": "#B97A1E",
+                        "surface-container-highest": "#f0dfd4",
+                        "on-background": "#221a13",
+                        "muted-spice": "#71655B",
+                        "secondary-fixed": "#d0eda0",
+                        "on-surface": "#221a13",
+                        "on-secondary-fixed-variant": "#374d12",
+                        "surface-container-lowest": "#ffffff",
+                        "surface": "#FFFFFF",
+                        "outline": "#D9CEC1",
+                        "secondary-fixed-dim": "#b4d086",
+                        "inverse-on-surface": "#ffeee2",
+                        "on-primary-fixed-variant": "#8a1c13",
+                        "on-error-container": "#93000a",
+                        "on-primary-container": "#ffc9c0",
+                        "outline-variant": "#e0bfba",
+                        "primary-fixed-dim": "#ffb4a9",
+                        "surface-container-low": "#fff1e8",
+                        "honey-container": "#F7E7CC",
+                        "error-container": "#ffdad6",
+                        "inverse-primary": "#ffb4a9",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "surface-dim": "#e8d7cc",
+                        "secondary": "#4e6628",
+                        "ink-text": "#2A211A",
+                        "sumac-container": "#FADDD7",
+                        "inverse-surface": "#382e27",
+                        "surface-container": "#fcebdf",
+                        "primary-fixed": "#ffdad5",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed": "#121f00",
+                        "surface-variant": "#f0dfd4",
+                        "on-secondary-container": "#546c2e",
+                        "zaatar-secondary": "#5A7233",
+                        "on-surface-variant": "#58413e",
+                        "primary-container": "#a83226",
+                        "tertiary-container": "#825100",
+                        "tahini-bg": "#FBF7F1",
+                        "tertiary-fixed": "#ffddb8",
+                        "on-tertiary-container": "#ffcc91",
+                        "surface-bright": "#fff8f5"
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.25rem",
+                        lg: "0.5rem",
+                        xl: "0.75rem",
+                        full: "9999px"
+                    },
+                    spacing: {
+                        lg: "16px",
+                        gutter: "16px",
+                        xs: "4px",
+                        xl: "24px",
+                        base: "4px",
+                        sm: "8px",
+                        "card-padding": "14px",
+                        xxl: "32px",
+                        md: "12px"
+                    },
+                    fontFamily: {
+                        "body-md": ["Tajawal"],
+                        "body-sm": ["Tajawal"],
+                        "price-display": ["Tajawal"],
+                        "body-lg": ["Tajawal"],
+                        "title-lg": ["Alexandria"],
+                        "display-lg": ["Alexandria"],
+                        "headline-sm": ["Alexandria"],
+                        "headline-md": ["Alexandria"],
+                        "label-lg": ["Tajawal"]
+                    },
+                    fontSize: {
+                        "body-md": ["14px", { lineHeight: "24px", fontWeight: "400" }],
+                        "body-sm": ["12.5px", { lineHeight: "18px", fontWeight: "400" }],
+                        "price-display": ["16px", { lineHeight: "20px", fontWeight: "800" }],
+                        "body-lg": ["15.5px", { lineHeight: "26px", fontWeight: "500" }],
+                        "title-lg": ["17px", { lineHeight: "22px", fontWeight: "700" }],
+                        "display-lg": ["40px", { lineHeight: "48px", fontWeight: "800" }],
+                        "headline-sm": ["18px", { lineHeight: "24px", fontWeight: "700" }],
+                        "headline-md": ["22px", { lineHeight: "28px", fontWeight: "700" }],
+                        "label-lg": ["14px", { lineHeight: "20px", fontWeight: "700" }]
+                    }
+                }
+            }
+        };
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-tahini-bg text-ink-text font-body-md min-h-screen flex flex-col relative pb-32 md:pb-0">
+<!-- TopAppBar -->
+<header class="docked full-width top-0 bg-tahini-bg dark:bg-on-background flex justify-between items-center w-full px-lg py-md h-16 sticky z-40">
+<button aria-label="Go back" class="text-sumac-primary dark:text-primary-fixed-dim hover:opacity-80 transition-opacity active:scale-95 duration-200">
+<span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<h1 class="font-headline-sm text-headline-sm font-bold text-sumac-primary dark:text-primary-fixed-dim flex-1 text-center">تفاصيل الطلب</h1>
+<button aria-label="Notifications" class="text-sumac-primary dark:text-primary-fixed-dim hover:opacity-80 transition-opacity active:scale-95 duration-200">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 w-full max-w-3xl mx-auto px-lg pt-xl flex flex-col gap-xl">
+<!-- Order Header Card -->
+<section class="bg-surface rounded-xl shadow-[0_2px_10px_rgba(43,33,26,0.05)] p-lg border border-outline-variant flex flex-col gap-md">
+<div class="flex justify-between items-start">
+<div>
+<h2 class="font-title-lg text-title-lg text-ink-text mb-xs">طلب #٤٩٢٠</h2>
+<p class="font-body-sm text-body-sm text-muted-spice">اليوم، ٠٢:٣٠ م</p>
+</div>
+<!-- Status Chip -->
+<div class="bg-honey-container text-on-tertiary-fixed-variant px-md py-xs rounded-full flex items-center gap-xs font-label-lg text-label-lg">
+<span class="material-symbols-outlined text-[16px]" data-icon="skillet" data-weight="fill" style="font-variation-settings: 'FILL' 1;">skillet</span>
+<span>قيد التحضير</span>
+</div>
+</div>
+<div class="h-px bg-outline-variant w-full my-xs"></div>
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-full bg-sumac-container flex items-center justify-center text-sumac-primary font-title-lg text-title-lg">
+                    ف
+                </div>
+<div>
+<p class="font-body-lg text-body-lg text-ink-text font-bold">فاطمة علي</p>
+<p class="font-body-sm text-body-sm text-muted-spice flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px]" data-icon="local_shipping">local_shipping</span>
+                        استلام من المنزل
+                    </p>
+</div>
+</div>
+</section>
+<!-- Order Items List -->
+<section class="flex flex-col gap-md">
+<h3 class="font-title-lg text-title-lg text-ink-text">محتويات الطلب</h3>
+<!-- Item 1 -->
+<div class="bg-surface rounded-lg p-md border border-outline flex items-center justify-between shadow-[0_1px_3px_rgba(43,33,26,0.02)]">
+<div class="flex items-center gap-md">
+<div class="w-16 h-16 rounded-md bg-surface-container-high overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="A close up food photography shot of a traditional middle eastern dish, warm appetizing lighting, professional plating on a rustic ceramic bowl, minimal warm background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfkWUHSMRbGVbK05-V3lB9lkI6f8t_iwGyvHSCbgC6scuKVx9ChzjvGQ07YSt_3nz9nhuQUHOofTlV0MlflgkvgBHhP9SLcV_tAC017KF8Gt8Ckr_mRruitgQcPlqCROn7zOEI4li390UjhBo5uXq78auC9B8eyoROQkDfmt_9Cu0i9eNo67ltKgy1xnmhLYLeaOWS3vIDoeWIWwmoW_TWYHnusp6revnBBfgnxdfNRan-5_wgsz176zZVAqLfFSXqFpwhYsMvI2w"/>
+</div>
+<div class="flex flex-col gap-xs">
+<span class="font-body-lg text-body-lg text-ink-text font-bold">مجبوس دجاج</span>
+<span class="font-body-sm text-body-sm text-muted-spice">بدون بصل، زيادة مكسرات</span>
+</div>
+</div>
+<div class="bg-surface-container text-ink-text font-title-lg text-title-lg w-10 h-10 rounded-full flex items-center justify-center">
+                    ٢x
+                </div>
+</div>
+<!-- Item 2 -->
+<div class="bg-surface rounded-lg p-md border border-outline flex items-center justify-between shadow-[0_1px_3px_rgba(43,33,26,0.02)]">
+<div class="flex items-center gap-md">
+<div class="w-16 h-16 rounded-md bg-surface-container-high overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="A close up food photography shot of a small side salad with fresh greens and sumac dressing, warm inviting light, small ceramic dish." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAwSQaUNokNwl5kO04oKgtW73fNsi1e3PAaSgp1AIC5xY3QnDU0QaxqRTI8hVwxAuPOlBtn5hrVx6QSHH62PgMWLUorqdUU_g28kOcSV2h9XJuRAV6nZTYm27ugEWMwfNK-LohTKaefqFTLArgFHRqpieR4SEj6j0LFl9vynWpjC--z-njBE3L43MKNHT0hbdvlc0LOcZ8DWYrb6JDm940DktNTBzlcR9KGPa9oDZku-jqT3OlvbVc3s-EOLaPFQZY0-8-Ofynqlz8"/>
+</div>
+<div class="flex flex-col gap-xs">
+<span class="font-body-lg text-body-lg text-ink-text font-bold">سلطة فتوش</span>
+</div>
+</div>
+<div class="bg-surface-container text-ink-text font-title-lg text-title-lg w-10 h-10 rounded-full flex items-center justify-center">
+                    ١x
+                </div>
+</div>
+<!-- Item 3 -->
+<div class="bg-surface rounded-lg p-md border border-outline flex items-center justify-between shadow-[0_1px_3px_rgba(43,33,26,0.02)]">
+<div class="flex items-center gap-md">
+<div class="w-16 h-16 rounded-md bg-surface-container-high overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="A close up food photography shot of a traditional middle eastern dessert, perhaps knafeh, warm golden lighting highlighting the texture." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCkKho03uIi5HaRJftWDedapE7PkDS8-WFleKoR9DsoDcsY2Xz5GlWIJLG7h-RTpZ8hivi6yX1SFNGHVc4cjCdWtQyvd2no89nvLc8lxhJAulCufv_OA2HOrgsJvWvJTEGWElMUYr4odlxIFW6N1K9dR10zYAyQfceGUE-RA_GuTfNfL_GxhxQVCbVJwfp0DLahWIAuRjTT4JDQngEf8-h0614mAk3pyB85Yg2u9Vjcz70N6Uq8Kxl_bNpvM89m6Xk_6wSUZ6T1hC4"/>
+</div>
+<div class="flex flex-col gap-xs">
+<span class="font-body-lg text-body-lg text-ink-text font-bold">كنافة نابلسية</span>
+</div>
+</div>
+<div class="bg-surface-container text-ink-text font-title-lg text-title-lg w-10 h-10 rounded-full flex items-center justify-center">
+                    ١x
+                </div>
+</div>
+</section>
+</main>
+<!-- Fixed Bottom Action Area -->
+<div class="fixed bottom-0 left-0 w-full bg-surface border-t border-outline-variant p-lg shadow-[0_-4px_16px_rgba(43,33,26,0.06)] z-30 pb-safe pb-xl flex flex-col gap-md">
+<div class="flex items-start gap-sm bg-surface-container-low p-md rounded-lg mb-sm">
+<span class="material-symbols-outlined text-sumac-primary text-[20px] mt-xs" data-icon="info">info</span>
+<p class="font-body-sm text-body-sm text-muted-spice leading-relaxed">
+                بالضغط على "تم التحضير"، سيتم إرسال إشعار للعميل للقدوم لاستلام الطلب.
+            </p>
+</div>
+<button class="w-full h-12 bg-sumac-primary text-on-primary font-title-lg text-title-lg rounded-lg flex items-center justify-center gap-sm active:scale-[0.98] transition-transform duration-200 shadow-md">
+<span>تم التحضير</span>
+<span class="material-symbols-outlined" data-icon="check_circle">check_circle</span>
+</button>
+</div>
+</body></html>

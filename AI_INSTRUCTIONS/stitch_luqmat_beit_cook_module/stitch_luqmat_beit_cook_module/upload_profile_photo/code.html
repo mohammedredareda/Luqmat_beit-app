@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Upload Profile Photo</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&amp;family=Tajawal:wght@200;300;400;500;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "zaatar-container": "#E4EDD3",
+                        "on-error": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-tertiary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "surface-tint": "#ab3428",
+                        "on-tertiary-fixed": "#2a1700",
+                        "on-primary-fixed": "#410000",
+                        "primary": "#871a11",
+                        "background": "#fff8f5",
+                        "tertiary": "#623c00",
+                        "sumac-primary": "#A83226",
+                        "secondary-container": "#d0eda0",
+                        "surface-container-high": "#f6e5da",
+                        "honey-tertiary": "#B97A1E",
+                        "surface-container-highest": "#f0dfd4",
+                        "on-background": "#221a13",
+                        "muted-spice": "#71655B",
+                        "secondary-fixed": "#d0eda0",
+                        "on-surface": "#221a13",
+                        "on-secondary-fixed-variant": "#374d12",
+                        "surface-container-lowest": "#ffffff",
+                        "surface": "#FFFFFF",
+                        "outline": "#D9CEC1",
+                        "secondary-fixed-dim": "#b4d086",
+                        "inverse-on-surface": "#ffeee2",
+                        "on-primary-fixed-variant": "#8a1c13",
+                        "on-error-container": "#93000a",
+                        "on-primary-container": "#ffc9c0",
+                        "outline-variant": "#e0bfba",
+                        "primary-fixed-dim": "#ffb4a9",
+                        "surface-container-low": "#fff1e8",
+                        "honey-container": "#F7E7CC",
+                        "error-container": "#ffdad6",
+                        "inverse-primary": "#ffb4a9",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "surface-dim": "#e8d7cc",
+                        "secondary": "#4e6628",
+                        "ink-text": "#2A211A",
+                        "sumac-container": "#FADDD7",
+                        "inverse-surface": "#382e27",
+                        "surface-container": "#fcebdf",
+                        "primary-fixed": "#ffdad5",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed": "#121f00",
+                        "surface-variant": "#f0dfd4",
+                        "on-secondary-container": "#546c2e",
+                        "zaatar-secondary": "#5A7233",
+                        "on-surface-variant": "#58413e",
+                        "primary-container": "#a83226",
+                        "tertiary-container": "#825100",
+                        "tahini-bg": "#FBF7F1",
+                        "tertiary-fixed": "#ffddb8",
+                        "on-tertiary-container": "#ffcc91",
+                        "surface-bright": "#fff8f5"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "16px",
+                        "gutter": "16px",
+                        "xs": "4px",
+                        "xl": "24px",
+                        "base": "4px",
+                        "sm": "8px",
+                        "card-padding": "14px",
+                        "xxl": "32px",
+                        "md": "12px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Tajawal"],
+                        "body-sm": ["Tajawal"],
+                        "price-display": ["Tajawal"],
+                        "body-lg": ["Tajawal"],
+                        "title-lg": ["Alexandria"],
+                        "display-lg": ["Alexandria"],
+                        "headline-sm": ["Alexandria"],
+                        "headline-md": ["Alexandria"],
+                        "label-lg": ["Tajawal"]
+                    },
+                    "fontSize": {
+                        "body-md": ["14px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-sm": ["12.5px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "price-display": ["16px", { "lineHeight": "20px", "fontWeight": "800" }],
+                        "body-lg": ["15.5px", { "lineHeight": "26px", "fontWeight": "500" }],
+                        "title-lg": ["17px", { "lineHeight": "22px", "fontWeight": "700" }],
+                        "display-lg": ["40px", { "lineHeight": "48px", "fontWeight": "800" }],
+                        "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "700" }],
+                        "headline-md": ["22px", { "lineHeight": "28px", "fontWeight": "700" }],
+                        "label-lg": ["14px", { "lineHeight": "20px", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-tahini-bg text-ink-text antialiased min-h-screen flex flex-col items-center justify-center font-body-md">
+<!-- Top App Bar (From Shared Components) -->
+<header class="fixed top-0 w-full z-50 bg-tahini-bg dark:bg-on-background flat no shadows flex justify-between items-center px-lg py-md h-16">
+<button aria-label="Go back" class="hover:opacity-80 transition-opacity active:scale-95 transition-transform duration-200 p-2 text-sumac-primary dark:text-primary-fixed-dim">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">arrow_back</span>
+</button>
+<h1 class="font-headline-sm text-headline-sm font-bold text-sumac-primary dark:text-primary-fixed-dim">Luqmat Beit</h1>
+<!-- Using a placeholder for alignment, no trailing icon needed here based on intent -->
+<div class="w-[40px]"></div>
+</header>
+<!-- Main Content Area -->
+<main class="w-full max-w-md px-lg pt-24 pb-safe flex flex-col items-center mt-xl flex-grow justify-center">
+<!-- Header Text -->
+<div class="text-center mb-xl w-full">
+<h2 class="font-headline-md text-headline-md text-sumac-primary mb-sm">أضف صورة شخصية</h2>
+<p class="font-body-lg text-body-lg text-muted-spice px-md">
+                تساعد الصورة الشخصية في بناء الثقة مع المجتمع وتسهيل التعرف عليك عند استلام الطلبات.
+            </p>
+</div>
+<!-- Avatar Picker (Glassmorphism inspired container) -->
+<div class="relative mb-xxl flex flex-col items-center group">
+<div class="w-32 h-32 rounded-full bg-surface shadow-[0_-2px_10px_rgba(43,33,26,0.08)] flex items-center justify-center overflow-hidden border-2 border-dashed border-outline hover:border-sumac-primary transition-colors cursor-pointer active:scale-95 duration-200 relative group-hover:bg-surface-container-low">
+<!-- Placeholder Avatar Icon -->
+<span class="material-symbols-outlined text-muted-spice text-6xl group-hover:text-sumac-primary transition-colors" style="font-variation-settings: 'FILL' 0; font-size: 64px;">account_circle</span>
+<!-- Overlay on hover -->
+<div class="absolute inset-0 bg-surface/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+<span class="material-symbols-outlined text-sumac-primary" style="font-variation-settings: 'FILL' 1;">photo_camera</span>
+</div>
+</div>
+<!-- Floating add icon -->
+<button aria-label="Upload Photo" class="absolute bottom-0 right-0 w-10 h-10 bg-sumac-primary text-on-primary rounded-full shadow-lg flex items-center justify-center hover:bg-primary transition-colors active:scale-90 duration-200 -mr-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add_a_photo</span>
+</button>
+</div>
+<!-- Action Buttons -->
+<div class="w-full flex flex-col gap-md mt-auto pb-xl">
+<!-- Choose Photo Button -->
+<button class="w-full h-12 rounded-lg border-2 border-outline text-sumac-primary font-label-lg text-label-lg flex items-center justify-center gap-2 hover:bg-sumac-container hover:border-sumac-container transition-colors active:scale-[0.98] duration-200">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">upload</span>
+                اختيار صورة
+            </button>
+<!-- Primary Continue Button -->
+<button class="w-full h-12 rounded-lg bg-sumac-primary text-on-primary font-label-lg text-label-lg flex items-center justify-center hover:bg-primary transition-colors shadow-sm active:scale-[0.98] duration-200 mt-sm opacity-50 cursor-not-allowed" disabled="">
+                متابعة
+            </button>
+<!-- Skip Link -->
+<button class="mt-sm font-body-md text-body-md text-muted-spice hover:text-sumac-primary transition-colors underline decoration-transparent hover:decoration-sumac-primary underline-offset-4">
+                تخطي الآن
+            </button>
+</div>
+</main>
+<!-- Note: BottomNavBar is intentionally omitted as this is an onboarding/transactional screen -->
+<script>
+        // Simple JS to simulate photo upload state change for demonstration
+        document.querySelector('.group').addEventListener('click', function() {
+            const continueBtn = document.querySelector('button[disabled]');
+            if(continueBtn) {
+                continueBtn.removeAttribute('disabled');
+                continueBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                // Simulate an image being added (in a real app, this would show the selected image)
+                const avatarIcon = document.querySelector('.material-symbols-outlined.text-6xl');
+                avatarIcon.classList.add('text-sumac-primary');
+                avatarIcon.classList.remove('text-muted-spice');
+                avatarIcon.style.fontVariationSettings = "'FILL' 1";
+            }
+        });
+    </script>
+</body></html>

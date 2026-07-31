@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>قواعد التصميم — Design Rules | Home Chef App</title>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@600;700;800&family=Tajawal:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --primary:#A83226; --primary-container:#FADDD7; --on-primary-container:#6E1A11;
+    --secondary:#5A7233; --secondary-container:#E4EDD3; --on-secondary-container:#33421A;
+    --tertiary:#B97A1E; --tertiary-container:#F7E7CC; --on-tertiary-container:#5F3C08;
+    --error:#D93025;
+    --bg:#FBF7F1; --surface:#FFFFFF; --surface-variant:#F2EBE1;
+    --outline:#D9CEC1; --outline-variant:#EAE1D6; --ink:#2A211A; --muted:#71655B;
+    --e1:0 1px 2px rgba(43,33,26,.06),0 1px 3px rgba(43,33,26,.08);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{background:var(--bg); color:var(--ink); font-family:'Tajawal',sans-serif; font-size:14.5px; line-height:1.75;}
+  .wrap{max-width:980px; margin:0 auto; padding:0 26px 100px;}
+  h1,h2{font-family:'Alexandria',sans-serif;}
+  code{font-family:'IBM Plex Mono',monospace; font-size:.85em; direction:ltr; unicode-bidi:embed; background:var(--surface-variant); border-radius:5px; padding:1px 6px;}
+
+  .cover{padding:72px 0 44px; border-bottom:1px solid var(--outline-variant); margin-bottom:40px;}
+  .kicker{font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:2px; color:var(--primary);}
+  h1{font-size:40px; font-weight:800; margin:8px 0 6px;}
+  .cover p{max-width:640px; color:var(--muted); font-size:15.5px;}
+  .meta{display:flex; gap:24px; margin-top:22px; font-size:12.5px; color:var(--muted); flex-wrap:wrap;}
+  .meta b{color:var(--ink); display:block; font-size:14px;}
+
+  .howto{background:var(--tertiary-container); color:var(--on-tertiary-container); border-radius:14px; padding:14px 18px; font-size:13px; margin-bottom:44px;}
+  .howto b{font-weight:800;}
+
+  section{margin-bottom:46px;}
+  .sec{display:flex; align-items:baseline; gap:12px; border-bottom:2px solid var(--ink); padding-bottom:8px; margin-bottom:6px;}
+  .sec .num{font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--primary);}
+  .sec h2{font-size:21px; font-weight:800;}
+  .sec .q{margin-inline-start:auto; font-size:12px; color:var(--muted); font-style:normal;}
+  .sec-sub{color:var(--muted); font-size:13px; margin-bottom:18px;}
+
+  .rule{display:grid; grid-template-columns:64px 1fr; gap:14px; background:var(--surface); border:1px solid var(--outline-variant); border-radius:14px; padding:14px 16px; box-shadow:var(--e1); margin-bottom:10px;}
+  .rid{font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:700; color:var(--primary); padding-top:2px;}
+  .rule .txt b{display:block; font-size:14px; margin-bottom:2px;}
+  .rule .txt span{font-size:12.5px; color:var(--muted);}
+  .rule.hard{border-inline-start:4px solid var(--error);}
+  .rule.hard .rid{color:var(--error);}
+
+  .tagline{display:inline-block; font-size:10px; font-weight:800; border-radius:6px; padding:1px 8px; margin-inline-start:8px; vertical-align:2px;}
+  .tagline.must{background:#FCE3E0; color:#8A1D14;}
+
+  @media(max-width:640px){.rule{grid-template-columns:1fr;} h1{font-size:30px;}}
+  @media print{body{background:#fff;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="cover">
+  <div class="kicker">HOME CHEF APP · نظام سُمّاق v1.0</div>
+  <h1>قواعد التصميم</h1>
+  <p>نظام سُمّاق يعرّف الشكل («لون الزر سُمّاقي») — وهذه الوثيقة تعرّف الاستخدام («متى يُستخدم؟ وأين؟ وماذا يُمنع؟»). كل قاعدة لها رقم مرجعي يُستخدم في مراجعات التصميم والكود: تعليق مثل «مخالفة R-21» يكفي ليعرف الجميع المقصود. القاعدة المعلّمة بشريط أحمر <span class="tagline must">إلزامية</span> تعني أن مخالفتها ترفض الشاشة في الـ Review بلا نقاش.</p>
+  <div class="meta">
+    <div><b>القواعد</b>30 قاعدة في 8 فئات</div>
+    <div><b>المصدر</b>sumac_design_system.html</div>
+    <div><b>النطاق</b>تطبيقا الزبون والطباخة</div>
+  </div>
+</div>
+
+<div class="howto">🧭 <b>قاعدة الحسم عند أي خلاف:</b> الأكل هو البطل ← بيتي لا مصنعي ← قرار بأقل جهد. إذا تعارض حلّان وكلاهما ضمن القواعد، يفوز الأقرب لهذه المبادئ الثلاثة بالترتيب. وإذا احتجت قيمة غير موجودة في النظام (<code>Color(0xFF…)</code> أو مسافة جديدة) — توقّف: تُضاف كـ Token في سُمّاق أولاً ثم تُستخدم.</div>
+
+<!-- ============ 01 ============ -->
+<section>
+  <div class="sec"><span class="num">01</span><h2>التخطيط والبنية</h2><span class="q">أين يقف كل شيء؟</span></div>
+  <div class="rule hard"><div class="rid">R-01</div><div class="txt"><b>زر Primary ممتلئ واحد فقط في الشاشة</b><span>الفعل الرئيسي دائماً في أسفل الشاشة، وبعرض كامل في الشاشات المصيرية (تأكيد الطلب، إنشاء حساب، إضافة وجبة). أي فعل آخر: Outlined أو نصي.</span></div></div>
+  <div class="rule hard"><div class="rid">R-02</div><div class="txt"><b>عنوان الشاشة في الأعلى دائماً</b><span>بالوسط داخل الـ AppBar بنمط <code>headlineSmall</code>. لا عناوين شاشة وسط المحتوى — ترويسات الأقسام الداخلية شيء آخر ولها <code>SectionHeader</code>.</span></div></div>
+  <div class="rule hard"><div class="rid">R-03</div><div class="txt"><b>الـ Bottom Navigation في الشاشات الرئيسية فقط</b><span>عند الزبون: الرئيسية، السلة، طلباتي، حسابي. عند الطباخة: القائمة، الطلبات، العروض، حسابي. يختفي في شاشات التفاصيل والتدفقات (تفاصيل وجبة، تأكيد طلب، إضافة وجبة…) حيث يحلّ محله زر الرجوع والفعل الرئيسي.</span></div></div>
+  <div class="rule"><div class="rid">R-04</div><div class="txt"><b>أربع وجهات كحد أقصى في التنقل السفلي</b><span>الإشعارات مكانها جرس الـ AppBar، وليست وجهة خامسة.</span></div></div>
+  <div class="rule hard"><div class="rid">R-05</div><div class="txt"><b>لا مسافات خارج سلّم الـ 4pt</b><span>القيم المسموحة حصراً: 4 / 8 / 12 / 16 / 24 / 32. هوامش الشاشة 16، بين البطاقات 12، بين الأقسام 24، حشوة البطاقة 14 (<code>AppSpace</code>). لا 10px ولا 15px ولا «شوي لفوق».</span></div></div>
+  <div class="rule"><div class="rid">R-06</div><div class="txt"><b>ارتفاع موحّد للبطاقات المتجاورة</b><span>كل البطاقات من نفس النوع داخل نفس القائمة بارتفاع واحد — النص الطويل يُقتطع بـ <code>ellipsis</code> ولا يمدّد البطاقة.</span></div></div>
+</section>
+
+<!-- ============ 02 ============ -->
+<section>
+  <div class="sec"><span class="num">02</span><h2>الألوان والحالات</h2><span class="q">متى يُستخدم كل لون؟</span></div>
+  <div class="rule hard"><div class="rid">R-07</div><div class="txt"><b>السُمّاق يُستخدم بتقتير</b><span>ثلاثة مواضع فقط في الشاشة الواحدة: الزر الرئيسي، شارة الخصم، والحالة النشطة (chip مختار / تبويب نشط). إذا احتجت تمييزاً إضافياً استخدم <code>primaryContainer</code> الفاتح — لا لوناً جديداً.</span></div></div>
+  <div class="rule hard"><div class="rid">R-08</div><div class="txt"><b>فصل السُمّاق عن الخطأ: ممتلئ إيجابي / مفرّغ تدميري</b><span>اللونان أحمرا العائلة، لذلك يُمنع Primary لأي فعل تدميري. الحذف والرفض: <code>error</code> حصراً، بأسلوب Outlined ومع أيقونة. Primary يبقى للأفعال الإيجابية الممتلئة.</span></div></div>
+  <div class="rule hard"><div class="rid">R-09</div><div class="txt"><b>ألوان حالات الطلب من جدول واحد فقط</b><span>الستة المعتمدة في <code>OrderStatusColors</code>: بانتظار الموافقة (عسلي)، قيد التحضير وقيد التوصيل (أزرق)، جاهز للتوصيل (زعتري)، تم التسليم (أخضر)، مرفوض/ملغى (أحمر). اللون + النقطة + التسمية تظهر معاً دائماً وبنفس الترتيب في التطبيقين.</span></div></div>
+  <div class="rule"><div class="rid">R-10</div><div class="txt"><b>حالة «مرفوض» لا تظهر بلا سبب</b><span>دائماً مع السبب المرفق أو زر لعرضه. وحالة «قيد التوصيل» تعرض دائماً وقتاً تقديرياً.</span></div></div>
+  <div class="rule"><div class="rid">R-11</div><div class="txt"><b>لا أسود صافٍ ولا رمادي بارد</b><span>الحبر <code>#2A211A</code> والخلفية <code>#FBF7F1</code> والظلال دافئة اللون (<code>rgba(43,33,26,…)</code>) — ظل رمادي على خلفية طحينية يبدو متسخاً.</span></div></div>
+  <div class="rule"><div class="rid">R-12</div><div class="txt"><b>الوضع الداكن دافئ لا رمادي</b><span>الخلفية بنية-قهوية <code>#1E1712</code>، الألوان تفتح درجتين لتباين AA، الظلال تُستبدل بحدود <code>#3A2F26</code>، وصور الوجبات تُغطى بطبقة <code>black 8%</code> لتخفيف الوهج.</span></div></div>
+  <div class="rule"><div class="rid">R-13</div><div class="txt"><b>شارة الخصم سُمّاقية وموضعها ثابت</b><span>أعلى يسار صورة الوجبة دائماً، وشارة التقييم عسلية أعلى اليمين. لا تتبادلان المواضع ولا الألوان.</span></div></div>
+</section>
+
+<!-- ============ 03 ============ -->
+<section>
+  <div class="sec"><span class="num">03</span><h2>النصوص والأرقام</h2><span class="q">كيف نكتب؟</span></div>
+  <div class="rule hard"><div class="rid">R-14</div><div class="txt"><b>لا نص إنجليزي في الواجهة</b><span>إلا رموز الوحدات والأرقام. أسماء الشاشات والأزرار والرسائل عربية بالكامل وبنبرة ودّية مباشرة («صحتين!»، «وصل طلبك»).</span></div></div>
+  <div class="rule hard"><div class="rid">R-15</div><div class="txt"><b>الأسعار والكميات والأوقات بأرقام لاتينية (123)</b><span>أوضح للمسح البصري وموحّدة مع الفواتير، وبنمط <code>AppText.price</code> حصراً للأسعار. النص الجاري يبقى عربياً.</span></div></div>
+  <div class="rule"><div class="rid">R-16</div><div class="txt"><b>Alexandria للعناوين، Tajawal للنصوص — بلا استثناء</b><span>لا خط ثالث، ولا استخدام خط العناوين في فقرات أو العكس. المستويات الثمانية في سُمّاق هي كل المسموح.</span></div></div>
+  <div class="rule"><div class="rid">R-17</div><div class="txt"><b>رسائل الخطأ محددة وقابلة للتنفيذ</b><span>«كلمة المرور 8 محارف على الأقل» لا «إدخال خاطئ». الرسالة تحت الحقل مباشرة وبلون الخطأ، بلا اعتذارات وبلا غموض.</span></div></div>
+</section>
+
+<!-- ============ 04 ============ -->
+<section>
+  <div class="sec"><span class="num">04</span><h2>الأزرار والأفعال</h2><span class="q">متى يُضغط ماذا؟</span></div>
+  <div class="rule hard"><div class="rid">R-18</div><div class="txt"><b>كل عنصر تفاعلي ≥ 48px منطقة لمس</b><span>الأزرار ارتفاعها 48 ثابت، والأيقونات الصغيرة (تعديل/حذف/مفضلة) تُرسم أصغر لكن منطقة لمسها 48 كاملة.</span></div></div>
+  <div class="rule hard"><div class="rid">R-19</div><div class="txt"><b>كل فعل له ردّ خلال 100ms</b><span>ضغطة زر = تغيّر فوري: حالة loading، أو Snackbar، أو انتقال. أثناء التحميل يُعطَّل الزر ويظهر مؤشر دوّار مكان النص — لا ضغطات مزدوجة ممكنة.</span></div></div>
+  <div class="rule"><div class="rid">R-20</div><div class="txt"><b>التدميري ليس الافتراضي أبداً</b><span>في أي Dialog حذف/رفض: زر الإلغاء نصي بجانب التدميري، والتركيز الافتراضي على الإلغاء. عنوان الحوار يسمّي الشيء المحذوف بالاسم («حذف كبسة دجاج؟») ونصّه يشرح العاقبة الفعلية.</span></div></div>
+</section>
+
+<!-- ============ 05 ============ -->
+<section>
+  <div class="sec"><span class="num">05</span><h2>الحقول والإدخال</h2></div>
+  <div class="rule"><div class="rid">R-21</div><div class="txt"><b>الـ Label يطفو ولا يختفي</b><span>لا placeholders تختفي عند الكتابة — التسمية تصعد فوق الحد وتبقى ظاهرة. حقول كلمات المرور مع 👁 دائماً.</span></div></div>
+  <div class="rule"><div class="rid">R-22</div><div class="txt"><b>الحقول الشرطية تنزلق ولا تقفز</b><span>حقلا الطباخة عند التسجيل، تاريخ ووقت الجدولة، سبب الرفض — كلها تظهر بحركة انزلاق 200ms داخل إطار متقطّع يوضّح شرط ظهورها.</span></div></div>
+  <div class="rule"><div class="rid">R-23</div><div class="txt"><b>الاختيار المفرد Chips والمتعدد Filter Chips</b><span>الحجم/خيارات التوصيل = ChoiceChips (المختار ممتلئ سُمّاق)، الأصناف والفلاتر = FilterChips. الـ Switch الأخضر = تشغيل (حالة البيع، خيارات الأسعار).</span></div></div>
+</section>
+
+<!-- ============ 06 ============ -->
+<section>
+  <div class="sec"><span class="num">06</span><h2>البطاقات والمحتوى</h2><span class="q">الأكل هو البطل</span></div>
+  <div class="rule hard"><div class="rid">R-24</div><div class="txt"><b>لا زر «أضف للسلة» خارج تفاصيل الوجبة</b><span>قرار معتمد ومطبّق في الـ wireframes: بطاقة الوجبة كلها قابلة للنقر وتفتح التفاصيل، والإضافة للسلة من هناك حصراً (U02).</span></div></div>
+  <div class="rule hard"><div class="rid">R-25</div><div class="txt"><b>صور الوجبات 4:3 في كل السياقات</b><span>بطاقة، قائمة، تفاصيل، سلة — نفس النسبة. الصور الشخصية دائرية دائماً. لا استثناءات تكسر إيقاع الشبكة.</span></div></div>
+  <div class="rule hard"><div class="rid">R-26</div><div class="txt"><b>الوجبة المحذوفة لا تختفي من السلة وحدها (وفق S5)</b><span>تُعلَّم: صورة رمادية + تنبيه أحمر «لم تعد متوفرة — حُذفت من قبل الطباخة» + زر إزالة. الزبون هو من يزيلها، ثم يُعاد حساب المجموع.</span></div></div>
+  <div class="rule"><div class="rid">R-27</div><div class="txt"><b>ترتيب محتوى بطاقة الوجبة ثابت</b><span>اسم ← طباخة ← أوقات (تحضير + «اطلب قبل») ← سعر. السعر القديم مشطوباً بجانب الجديد عند الخصم.</span></div></div>
+</section>
+
+<!-- ============ 07 ============ -->
+<section>
+  <div class="sec"><span class="num">07</span><h2>الطبقات العائمة</h2><span class="q">متى Sheet ومتى Dialog؟</span></div>
+  <div class="rule"><div class="rid">R-28</div><div class="txt"><b>إدخال سريع = Bottom Sheet · قرار خطر = Dialog</b><span>الملاحظة على الوجبة، اختيار نوع العرض ← Sheet بزوايا 24 ومقبض سحب. الحذف، الرفض، إلغاء الطلب ← Dialog وسطي وفق R-20.</span></div></div>
+</section>
+
+<!-- ============ 08 ============ -->
+<section style="margin-bottom:0;">
+  <div class="sec"><span class="num">08</span><h2>التحميل والفراغ والوصولية</h2></div>
+  <div class="rule hard"><div class="rid">R-29</div><div class="txt"><b>Skeleton لا Spinner، ودعوة لا فراغ</b><span>التحميل = هيكل بشكل المحتوى القادم — يُمنع Spinner وسط شاشة فارغة. الشاشة الفارغة = رسم + جملة ودّية + زر فعل («سلتك فاضية — تصفّح الوجبات»)، لا نص يتيم.</span></div></div>
+  <div class="rule hard"><div class="rid">R-30</div><div class="txt"><b>RTL أولاً وتباين AA دائماً</b><span>كل شيء يُبنى بـ <code>EdgeInsetsDirectional</code> والأسهم والأيقونات الاتجاهية تنقلب تلقائياً. تباين النص الأساسي ≥ 4.5:1 والكبير ≥ 3:1 — لوحة سُمّاق محسوبة لتحققها، فلا تعدّل درجات الألوان يدوياً.</span></div></div>
+</section>
+
+</div>
+</body>
+</html>

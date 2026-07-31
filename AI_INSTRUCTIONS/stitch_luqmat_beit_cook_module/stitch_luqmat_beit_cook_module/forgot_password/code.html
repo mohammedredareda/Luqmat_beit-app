@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Forgot Password - Luqmat Beit</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;700;800&amp;family=Tajawal:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error": "#ffffff",
+                        "surface-variant": "#f0dfd4",
+                        "primary-fixed": "#ffdad5",
+                        "tertiary-container": "#825100",
+                        "on-primary-fixed-variant": "#8a1c13",
+                        "primary": "#871a11",
+                        "zaatar-container": "#E4EDD3",
+                        "on-secondary-fixed-variant": "#374d12",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-container": "#ffcc91",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-container": "#546c2e",
+                        "outline": "#D9CEC1",
+                        "inverse-primary": "#ffb4a9",
+                        "inverse-surface": "#382e27",
+                        "honey-container": "#F7E7CC",
+                        "surface-dim": "#e8d7cc",
+                        "on-secondary-fixed": "#121f00",
+                        "muted-spice": "#71655B",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "surface-bright": "#fff8f5",
+                        "secondary-fixed-dim": "#b4d086",
+                        "error-container": "#ffdad6",
+                        "surface-container-highest": "#f0dfd4",
+                        "honey-tertiary": "#B97A1E",
+                        "sumac-primary": "#A83226",
+                        "on-surface-variant": "#58413e",
+                        "primary-fixed-dim": "#ffb4a9",
+                        "ink-text": "#2A211A",
+                        "surface-container-high": "#f6e5da",
+                        "outline-variant": "#e0bfba",
+                        "tertiary-fixed": "#ffddb8",
+                        "on-tertiary-fixed": "#2a1700",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed": "#d0eda0",
+                        "on-primary-container": "#ffc9c0",
+                        "surface-tint": "#ab3428",
+                        "tertiary": "#623c00",
+                        "sumac-container": "#FADDD7",
+                        "on-primary-fixed": "#410000",
+                        "surface-container": "#fcebdf",
+                        "on-background": "#221a13",
+                        "primary-container": "#a83226",
+                        "surface": "#FFFFFF",
+                        "surface-container-low": "#fff1e8",
+                        "zaatar-secondary": "#5A7233",
+                        "secondary-container": "#d0eda0",
+                        "tahini-bg": "#FBF7F1",
+                        "inverse-on-surface": "#ffeee2",
+                        "surface-container-lowest": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-surface": "#221a13",
+                        "background": "#fff8f5",
+                        "on-primary": "#ffffff",
+                        "secondary": "#4e6628"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "24px",
+                        "gutter": "16px",
+                        "card-padding": "14px",
+                        "lg": "16px",
+                        "xxl": "32px",
+                        "sm": "8px",
+                        "md": "12px",
+                        "base": "4px",
+                        "xs": "4px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Tajawal"],
+                        "body-lg": ["Tajawal"],
+                        "price-display": ["Tajawal"],
+                        "display-lg": ["Alexandria"],
+                        "label-lg": ["Tajawal"],
+                        "title-lg": ["Alexandria"],
+                        "body-sm": ["Tajawal"],
+                        "headline-md": ["Alexandria"],
+                        "headline-sm": ["Alexandria"]
+                    },
+                    "fontSize": {
+                        "body-md": ["14px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-lg": ["15.5px", { "lineHeight": "26px", "fontWeight": "500" }],
+                        "price-display": ["16px", { "lineHeight": "20px", "fontWeight": "800" }],
+                        "display-lg": ["40px", { "lineHeight": "48px", "fontWeight": "800" }],
+                        "label-lg": ["14px", { "lineHeight": "20px", "fontWeight": "700" }],
+                        "title-lg": ["17px", { "lineHeight": "22px", "fontWeight": "700" }],
+                        "body-sm": ["12.5px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "headline-md": ["22px", { "lineHeight": "28px", "fontWeight": "700" }],
+                        "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: theme('colors.tahini-bg');
+            color: theme('colors.on-background');
+        }
+        h1, h2, h3, h4, h5, h6, .font-headline-sm, .font-headline-md, .font-display-lg, .font-title-lg {
+            font-family: 'Alexandria', sans-serif;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="min-h-screen flex flex-col items-center justify-center bg-tahini-bg p-lg">
+<!-- Main Container -->
+<main class="w-full max-w-md flex flex-col gap-xl">
+<!-- Top App Bar (Simplified for Transactional Screen) -->
+<header class="flex justify-between items-center w-full px-lg py-md h-16 bg-tahini-bg">
+<button aria-label="Go back" class="text-sumac-primary hover:opacity-80 transition-opacity active:scale-95 duration-200 p-sm rounded-full bg-surface-container-low shadow-[0_2px_10px_rgba(43,33,26,0.08)]">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">arrow_forward</span>
+</button>
+<div class="font-headline-sm text-headline-sm font-bold text-sumac-primary">Luqmat Beit</div>
+<div class="w-10"></div> <!-- Spacer for centering -->
+</header>
+<!-- Content Canvas -->
+<section class="bg-surface rounded-xl shadow-[0_2px_10px_rgba(43,33,26,0.08)] p-xl flex flex-col gap-lg">
+<!-- Logo Placeholder -->
+<div class="flex justify-center mb-md">
+<div class="w-24 h-24 rounded-full bg-sumac-container flex items-center justify-center shadow-lg">
+<span class="material-symbols-outlined text-sumac-primary text-[48px]" style="font-variation-settings: 'FILL' 1;">lock_reset</span>
+</div>
+</div>
+<!-- Headline and Body -->
+<div class="text-center flex flex-col gap-sm">
+<h1 class="font-headline-md text-headline-md text-ink-text">نسيت كلمة المرور؟</h1>
+<p class="font-body-lg text-body-lg text-muted-spice">أدخل رقم هاتفك لإعادة تعيين كلمة المرور الخاصة بك.</p>
+</div>
+<!-- Form -->
+<form class="flex flex-col gap-lg mt-md" onsubmit="event.preventDefault();">
+<!-- Phone Number Input -->
+<div class="flex flex-col gap-base">
+<label class="font-label-lg text-label-lg text-muted-spice" for="phone">رقم الهاتف</label>
+<div class="flex flex-row-reverse border-[1.5px] border-outline rounded-lg focus-within:border-sumac-primary overflow-hidden transition-colors">
+<div class="flex items-center justify-center bg-surface-container-low px-md border-l-[1.5px] border-outline text-ink-text font-body-lg text-body-lg" dir="ltr">
+                            +966
+                        </div>
+<input class="w-full border-none focus:ring-0 px-md py-sm font-body-lg text-body-lg text-ink-text placeholder:text-outline text-right" dir="ltr" id="phone" name="phone" placeholder="5X XXX XXXX" required="" type="tel"/>
+</div>
+</div>
+<!-- Action Button -->
+<button class="w-full bg-sumac-primary text-on-primary font-label-lg text-label-lg h-12 rounded-lg hover:opacity-90 active:scale-95 transition-all duration-200 mt-md shadow-[0_4px_12px_rgba(43,33,26,0.15)] flex items-center justify-center gap-sm" type="submit">
+                    متابعة
+                    <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 0;">arrow_back</span>
+</button>
+</form>
+</section>
+</main>
+</body></html>

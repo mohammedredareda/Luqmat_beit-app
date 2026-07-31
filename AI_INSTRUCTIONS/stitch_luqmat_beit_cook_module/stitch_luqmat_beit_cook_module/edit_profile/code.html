@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>تعديل الملف الشخصي - Luqmat Beit</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Alexandria for Display/Headings, Tajawal for Body -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;700;800&amp;family=Tajawal:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed-dim": "#b4d086",
+                        "surface-tint": "#ab3428",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "tahini-bg": "#FBF7F1",
+                        "error": "#ba1a1a",
+                        "on-tertiary": "#ffffff",
+                        "primary-container": "#a83226",
+                        "inverse-surface": "#382e27",
+                        "surface-container": "#fcebdf",
+                        "primary": "#871a11",
+                        "on-tertiary-container": "#ffcc91",
+                        "sumac-container": "#FADDD7",
+                        "on-primary-fixed-variant": "#8a1c13",
+                        "zaatar-container": "#E4EDD3",
+                        "on-error-container": "#93000a",
+                        "on-error": "#ffffff",
+                        "zaatar-secondary": "#5A7233",
+                        "secondary-container": "#d0eda0",
+                        "on-primary-container": "#ffc9c0",
+                        "secondary-fixed": "#d0eda0",
+                        "primary-fixed-dim": "#ffb4a9",
+                        "surface-container-low": "#fff1e8",
+                        "surface-container-high": "#f6e5da",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed": "#121f00",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "on-background": "#221a13",
+                        "honey-tertiary": "#B97A1E",
+                        "surface": "#FFFFFF",
+                        "on-secondary-container": "#546c2e",
+                        "on-secondary-fixed-variant": "#374d12",
+                        "surface-container-highest": "#f0dfd4",
+                        "ink-text": "#2A211A",
+                        "honey-container": "#F7E7CC",
+                        "tertiary-fixed": "#ffddb8",
+                        "on-tertiary-fixed": "#2a1700",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed": "#410000",
+                        "inverse-on-surface": "#ffeee2",
+                        "secondary": "#4e6628",
+                        "surface-dim": "#e8d7cc",
+                        "outline": "#D9CEC1",
+                        "on-surface-variant": "#58413e",
+                        "sumac-primary": "#A83226",
+                        "tertiary-container": "#825100",
+                        "outline-variant": "#e0bfba",
+                        "muted-spice": "#71655B",
+                        "on-secondary": "#ffffff",
+                        "inverse-primary": "#ffb4a9",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface": "#221a13",
+                        "primary-fixed": "#ffdad5",
+                        "surface-variant": "#f0dfd4",
+                        "background": "#fff8f5",
+                        "tertiary": "#623c00",
+                        "surface-bright": "#fff8f5"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sm": "8px",
+                        "md": "12px",
+                        "base": "4px",
+                        "xs": "4px",
+                        "lg": "16px",
+                        "card-padding": "14px",
+                        "gutter": "16px",
+                        "xxl": "32px",
+                        "xl": "24px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Alexandria"],
+                        "headline-sm": ["Alexandria"],
+                        "body-sm": ["Tajawal"],
+                        "label-lg": ["Tajawal"],
+                        "price-display": ["Tajawal"],
+                        "body-md": ["Tajawal"],
+                        "headline-md": ["Alexandria"],
+                        "body-lg": ["Tajawal"],
+                        "title-lg": ["Alexandria"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["40px", {"lineHeight": "48px", "fontWeight": "800"}],
+                        "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "700"}],
+                        "body-sm": ["12.5px", {"lineHeight": "18px", "fontWeight": "400"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "fontWeight": "700"}],
+                        "price-display": ["16px", {"lineHeight": "20px", "fontWeight": "800"}],
+                        "body-md": ["14px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-md": ["22px", {"lineHeight": "28px", "fontWeight": "700"}],
+                        "body-lg": ["15.5px", {"lineHeight": "26px", "fontWeight": "500"}],
+                        "title-lg": ["17px", {"lineHeight": "22px", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Custom scrollbar for a cleaner look */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #D9CEC1; /* outline color */
+            border-radius: 10px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-tahini-bg text-on-background font-body-md antialiased min-h-screen flex flex-col selection:bg-sumac-container selection:text-sumac-primary">
+<!-- TopAppBar (Shared Component) -->
+<!-- Applying exact style keys from JSON -->
+<header class="flex justify-between items-center w-full px-lg py-md h-16 bg-tahini-bg dark:bg-on-background docked full-width top-0 sticky z-50">
+<!-- Leading Icon -->
+<button aria-label="Go back" class="active:scale-95 transition-transform duration-200 hover:opacity-80 transition-opacity text-sumac-primary dark:text-primary-fixed-dim p-sm rounded-full hover:bg-surface-container-low" data-icon="arrow_back" type="button">
+<!-- Rotated 180 for RTL semantic correctness while keeping exact JSON icon name -->
+<span class="material-symbols-outlined transform rotate-180">arrow_back</span>
+</button>
+<!-- Headline -->
+<div class="font-headline-sm text-headline-sm font-bold text-sumac-primary dark:text-primary-fixed-dim text-center flex-1">
+            Luqmat Beit
+        </div>
+<!-- Trailing Icon -->
+<button aria-label="Notifications" class="active:scale-95 transition-transform duration-200 hover:opacity-80 transition-opacity text-muted-spice dark:text-outline p-sm rounded-full hover:bg-surface-container-low" data-icon="notifications" type="button">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<!-- Suppressing BottomNavBar as this is a task-focused sub-page -->
+<main class="flex-1 w-full max-w-md mx-auto px-lg pt-md pb-xxl flex flex-col">
+<!-- Page Header -->
+<h1 class="font-headline-md text-headline-md text-ink-text mb-xl text-center">تعديل الملف الشخصي</h1>
+<!-- Form Container -->
+<form class="flex flex-col gap-xl flex-1 relative">
+<!-- Avatar Picker (Top) -->
+<div class="flex flex-col items-center justify-center gap-md">
+<div class="relative group cursor-pointer">
+<!-- Image Container -->
+<div class="w-28 h-28 rounded-full bg-surface-container-high border-[1.5px] border-outline-variant overflow-hidden flex items-center justify-center shadow-sm transition-transform duration-200 group-hover:scale-105">
+<img alt="Profile Picture" class="w-full h-full object-cover" data-alt="A close-up portrait of a professional Middle Eastern home cook, smiling warmly. The lighting is soft and bright, capturing a clean, modern aesthetic indicative of a high-quality culinary service. Neutral warm background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2rno2ImOcVo5SBbAIBDt3NzXb71mD-vXqPdtja8967NDL99l32UIEqfVIJZR9Uh_ispKADqYPpryasNE15ZltT3eS8HB1LzdTN33cuu6LUdyQYL4hjEqjQIFAjb07nh6UiBxcM9--EI_WVtZ8gbShCsX1qwf0PQUYfQfMddRsArzusbZUvf9KBZKpiFDMD1oTaUx0m597s0sIGi9_s2rE_Gfpjfi9y238MvESUopE9eSeHu7cU7d4TwOsW4YiKNMtXxH5k-Pd2Fw"/>
+</div>
+<!-- Edit Overlay/Badge -->
+<div class="absolute bottom-0 right-0 bg-sumac-primary text-on-primary w-8 h-8 rounded-full flex items-center justify-center shadow-md border-2 border-tahini-bg group-hover:bg-primary-container group-hover:text-on-primary-fixed-variant transition-colors">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</div>
+</div>
+<span class="font-label-lg text-label-lg text-sumac-primary cursor-pointer hover:underline">تغيير الصورة</span>
+</div>
+<!-- Fields Container -->
+<div class="flex flex-col gap-lg mt-md">
+<!-- Full Name Field -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-lg text-label-lg text-muted-spice" for="fullName">الاسم الكامل</label>
+<div class="relative">
+<input class="w-full h-[48px] px-lg rounded-lg border-[1.5px] border-outline bg-surface text-ink-text font-body-lg focus:outline-none focus:border-sumac-primary focus:ring-1 focus:ring-sumac-primary transition-colors shadow-sm placeholder:text-outline-variant" id="fullName" placeholder="أدخل اسمك الكامل" type="text" value="سارة أحمد"/>
+<div class="absolute left-4 top-1/2 -translate-y-1/2 text-muted-spice opacity-50">
+<span class="material-symbols-outlined text-[20px]">person</span>
+</div>
+</div>
+</div>
+<!-- Phone Number Field -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-lg text-label-lg text-muted-spice" for="phone">رقم الهاتف</label>
+<div class="relative flex items-center">
+<input class="w-full h-[48px] px-lg rounded-lg border-[1.5px] border-outline bg-surface text-ink-text font-body-lg focus:outline-none focus:border-sumac-primary focus:ring-1 focus:ring-sumac-primary transition-colors shadow-sm text-left placeholder:text-outline-variant placeholder:text-right" dir="ltr" id="phone" placeholder="رقم الهاتف" type="tel" value="+962 79 123 4567"/>
+<div class="absolute right-4 top-1/2 -translate-y-1/2 text-muted-spice opacity-50 flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">call</span>
+</div>
+</div>
+</div>
+<!-- Address Field -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-lg text-label-lg text-muted-spice" for="address">العنوان</label>
+<div class="relative">
+<textarea class="w-full py-md px-lg rounded-lg border-[1.5px] border-outline bg-surface text-ink-text font-body-lg focus:outline-none focus:border-sumac-primary focus:ring-1 focus:ring-sumac-primary transition-colors shadow-sm resize-none placeholder:text-outline-variant" id="address" placeholder="أدخل عنوانك بالتفصيل" rows="3">عمان، دابوق، شارع الملك عبد الله الثاني، عمارة 15</textarea>
+<div class="absolute left-4 top-4 text-muted-spice opacity-50">
+<span class="material-symbols-outlined text-[20px]">location_on</span>
+</div>
+</div>
+</div>
+<!-- Availability Schedule Field (TextField acting as a picker trigger) -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-lg text-label-lg text-muted-spice" for="availability">أوقات التوفر</label>
+<div class="relative cursor-pointer group">
+<input class="w-full h-[48px] px-lg rounded-lg border-[1.5px] border-outline bg-surface text-ink-text font-body-lg focus:outline-none group-hover:border-sumac-primary transition-colors shadow-sm cursor-pointer truncate pr-4 pl-12" id="availability" placeholder="اختر أوقات التوفر" readonly="" type="text" value="الأحد - الخميس (10:00 ص - 6:00 م)"/>
+<div class="absolute left-4 top-1/2 -translate-y-1/2 text-sumac-primary bg-surface-container-low p-1 rounded-md group-hover:bg-sumac-container transition-colors">
+<span class="material-symbols-outlined text-[20px]">calendar_month</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Actions -->
+<div class="mt-auto pt-xl flex flex-col gap-md sticky bottom-4">
+<!-- Primary Button -->
+<button class="w-full h-[48px] bg-sumac-primary text-on-primary font-label-lg rounded-lg shadow-md hover:bg-primary-container hover:text-on-primary-fixed-variant hover:shadow-lg active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-sm" type="submit">
+<span class="material-symbols-outlined text-[20px]">save</span>
+                    حفظ التغييرات
+                </button>
+<!-- Text Button (Secondary/Cancel) -->
+<button class="w-full h-[48px] bg-transparent text-sumac-primary font-label-lg rounded-lg hover:bg-surface-container-highest active:scale-[0.98] transition-all duration-200 flex items-center justify-center" type="button">
+                    إلغاء
+                </button>
+</div>
+</form>
+</main>
+</body></html>

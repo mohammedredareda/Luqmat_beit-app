@@ -1,0 +1,360 @@
+<!DOCTYPE html><html dir="rtl" lang="ar" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>إنشاء خصم جديد - Luqmat Beit</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;700;800&amp;family=Tajawal:wght@400;500;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
+        [data-icon]::before {
+            content: attr(data-icon);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-on-surface": "#ffeee2",
+                        "surface-container-lowest": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-primary": "#ffffff",
+                        "on-surface": "#221a13",
+                        "background": "#fff8f5",
+                        "secondary": "#4e6628",
+                        "surface-container-low": "#fff1e8",
+                        "secondary-container": "#d0eda0",
+                        "zaatar-secondary": "#5A7233",
+                        "tahini-bg": "#FBF7F1",
+                        "surface-tint": "#ab3428",
+                        "on-primary-container": "#ffc9c0",
+                        "on-background": "#221a13",
+                        "surface-container": "#fcebdf",
+                        "tertiary": "#623c00",
+                        "sumac-container": "#FADDD7",
+                        "on-primary-fixed": "#410000",
+                        "primary-container": "#a83226",
+                        "surface": "#FFFFFF",
+                        "outline-variant": "#e0bfba",
+                        "tertiary-fixed": "#ffddb8",
+                        "secondary-fixed": "#d0eda0",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-fixed": "#2a1700",
+                        "surface-container-highest": "#f0dfd4",
+                        "error-container": "#ffdad6",
+                        "honey-tertiary": "#B97A1E",
+                        "on-surface-variant": "#58413e",
+                        "sumac-primary": "#A83226",
+                        "surface-container-high": "#f6e5da",
+                        "ink-text": "#2A211A",
+                        "primary-fixed-dim": "#ffb4a9",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "surface-bright": "#fff8f5",
+                        "secondary-fixed-dim": "#b4d086",
+                        "on-tertiary-container": "#ffcc91",
+                        "on-tertiary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "inverse-surface": "#382e27",
+                        "outline": "#D9CEC1",
+                        "inverse-primary": "#ffb4a9",
+                        "on-secondary-container": "#546c2e",
+                        "honey-container": "#F7E7CC",
+                        "muted-spice": "#71655B",
+                        "surface-dim": "#e8d7cc",
+                        "on-secondary-fixed": "#121f00",
+                        "on-error": "#ffffff",
+                        "tertiary-container": "#825100",
+                        "surface-variant": "#f0dfd4",
+                        "primary-fixed": "#ffdad5",
+                        "on-primary-fixed-variant": "#8a1c13",
+                        "zaatar-container": "#E4EDD3",
+                        "on-secondary-fixed-variant": "#374d12",
+                        "primary": "#871a11"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "16px",
+                        "base": "4px",
+                        "xxl": "32px",
+                        "sm": "8px",
+                        "md": "12px",
+                        "xs": "4px",
+                        "xl": "24px",
+                        "gutter": "16px",
+                        "card-padding": "14px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Alexandria"],
+                        "title-lg": ["Alexandria"],
+                        "body-sm": ["Tajawal"],
+                        "headline-sm": ["Alexandria"],
+                        "label-lg": ["Tajawal"],
+                        "display-lg": ["Alexandria"],
+                        "price-display": ["Tajawal"],
+                        "body-md": ["Tajawal"],
+                        "body-lg": ["Tajawal"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["22px", { "lineHeight": "28px", "fontWeight": "700" }],
+                        "title-lg": ["17px", { "lineHeight": "22px", "fontWeight": "700" }],
+                        "body-sm": ["12.5px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "700" }],
+                        "label-lg": ["14px", { "lineHeight": "20px", "fontWeight": "700" }],
+                        "display-lg": ["40px", { "lineHeight": "48px", "fontWeight": "800" }],
+                        "price-display": ["16px", { "lineHeight": "20px", "fontWeight": "800" }],
+                        "body-md": ["14px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-lg": ["15.5px", { "lineHeight": "26px", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-tahini-bg min-h-screen font-body-md text-ink-text antialiased">
+<!-- TopAppBar -->
+<header class="docked full-width top-0 bg-tahini-bg dark:bg-on-background flat no shadows flex justify-between items-center w-full px-lg py-md h-16 sticky z-50">
+<button aria-label="العودة" class="text-sumac-primary dark:text-primary-fixed-dim hover:opacity-80 transition-opacity active:scale-95 transition-transform duration-200 p-sm">
+<span class="material-symbols-outlined" data-icon="arrow_forward"></span>
+</button>
+<h1 class="font-headline-sm text-headline-sm font-bold text-sumac-primary dark:text-primary-fixed-dim truncate px-4">إنشاء خصم جديد</h1>
+<button aria-label="الإشعارات" class="text-sumac-primary dark:text-primary-fixed-dim hover:opacity-80 transition-opacity active:scale-95 transition-transform duration-200 p-sm">
+<span class="material-symbols-outlined" data-icon="notifications"></span>
+</button>
+</header>
+<main class="max-w-2xl mx-auto p-lg pb-32">
+<div class="bg-surface rounded-xl shadow-[0_2px_8px_rgba(43,33,26,0.04)] p-lg space-y-xl">
+<!-- Section: Discount Details -->
+<div class="space-y-lg">
+<h2 class="font-title-lg text-title-lg text-ink-text mb-sm">تفاصيل الخصم</h2><div class="mb-lg">
+<label class="block font-label-lg text-label-lg text-muted-spice mb-sm" for="mealSelect">الوجبة <span class="text-error">*</span></label>
+<div class="relative">
+<select class="w-full h-12 px-md border-1.5 border-outline rounded-lg bg-surface text-ink-text appearance-none focus:outline-none focus:border-sumac-primary focus:ring-1 focus:ring-sumac-primary transition-colors font-body-md" id="mealSelect">
+<option disabled="" selected="" value="">اختر الوجبة</option>
+<option value="1">وجبة شاورما دجاج</option>
+<option value="2">وجبة برجر لحم</option>
+<option value="3">صحن كبسة</option>
+</select>
+<span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 pointer-events-none text-muted-spice" data-icon="expand_more"></span>
+</div>
+</div>
+<!-- Field 1: Name -->
+<div>
+
+
+<p class="hidden font-body-sm text-body-sm text-error mt-sm flex items-center gap-1" id="nameError"><span class="material-symbols-outlined text-[16px]" data-icon="error"></span> يرجى إدخال اسم الخصم</p>
+</div>
+<!-- Field 2 & 3: Percentage and Result -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+<div>
+<label class="block font-label-lg text-label-lg text-muted-spice mb-sm" for="discountPercent">نسبة الخصم (%) <span class="text-error">*</span></label>
+<div class="relative">
+<input class="w-full h-12 px-md border-1.5 border-outline rounded-lg bg-surface text-ink-text placeholder-muted-spice focus:outline-none focus:border-sumac-primary focus:ring-1 focus:ring-sumac-primary transition-colors font-body-md pr-10" id="discountPercent" max="100" min="0" placeholder="0" type="number">
+<span class="absolute right-md top-1/2 -translate-y-1/2 text-muted-spice font-body-md">%</span>
+</div>
+<p class="hidden font-body-sm text-body-sm text-error mt-sm flex items-center gap-1" id="percentError"><span class="material-symbols-outlined text-[16px]" data-icon="error"></span> النسبة يجب أن تكون بين 0 و 100</p>
+</div>
+<div>
+<label class="block font-label-lg text-label-lg text-muted-spice mb-sm" for="finalPrice">السعر بعد الخصم (مثال لـ 100 ر.س)</label>
+<div class="w-full h-12 px-md border-1.5 border-surface-variant rounded-lg bg-surface-container-low text-muted-spice flex items-center font-price-display text-price-display cursor-not-allowed">
+<span class="" id="finalPriceValue">100</span> <span class="mr-1 text-sm font-body-sm">ر.س</span>
+</div>
+</div>
+</div>
+</div>
+<hr class="border-outline-variant opacity-50">
+<!-- Section: Restriction Type -->
+<div class="space-y-lg">
+<h2 class="font-title-lg text-title-lg text-ink-text mb-sm">تحديد نوع القيد</h2><div class="mb-lg">
+
+<div class="relative">
+
+<span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 pointer-events-none text-muted-spice" data-icon="expand_more"></span>
+</div>
+</div>
+<!-- Segmented Control -->
+<div class="flex bg-surface-container-low p-1 rounded-lg gap-1">
+<button class="flex-1 py-2 font-label-lg text-label-lg rounded-md transition-colors bg-surface text-sumac-primary shadow-[0_1px_3px_rgba(43,33,26,0.1)]" id="btnDuration" type="button">المدة بالأيام</button>
+<button class="flex-1 py-2 font-label-lg text-label-lg rounded-md transition-colors text-muted-spice hover:bg-surface-container-high hover:text-ink-text" id="btnUsage" type="button">عدد مرات الاستخدام</button>
+</div>
+<!-- Duration Fields -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-lg transition-all duration-300 opacity-100" id="durationFields">
+<div>
+<label class="block font-label-lg text-label-lg text-muted-spice mb-sm" for="startDate">عدد الأيام</label>
+<input class="w-full h-12 px-md border-1.5 border-outline rounded-lg bg-surface text-ink-text placeholder-muted-spice focus:outline-none focus:border-sumac-primary focus:ring-1 focus:ring-sumac-primary transition-colors font-body-md" id="startDate" min="1" placeholder="مثال: 7 أيام" type="number">
+</div>
+<div>
+</div>
+<p class="hidden col-span-full font-body-sm text-body-sm text-error mt-sm flex items-center gap-1" id="dateError"><span class="material-symbols-outlined text-[16px]" data-icon="error"></span> تاريخ الانتهاء يجب أن يكون بعد تاريخ البدء</p>
+</div>
+<!-- Usage Fields -->
+<div class="hidden transition-all duration-300 opacity-0" id="usageFields">
+<label class="block font-label-lg text-label-lg text-muted-spice mb-sm" for="usageLimit">أقصى عدد للاستخدام</label>
+<input class="w-full h-12 px-md border-1.5 border-outline rounded-lg bg-surface text-ink-text placeholder-muted-spice focus:outline-none focus:border-sumac-primary focus:ring-1 focus:ring-sumac-primary transition-colors font-body-md" id="usageLimit" min="1" placeholder="مثال: 50" type="number">
+</div>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="mt-xl flex flex-col md:flex-row gap-md">
+<button class="w-full md:flex-1 h-12 bg-sumac-primary hover:bg-primary text-on-primary font-label-lg text-label-lg rounded-lg shadow-md hover:shadow-lg active:scale-95 transition-all duration-200" id="saveBtn" type="button">حفظ الخصم</button>
+<button class="w-full md:w-auto h-12 px-xl text-sumac-primary hover:bg-sumac-container font-label-lg text-label-lg rounded-lg transition-colors" type="button">إلغاء</button>
+</div>
+</main>
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const ORIGINAL_PRICE = 100;
+            
+            // Elements
+            const discountPercent = document.getElementById('discountPercent');
+            const finalPriceValue = document.getElementById('finalPriceValue');
+            const btnDuration = document.getElementById('btnDuration');
+            const btnUsage = document.getElementById('btnUsage');
+            const durationFields = document.getElementById('durationFields');
+            const usageFields = document.getElementById('usageFields');
+            const saveBtn = document.getElementById('saveBtn');
+            const discountName = document.getElementById('discountName');
+            const startDate = document.getElementById('startDate');
+            const endDate = document.getElementById('endDate');
+            
+            // Error Elements
+            const nameError = document.getElementById('nameError');
+            const percentError = document.getElementById('percentError');
+            const dateError = document.getElementById('dateError');
+
+            // Calculate final price dynamically
+            discountPercent.addEventListener('input', (e) => {
+                let val = parseFloat(e.target.value);
+                if (isNaN(val)) val = 0;
+                
+                if (val < 0) e.target.value = 0;
+                if (val > 100) e.target.value = 100;
+                val = Math.max(0, Math.min(100, val));
+                
+                const finalPrice = ORIGINAL_PRICE * (1 - (val / 100));
+                finalPriceValue.textContent = finalPrice.toFixed(2);
+                
+                if(val > 100 || val < 0) {
+                    discountPercent.classList.add('border-error');
+                    percentError.classList.remove('hidden');
+                } else {
+                    discountPercent.classList.remove('border-error');
+                    percentError.classList.add('hidden');
+                }
+            });
+
+            // Segmented Control Logic
+            let activeMode = 'duration'; // 'duration' or 'usage'
+
+            function switchMode(mode) {
+                if(mode === 'duration') {
+                    activeMode = 'duration';
+                    btnDuration.classList.add('bg-surface', 'text-sumac-primary', 'shadow-[0_1px_3px_rgba(43,33,26,0.1)]');
+                    btnDuration.classList.remove('text-muted-spice', 'hover:bg-surface-container-high');
+                    
+                    btnUsage.classList.remove('bg-surface', 'text-sumac-primary', 'shadow-[0_1px_3px_rgba(43,33,26,0.1)]');
+                    btnUsage.classList.add('text-muted-spice', 'hover:bg-surface-container-high');
+
+                    usageFields.classList.add('hidden');
+                    usageFields.classList.remove('opacity-100');
+                    usageFields.classList.add('opacity-0');
+                    
+                    durationFields.classList.remove('hidden');
+                    setTimeout(() => {
+                        durationFields.classList.remove('opacity-0');
+                        durationFields.classList.add('opacity-100');
+                    }, 10);
+
+                } else {
+                    activeMode = 'usage';
+                    btnUsage.classList.add('bg-surface', 'text-sumac-primary', 'shadow-[0_1px_3px_rgba(43,33,26,0.1)]');
+                    btnUsage.classList.remove('text-muted-spice', 'hover:bg-surface-container-high');
+                    
+                    btnDuration.classList.remove('bg-surface', 'text-sumac-primary', 'shadow-[0_1px_3px_rgba(43,33,26,0.1)]');
+                    btnDuration.classList.add('text-muted-spice', 'hover:bg-surface-container-high');
+
+                    durationFields.classList.add('hidden');
+                    durationFields.classList.remove('opacity-100');
+                    durationFields.classList.add('opacity-0');
+                    
+                    usageFields.classList.remove('hidden');
+                    setTimeout(() => {
+                        usageFields.classList.remove('opacity-0');
+                        usageFields.classList.add('opacity-100');
+                    }, 10);
+                }
+            }
+
+            btnDuration.addEventListener('click', () => switchMode('duration'));
+            btnUsage.addEventListener('click', () => switchMode('usage'));
+
+            // Validation Simulation
+            saveBtn.addEventListener('click', () => {
+                let isValid = true;
+
+                // Name validation
+                if (!discountName.value.trim()) {
+                    discountName.classList.add('border-error');
+                    nameError.classList.remove('hidden');
+                    isValid = false;
+                } else {
+                    discountName.classList.remove('border-error');
+                    nameError.classList.add('hidden');
+                }
+
+                // Date validation if duration mode
+                if (activeMode === 'duration' && startDate.value && endDate.value) {
+                    if (new Date(endDate.value) < new Date(startDate.value)) {
+                        startDate.classList.add('border-error');
+                        endDate.classList.add('border-error');
+                        dateError.classList.remove('hidden');
+                        isValid = false;
+                    } else {
+                        startDate.classList.remove('border-error');
+                        endDate.classList.remove('border-error');
+                        dateError.classList.add('hidden');
+                    }
+                }
+
+                if (isValid) {
+                    // Simulate save
+                    saveBtn.innerHTML = '<span class="material-symbols-outlined animate-spin text-[20px]" data-icon="sync"></span> جاري الحفظ...';
+                    saveBtn.classList.add('opacity-80', 'cursor-not-allowed');
+                    setTimeout(() => {
+                        saveBtn.innerHTML = 'حفظ الخصم';
+                        saveBtn.classList.remove('opacity-80', 'cursor-not-allowed');
+                        alert('تم حفظ الخصم بنجاح');
+                    }, 1000);
+                }
+            });
+        });
+    </script>
+
+
+</body></html>

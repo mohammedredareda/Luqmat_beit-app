@@ -1,0 +1,394 @@
+<!DOCTYPE html><html dir="rtl" lang="ar" style="width: 390px; height: 1394px; overflow: hidden; position: relative;"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>تعديل الوجبة - Luqmat Beit</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;700;800&amp;family=Tajawal:wght@400;500;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "zaatar-container": "#E4EDD3",
+                      "on-error": "#ffffff",
+                      "error": "#ba1a1a",
+                      "on-tertiary": "#ffffff",
+                      "on-primary": "#ffffff",
+                      "tertiary-fixed-dim": "#ffb95f",
+                      "surface-tint": "#ab3428",
+                      "on-tertiary-fixed": "#2a1700",
+                      "on-primary-fixed": "#410000",
+                      "primary": "#871a11",
+                      "background": "#fff8f5",
+                      "tertiary": "#623c00",
+                      "sumac-primary": "#A83226",
+                      "secondary-container": "#d0eda0",
+                      "surface-container-high": "#f6e5da",
+                      "honey-tertiary": "#B97A1E",
+                      "surface-container-highest": "#f0dfd4",
+                      "on-background": "#221a13",
+                      "muted-spice": "#71655B",
+                      "secondary-fixed": "#d0eda0",
+                      "on-surface": "#221a13",
+                      "on-secondary-fixed-variant": "#374d12",
+                      "surface-container-lowest": "#ffffff",
+                      "surface": "#FFFFFF",
+                      "outline": "#D9CEC1",
+                      "secondary-fixed-dim": "#b4d086",
+                      "inverse-on-surface": "#ffeee2",
+                      "on-primary-fixed-variant": "#8a1c13",
+                      "on-error-container": "#93000a",
+                      "on-primary-container": "#ffc9c0",
+                      "outline-variant": "#e0bfba",
+                      "primary-fixed-dim": "#ffb4a9",
+                      "surface-container-low": "#fff1e8",
+                      "honey-container": "#F7E7CC",
+                      "error-container": "#ffdad6",
+                      "inverse-primary": "#ffb4a9",
+                      "on-tertiary-fixed-variant": "#653e00",
+                      "surface-dim": "#e8d7cc",
+                      "secondary": "#4e6628",
+                      "ink-text": "#2A211A",
+                      "sumac-container": "#FADDD7",
+                      "inverse-surface": "#382e27",
+                      "surface-container": "#fcebdf",
+                      "primary-fixed": "#ffdad5",
+                      "on-secondary": "#ffffff",
+                      "on-secondary-fixed": "#121f00",
+                      "surface-variant": "#f0dfd4",
+                      "on-secondary-container": "#546c2e",
+                      "zaatar-secondary": "#5A7233",
+                      "on-surface-variant": "#58413e",
+                      "primary-container": "#a83226",
+                      "tertiary-container": "#825100",
+                      "tahini-bg": "#FBF7F1",
+                      "tertiary-fixed": "#ffddb8",
+                      "on-tertiary-container": "#ffcc91",
+                      "surface-bright": "#fff8f5"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "lg": "16px",
+                      "gutter": "16px",
+                      "xs": "4px",
+                      "xl": "24px",
+                      "base": "4px",
+                      "sm": "8px",
+                      "card-padding": "14px",
+                      "xxl": "32px",
+                      "md": "12px"
+              },
+              "fontFamily": {
+                      "body-md": [
+                              "Tajawal"
+                      ],
+                      "body-sm": [
+                              "Tajawal"
+                      ],
+                      "price-display": [
+                              "Tajawal"
+                      ],
+                      "body-lg": [
+                              "Tajawal"
+                      ],
+                      "title-lg": [
+                              "Alexandria"
+                      ],
+                      "display-lg": [
+                              "Alexandria"
+                      ],
+                      "headline-sm": [
+                              "Alexandria"
+                      ],
+                      "headline-md": [
+                              "Alexandria"
+                      ],
+                      "label-lg": [
+                              "Tajawal"
+                      ]
+              },
+              "fontSize": {
+                      "body-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-sm": [
+                              "12.5px",
+                              {
+                                      "lineHeight": "18px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "price-display": [
+                              "16px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "800"
+                              }
+                      ],
+                      "body-lg": [
+                              "15.5px",
+                              {
+                                      "lineHeight": "26px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "title-lg": [
+                              "17px",
+                              {
+                                      "lineHeight": "22px",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "display-lg": [
+                              "40px",
+                              {
+                                      "lineHeight": "48px",
+                                      "fontWeight": "800"
+                              }
+                      ],
+                      "headline-sm": [
+                              "18px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-md": [
+                              "22px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-lg": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "700"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill-icon {
+            font-variation-settings: 'FILL' 1;
+        }
+        
+        /* Custom Toggle Switch Styles */
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #A83226; /* sumac-primary */
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #A83226; /* sumac-primary */
+        }
+        .toggle-checkbox:checked + .toggle-label:after {
+            transform: translateX(-100%);
+            border-color: white;
+            background-color: white;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-tahini-bg min-h-screen text-on-background font-body-md flex flex-col pb-safe">
+<!-- TopAppBar -->
+<header class="bg-tahini-bg dark:bg-on-background docked full-width top-0 flat no shadows flex justify-between items-center w-full px-lg py-md h-16 sticky z-40">
+<button aria-label="Go Back" class="text-muted-spice hover:opacity-80 transition-opacity active:scale-95 transition-transform duration-200 p-2 rounded-full">
+<span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<h1 class="font-headline-sm text-headline-sm font-bold text-sumac-primary dark:text-primary-fixed-dim">تعديل الوجبة</h1>
+<div class="w-10"></div> <!-- Spacer to center title -->
+</header>
+<main class="flex-grow px-lg py-md flex flex-col gap-xl">
+<!-- Image Picker Section -->
+<section class="w-full relative aspect-video bg-surface-container-high rounded-xl flex flex-col items-center justify-center border-2 border-dashed border-outline hover:border-sumac-primary transition-colors cursor-pointer overflow-hidden group">
+<!-- Overlay for when image is selected (hidden by default) -->
+<div class="absolute inset-0 bg-cover bg-center z-10" data-alt="A delicious looking plate of Chicken Kabsa. The dish features fragrant, spiced long-grain rice topped with golden-brown, tender chicken pieces. Garnished with toasted almonds, pine nuts, and fresh parsley. The lighting is warm and inviting, typical of high-quality food photography on a bright, minimalist surface." id="image-preview" style="background-image: url(&quot;https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg&quot;);"></div>
+<div class="flex flex-col items-center justify-center gap-sm z-20 group-hover:scale-105 transition-transform absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity">
+<div class="w-12 h-12 rounded-full bg-surface flex items-center justify-center text-sumac-primary shadow-sm">
+<span class="material-symbols-outlined text-[24px]">add_a_photo</span>
+</div>
+<p class="font-label-lg text-label-lg text-surface">تغيير الصورة</p>
+</div>
+<!-- Hidden file input -->
+<input accept="image/*" class="hidden" id="meal-image-input" type="file">
+</section>
+<!-- Basic Info Section -->
+<section class="bg-surface rounded-xl p-lg shadow-sm flex flex-col gap-lg">
+<h2 class="font-title-lg text-title-lg text-ink-text border-b border-surface-container-high pb-sm">المعلومات الأساسية</h2>
+<!-- Name Input -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-lg text-label-lg text-muted-spice" for="meal-name">اسم الوجبة</label>
+<input class="w-full bg-transparent border-1.5 border-outline rounded-lg px-md py-md focus:border-sumac-primary focus:ring-1 focus:ring-sumac-primary outline-none transition-colors font-body-md" id="meal-name" type="text" value="كبسة دجاج">
+</div>
+<!-- Description Input -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-lg text-label-lg text-muted-spice" for="meal-desc">الوصف</label>
+<textarea class="w-full bg-transparent border-1.5 border-outline rounded-lg px-md py-md focus:border-sumac-primary focus:ring-1 focus:ring-sumac-primary outline-none transition-colors font-body-md resize-none" id="meal-desc" rows="3">كبسة دجاج تقليدية مطبوخة بأجود أنواع الأرز البسمتي والتوابل الطازجة. تقدم مع صلصة الدقوس الحارة.</textarea>
+</div>
+</section>
+<!-- Category Section (Chips) -->
+<section class="bg-surface rounded-xl p-lg shadow-sm flex flex-col gap-lg">
+<h2 class="font-title-lg text-title-lg text-ink-text border-b border-surface-container-high pb-sm">التصنيف</h2>
+<div class="flex flex-wrap gap-sm" id="category-chips">
+<button class="category-chip px-md py-sm rounded-full bg-sumac-container text-sumac-primary border-sumac-primary font-body-md transition-colors active:scale-95" data-selected="true">وجبات رئيسية</button>
+<button class="category-chip px-md py-sm rounded-full border border-outline text-muted-spice font-body-md transition-colors active:scale-95" data-selected="false">معجنات</button>
+<button class="category-chip px-md py-sm rounded-full border border-outline text-muted-spice font-body-md transition-colors active:scale-95" data-selected="false">حلويات</button>
+<button class="category-chip px-md py-sm rounded-full border border-outline text-muted-spice font-body-md transition-colors active:scale-95" data-selected="false">مقبلات</button>
+<button class="category-chip px-md py-sm rounded-full border border-outline text-muted-spice font-body-md transition-colors active:scale-95" data-selected="false">مشروبات</button>
+</div>
+</section>
+<!-- Preparation & Pre-order Time -->
+<section class="bg-surface rounded-xl p-lg shadow-sm grid gap-lg">
+<div class="flex flex-col gap-xs">
+<label class="font-label-lg text-label-lg text-muted-spice flex items-center gap-xs" for="preorder-time">
+<span class="material-symbols-outlined text-[16px]">event_available</span>
+                    الطلب المسبق
+                </label>
+<div class="relative">
+<input class="w-full bg-transparent border-1.5 border-outline rounded-lg px-md py-md pl-xl focus:border-sumac-primary focus:ring-1 focus:ring-sumac-primary outline-none transition-colors font-body-md text-left" dir="ltr" id="preorder-time" placeholder="24" type="number">
+<span class="absolute left-md top-1/2 -translate-y-1/2 text-muted-spice font-body-sm">ساعة</span>
+</div>
+</div></section>
+<!-- Pricing & Variations Section -->
+<section class="bg-surface rounded-xl p-lg shadow-sm flex flex-col gap-lg">
+<div class="flex justify-between items-center border-b border-surface-container-high pb-sm">
+<h2 class="font-title-lg text-title-lg text-ink-text">التسعير والخيارات</h2>
+<!-- Custom Toggle Switch -->
+<div class="flex items-center gap-sm">
+<span class="font-label-lg text-label-lg text-muted-spice">خيارات بيع</span>
+<div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in">
+<input class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer z-10 top-0 -left-1 opacity-0" id="variations-toggle" name="toggle" type="checkbox">
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-outline cursor-pointer relative before:absolute before:inset-0 before:transition-colors before:duration-200 after:absolute after:top-0.5 after:right-0.5 after:bg-white after:w-5 after:h-5 after:rounded-full after:shadow-sm after:transition-transform after:duration-200" for="variations-toggle"></label>
+</div>
+</div>
+</div>
+<!-- Single Price (Default state) -->
+<div class="flex flex-col gap-xs transition-all duration-300" id="single-price-section">
+<label class="font-label-lg text-label-lg text-muted-spice" for="single-price">السعر</label>
+<div class="relative">
+<input class="w-full bg-transparent border-1.5 border-outline rounded-lg px-md py-md pl-xl focus:border-sumac-primary focus:ring-1 focus:ring-sumac-primary outline-none transition-colors font-price-display text-left" dir="ltr" id="single-price" type="number" value="45">
+<span class="absolute left-md top-1/2 -translate-y-1/2 text-ink-text font-body-md">ر.س</span>
+</div>
+</div>
+<!-- Variations List (Hidden by default) -->
+<div class="hidden flex flex-col gap-md" id="variations-section">
+<!-- Variation Item 1 -->
+<div class="flex items-center gap-sm">
+<div class="flex-1 relative">
+<input class="w-full bg-transparent border-1.5 border-outline rounded-lg px-md py-sm focus:border-sumac-primary focus:ring-1 focus:ring-sumac-primary outline-none transition-colors font-body-sm" placeholder="الحجم (مثال: صغير)" type="text">
+</div>
+<div class="w-1/3 relative">
+<input class="w-full bg-transparent border-1.5 border-outline rounded-lg px-md py-sm pl-8 focus:border-sumac-primary focus:ring-1 focus:ring-sumac-primary outline-none transition-colors font-price-display text-left" dir="ltr" placeholder="السعر" type="number">
+<span class="absolute left-sm top-1/2 -translate-y-1/2 text-ink-text text-[10px]">ر.س</span>
+</div>
+<button class="p-2 text-error hover:bg-error-container rounded-full transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+<!-- Add Variation Button -->
+<button class="w-full py-sm border border-dashed border-sumac-primary text-sumac-primary rounded-lg flex items-center justify-center gap-xs font-label-lg text-label-lg hover:bg-sumac-container transition-colors mt-xs">
+<span class="material-symbols-outlined text-[20px]">add</span>
+                    إضافة خيار آخر
+                </button>
+</div>
+</section>
+<!-- Availability -->
+<section class="bg-surface rounded-xl p-card-padding shadow-sm flex items-center justify-between">
+<div>
+<h3 class="font-title-lg text-title-lg text-ink-text mb-1">متاح للطلب</h3>
+<p class="font-body-sm text-body-sm text-muted-spice">إظهار الوجبة للعملاء في القائمة</p>
+</div>
+<div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer z-10 top-0 -left-1 opacity-0" id="availability-toggle" name="toggle" type="checkbox">
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-outline cursor-pointer relative before:absolute before:inset-0 before:transition-colors before:duration-200 after:absolute after:top-0.5 after:right-0.5 after:bg-white after:w-5 after:h-5 after:rounded-full after:shadow-sm after:transition-transform after:duration-200" for="availability-toggle"></label>
+</div>
+</section>
+<!-- Actions -->
+<div class="flex flex-col gap-md">
+<button class="w-full bg-sumac-primary text-on-primary font-label-lg text-label-lg h-12 rounded-full shadow-md hover:bg-primary transition-colors active:scale-95 duration-200" type="submit">
+                    حفظ التعديلات
+                </button>
+<button class="w-full bg-transparent text-error border border-error font-label-lg text-label-lg h-12 rounded-full hover:bg-error-container transition-colors active:scale-95 duration-200" type="button">
+                    حذف الوجبة
+                </button>
+</div>
+<!-- Bottom Spacing -->
+<div class="h-4"></div>
+</main>
+<script>
+        // Category Chips Logic
+        document.querySelectorAll('.category-chip').forEach(chip => {
+            chip.addEventListener('click', function() {
+                // Toggle selection state
+                const isSelected = this.getAttribute('data-selected') === 'true';
+                
+                if (isSelected) {
+                    this.setAttribute('data-selected', 'false');
+                    this.classList.remove('bg-sumac-container', 'text-sumac-primary', 'border-sumac-primary');
+                    this.classList.add('border-outline', 'text-muted-spice');
+                } else {
+                    this.setAttribute('data-selected', 'true');
+                    this.classList.remove('border-outline', 'text-muted-spice');
+                    this.classList.add('bg-sumac-container', 'text-sumac-primary', 'border-sumac-primary');
+                }
+            });
+        });
+
+        // Toggle Pricing Logic
+        const variationsToggle = document.getElementById('variations-toggle');
+        const singlePriceSection = document.getElementById('single-price-section');
+        const variationsSection = document.getElementById('variations-section');
+
+        variationsToggle.addEventListener('change', function() {
+            if (this.checked) {
+                // Show Variations, Hide Single
+                singlePriceSection.classList.add('hidden');
+                variationsSection.classList.remove('hidden');
+            } else {
+                // Show Single, Hide Variations
+                variationsSection.classList.add('hidden');
+                singlePriceSection.classList.remove('hidden');
+            }
+        });
+
+        // Simulate Image Picker
+        const imageSection = document.querySelector('section.aspect-video');
+        const fileInput = document.getElementById('meal-image-input');
+        const imagePreview = document.getElementById('image-preview');
+
+        imageSection.addEventListener('click', () => {
+            // In a real app, this would trigger: fileInput.click();
+            // For UI demo, we'll just toggle the preview overlay to simulate selection
+            if(imagePreview.style.backgroundImage === '') {
+                 imagePreview.style.backgroundImage = "url('{{DATA:IMAGE:10}}')";
+                 imagePreview.classList.remove('hidden');
+            }
+        });
+    </script>
+
+
+
+
+</body></html>

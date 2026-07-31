@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>الملف الشخصي</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;700;800&amp;family=Tajawal:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "zaatar-container": "#E4EDD3",
+                        "on-error": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-tertiary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "surface-tint": "#ab3428",
+                        "on-tertiary-fixed": "#2a1700",
+                        "on-primary-fixed": "#410000",
+                        "primary": "#871a11",
+                        "background": "#fff8f5",
+                        "tertiary": "#623c00",
+                        "sumac-primary": "#A83226",
+                        "secondary-container": "#d0eda0",
+                        "surface-container-high": "#f6e5da",
+                        "honey-tertiary": "#B97A1E",
+                        "surface-container-highest": "#f0dfd4",
+                        "on-background": "#221a13",
+                        "muted-spice": "#71655B",
+                        "secondary-fixed": "#d0eda0",
+                        "on-surface": "#221a13",
+                        "on-secondary-fixed-variant": "#374d12",
+                        "surface-container-lowest": "#ffffff",
+                        "surface": "#FFFFFF",
+                        "outline": "#D9CEC1",
+                        "secondary-fixed-dim": "#b4d086",
+                        "inverse-on-surface": "#ffeee2",
+                        "on-primary-fixed-variant": "#8a1c13",
+                        "on-error-container": "#93000a",
+                        "on-primary-container": "#ffc9c0",
+                        "outline-variant": "#e0bfba",
+                        "primary-fixed-dim": "#ffb4a9",
+                        "surface-container-low": "#fff1e8",
+                        "honey-container": "#F7E7CC",
+                        "error-container": "#ffdad6",
+                        "inverse-primary": "#ffb4a9",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "surface-dim": "#e8d7cc",
+                        "secondary": "#4e6628",
+                        "ink-text": "#2A211A",
+                        "sumac-container": "#FADDD7",
+                        "inverse-surface": "#382e27",
+                        "surface-container": "#fcebdf",
+                        "primary-fixed": "#ffdad5",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed": "#121f00",
+                        "surface-variant": "#f0dfd4",
+                        "on-secondary-container": "#546c2e",
+                        "zaatar-secondary": "#5A7233",
+                        "on-surface-variant": "#58413e",
+                        "primary-container": "#a83226",
+                        "tertiary-container": "#825100",
+                        "tahini-bg": "#FBF7F1",
+                        "tertiary-fixed": "#ffddb8",
+                        "on-tertiary-container": "#ffcc91",
+                        "surface-bright": "#fff8f5"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "16px",
+                        "gutter": "16px",
+                        "xs": "4px",
+                        "xl": "24px",
+                        "base": "4px",
+                        "sm": "8px",
+                        "card-padding": "14px",
+                        "xxl": "32px",
+                        "md": "12px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Tajawal"],
+                        "body-sm": ["Tajawal"],
+                        "price-display": ["Tajawal"],
+                        "body-lg": ["Tajawal"],
+                        "title-lg": ["Alexandria"],
+                        "display-lg": ["Alexandria"],
+                        "headline-sm": ["Alexandria"],
+                        "headline-md": ["Alexandria"],
+                        "label-lg": ["Tajawal"]
+                    },
+                    "fontSize": {
+                        "body-md": ["14px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-sm": ["12.5px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "price-display": ["16px", { "lineHeight": "20px", "fontWeight": "800" }],
+                        "body-lg": ["15.5px", { "lineHeight": "26px", "fontWeight": "500" }],
+                        "title-lg": ["17px", { "lineHeight": "22px", "fontWeight": "700" }],
+                        "display-lg": ["40px", { "lineHeight": "48px", "fontWeight": "800" }],
+                        "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "700" }],
+                        "headline-md": ["22px", { "lineHeight": "28px", "fontWeight": "700" }],
+                        "label-lg": ["14px", { "lineHeight": "20px", "fontWeight": "700" }]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.tahini-bg');
+            color: theme('colors.on-background');
+        }
+        .view-mode .edit-only { display: none; }
+        .edit-mode .view-only { display: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col view-mode" id="profile-container">
+<!-- TopAppBar -->
+<header class="bg-tahini-bg text-sumac-primary font-headline-sm text-headline-sm docked full-width top-0 bg-tahini-bg flat no shadows flex justify-between items-center w-full px-lg py-md h-16 sticky z-50 transition-colors duration-300">
+<button aria-label="العودة" class="hover:opacity-80 transition-opacity active:scale-95 duration-200 p-2 -mr-2">
+<span class="material-symbols-outlined text-sumac-primary" data-icon="arrow_back" style="font-variation-settings: 'FILL' 0;">arrow_back</span>
+</button>
+<h1 class="font-headline-sm text-headline-sm font-bold text-sumac-primary">Luqmat Beit</h1>
+<button aria-label="الإشعارات" class="hover:opacity-80 transition-opacity active:scale-95 duration-200 p-2 -ml-2">
+<span class="material-symbols-outlined text-sumac-primary" data-icon="notifications" style="font-variation-settings: 'FILL' 0;">notifications</span>
+</button>
+</header>
+<main class="flex-grow pb-[100px] px-lg max-w-2xl mx-auto w-full">
+<!-- Profile Header Area -->
+<section class="mt-xl flex flex-col items-center">
+<div class="relative w-32 h-32 mb-lg">
+<img alt="صورة الملف الشخصي" class="w-full h-full object-cover rounded-full shadow-[0_4px_12px_rgba(43,33,26,0.15)] border-4 border-surface" data-alt="A high-quality, warm portrait of an Arabic woman in her 50s, smiling warmly in a beautifully lit, modern kitchen. She is wearing a clean, professional apron. The lighting is soft and inviting, reflecting the 'Domestic Professionalism' brand identity with warm culinary tones of deep red sumac and creamy tahini colors in the background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBp0s1NOkSHi3L0l6lVFQwqSfFIK0_gPMsQR9iIdDqdCP9BOdHo4o0_hZUODBrpAEC5dBA1LSz5pKSy9P-nrPmMWuMqih1Hv1KINLoEpuV-sVRsqnNWQSHbQpvZ52frxOTCXOsYS8KxEji1h-fjQSiE3J3yTMgMFtk_iLtpC70qpU_wdhylKlj7Cd6RMa8dg4g7_LhzpJdam83wssLK9PDi1m8ZLBgveDYlST8LgpgSL_TC_96x7OOnhAePHWEuzK0ZmWFO77PjeVI"/>
+<button class="edit-only absolute bottom-0 left-0 bg-sumac-primary text-on-primary p-2 rounded-full shadow-lg hover:bg-primary-container transition-colors active:scale-95">
+<span class="material-symbols-outlined text-[20px]" data-icon="edit">edit</span>
+</button>
+</div>
+<h2 class="view-only font-headline-md text-headline-md text-ink-text mb-xs">أم أحمد</h2>
+<div class="edit-only w-full max-w-sm mb-xs">
+<input class="w-full bg-surface border-1.5 border-outline rounded-lg px-4 py-2 font-headline-md text-headline-md text-ink-text text-center focus:outline-none focus:border-sumac-primary focus:ring-1 focus:ring-sumac-primary transition-colors" type="text" value="أم أحمد"/>
+</div>
+<div class="flex items-center gap-2 text-muted-spice mb-xl">
+<span class="material-symbols-outlined text-[18px]" data-icon="star" style="font-variation-settings: 'FILL' 1; color: #ffb95f;">star</span>
+<span class="font-body-md text-body-md">4.9 (120 تقييم)</span>
+</div>
+</section><section class="mb-xl grid grid-cols-1 gap-md md:grid-cols-3">
+<div class="bg-sumac-container p-lg rounded-xl flex flex-col items-center justify-center text-center shadow-sm">
+<span class="material-symbols-outlined text-sumac-primary mb-xs" data-icon="check_circle">check_circle</span>
+<span class="font-label-lg text-label-lg text-muted-spice">الطلبات المكتملة</span>
+<span class="font-headline-sm text-headline-sm text-sumac-primary">124</span>
+</div>
+<div class="bg-sumac-container p-lg rounded-xl flex flex-col items-center justify-center text-center shadow-sm">
+<span class="material-symbols-outlined text-sumac-primary mb-xs" data-icon="restaurant">restaurant</span>
+<span class="font-label-lg text-label-lg text-muted-spice">إجمالي الوجبات</span>
+<span class="font-headline-sm text-headline-sm text-sumac-primary">15</span>
+</div>
+<div class="bg-sumac-container p-lg rounded-xl flex flex-col items-center justify-center text-center shadow-sm">
+<span class="material-symbols-outlined text-sumac-primary mb-xs" data-icon="call">call</span>
+<span class="font-label-lg text-label-lg text-muted-spice">رقم الهاتف</span>
+<span class="font-headline-sm text-headline-sm text-sumac-primary" dir="ltr">+966 50 123 4567</span>
+</div>
+</section>
+<!-- Profile Details -->
+<section class="bg-surface rounded-xl p-lg shadow-[0_2px_10px_rgba(43,33,26,0.05)] flex flex-col gap-xl">
+<!-- Description -->
+<div>
+<h3 class="font-label-lg text-label-lg text-muted-spice mb-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]" data-icon="description">description</span>
+                    نبذة عني
+                </h3>
+<p class="view-only font-body-lg text-body-lg text-ink-text leading-relaxed">
+                    طباخة منزلية متخصصة في الأكلات الشامية العريقة. أقدم لكم أشهى الوصفات المحضرة بحب وعناية، تماماً كما أعدها لعائلتي. خبرة أكثر من 20 عاماً في المطبخ.
+                </p>
+<div class="edit-only">
+<textarea class="w-full bg-surface border-1.5 border-outline rounded-lg px-4 py-3 font-body-lg text-body-lg text-ink-text focus:outline-none focus:border-sumac-primary focus:ring-1 focus:ring-sumac-primary transition-colors resize-none" rows="4">طباخة منزلية متخصصة في الأكلات الشامية العريقة. أقدم لكم أشهى الوصفات المحضرة بحب وعناية، تماماً كما أعدها لعائلتي. خبرة أكثر من 20 عاماً في المطبخ.</textarea>
+</div>
+</div>
+<hr class="border-t border-outline-variant opacity-50"/>
+<!-- Availability -->
+<div>
+<h3 class="font-label-lg text-label-lg text-muted-spice mb-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]" data-icon="schedule">schedule</span>
+                    أوقات التوفر
+                </h3>
+<div class="view-only flex flex-wrap gap-2">
+<span class="bg-surface-container-high text-ink-text px-4 py-2 rounded-full font-body-md text-body-md">الأحد - الخميس</span>
+<span class="bg-surface-container-high text-ink-text px-4 py-2 rounded-full font-body-md text-body-md">10:00 ص - 6:00 م</span>
+</div>
+<div class="edit-only flex flex-col gap-sm">
+<input class="w-full bg-surface border-1.5 border-outline rounded-lg px-4 py-2 font-body-md text-body-md text-ink-text focus:outline-none focus:border-sumac-primary focus:ring-1 focus:ring-sumac-primary transition-colors mb-2" type="text" value="الأحد - الخميس"/>
+<input class="w-full bg-surface border-1.5 border-outline rounded-lg px-4 py-2 font-body-md text-body-md text-ink-text focus:outline-none focus:border-sumac-primary focus:ring-1 focus:ring-sumac-primary transition-colors" type="text" value="10:00 ص - 6:00 م"/>
+</div>
+</div>
+<hr class="border-t border-outline-variant opacity-50"/>
+<!-- Address -->
+<div>
+<h3 class="font-label-lg text-label-lg text-muted-spice mb-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]" data-icon="location_on">location_on</span>
+                    العنوان
+                </h3>
+<p class="view-only font-body-lg text-body-lg text-ink-text">
+                    حي الياسمين، شارع أبي بكر الصديق، الرياض
+                </p>
+<div class="edit-only">
+<input class="w-full bg-surface border-1.5 border-outline rounded-lg px-4 py-2 font-body-lg text-body-lg text-ink-text focus:outline-none focus:border-sumac-primary focus:ring-1 focus:ring-sumac-primary transition-colors" type="text" value="حي الياسمين، شارع أبي بكر الصديق، الرياض"/>
+</div>
+</div>
+</section>
+<!-- Actions -->
+<section class="mt-xl">
+<button class="view-only w-full bg-sumac-primary text-on-primary font-label-lg text-label-lg h-12 rounded-lg hover:opacity-90 active:scale-[0.98] transition-all flex items-center justify-center gap-2 shadow-[0_4px_12px_rgba(43,33,26,0.15)]" id="editBtn">
+<span class="material-symbols-outlined text-[20px]" data-icon="edit">edit</span>
+                تعديل الملف الشخصي
+            </button>
+<div class="edit-only flex gap-md">
+<button class="flex-1 bg-sumac-primary text-on-primary font-label-lg text-label-lg h-12 rounded-lg hover:opacity-90 active:scale-[0.98] transition-all flex items-center justify-center gap-2 shadow-[0_4px_12px_rgba(43,33,26,0.15)]" id="saveBtn">
+                    حفظ التغييرات
+                </button>
+<button class="flex-1 bg-surface border-2 border-outline text-ink-text font-label-lg text-label-lg h-12 rounded-lg hover:bg-surface-container-low active:scale-[0.98] transition-all flex items-center justify-center gap-2" id="cancelBtn">
+                    إلغاء
+                </button>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="bg-surface docked full-width bottom-0 rounded-t-xl shadow-[0_-2px_10px_rgba(43,33,26,0.08)] fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-lg pb-safe h-20 md:hidden">
+<a class="flex flex-col items-center justify-center text-muted-spice px-5 py-1 hover:bg-surface-container-low transition-colors active:scale-90 duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="restaurant_menu">restaurant_menu</span>
+<span class="font-label-lg text-label-lg text-xs">القائمة</span>
+</a>
+<a class="flex flex-col items-center justify-center text-muted-spice px-5 py-1 hover:bg-surface-container-low transition-colors active:scale-90 duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="receipt_long">receipt_long</span>
+<span class="font-label-lg text-label-lg text-xs">الطلبات</span>
+</a>
+<a class="flex flex-col items-center justify-center text-muted-spice px-5 py-1 hover:bg-surface-container-low transition-colors active:scale-90 duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="local_offer">local_offer</span>
+<span class="font-label-lg text-label-lg text-xs">العروض</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-sumac-container text-on-primary-fixed-variant rounded-full px-5 py-1 hover:bg-surface-container-low transition-colors active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="person" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="font-label-lg text-label-lg text-xs">حسابي</span>
+</a>
+</nav>
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('profile-container');
+            const editBtn = document.getElementById('editBtn');
+            const saveBtn = document.getElementById('saveBtn');
+            const cancelBtn = document.getElementById('cancelBtn');
+
+            editBtn.addEventListener('click', () => {
+                container.classList.remove('view-mode');
+                container.classList.add('edit-mode');
+            });
+
+            saveBtn.addEventListener('click', () => {
+                // Here you would normally gather input values and save them
+                container.classList.remove('edit-mode');
+                container.classList.add('view-mode');
+            });
+
+            cancelBtn.addEventListener('click', () => {
+                container.classList.remove('edit-mode');
+                container.classList.add('view-mode');
+            });
+        });
+    </script>
+</body></html>

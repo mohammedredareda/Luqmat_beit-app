@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>سُمّاق — Design System | Home Chef App</title>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;600;700;800&family=Tajawal:wght@400;500;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* ==== SUMAC TOKENS · LIGHT ==== */
+    --primary:#A83226; --on-primary:#FFFFFF; --primary-container:#FADDD7; --on-primary-container:#6E1A11; --primary-pressed:#8A281E;
+    --secondary:#5A7233; --on-secondary:#FFFFFF; --secondary-container:#E4EDD3; --on-secondary-container:#33421A;
+    --tertiary:#B97A1E; --on-tertiary:#FFFFFF; --tertiary-container:#F7E7CC; --on-tertiary-container:#5F3C08;
+    --error:#D93025; --on-error:#FFFFFF; --error-container:#FCE3E0;
+    --bg:#FBF7F1; --surface:#FFFFFF; --surface-variant:#F2EBE1; --outline:#D9CEC1; --outline-variant:#EAE1D6;
+    --ink:#2A211A; --ink-muted:#71655B;
+    --success:#337B4B; --warning:#B7791F; --info:#2B6CB0;
+    --r-btn:12px; --r-card:16px; --r-input:12px; --r-sheet:24px; --r-img:12px;
+    --e1:0 1px 2px rgba(43,33,26,.06),0 1px 3px rgba(43,33,26,.08);
+    --e2:0 4px 12px rgba(43,33,26,.10);
+    --e3:0 12px 32px rgba(43,33,26,.16);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg); color:var(--ink); font-family:'Tajawal',sans-serif; font-size:15px; line-height:1.7;}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 28px 120px;}
+  h1,h2,h3,h4{font-family:'Alexandria',sans-serif;}
+  code,.mono{font-family:'IBM Plex Mono',monospace; font-size:.82em; direction:ltr; unicode-bidi:embed;}
+
+  /* ---- cover ---- */
+  .cover{padding:88px 0 64px; border-bottom:1px solid var(--outline-variant); margin-bottom:56px; position:relative; overflow:hidden;}
+  .cover .brand{font-size:76px; font-weight:800; line-height:1.1; color:var(--primary); letter-spacing:-1px;}
+  .cover .brand small{display:block; font-size:15px; font-weight:600; color:var(--ink-muted); letter-spacing:6px; margin-bottom:10px;}
+  .cover p{max-width:560px; color:var(--ink-muted); margin-top:18px; font-size:16px;}
+  .cover .meta{display:flex; gap:24px; margin-top:28px; font-size:12.5px; color:var(--ink-muted);}
+  .cover .meta b{color:var(--ink); display:block; font-size:14px;}
+  .sprinkle{position:absolute; left:0; top:60px; display:grid; grid-template-columns:repeat(6,14px); gap:14px; opacity:.8;}
+  .sprinkle i{width:7px; height:7px; border-radius:50%; background:var(--primary);}
+  .sprinkle i:nth-child(3n){background:var(--tertiary);} .sprinkle i:nth-child(4n){background:var(--secondary);}
+  .sprinkle i:nth-child(5n){opacity:.35;} .sprinkle i:nth-child(7n){opacity:.55;}
+
+  /* ---- section chrome ---- */
+  section{margin-bottom:72px;}
+  .sec{display:flex; align-items:baseline; gap:14px; margin-bottom:8px;}
+  .sec .num{font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--primary);}
+  .sec h2{font-size:26px; font-weight:800;}
+  .sec-sub{color:var(--ink-muted); margin-bottom:28px; max-width:640px;}
+  h3{font-size:17px; font-weight:700; margin:34px 0 14px;}
+  h3 .en{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink-muted); font-weight:400; margin-inline-start:8px;}
+
+  /* ---- color plates ---- */
+  .plates{display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:14px;}
+  .plate{border-radius:var(--r-card); overflow:hidden; border:1px solid var(--outline-variant); background:var(--surface); box-shadow:var(--e1);}
+  .plate .swatch{height:84px; display:flex; align-items:flex-end; padding:10px 12px; font-weight:800; font-size:13px;}
+  .plate .info{padding:10px 12px; font-size:11.5px; color:var(--ink-muted); display:flex; flex-direction:column; gap:2px;}
+  .plate .info code{color:var(--ink); font-weight:500;}
+  .duo{display:grid; grid-template-columns:1fr 1fr; gap:24px;}
+  .mode-card{background:var(--surface); border:1px solid var(--outline-variant); border-radius:var(--r-card); padding:20px; box-shadow:var(--e1);}
+  .mode-card.dark{background:#271F19; border-color:#3a2f26; color:#EDE5DC;}
+  .mode-card h4{font-size:14px; margin-bottom:14px;}
+  .chipline{display:flex; flex-wrap:wrap; gap:8px;}
+  .cswatch{display:flex; align-items:center; gap:8px; font-size:11px; border-radius:8px; padding:5px 9px; border:1px solid rgba(0,0,0,.06);}
+
+  /* ---- typography ---- */
+  .typerow{display:grid; grid-template-columns:210px 1fr; gap:20px; align-items:baseline; padding:16px 0; border-bottom:1px dashed var(--outline-variant);}
+  .typerow .spec{font-size:11.5px; color:var(--ink-muted); line-height:1.9;}
+  .typerow .spec b{color:var(--ink); font-size:12.5px; display:block;}
+
+  /* ---- token tables ---- */
+  table{width:100%; border-collapse:collapse; font-size:13px; background:var(--surface); border-radius:var(--r-card); overflow:hidden; box-shadow:var(--e1);}
+  th{background:var(--surface-variant); text-align:right; padding:10px 14px; font-size:12px; font-weight:700;}
+  td{padding:10px 14px; border-top:1px solid var(--outline-variant); vertical-align:middle;}
+  .dot{display:inline-block; width:14px; height:14px; border-radius:4px; vertical-align:-2px; margin-inline-end:6px; border:1px solid rgba(0,0,0,.08);}
+
+  /* ---- spacing / radius demos ---- */
+  .scale{display:flex; align-items:flex-end; gap:14px; flex-wrap:wrap;}
+  .sp{background:var(--primary-container); border:1px dashed var(--primary); border-radius:4px;}
+  .sp-l{font-size:10.5px; color:var(--ink-muted); text-align:center; margin-top:6px;}
+  .rad-demo{display:flex; gap:16px; flex-wrap:wrap;}
+  .rad{width:96px; height:64px; background:var(--surface); border:1.5px solid var(--primary); display:flex; align-items:center; justify-content:center; font-size:10.5px; color:var(--ink-muted); flex-direction:column; gap:2px;}
+  .elev-demo{display:flex; gap:20px; flex-wrap:wrap;}
+  .elev{width:150px; height:84px; background:var(--surface); border-radius:var(--r-card); display:flex; align-items:center; justify-content:center; flex-direction:column; gap:4px; font-size:11px; color:var(--ink-muted);}
+
+  /* ==== COMPONENTS (live specimens) ==== */
+  .specimen{background:var(--surface); border:1px solid var(--outline-variant); border-radius:var(--r-card); padding:24px; box-shadow:var(--e1); margin-bottom:18px;}
+  .specimen .demo{display:flex; flex-wrap:wrap; gap:14px; align-items:center;}
+  .specimen .rules{margin-top:16px; padding-top:14px; border-top:1px dashed var(--outline-variant); font-size:12.5px; color:var(--ink-muted);}
+  .specimen .rules b{color:var(--ink);}
+
+  .s-btn{font-family:'Tajawal'; font-size:14px; font-weight:700; border:none; cursor:default; height:48px; padding:0 22px; border-radius:var(--r-btn); display:inline-flex; align-items:center; gap:8px;}
+  .s-btn.primary{background:var(--primary); color:var(--on-primary); box-shadow:var(--e1);}
+  .s-btn.pressed{background:var(--primary-pressed); color:var(--on-primary);}
+  .s-btn.outline{background:transparent; color:var(--primary); border:1.5px solid var(--primary);}
+  .s-btn.text{background:transparent; color:var(--primary); padding:0 10px;}
+  .s-btn.danger{background:transparent; color:var(--error); border:1.5px solid var(--error);}
+  .s-btn.disabled{background:var(--surface-variant); color:#B4A99D;}
+  .s-btn.loading{background:var(--primary); color:transparent; position:relative;}
+  .s-btn.loading::after{content:''; position:absolute; inset:0; margin:auto; width:18px; height:18px; border:2.5px solid rgba(255,255,255,.35); border-top-color:#fff; border-radius:50%; animation:spin 1s linear infinite;}
+  @keyframes spin{to{transform:rotate(360deg)}}
+
+  .s-input{width:230px; border:1.5px solid var(--outline); border-radius:var(--r-input); background:var(--surface); padding:12px 14px; font-size:13px; color:var(--ink-muted); position:relative;}
+  .s-input b{position:absolute; top:-8px; right:12px; background:var(--surface); padding:0 5px; font-size:10.5px; color:var(--ink-muted); font-weight:500;}
+  .s-input.focus{border-color:var(--primary); box-shadow:0 0 0 3px rgba(168,50,38,.12);}
+  .s-input.focus b{color:var(--primary);}
+  .s-input.error{border-color:var(--error);}
+  .s-input.error b{color:var(--error);}
+  .s-input .msg{position:absolute; bottom:-19px; right:2px; font-size:10.5px; color:var(--error);}
+  .s-input.disabled{background:var(--surface-variant); border-style:dashed;}
+
+  .s-chip{display:inline-flex; align-items:center; gap:6px; height:34px; padding:0 14px; border-radius:999px; font-size:12.5px; font-weight:500; border:1.5px solid var(--outline); color:var(--ink-muted); background:var(--surface);}
+  .s-chip.on{background:var(--primary); border-color:var(--primary); color:#fff; font-weight:700;}
+  .badge{display:inline-flex; align-items:center; gap:4px; height:24px; padding:0 10px; border-radius:8px; font-size:11.5px; font-weight:800;}
+  .badge.discount{background:var(--primary); color:#fff;}
+  .badge.rating{background:var(--tertiary-container); color:var(--on-tertiary-container);}
+  .badge.new{background:var(--secondary-container); color:var(--on-secondary-container);}
+
+  .status{display:inline-flex; align-items:center; gap:6px; height:26px; padding:0 12px; border-radius:999px; font-size:11.5px; font-weight:700;}
+  .status i{width:7px; height:7px; border-radius:50%; background:currentColor;}
+
+  .s-card{width:260px; background:var(--surface); border:1px solid var(--outline-variant); border-radius:var(--r-card); box-shadow:var(--e1); overflow:hidden;}
+  .s-card .img{height:120px; background:linear-gradient(135deg,#EADFD2,#DCCBB8); display:flex; align-items:center; justify-content:center; color:#9c8b78; font-size:12px; position:relative;}
+  .s-card .body{padding:14px;}
+  .s-card .ttl{font-family:'Alexandria'; font-size:15px; font-weight:700; margin-bottom:2px;}
+  .s-card .sub{font-size:12px; color:var(--ink-muted); margin-bottom:10px;}
+  .s-card .foot{display:flex; justify-content:space-between; align-items:center;}
+  .price{font-size:16px; font-weight:800; color:var(--primary);}
+  .price s{font-size:11px; color:var(--ink-muted); font-weight:500; margin-inline-start:5px;}
+
+  .sheet-demo{width:280px; background:var(--surface); border-radius:var(--r-sheet) var(--r-sheet) 0 0; box-shadow:var(--e3); padding:12px 18px 20px;}
+  .sheet-demo .grab{width:36px; height:4px; background:var(--outline); border-radius:2px; margin:0 auto 14px;}
+  .dialog-demo{width:280px; background:var(--surface); border-radius:20px; box-shadow:var(--e3); padding:22px 20px;}
+  .dialog-demo h4{font-size:16px; margin-bottom:6px;}
+  .dialog-demo p{font-size:12.5px; color:var(--ink-muted); margin-bottom:16px;}
+
+  .navdemo{width:300px; background:var(--surface); border-top:1px solid var(--outline-variant); border-radius:0 0 var(--r-card) var(--r-card); display:flex; justify-content:space-around; padding:10px 0 12px; box-shadow:var(--e2);}
+  .navitem{display:flex; flex-direction:column; align-items:center; gap:3px; font-size:10px; color:var(--ink-muted);}
+  .navitem .ic{width:38px; height:26px; border-radius:999px; display:flex; align-items:center; justify-content:center; font-size:13px;}
+  .navitem.on{color:var(--on-primary-container); font-weight:700;}
+  .navitem.on .ic{background:var(--primary-container);}
+
+  .skel{background:linear-gradient(90deg,var(--surface-variant) 25%,#faf5ee 50%,var(--surface-variant) 75%); background-size:200% 100%; animation:sh 1.4s infinite; border-radius:8px;}
+  @keyframes sh{to{background-position:-200% 0}}
+
+  .dodont{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
+  .dd{border-radius:var(--r-card); padding:16px 18px; font-size:13px; background:var(--surface); border:1px solid var(--outline-variant);}
+  .dd h4{font-size:13px; margin-bottom:10px; display:flex; align-items:center; gap:7px;}
+  .dd.do h4{color:var(--success);} .dd.dont h4{color:var(--error);}
+  .dd ul{padding-inline-start:18px; color:var(--ink-muted); display:flex; flex-direction:column; gap:7px;}
+  .dd ul b{color:var(--ink);}
+
+  .note{background:var(--tertiary-container); color:var(--on-tertiary-container); border-radius:12px; padding:12px 16px; font-size:12.5px; margin-top:14px;}
+  @media(max-width:760px){.duo,.dodont{grid-template-columns:1fr;} .typerow{grid-template-columns:1fr;} .cover .brand{font-size:52px;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ================= COVER ================= -->
+<div class="cover">
+  <div class="sprinkle"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="brand"><small>HOME CHEF APP · DESIGN SYSTEM</small>سُمّاق</div>
+  <p>نظام التصميم الرسمي لتطبيق طبخات البيوت. سُمّي على بهار السُمّاق — المكوّن الذي لا يغيب عن مطبخ بيتي شامي — ولونه هو لون النظام الأساسي. كل قيمة هنا لها اسم Token مطابق تماماً لملف <code>app_theme.dart</code>، فما تراه هنا هو ما يُكتب في الكود حرفياً.</p>
+  <div class="meta">
+    <div><b>الإصدار</b>v1.0</div>
+    <div><b>المنصة</b>Flutter · Material 3</div>
+    <div><b>الأنماط</b>Light + Dark</div>
+    <div><b>الاتجاه</b>RTL أولاً</div>
+  </div>
+</div>
+
+<!-- ================= 01 PRINCIPLES ================= -->
+<section>
+  <div class="sec"><span class="num">01</span><h2>المبادئ</h2></div>
+  <p class="sec-sub">ثلاث قواعد تحكم كل قرار في الواجهة. عند أي خلاف تصميمي، العودة إليها تحسم النقاش.</p>
+  <div class="dodont" style="grid-template-columns:1fr 1fr 1fr;">
+    <div class="dd"><h4 style="color:var(--primary);">🍲 الأكل هو البطل</h4><ul><li>صور الوجبات تأخذ أكبر مساحة ممكنة، والواجهة حولها هادئة ومحايدة</li><li>لون سُمّاق يُستخدم بتقتير: زر رئيسي واحد، شارة خصم، حالة نشطة — لا أكثر</li></ul></div>
+    <div class="dd"><h4 style="color:var(--secondary);">🏠 بيتي لا مصنعي</h4><ul><li>زوايا مدوّرة بسخاء، ظلال ناعمة، لا حدود قاسية</li><li>النبرة الكتابية ودّية ومباشرة: «صحتين!»، «وصل طلبك»</li></ul></div>
+    <div class="dd"><h4 style="color:var(--tertiary);">⚡ قرار بأقل جهد</h4><ul><li>كل شاشة = فعل رئيسي واحد واضح</li><li>الحالة (طلب، توفر، خصم) تُقرأ من اللون والشكل قبل قراءة النص</li></ul></div>
+  </div>
+</section>
+
+<!-- ================= 02 COLOR ================= -->
+<section>
+  <div class="sec"><span class="num">02</span><h2>الألوان</h2></div>
+  <p class="sec-sub">لوحة مستوحاة من المطبخ الشامي: سُمّاق للأفعال، زعتر للنجاح والطزاجة، عسل للتقييمات والتمييز، وطحينة للخلفيات. لكل لون قناة كاملة (Container + On) وفق Material 3.</p>
+
+  <h3>الألوان الأساسية <span class="en">Core roles · Light</span></h3>
+  <div class="plates">
+    <div class="plate"><div class="swatch" style="background:#A83226; color:#fff;">سُمّاق · Primary</div><div class="info"><code>#A83226</code><span>الأفعال الرئيسية، شارات الخصم، الحالة النشطة</span><code>colorScheme.primary</code></div></div>
+    <div class="plate"><div class="swatch" style="background:#FADDD7; color:#6E1A11;">Primary Container</div><div class="info"><code>#FADDD7</code><span>خلفيات ترويجية خفيفة، تبويب نشط بالتنقل السفلي</span><code>primaryContainer</code></div></div>
+    <div class="plate"><div class="swatch" style="background:#5A7233; color:#fff;">زعتر · Secondary</div><div class="info"><code>#5A7233</code><span>النجاح، «متوفر الآن»، مؤشرات الطزاجة</span><code>colorScheme.secondary</code></div></div>
+    <div class="plate"><div class="swatch" style="background:#B97A1E; color:#fff;">عسل · Tertiary</div><div class="info"><code>#B97A1E</code><span>نجوم التقييم، «الأكثر مبيعاً»، تنبيهات لطيفة</span><code>colorScheme.tertiary</code></div></div>
+    <div class="plate"><div class="swatch" style="background:#D93025; color:#fff;">خطأ · Error</div><div class="info"><code>#D93025</code><span>أخطاء الحقول، الرفض، الحذف — دائماً مع أيقونة</span><code>colorScheme.error</code></div></div>
+    <div class="plate"><div class="swatch" style="background:#FBF7F1; color:#2A211A; border-bottom:1px solid #eee;">طحينة · Background</div><div class="info"><code>#FBF7F1</code><span>خلفية الشاشات — دافئة لا رمادية</span><code>scaffoldBackground</code></div></div>
+    <div class="plate"><div class="swatch" style="background:#FFFFFF; color:#2A211A; border-bottom:1px solid #eee;">Surface</div><div class="info"><code>#FFFFFF</code><span>البطاقات، الحقول، الـ Sheets</span><code>colorScheme.surface</code></div></div>
+    <div class="plate"><div class="swatch" style="background:#F2EBE1; color:#2A211A;">Surface Variant</div><div class="info"><code>#F2EBE1</code><span>Skeletons، أزرار معطّلة، فواصل سميكة</span><code>surfaceContainerHighest</code></div></div>
+    <div class="plate"><div class="swatch" style="background:#2A211A; color:#fff;">حبر · On Surface</div><div class="info"><code>#2A211A</code><span>النص الأساسي — بني فحمي دافئ، ليس أسود</span><code>colorScheme.onSurface</code></div></div>
+    <div class="plate"><div class="swatch" style="background:#71655B; color:#fff;">On Surface Variant</div><div class="info"><code>#71655B</code><span>نص ثانوي، placeholders، أيقونات خاملة</span><code>onSurfaceVariant</code></div></div>
+    <div class="plate"><div class="swatch" style="background:#D9CEC1; color:#2A211A;">Outline</div><div class="info"><code>#D9CEC1</code><span>حدود الحقول والبطاقات</span><code>colorScheme.outline</code></div></div>
+    <div class="plate"><div class="swatch" style="background:#2B6CB0; color:#fff;">معلومة · Info</div><div class="info"><code>#2B6CB0</code><span>حالة «قيد التوصيل»، تنبيهات معلوماتية</span><code>AppColors.info</code></div></div>
+  </div>
+
+  <h3>الوضع الداكن <span class="en">Dark mode</span></h3>
+  <div class="duo">
+    <div class="mode-card dark">
+      <h4 style="color:#EDE5DC;">Dark Palette</h4>
+      <div class="chipline">
+        <span class="cswatch" style="background:#F2A093; color:#571209;">Primary #F2A093</span>
+        <span class="cswatch" style="background:#7C2318; color:#FADDD7;">Container #7C2318</span>
+        <span class="cswatch" style="background:#BDD298; color:#2A3A12;">Secondary #BDD298</span>
+        <span class="cswatch" style="background:#ECC07E; color:#4A2E05;">Tertiary #ECC07E</span>
+        <span class="cswatch" style="background:#FFB4AB; color:#690005;">Error #FFB4AB</span>
+        <span class="cswatch" style="background:#1E1712; color:#C8BCB0; border-color:#3a2f26;">BG #1E1712</span>
+        <span class="cswatch" style="background:#271F19; color:#EDE5DC; border-color:#3a2f26;">Surface #271F19</span>
+        <span class="cswatch" style="background:#362C24; color:#EDE5DC;">Variant #362C24</span>
+      </div>
+    </div>
+    <div class="mode-card">
+      <h4>قواعد التحويل للداكن</h4>
+      <ul style="padding-inline-start:18px; font-size:12.5px; color:var(--ink-muted); display:flex; flex-direction:column; gap:7px;">
+        <li>الخلفية بنية-قهوية دافئة <code>#1E1712</code> وليست رمادية أو سوداء — الهوية تبقى «بيتية» ليلاً</li>
+        <li>الألوان الأساسية تفتح درجتين (سُمّاق ← مرجاني فاتح) لتحافظ على تباين AA على الأسطح الداكنة</li>
+        <li>الظلال تُستبدل بحدود <code>#3A2F26</code> خفيفة — الظل غير مرئي على الداكن</li>
+        <li>صور الوجبات تُغطى بطبقة <code>black 8%</code> لتخفيف الوهج</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>منظومة حالات الطلب <span class="en">Order status system</span></h3>
+  <p class="sec-sub" style="margin-bottom:14px;">اللون + النقطة + التسمية تظهر معاً دائماً، في التطبيقين وبنفس الترتيب. هذه هي الترجمة البصرية الحرفية لحالات الـ Activity Diagram.</p>
+  <div class="specimen"><div class="demo">
+    <span class="status" style="background:#F7E7CC; color:#5F3C08;"><i></i>بانتظار الموافقة</span>
+    <span class="status" style="background:#DBE8F6; color:#1D4E85;"><i></i>قيد التحضير</span>
+    <span class="status" style="background:#E4EDD3; color:#33421A;"><i></i>جاهز للتوصيل</span>
+    <span class="status" style="background:#DBE8F6; color:#1D4E85;"><i></i>قيد التوصيل</span>
+    <span class="status" style="background:#D9EBDF; color:#1E5232;"><i></i>تم التسليم</span>
+    <span class="status" style="background:#FCE3E0; color:#8A1D14;"><i></i>مرفوض / ملغى</span>
+  </div>
+  <div class="rules"><b>قاعدة:</b> حالة «مرفوض» لا تُعرض أبداً بدون سبب مرفق أو زر لعرضه. حالة «قيد التوصيل» تعرض دائماً وقتاً تقديرياً.</div></div>
+
+  <div class="note">⚠️ <b>قاعدة السُمّاق والخطأ:</b> اللون الأساسي والخطأ كلاهما أحمر العائلة — لذلك يُمنع استخدام Primary لأي فعل تدميري. الحذف والرفض يستخدمان <code>error</code> حصراً وبأسلوب Outlined مع أيقونة، بينما Primary يبقى للأفعال الإيجابية الممتلئة. هذا الفصل الشكلي (ممتلئ إيجابي / مفرّغ تدميري) يمنع أي التباس.</div>
+</section>
+
+<!-- ================= 03 TYPOGRAPHY ================= -->
+<section>
+  <div class="sec"><span class="num">03</span><h2>الخطوط</h2></div>
+  <p class="sec-sub">ثنائية مقصودة: <b>Alexandria</b> للعناوين — هندسي حديث بحضور قوي، و<b>Tajawal</b> للنصوص — مقروء وودود بارتفاع سطر سخي يناسب العربية. الاثنان على Google Fonts ومتاحان في حزمة <code>google_fonts</code>.</p>
+
+  <div class="typerow"><div class="spec"><b>Display · شاشات الترحيب</b>Alexandria · 28px · w800 · lh 1.35<br><code>textTheme.displaySmall</code></div><div style="font-family:'Alexandria'; font-size:28px; font-weight:800; line-height:1.35;">أطيب أكل بيت، لعندك</div></div>
+  <div class="typerow"><div class="spec"><b>Headline · عنوان الشاشة</b>Alexandria · 22px · w700 · lh 1.4<br><code>textTheme.headlineSmall</code></div><div style="font-family:'Alexandria'; font-size:22px; font-weight:700;">طلباتي</div></div>
+  <div class="typerow"><div class="spec"><b>Title · عنوان بطاقة</b>Alexandria · 17px · w700 · lh 1.45<br><code>textTheme.titleMedium</code></div><div style="font-family:'Alexandria'; font-size:17px; font-weight:700;">كبسة دجاج على الطريقة الحلبية</div></div>
+  <div class="typerow"><div class="spec"><b>Body Large · نص بارز</b>Tajawal · 15.5px · w500 · lh 1.7<br><code>textTheme.bodyLarge</code></div><div style="font-size:15.5px; font-weight:500;">وجبة عائلية تكفي أربعة أشخاص، تُحضّر طازجة عند الطلب.</div></div>
+  <div class="typerow"><div class="spec"><b>Body · النص الأساسي</b>Tajawal · 14px · w400 · lh 1.7<br><code>textTheme.bodyMedium</code></div><div style="font-size:14px;">أرز بسمتي مع دجاج مشوي وخلطة بهارات البيت، يقدَّم مع سلطة وصلصة حارة على جنب.</div></div>
+  <div class="typerow"><div class="spec"><b>Label · أزرار وحقول</b>Tajawal · 14px · w700 · lh 1.2<br><code>textTheme.labelLarge</code></div><div style="font-size:14px; font-weight:700; color:var(--primary);">أضف إلى السلة</div></div>
+  <div class="typerow"><div class="spec"><b>Caption · بيانات مساعدة</b>Tajawal · 12px · w500 · lh 1.5<br><code>textTheme.bodySmall</code></div><div style="font-size:12px; color:var(--ink-muted);">يلزم الطلب قبل 4 ساعات · التوصيل خلال 45 دقيقة</div></div>
+  <div class="typerow" style="border-bottom:none;"><div class="spec"><b>Price · الأسعار</b>Tajawal · 16px · w800 · أرقام لاتينية<br><code>AppText.price</code></div><div class="price" style="font-size:16px;">45,000 ل.س <s>60,000</s></div></div>
+
+  <div class="note">🔢 <b>قاعدة الأرقام:</b> الأسعار والكميات والأوقات تُكتب بالأرقام اللاتينية (123) دائماً — أوضح للمسح البصري السريع وموحّدة مع الفواتير. النص الجاري يبقى عربياً بالكامل.</div>
+</section>
+
+<!-- ================= 04 SPACING / SHAPE / ELEVATION ================= -->
+<section>
+  <div class="sec"><span class="num">04</span><h2>المسافات والأشكال والظلال</h2></div>
+  <p class="sec-sub">شبكة 4pt صارمة — كل مسافة في التطبيق من هذه القائمة حصراً، بلا استثناءات ولا أرقام مرتجلة.</p>
+
+  <h3>سلّم المسافات <span class="en">Spacing · AppSpace</span></h3>
+  <div class="scale">
+    <div><div class="sp" style="width:4px; height:36px;"></div><div class="sp-l">4<br>xs</div></div>
+    <div><div class="sp" style="width:8px; height:36px;"></div><div class="sp-l">8<br>s</div></div>
+    <div><div class="sp" style="width:12px; height:36px;"></div><div class="sp-l">12<br>m</div></div>
+    <div><div class="sp" style="width:16px; height:36px;"></div><div class="sp-l">16<br>l</div></div>
+    <div><div class="sp" style="width:24px; height:36px;"></div><div class="sp-l">24<br>xl</div></div>
+    <div><div class="sp" style="width:32px; height:36px;"></div><div class="sp-l">32<br>xxl</div></div>
+    <div style="margin-inline-start:20px; font-size:12px; color:var(--ink-muted); max-width:280px;">هوامش الشاشة الجانبية: <b>16</b> · بين البطاقات: <b>12</b> · بين الأقسام: <b>24</b> · حشوة داخل البطاقة: <b>14</b></div>
+  </div>
+
+  <h3>نصف القطر <span class="en">Radius · AppRadius</span></h3>
+  <div class="rad-demo">
+    <div class="rad" style="border-radius:8px;"><b>8</b>شارات صغيرة</div>
+    <div class="rad" style="border-radius:12px;"><b>12</b>أزرار · حقول · صور</div>
+    <div class="rad" style="border-radius:16px;"><b>16</b>بطاقات</div>
+    <div class="rad" style="border-radius:24px 24px 0 0;"><b>24</b>Bottom Sheets</div>
+    <div class="rad" style="border-radius:999px;"><b>999</b>Chips · صور شخصية</div>
+  </div>
+
+  <h3>الظلال <span class="en">Elevation · AppShadow</span></h3>
+  <div class="elev-demo">
+    <div class="elev" style="box-shadow:var(--e1);"><b>e1</b>بطاقات ساكنة</div>
+    <div class="elev" style="box-shadow:var(--e2);"><b>e2</b>عناصر عائمة · تنقل سفلي</div>
+    <div class="elev" style="box-shadow:var(--e3);"><b>e3</b>Sheets · Dialogs</div>
+    <div style="font-size:12px; color:var(--ink-muted); max-width:260px; align-self:center;">الظلال دافئة اللون (<code>rgba(43,33,26,…)</code>) وليست سوداء — ظل رمادي على خلفية طحينية يبدو متسخاً.</div>
+  </div>
+</section>
+
+<!-- ================= 05 COMPONENTS ================= -->
+<section>
+  <div class="sec"><span class="num">05</span><h2>المكوّنات</h2></div>
+  <p class="sec-sub">كل مكوّن معروض بحالاته الفعلية. هذه القائمة مشتقّة حصراً من شاشات الـ Wireframes — لا يوجد مكوّن هنا بلا استخدام، ولا شاشة تحتاج مكوّناً غير موجود هنا.</p>
+
+  <h3>الأزرار <span class="en">Buttons</span></h3>
+  <div class="specimen">
+    <div class="demo">
+      <button class="s-btn primary">تأكيد الطلب</button>
+      <button class="s-btn pressed">مضغوط</button>
+      <button class="s-btn outline">تأكيد طلب أم أحمد</button>
+      <button class="s-btn text">عرض الكل ←</button>
+      <button class="s-btn danger">رفض الطلب</button>
+      <button class="s-btn disabled">معطّل</button>
+      <button class="s-btn loading">تحميل</button>
+    </div>
+    <div class="rules"><b>القواعد:</b> ارتفاع ثابت 48px (منطقة لمس كاملة) · زر Primary ممتلئ <b>واحد فقط</b> في الشاشة، دائماً في الأسفل وبعرض كامل في الشاشات المهمة (تأكيد الطلب، إنشاء حساب) · التدميري Outlined أحمر دائماً، ولا يكون أبداً الزر الافتراضي في Dialog · أثناء التحميل يُعطَّل الزر ويظهر مؤشر دوّار مكان النص.</div>
+  </div>
+
+  <h3>حقول الإدخال <span class="en">Text fields</span></h3>
+  <div class="specimen">
+    <div class="demo" style="padding-top:8px; gap:20px 14px;">
+      <div class="s-input"><b>رقم الهاتف</b>+963 --- --- ---</div>
+      <div class="s-input focus"><b>اسم الوجبة</b>كبسة دجاج|</div>
+      <div class="s-input error"><b>كلمة المرور</b>••<span class="msg">كلمة المرور 8 محارف على الأقل</span></div>
+      <div class="s-input disabled"><b>الموقع</b>📍 يُحدَّد تلقائياً</div>
+    </div>
+    <div class="rules" style="margin-top:26px;"><b>القواعد:</b> الـ Label يطفو أعلى الحد (لا placeholders تختفي عند الكتابة) · رسالة الخطأ تحت الحقل مباشرة، محددة وقابلة للتنفيذ («8 محارف على الأقل» لا «إدخال خاطئ») · حقول كلمات المرور مع 👁 دائماً · الحقول الشرطية (حقلا الطباخة عند التسجيل، تاريخ الجدولة) تظهر بحركة انزلاق 200ms لا فجأة.</div>
+  </div>
+
+  <h3>عناصر الاختيار <span class="en">Selection · Chips · Badges</span></h3>
+  <div class="specimen">
+    <div class="demo">
+      <span class="s-chip on">مشاوي</span>
+      <span class="s-chip">معجنات</span>
+      <span class="s-chip">حلويات ▾</span>
+      <span class="badge discount">-60%</span>
+      <span class="badge rating">★ 4.8</span>
+      <span class="badge new">متوفرة الآن</span>
+      <label style="display:inline-flex; align-items:center; gap:8px; font-size:13px; font-weight:500;"><span style="width:18px; height:18px; border-radius:5px; background:var(--primary); color:#fff; display:inline-flex; align-items:center; justify-content:center; font-size:11px;">✓</span>التسجيل كطباخة</label>
+      <span style="width:44px; height:26px; border-radius:999px; background:var(--secondary); position:relative; display:inline-block;"><i style="position:absolute; top:3px; left:3px; width:20px; height:20px; border-radius:50%; background:#fff;"></i></span>
+    </div>
+    <div class="rules"><b>القواعد:</b> الـ Chips للفلاتر والـ variations (اختيار الحجم) — المختار ممتلئ سُمّاق · شارة الخصم سُمّاق حصراً وتظهر أعلى يسار الصورة دائماً · التقييم عسلي دائماً · الـ Switch الأخضر = تشغيل (حالة البيع، خيارات الأسعار) · منطقة لمس كل عنصر اختيار 48px حتى لو رُسم أصغر.</div>
+  </div>
+
+  <h3>بطاقة الوجبة <span class="en">Meal card — المكوّن الأهم</span></h3>
+  <div class="specimen">
+    <div class="demo" style="align-items:flex-start;">
+      <div class="s-card">
+        <div class="img">صورة الوجبة 4:3<span class="badge discount" style="position:absolute; top:10px; left:10px;">-50%</span><span class="badge rating" style="position:absolute; top:10px; right:10px;">★ 4.8</span></div>
+        <div class="body">
+          <div class="ttl">كبسة دجاج حلبية</div>
+          <div class="sub">أم أحمد · جاهزة خلال 45 د · اطلب قبل 4 س</div>
+          <div class="foot"><span class="price">45,000 <s>90,000</s></span><span style="font-size:11px; color:var(--ink-muted);">♡</span></div>
+        </div>
+      </div>
+      <div class="s-card" style="opacity:.65;">
+        <div class="img" style="filter:grayscale(.7);">صورة الوجبة</div>
+        <div class="body">
+          <div class="ttl" style="color:var(--ink-muted);">فتوش</div>
+          <div class="sub" style="color:var(--error); font-weight:700;">⚠ لم تعد متوفرة — حُذفت من قبل الطباخة</div>
+          <div class="foot"><button class="s-btn danger" style="height:34px; padding:0 14px; font-size:12px;">إزالة من السلة</button></div>
+        </div>
+      </div>
+    </div>
+    <div class="rules"><b>القواعد:</b> نسبة الصورة 4:3 ثابتة في كل السياقات · لا زر «أضف للسلة» على البطاقة — البطاقة كلها قابلة للنقر وتفتح التفاصيل (قرار معتمد) · حالة «غير متوفرة» وفق S5: صورة رمادية + تنبيه أحمر + زر إزالة، ولا تختفي البطاقة من تلقاء نفسها أبداً · بيانات البطاقة بترتيب ثابت: اسم ← طباخة ← أوقات ← سعر.</div>
+  </div>
+
+  <h3>الطبقات العائمة <span class="en">Bottom sheet · Dialog</span></h3>
+  <div class="specimen">
+    <div class="demo" style="align-items:flex-end;">
+      <div class="sheet-demo">
+        <div class="grab"></div>
+        <div style="font-family:'Alexandria'; font-size:15px; font-weight:700; margin-bottom:10px;">إضافة ملاحظة على الوجبة</div>
+        <div class="s-input" style="width:100%; height:64px; margin-bottom:14px;">بدون بصل، حار زيادة...</div>
+        <button class="s-btn primary" style="width:100%;">حفظ الملاحظة</button>
+      </div>
+      <div class="dialog-demo">
+        <h4>حذف «كبسة دجاج»؟</h4>
+        <p>ستختفي من قائمتك، وسيصل تنبيه لكل زبون وضعها في سلته.</p>
+        <div style="display:flex; gap:10px;"><button class="s-btn danger" style="flex:1; height:42px;">حذف</button><button class="s-btn text" style="flex:1; height:42px;">إلغاء</button></div>
+      </div>
+    </div>
+    <div class="rules"><b>القواعد:</b> الإدخال السريع (ملاحظة، اختيار خيار) = Bottom Sheet بمقبض سحب · القرارات الخطرة = Dialog وسطي، عنوانه يسمّي الشيء المحذوف بالاسم، ونصه يشرح العاقبة الفعلية · زر الإلغاء نصي دائماً بجانب التدميري، والتدميري ليس الافتراضي.</div>
+  </div>
+
+  <h3>التنقل والتحميل <span class="en">Navigation · Loading · Empty</span></h3>
+  <div class="specimen">
+    <div class="demo" style="align-items:flex-start;">
+      <div class="navdemo">
+        <div class="navitem on"><span class="ic">🏠</span>الرئيسية</div>
+        <div class="navitem"><span class="ic">🧺</span>السلة</div>
+        <div class="navitem"><span class="ic">🧾</span>طلباتي</div>
+        <div class="navitem"><span class="ic">👤</span>حسابي</div>
+      </div>
+      <div style="width:220px; display:flex; flex-direction:column; gap:9px;">
+        <div style="display:flex; gap:10px;"><div class="skel" style="width:56px; height:56px; border-radius:12px;"></div><div style="flex:1; display:flex; flex-direction:column; gap:8px; padding-top:6px;"><div class="skel" style="height:11px; width:75%;"></div><div class="skel" style="height:11px; width:45%;"></div></div></div>
+        <div style="display:flex; gap:10px;"><div class="skel" style="width:56px; height:56px; border-radius:12px;"></div><div style="flex:1; display:flex; flex-direction:column; gap:8px; padding-top:6px;"><div class="skel" style="height:11px; width:65%;"></div><div class="skel" style="height:11px; width:50%;"></div></div></div>
+      </div>
+      <div style="width:200px; text-align:center; padding:14px; border:1.5px dashed var(--outline); border-radius:16px;">
+        <div style="font-size:30px;">🧺</div>
+        <div style="font-family:'Alexandria'; font-size:14px; font-weight:700; margin:6px 0 2px;">سلتك فاضية</div>
+        <div style="font-size:11.5px; color:var(--ink-muted); margin-bottom:12px;">لسا ما اخترت ولا طبخة</div>
+        <button class="s-btn outline" style="height:38px; font-size:12.5px;">تصفّح الوجبات</button>
+      </div>
+    </div>
+    <div class="rules"><b>القواعد:</b> التبويب النشط = حبة <code>primaryContainer</code> خلف الأيقونة · التحميل = Skeleton بشكل المحتوى القادم، لا Spinner وسط شاشة بيضاء · الشاشة الفارغة = رسم + جملة ودّية + زر فعل، وليست نصاً يتيماً · التنقل السفلي 4 وجهات كحد أقصى (الإشعارات في الـ AppBar).</div>
+  </div>
+</section>
+
+<!-- ================= 06 RULES ================= -->
+<section>
+  <div class="sec"><span class="num">06</span><h2>قواعد إلزامية</h2></div>
+  <p class="sec-sub">قائمة المراجعة قبل اعتماد أي شاشة. أي بند مخالف = الشاشة تُرفض في الـ Review.</p>
+  <div class="dodont">
+    <div class="dd do">
+      <h4>✓ افعل</h4>
+      <ul>
+        <li><b>RTL أولاً:</b> كل شيء يُبنى RTL ويُختبر LTR — الأسهم، الأيقونات الاتجاهية، والـ TextDirection تنقلب تلقائياً بـ <code>EdgeInsetsDirectional</code></li>
+        <li><b>مناطق اللمس ≥ 48px</b> لكل عنصر تفاعلي، حتى الأيقونات الصغيرة</li>
+        <li><b>تباين AA:</b> نص أساسي ≥ 4.5:1، كبير ≥ 3:1 — اللوحة أعلاه محسوبة لتحقق ذلك</li>
+        <li><b>حالة واحدة لكل لون:</b> الجدول في القسم 02 هو المرجع الوحيد لألوان الحالات</li>
+        <li><b>كل فعل له ردّ:</b> ضغطة زر = تغيّر فوري (loading، snackbar، انتقال) خلال 100ms</li>
+        <li><b>الأسعار بأرقام لاتينية</b> وبنمط <code>AppText.price</code> حصراً</li>
+      </ul>
+    </div>
+    <div class="dd dont">
+      <h4>✗ لا تفعل</h4>
+      <ul>
+        <li><b>لا لونين أساسيين في شاشة:</b> إذا احتجت تمييزاً ثانياً استخدم Container الفاتح لا لوناً جديداً</li>
+        <li><b>لا أسود صافي ولا رمادي بارد</b> — الحبر <code>#2A211A</code> والخلفية <code>#FBF7F1</code> فقط</li>
+        <li><b>لا زر «أضف للسلة» خارج تفاصيل الوجبة</b> (قرار معتمد ومطبّق في الـ wireframes)</li>
+        <li><b>لا Spinner ملء الشاشة</b> — Skeletons دائماً</li>
+        <li><b>لا نص إنجليزي في الواجهة</b> إلا رموز الوحدات والأرقام</li>
+        <li><b>لا مسافات خارج سلّم الـ 4pt</b> — لا 10px ولا 15px ولا «شوي لفوق»</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 07 HANDOFF ================= -->
+<section style="margin-bottom:0;">
+  <div class="sec"><span class="num">07</span><h2>التسليم للتطوير</h2></div>
+  <p class="sec-sub">كل ما في هذه الوثيقة مكتوب فعلياً في <code>app_theme.dart</code> المرفق: ColorScheme كامل (فاتح + داكن)، TextTheme بالخطين، ثوابت المسافات والأقطار والظلال، وThemeExtension لألوان حالات الطلب. الاستخدام:</p>
+  <table>
+    <tr><th>ما تريده</th><th>من أين تأخذه في الكود</th></tr>
+    <tr><td>لون أساسي / حاويات / خطأ</td><td><code>Theme.of(context).colorScheme.primary</code> …</td></tr>
+    <tr><td>أنماط النصوص</td><td><code>Theme.of(context).textTheme.titleMedium</code> …</td></tr>
+    <tr><td>مسافة أو نصف قطر أو ظل</td><td><code>AppSpace.l</code> · <code>AppRadius.card</code> · <code>AppShadow.e2</code></td></tr>
+    <tr><td>لون حالة طلب</td><td><code>Theme.of(context).extension&lt;OrderStatusColors&gt;()!.delivering</code></td></tr>
+    <tr><td>نمط السعر</td><td><code>AppText.price(context)</code></td></tr>
+    <tr><td>تفعيل الثيم</td><td><code>MaterialApp(theme: AppTheme.light, darkTheme: AppTheme.dark)</code></td></tr>
+  </table>
+  <div class="note">🧭 <b>قاعدة الحسم:</b> إذا وجدت نفسك تكتب <code>Color(0xFF…)</code> أو رقم مسافة داخل شاشة، توقّف — إما أن القيمة موجودة في النظام، أو أن النظام ينقصه Token يُضاف هنا أولاً ثم يُستخدم. الوثيقة والكود يتحركان معاً دائماً.</div>
+</section>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Luqmat Beit - Onboarding</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;700;800&amp;family=Tajawal:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "zaatar-container": "#E4EDD3",
+                        "on-error": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-tertiary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "surface-tint": "#ab3428",
+                        "on-tertiary-fixed": "#2a1700",
+                        "on-primary-fixed": "#410000",
+                        "primary": "#871a11",
+                        "background": "#fff8f5",
+                        "tertiary": "#623c00",
+                        "sumac-primary": "#A83226",
+                        "secondary-container": "#d0eda0",
+                        "surface-container-high": "#f6e5da",
+                        "honey-tertiary": "#B97A1E",
+                        "surface-container-highest": "#f0dfd4",
+                        "on-background": "#221a13",
+                        "muted-spice": "#71655B",
+                        "secondary-fixed": "#d0eda0",
+                        "on-surface": "#221a13",
+                        "on-secondary-fixed-variant": "#374d12",
+                        "surface-container-lowest": "#ffffff",
+                        "surface": "#FFFFFF",
+                        "outline": "#D9CEC1",
+                        "secondary-fixed-dim": "#b4d086",
+                        "inverse-on-surface": "#ffeee2",
+                        "on-primary-fixed-variant": "#8a1c13",
+                        "on-error-container": "#93000a",
+                        "on-primary-container": "#ffc9c0",
+                        "outline-variant": "#e0bfba",
+                        "primary-fixed-dim": "#ffb4a9",
+                        "surface-container-low": "#fff1e8",
+                        "honey-container": "#F7E7CC",
+                        "error-container": "#ffdad6",
+                        "inverse-primary": "#ffb4a9",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "surface-dim": "#e8d7cc",
+                        "secondary": "#4e6628",
+                        "ink-text": "#2A211A",
+                        "sumac-container": "#FADDD7",
+                        "inverse-surface": "#382e27",
+                        "surface-container": "#fcebdf",
+                        "primary-fixed": "#ffdad5",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed": "#121f00",
+                        "surface-variant": "#f0dfd4",
+                        "on-secondary-container": "#546c2e",
+                        "zaatar-secondary": "#5A7233",
+                        "on-surface-variant": "#58413e",
+                        "primary-container": "#a83226",
+                        "tertiary-container": "#825100",
+                        "tahini-bg": "#FBF7F1",
+                        "tertiary-fixed": "#ffddb8",
+                        "on-tertiary-container": "#ffcc91",
+                        "surface-bright": "#fff8f5"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "16px",
+                        "gutter": "16px",
+                        "xs": "4px",
+                        "xl": "24px",
+                        "base": "4px",
+                        "sm": "8px",
+                        "card-padding": "14px",
+                        "xxl": "32px",
+                        "md": "12px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Tajawal"],
+                        "body-sm": ["Tajawal"],
+                        "price-display": ["Tajawal"],
+                        "body-lg": ["Tajawal"],
+                        "title-lg": ["Alexandria"],
+                        "display-lg": ["Alexandria"],
+                        "headline-sm": ["Alexandria"],
+                        "headline-md": ["Alexandria"],
+                        "label-lg": ["Tajawal"]
+                    },
+                    "fontSize": {
+                        "body-md": ["14px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-sm": ["12.5px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "price-display": ["16px", { "lineHeight": "20px", "fontWeight": "800" }],
+                        "body-lg": ["15.5px", { "lineHeight": "26px", "fontWeight": "500" }],
+                        "title-lg": ["17px", { "lineHeight": "22px", "fontWeight": "700" }],
+                        "display-lg": ["40px", { "lineHeight": "48px", "fontWeight": "800" }],
+                        "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "700" }],
+                        "headline-md": ["22px", { "lineHeight": "28px", "fontWeight": "700" }],
+                        "label-lg": ["14px", { "lineHeight": "20px", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .slide-hidden {
+            opacity: 0;
+            transform: translateX(20px);
+            pointer-events: none;
+            position: absolute;
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+        .slide-visible {
+            opacity: 1;
+            transform: translateX(0);
+            pointer-events: auto;
+            position: relative;
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-tahini-bg min-h-screen flex flex-col items-center justify-center font-body-md text-on-background relative overflow-hidden">
+<!-- Content Container -->
+<main class="w-full max-w-md flex-1 flex flex-col px-lg pt-xxl pb-xl relative z-10 h-screen">
+<!-- Slider Container -->
+<div class="flex-1 flex flex-col justify-center relative w-full h-full" id="slider-container">
+<!-- Step 1 -->
+<div class="slide-visible flex flex-col items-center text-center w-full h-full justify-center" id="slide-0">
+<div class="w-64 h-64 mb-xl rounded-full bg-surface-container-high flex items-center justify-center overflow-hidden shadow-sm relative">
+<img class="w-full h-full object-cover" data-alt="A warm, inviting illustration of a home kitchen scene in a minimalist style. The illustration features soft, rounded shapes depicting a cooking pot on a stove, fresh vegetables, and a gentle wisp of steam. The color palette relies on warm earth tones, deep Sumac reds, and creamy Tahini backgrounds, ensuring a comforting, artisanal feel suitable for a food delivery app." src="https://lh3.googleusercontent.com/aida-public/AB6AXuALH3z1DX44DzCA8YZzK1BOMzAjum9GsQgRVNWkCgSk-OXd59uBXUiQTvGiv6uSCuf0fPQ1n345u_DV45YrKxYKd8v5AXx6iYSET6comNBfpO7kLGdMwl6MXfrn7Eg5OBNKxUc73zxjFIDoA5GW6tAhbuOSdyv3FK2Gv-u8wPd7ok4KVSykZ3ZPqRmcZvsyvHXKHnFILCzDWLf3Ycgb3nTJm4KBzNZh71ssb8mcSX2jQgVMoFKrqHKfAqxIYp_bUb5560lTWmeqSE0"/>
+</div>
+<h1 class="font-headline-md text-headline-md text-sumac-primary mb-md">أشهى الأطباق البيتية</h1>
+<p class="font-body-lg text-body-lg text-muted-spice max-w-[280px]">تذوق طعم البيت في كل وجبة، محضرة بعناية وحب من طهاة محليين شغوفين.</p>
+</div>
+<!-- Step 2 -->
+<div class="slide-hidden flex flex-col items-center text-center w-full h-full justify-center" id="slide-1">
+<div class="w-64 h-64 mb-xl rounded-full bg-surface-container-high flex items-center justify-center overflow-hidden shadow-sm relative">
+<img class="w-full h-full object-cover" data-alt="A clean, modern illustration showing a neatly packed food delivery box tied with a rustic string, sitting next to a fresh sprig of rosemary. The aesthetic is minimal with generous white space, utilizing warm off-whites, subtle browns, and a pop of muted green. The mood is professional yet homemade, conveying reliable logistics with a personal touch." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9AfjRAJOR2F7mtECBxlmkHj9d4QGpNhVKdKYXiJJYD2zRSIAO6uKjindMaQiymPYceF-1nOsVzYvtbsibVyryRo28CvKtixaeHsB0g1MtwxRFuC9H3NdD8OojuS-x16U-g_YWN-iG-pS6UFkYc-b4Q_SdjQbPAjJhC9IVlPlSdY19hcmF3WvPAB4q5OFEAMhRlUuHQPGuNPIo7rmMXP5l3AUu0v5EMYpC5nLoaKOwf9mpthoII0tAM9J2X_OL_EdHrhyIgi8YpvU"/>
+</div>
+<h1 class="font-headline-md text-headline-md text-sumac-primary mb-md">توصيل دافئ وسريع</h1>
+<p class="font-body-lg text-body-lg text-muted-spice max-w-[280px]">تصلك وجباتك طازجة ودافئة، وكأنها خرجت للتو من فرن مطبخك الخاص.</p>
+</div>
+<!-- Step 3 -->
+<div class="slide-hidden flex flex-col items-center text-center w-full h-full justify-center" id="slide-2">
+<div class="w-64 h-64 mb-xl rounded-full bg-surface-container-high flex items-center justify-center overflow-hidden shadow-sm relative">
+<img class="w-full h-full object-cover" data-alt="A cozy illustration of a family or friends gathered around a beautifully set dining table, enjoying a meal together. The design uses flat, modern shapes but with warm, natural textures. The lighting is soft and golden, creating an atmosphere of shared joy and culinary delight, primarily using Tahini, Honey, and Sumac color tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5jpbqYsxNcTLhjYmaxlfVcoa23lnotBxSjra8Z1-0F8KESlbfGE2jyZ87uNU4k4kEZJk0JxF8WLG1_t5sF2NGFVeZ1RMx2spsJZvXYhZATdOq-TK2nM1tvHaYPZdPiMHXTH7E8jbV36gfXoa-FzTooyaI9F52QaHBaffuM6T09OyeUti826HbnfbyI5Qsg69fLeCHtCBnXp44toZL9vPeF8PU3yNrtDzeYJC2EehYej8j7vXgYBgeXmKKuUXBe5IKIAQlHueFJI8"/>
+</div>
+<h1 class="font-headline-md text-headline-md text-sumac-primary mb-md">شارك متعة الطعم</h1>
+<p class="font-body-lg text-body-lg text-muted-spice max-w-[280px]">اكتشف نكهات جديدة وشارك التجربة مع عائلتك وأصدقائك في كل مناسبة.</p>
+</div>
+</div>
+<!-- Controls Container -->
+<div class="flex flex-col items-center mt-auto w-full pb-lg gap-lg">
+<!-- Pagination Dots -->
+<div class="flex gap-sm mb-lg">
+<div class="w-2 h-2 rounded-full bg-sumac-primary transition-all duration-300 w-6" id="dot-0"></div>
+<div class="w-2 h-2 rounded-full bg-outline transition-all duration-300" id="dot-1"></div>
+<div class="w-2 h-2 rounded-full bg-outline transition-all duration-300" id="dot-2"></div>
+</div>
+<!-- Action Button -->
+<button class="w-full h-12 bg-sumac-primary text-on-primary font-label-lg text-label-lg rounded-full flex items-center justify-center shadow-[0_4px_12px_rgba(43,33,26,0.12)] active:scale-95 transition-transform duration-200" id="next-btn">
+                التالي
+            </button>
+<button class="font-body-md text-body-md text-muted-spice hover:text-sumac-primary transition-colors py-2" id="skip-btn">
+                تخطي
+            </button>
+</div>
+</main>
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let currentSlide = 0;
+            const totalSlides = 3;
+            const nextBtn = document.getElementById('next-btn');
+            const skipBtn = document.getElementById('skip-btn');
+
+            function updateSlider(newIndex) {
+                if(newIndex >= totalSlides) {
+                    // Navigate to home/dashboard
+                    alert('Navigate to Home');
+                    return;
+                }
+
+                // Hide current
+                const oldSlide = document.getElementById(`slide-${currentSlide}`);
+                oldSlide.classList.remove('slide-visible');
+                oldSlide.classList.add('slide-hidden');
+                
+                const oldDot = document.getElementById(`dot-${currentSlide}`);
+                oldDot.classList.remove('bg-sumac-primary', 'w-6');
+                oldDot.classList.add('bg-outline');
+
+                currentSlide = newIndex;
+
+                // Show new
+                const newSlide = document.getElementById(`slide-${currentSlide}`);
+                newSlide.classList.remove('slide-hidden');
+                newSlide.classList.add('slide-visible');
+                
+                const newDot = document.getElementById(`dot-${currentSlide}`);
+                newDot.classList.remove('bg-outline');
+                newDot.classList.add('bg-sumac-primary', 'w-6');
+
+                // Update button text on last slide
+                if(currentSlide === totalSlides - 1) {
+                    nextBtn.textContent = 'ابدأ الآن';
+                    skipBtn.style.opacity = '0';
+                    skipBtn.style.pointerEvents = 'none';
+                } else {
+                    nextBtn.textContent = 'التالي';
+                    skipBtn.style.opacity = '1';
+                    skipBtn.style.pointerEvents = 'auto';
+                }
+            }
+
+            nextBtn.addEventListener('click', () => {
+                updateSlider(currentSlide + 1);
+            });
+
+            skipBtn.addEventListener('click', () => {
+                updateSlider(totalSlides - 1);
+            });
+        });
+    </script>
+</body></html>

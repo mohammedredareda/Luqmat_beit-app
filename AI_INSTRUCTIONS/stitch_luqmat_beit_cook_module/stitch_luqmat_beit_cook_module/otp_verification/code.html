@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Luqmat Beit - OTP Verification</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&amp;family=Tajawal:wght@200;300;400;500;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "zaatar-container": "#E4EDD3",
+                        "on-error": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-tertiary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "surface-tint": "#ab3428",
+                        "on-tertiary-fixed": "#2a1700",
+                        "on-primary-fixed": "#410000",
+                        "primary": "#871a11",
+                        "background": "#fff8f5",
+                        "tertiary": "#623c00",
+                        "sumac-primary": "#A83226",
+                        "secondary-container": "#d0eda0",
+                        "surface-container-high": "#f6e5da",
+                        "honey-tertiary": "#B97A1E",
+                        "surface-container-highest": "#f0dfd4",
+                        "on-background": "#221a13",
+                        "muted-spice": "#71655B",
+                        "secondary-fixed": "#d0eda0",
+                        "on-surface": "#221a13",
+                        "on-secondary-fixed-variant": "#374d12",
+                        "surface-container-lowest": "#ffffff",
+                        "surface": "#FFFFFF",
+                        "outline": "#D9CEC1",
+                        "secondary-fixed-dim": "#b4d086",
+                        "inverse-on-surface": "#ffeee2",
+                        "on-primary-fixed-variant": "#8a1c13",
+                        "on-error-container": "#93000a",
+                        "on-primary-container": "#ffc9c0",
+                        "outline-variant": "#e0bfba",
+                        "primary-fixed-dim": "#ffb4a9",
+                        "surface-container-low": "#fff1e8",
+                        "honey-container": "#F7E7CC",
+                        "error-container": "#ffdad6",
+                        "inverse-primary": "#ffb4a9",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "surface-dim": "#e8d7cc",
+                        "secondary": "#4e6628",
+                        "ink-text": "#2A211A",
+                        "sumac-container": "#FADDD7",
+                        "inverse-surface": "#382e27",
+                        "surface-container": "#fcebdf",
+                        "primary-fixed": "#ffdad5",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed": "#121f00",
+                        "surface-variant": "#f0dfd4",
+                        "on-secondary-container": "#546c2e",
+                        "zaatar-secondary": "#5A7233",
+                        "on-surface-variant": "#58413e",
+                        "primary-container": "#a83226",
+                        "tertiary-container": "#825100",
+                        "tahini-bg": "#FBF7F1",
+                        "tertiary-fixed": "#ffddb8",
+                        "on-tertiary-container": "#ffcc91",
+                        "surface-bright": "#fff8f5"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "16px",
+                        "gutter": "16px",
+                        "xs": "4px",
+                        "xl": "24px",
+                        "base": "4px",
+                        "sm": "8px",
+                        "card-padding": "14px",
+                        "xxl": "32px",
+                        "md": "12px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Tajawal"],
+                        "body-sm": ["Tajawal"],
+                        "price-display": ["Tajawal"],
+                        "body-lg": ["Tajawal"],
+                        "title-lg": ["Alexandria"],
+                        "display-lg": ["Alexandria"],
+                        "headline-sm": ["Alexandria"],
+                        "headline-md": ["Alexandria"],
+                        "label-lg": ["Tajawal"]
+                    },
+                    "fontSize": {
+                        "body-md": ["14px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-sm": ["12.5px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "price-display": ["16px", { "lineHeight": "20px", "fontWeight": "800" }],
+                        "body-lg": ["15.5px", { "lineHeight": "26px", "fontWeight": "500" }],
+                        "title-lg": ["17px", { "lineHeight": "22px", "fontWeight": "700" }],
+                        "display-lg": ["40px", { "lineHeight": "48px", "fontWeight": "800" }],
+                        "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "700" }],
+                        "headline-md": ["22px", { "lineHeight": "28px", "fontWeight": "700" }],
+                        "label-lg": ["14px", { "lineHeight": "20px", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .otp-input::-webkit-outer-spin-button,
+        .otp-input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        .otp-input[type=number] {
+            -moz-appearance: textfield;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-tahini-bg text-on-background min-h-screen flex flex-col font-body-md antialiased selection:bg-sumac-container selection:text-sumac-primary">
+<!-- TopAppBar -->
+<header class="bg-tahini-bg dark:bg-on-background docked full-width top-0 flat no shadows flex justify-between items-center w-full px-lg py-md h-16 sticky z-10 transition-colors duration-300">
+<button aria-label="Back" class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-surface-container-low transition-colors text-muted-spice dark:text-outline active:scale-95 duration-200">
+<span class="material-symbols-outlined font-headline-sm text-headline-sm" style="font-variation-settings: 'wght' 400;">arrow_back</span>
+</button>
+<h1 class="font-headline-sm text-headline-sm font-bold text-sumac-primary dark:text-primary-fixed-dim absolute left-1/2 transform -translate-x-1/2">
+            رمز التحقق
+        </h1>
+<div class="w-12 h-12"></div> <!-- Spacer to keep title centered -->
+</header>
+<!-- Main Content -->
+<main class="flex-grow flex flex-col items-center justify-center px-lg pb-xxl">
+<div class="w-full max-w-md w-full bg-surface rounded-xl shadow-[0_2px_10px_rgba(43,33,26,0.04)] p-xl border border-outline/30 relative overflow-hidden">
+<!-- Subtle atmospheric gradient in background of card -->
+<div class="absolute -top-24 -right-24 w-48 h-48 bg-sumac-container rounded-full blur-[64px] opacity-40 pointer-events-none"></div>
+<div class="flex flex-col items-center text-center space-y-md relative z-10">
+<!-- Icon container -->
+<div class="w-16 h-16 bg-surface-container-high rounded-full flex items-center justify-center text-sumac-primary mb-sm shadow-[0_4px_12px_rgba(43,33,26,0.06)] border border-outline/20">
+<span class="material-symbols-outlined text-[32px]" style="font-variation-settings: 'FILL' 0, 'wght' 300;">chat</span>
+</div>
+<!-- Messaging -->
+<h2 class="font-title-lg text-title-lg text-ink-text">تم إرسال رمز التحقق</h2>
+<p class="font-body-md text-body-md text-muted-spice max-w-[280px]">
+                    لقد قمنا بإرسال رمز مكون من 4 أرقام إلى رقم الواتساب الخاص بك 
+                    <span class="font-body-lg text-body-lg text-ink-text block mt-xs" dir="ltr">+966 5X XXX XXXX</span>
+</p>
+<!-- OTP Input Grid -->
+<div class="flex gap-md w-full justify-center mt-xl" dir="ltr">
+<input aria-label="Digit 1" autofocus="" class="otp-input w-14 h-16 text-center font-display-lg text-display-lg text-ink-text bg-surface border-1.5 border-outline rounded-lg focus:border-sumac-primary focus:ring-1 focus:ring-sumac-primary focus:outline-none transition-all shadow-sm" maxlength="1" type="number"/>
+<input aria-label="Digit 2" class="otp-input w-14 h-16 text-center font-display-lg text-display-lg text-ink-text bg-surface border-1.5 border-outline rounded-lg focus:border-sumac-primary focus:ring-1 focus:ring-sumac-primary focus:outline-none transition-all shadow-sm" maxlength="1" type="number"/>
+<input aria-label="Digit 3" class="otp-input w-14 h-16 text-center font-display-lg text-display-lg text-ink-text bg-surface border-1.5 border-outline rounded-lg focus:border-sumac-primary focus:ring-1 focus:ring-sumac-primary focus:outline-none transition-all shadow-sm" maxlength="1" type="number"/>
+<input aria-label="Digit 4" class="otp-input w-14 h-16 text-center font-display-lg text-display-lg text-ink-text bg-surface border-1.5 border-outline rounded-lg focus:border-sumac-primary focus:ring-1 focus:ring-sumac-primary focus:outline-none transition-all shadow-sm" maxlength="1" type="number"/>
+</div>
+<!-- Error State (Hidden by default, structure provided) -->
+<!-- <p class="font-body-sm text-body-sm text-error mt-sm w-full text-right flex items-center justify-end gap-xs"><span class="material-symbols-outlined text-[16px]">error</span> الرمز غير صحيح، يرجى المحاولة مرة أخرى</p> -->
+<!-- Resend / Timer -->
+<div class="mt-xl font-body-sm text-body-sm text-muted-spice flex items-center gap-xs">
+<span>لم تستلم الرمز؟</span>
+<button class="text-sumac-primary font-body-lg text-body-lg font-medium hover:opacity-80 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed" disabled="" id="resend-btn">
+                        إعادة الإرسال
+                    </button>
+<span class="font-body-md text-body-md text-ink-text min-w-[40px] text-left" dir="ltr" id="timer">00:59</span>
+</div>
+</div>
+<!-- Action Button -->
+<div class="mt-xxl">
+<button class="w-full h-[48px] bg-sumac-primary text-on-primary font-label-lg text-label-lg rounded-full flex items-center justify-center hover:opacity-90 active:scale-[0.98] transition-all shadow-[0_4px_12px_rgba(168,50,38,0.2)]">
+                    تحقق
+                </button>
+</div>
+</div>
+</main>
+<script>
+        // Simple OTP input logic for UX fidelity
+        const inputs = document.querySelectorAll('.otp-input');
+        
+        inputs.forEach((input, index) => {
+            input.addEventListener('input', (e) => {
+                if(e.target.value.length > 1) {
+                    e.target.value = e.target.value.slice(0, 1);
+                }
+                if(e.target.value.length === 1 && index < inputs.length - 1) {
+                    inputs[index + 1].focus();
+                }
+            });
+
+            input.addEventListener('keydown', (e) => {
+                if(e.key === 'Backspace' && e.target.value === '' && index > 0) {
+                    inputs[index - 1].focus();
+                }
+            });
+        });
+
+        // Simple Timer logic
+        let timeLeft = 59;
+        const timerElement = document.getElementById('timer');
+        const resendBtn = document.getElementById('resend-btn');
+
+        const timerId = setInterval(() => {
+            timeLeft--;
+            const seconds = timeLeft < 10 ? `0${timeLeft}` : timeLeft;
+            timerElement.textContent = `00:${seconds}`;
+            
+            if (timeLeft <= 0) {
+                clearInterval(timerId);
+                timerElement.style.display = 'none';
+                resendBtn.disabled = false;
+            }
+        }, 1000);
+    </script>
+</body></html>
