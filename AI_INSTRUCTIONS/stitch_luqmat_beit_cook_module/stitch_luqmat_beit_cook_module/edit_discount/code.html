@@ -120,16 +120,6 @@
 <style>
         /* Hide scrollbar for cleaner look in this mockup container */
         ::-webkit-scrollbar { display: none; }
-        
-        /* Custom date input styling to match theme */
-        input[type="date"]::-webkit-calendar-picker-indicator {
-            cursor: pointer;
-            opacity: 0.6;
-            transition: 0.2s;
-        }
-        input[type="date"]::-webkit-calendar-picker-indicator:hover {
-            opacity: 1;
-        }
     </style>
 </head>
 <body class="bg-tahini-bg text-on-background font-body-md antialiased min-h-screen flex flex-col relative overflow-x-hidden selection:bg-sumac-container selection:text-sumac-primary">
@@ -178,14 +168,35 @@
 <span class="text-muted-spice font-body-lg text-body-lg">%</span>
 </div>
 </div>
-</div><div class="space-y-2">
-<label class="font-label-lg text-label-lg text-ink-text block" for="price-after-discount">السعر بعد الخصم</label>
-<div class="relative">
-<input class="w-full bg-surface-variant border border-outline rounded-lg px-md py-3 text-ink-text font-body-lg text-body-lg focus:outline-none h-12 pr-12 text-left" dir="ltr" id="price-after-discount" type="text" value="28.80" readonly="">
-<div class="absolute inset-y-0 right-0 flex items-center pr-md pointer-events-none">
-<span class="text-muted-spice font-body-lg text-body-lg">ر.س</span>
+</div><div class="space-y-4">
+<label class="font-label-lg text-label-lg text-ink-text block">الأسعار بعد الخصم (حسب خيارات البيع)</label>
+<div class="space-y-sm">
+<!-- Variation: Small -->
+<div class="flex items-center justify-between p-md bg-surface border border-outline-variant rounded-lg">
+<span class="font-body-lg text-ink-text">صغير</span>
+<div class="flex items-center gap-md">
+<span class="font-body-sm text-muted-spice line-through">40.00 ر.س</span>
+<span class="font-title-lg text-sumac-primary">32.00 ر.س</span>
 </div>
 </div>
+<!-- Variation: Medium -->
+<div class="flex items-center justify-between p-md bg-surface border border-outline-variant rounded-lg">
+<span class="font-body-lg text-ink-text">وسط</span>
+<div class="flex items-center gap-md">
+<span class="font-body-sm text-muted-spice line-through">60.00 ر.س</span>
+<span class="font-title-lg text-sumac-primary">48.00 ر.س</span>
+</div>
+</div>
+<!-- Variation: Large -->
+<div class="flex items-center justify-between p-md bg-surface border border-outline-variant rounded-lg">
+<span class="font-body-lg text-ink-text">كبير</span>
+<div class="flex items-center gap-md">
+<span class="font-body-sm text-muted-spice line-through">80.00 ر.س</span>
+<span class="font-title-lg text-sumac-primary">64.00 ر.س</span>
+</div>
+</div>
+</div>
+<p class="font-body-sm text-muted-spice">يتم احتساب هذه الأسعار بناءً على نسبة الخصم (20%) المحددة أعلاه.</p>
 </div>
 <hr class="border-outline-variant opacity-50">
 <!-- Discount Mode Selection -->
@@ -193,30 +204,48 @@
 <label class="font-label-lg text-label-lg text-ink-text block">نوع الصلاحية</label>
 <!-- Segmented Control -->
 <div class="flex p-1 bg-surface-container rounded-xl">
-<button class="flex-1 py-2 rounded-lg font-label-lg text-label-lg bg-surface shadow-[0_1px_3px_rgba(43,33,26,0.08)] text-sumac-primary transition-all duration-200 transform scale-100" id="btn-duration" onclick="setMode('duration')" type="button">
+<button class="flex-1 py-2 rounded-lg font-label-lg text-label-lg transition-all duration-200 transform scale-100 bg-surface shadow-[0_1px_3px_rgba(43,33,26,0.08)] text-sumac-primary" id="btn-duration" onclick="setMode('duration')" type="button">
                         حسب المدة
                     </button>
-<button class="flex-1 py-2 rounded-lg font-label-lg text-label-lg text-muted-spice hover:text-ink-text transition-all duration-200 transform scale-100 hover:bg-surface-variant/30" id="btn-usage" onclick="setMode('usage')" type="button">
+<button class="flex-1 py-2 rounded-lg font-label-lg text-label-lg transition-all duration-200 transform scale-100 text-muted-spice hover:text-ink-text hover:bg-surface-variant/30" id="btn-usage" onclick="setMode('usage')" type="button">
                         حسب الاستخدام
                     </button>
 </div>
 <!-- Dynamic Forms Container -->
 <div class="relative min-h-[100px] mt-md">
-<!-- Mode: Duration (Start/End Date) -->
+<!-- Mode: Duration (Update Duration & Remaining Days) -->
 <div class="grid grid-cols-2 gap-md transition-opacity duration-300 opacity-100 visible absolute inset-0" id="form-duration">
+<div class="space-y-xs">
+<label class="block font-body-sm text-body-sm text-muted-spice mb-xs">المدة المتبقية</label>
+<div class="bg-zaatar-container/30 text-zaatar-secondary px-md py-sm rounded-lg font-label-lg text-label-lg flex items-center gap-xs h-12">
+<span class="material-symbols-outlined text-md">timer</span>
+<span class="">متبقي 5 أيام</span>
+</div>
+</div>
 <div class="space-y-2">
-<label class="font-body-sm text-body-sm text-muted-spice block" for="start-date">تاريخ البدء</label>
-<input class="w-full bg-surface border border-outline rounded-lg px-md py-3 text-ink-text font-body-md focus:outline-none focus:border-sumac-primary focus:ring-1 focus:ring-sumac-primary transition-shadow h-12" id="start-date" type="date">
+<label class="font-body-sm text-body-sm text-muted-spice block" for="update-duration">تحديث المدة (أيام)</label>
+<div class="relative">
+<input class="w-full bg-surface border border-outline rounded-lg px-md py-3 text-ink-text font-body-md focus:outline-none focus:border-sumac-primary focus:ring-1 focus:ring-sumac-primary transition-shadow h-12" id="update-duration" placeholder="مثلاً: 7" type="number" value="5">
+<span class="absolute left-md top-1/2 -translate-y-1/2 font-body-sm text-body-sm text-muted-spice">يوم</span>
+</div>
+</div>
+</div>
+<!-- Mode: Usage Limit (Update Limit & Remaining Uses) -->
+<div class="grid grid-cols-2 gap-md transition-opacity duration-300 opacity-0 invisible absolute inset-0" id="form-usage">
+<div class="space-y-xs">
+<label class="block font-body-sm text-body-sm text-muted-spice mb-xs">الاستخدامات المتبقية</label>
+<div class="bg-zaatar-container/30 text-zaatar-secondary px-md py-sm rounded-lg font-label-lg text-label-lg flex items-center gap-xs h-12">
+<span class="material-symbols-outlined text-md">confirmation_number</span>
+<span class="">متبقي 12 مرة</span>
+</div>
 </div>
 <div class="space-y-2">
-<label class="font-body-sm text-body-sm text-muted-spice block" for="end-date">تاريخ الانتهاء</label>
-<input class="w-full bg-surface border border-outline rounded-lg px-md py-3 text-ink-text font-body-md focus:outline-none focus:border-sumac-primary focus:ring-1 focus:ring-sumac-primary transition-shadow h-12" id="end-date" type="date">
+<label class="font-body-sm text-body-sm text-muted-spice block" for="update-usage">تحديث الحد (مرات)</label>
+<div class="relative">
+<input class="w-full bg-surface border border-outline rounded-lg px-md py-3 text-ink-text font-body-md focus:outline-none focus:border-sumac-primary focus:ring-1 focus:ring-sumac-primary transition-shadow h-12" id="update-usage" placeholder="مثال: 50" type="number" value="50">
+<span class="absolute left-md top-1/2 -translate-y-1/2 font-body-sm text-body-sm text-muted-spice">مرة</span>
 </div>
 </div>
-<!-- Mode: Usage Limit (Max Uses) -->
-<div class="space-y-2 transition-opacity duration-300 opacity-0 invisible absolute inset-0" id="form-usage">
-<label class="font-body-sm text-body-sm text-muted-spice block" for="max-uses">الحد الأقصى للاستخدام (مرات)</label>
-<input class="w-full bg-surface border border-outline rounded-lg px-md py-3 text-ink-text font-body-md focus:outline-none focus:border-sumac-primary focus:ring-1 focus:ring-sumac-primary transition-shadow h-12" id="max-uses" placeholder="مثال: 50" type="number">
 </div>
 </div>
 </div>
@@ -278,14 +307,6 @@
                 }, 150);
             }
         }
-        
-        // Initialize date inputs with some dummy dates for mockup realism
-        document.addEventListener('DOMContentLoaded', () => {
-            const today = new Date().toISOString().split('T')[0];
-            const nextWeek = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
-            document.getElementById('start-date').value = today;
-            document.getElementById('end-date').value = nextWeek;
-        });
     </script>
 
 
