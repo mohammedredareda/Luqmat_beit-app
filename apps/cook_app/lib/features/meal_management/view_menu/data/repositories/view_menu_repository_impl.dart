@@ -11,14 +11,16 @@ class ViewMenuRepositoryImpl implements ViewMenuRepository {
   final FakeMealRemoteDataSource _dataSource;
 
   @override
-  Future<Result<({List<MealEntity> meals, bool isSellingPaused})>> getMyMeals(
-    String cookId,
-  ) {
+  Future<Result<({PaginatedResult<MealEntity> page, bool isSellingPaused})>> getMyMeals(
+    String cookId, {
+    String? cursor,
+    int pageSize = PaginationConstants.defaultPageSize,
+  }) {
     return guard(() async {
-      final models = await _dataSource.getMyMeals(cookId);
+      final page = await _dataSource.getMyMeals(cookId, cursor: cursor, pageSize: pageSize);
       final isPaused = await _dataSource.isSellingPaused(cookId);
       return (
-        meals: models.map((m) => m.toEntity()).toList(),
+        page: page.map((m) => m.toEntity()),
         isSellingPaused: isPaused,
       );
     });

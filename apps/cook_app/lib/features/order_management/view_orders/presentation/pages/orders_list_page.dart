@@ -85,7 +85,8 @@ class _OrdersListViewState extends State<_OrdersListView> {
           const SizedBox(height: AppSpace.l),
           BlocBuilder<ViewOrdersCubit, ViewOrdersState>(
             builder: (context, state) {
-              final countForSelected = state.whenOrNull(loaded: (orders) => orders.length);
+              final countForSelected =
+                  state.whenOrNull(loaded: (orders, hasMore, isLoadingMore) => orders.length);
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: AppSpace.l),
                 child: _FilterRow(
@@ -103,10 +104,13 @@ class _OrdersListViewState extends State<_OrdersListView> {
               builder: (context, state) => state.when(
                 initial: () => const SizedBox.shrink(),
                 loading: () => const OrdersListSkeleton(),
-                loaded: (orders) => _LoadedBody(
+                loaded: (orders, hasMore, isLoadingMore) => _LoadedBody(
                   orders: orders,
+                  hasMore: hasMore,
+                  isLoadingMore: isLoadingMore,
                   currentFilterStatus: _filters[_filterIndex],
                   onChanged: _refetchCurrentTab,
+                  onLoadMore: () => context.read<ViewOrdersCubit>().loadMore(),
                 ),
                 error: (exception) => _ErrorBody(
                   message: exception.message,
@@ -259,13 +263,19 @@ class _OrderFilterChip extends StatelessWidget {
 class _LoadedBody extends StatelessWidget {
   const _LoadedBody({
     required this.orders,
+    required this.hasMore,
+    required this.isLoadingMore,
     required this.currentFilterStatus,
     required this.onChanged,
+    required this.onLoadMore,
   });
 
   final List<OrderEntity> orders;
+  final bool hasMore;
+  final bool isLoadingMore;
   final OrderStatus currentFilterStatus;
   final VoidCallback onChanged;
+  final VoidCallback onLoadMore;
 
   @override
   Widget build(BuildContext context) {
@@ -275,25 +285,25 @@ class _LoadedBody extends StatelessWidget {
       return _EmptyBody(currentFilterStatus: currentFilterStatus);
     }
 
-    return ListView(
+    return PaginatedListView<OrderEntity>(
       padding: const EdgeInsets.symmetric(horizontal: AppSpace.l, vertical: AppSpace.m),
-      children: [
-        for (final order in orders) ...[
-          OrderCard(
-            order: order,
-            orderNumberLabel: l10n.orderNumberLabel(order.id),
-            statusLabel: _cardStatusLabel(l10n, order.status),
-            moreItemsLabel: l10n.moreItemsLabel,
-            currencySuffix: l10n.currencySuffix,
-            detailsLabel: l10n.orderDetailsCta,
-            acceptLabel: l10n.acceptOrderCta,
-            onTap: () => _openDetails(context, order.id, onChanged),
-            onAccept: () => _openDetails(context, order.id, onChanged),
-          ),
-          const SizedBox(height: AppSpace.m),
-        ],
-        _EndOfListMarker(status: currentFilterStatus),
-      ],
+      items: orders,
+      hasMore: hasMore,
+      isLoadingMore: isLoadingMore,
+      onLoadMore: onLoadMore,
+      separatorBuilder: (_, __) => const SizedBox(height: AppSpace.m),
+      endOfListBuilder: (context) => _EndOfListMarker(status: currentFilterStatus),
+      itemBuilder: (context, order, index) => OrderCard(
+        order: order,
+        orderNumberLabel: l10n.orderNumberLabel(order.id),
+        statusLabel: _cardStatusLabel(l10n, order.status),
+        moreItemsLabel: l10n.moreItemsLabel,
+        currencySuffix: l10n.currencySuffix,
+        detailsLabel: l10n.orderDetailsCta,
+        acceptLabel: l10n.acceptOrderCta,
+        onTap: () => _openDetails(context, order.id, onChanged),
+        onAccept: () => _openDetails(context, order.id, onChanged),
+      ),
     );
   }
 

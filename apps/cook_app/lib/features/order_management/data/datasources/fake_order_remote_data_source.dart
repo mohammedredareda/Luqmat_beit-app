@@ -2,6 +2,7 @@ import 'package:core/core.dart';
 import 'package:injectable/injectable.dart';
 
 import 'package:cook_app/shared/current_cook_id.dart';
+import 'package:cook_app/shared/in_memory_pagination.dart';
 import '../models/order_meal_item_model.dart';
 import '../models/order_model.dart';
 import '../models/order_offer_item_model.dart';
@@ -199,16 +200,93 @@ class FakeOrderRemoteDataSource {
           ),
         ],
       ),
+      ..._generateBulkOrders(),
     ];
   }
 
-  Future<List<OrderModel>> getOrders({
+  /// Bulk-generated orders (10 per status, `order-7` onward) so the list is
+  /// large enough to actually exercise cursor pagination end-to-end —
+  /// the hand-crafted seed above only covers specific business scenarios
+  /// (CK-25's expiry race, CK-17's mixed line-item types, ...).
+  static List<OrderModel> _generateBulkOrders() {
+    final now = DateTime.now();
+    const customerNames = [
+      'ليلى حسن', 'يوسف كمال', 'هدى عبدالرحمن', 'ماجد سعيد', 'رنا فؤاد',
+      'طارق منير', 'سلمى وليد', 'باسم عادل', 'نور الدين', 'إيمان رضا',
+    ];
+    const meals = [
+      (id: 'meal-1', name: 'كبسة دجاج منزلية', image: 'kabsa', price: 45.0),
+      (id: 'meal-2', name: 'فطائر لحم بالفرن', image: 'fatayer', price: 25.0),
+      (id: 'meal-3', name: 'شوربة عدس', image: 'lentil', price: 15.0),
+      (id: 'meal-4', name: 'مسقعة باذنجان', image: 'moussaka', price: 25.0),
+      (id: 'meal-5', name: 'كنافة بالجبن', image: 'kunafa', price: 20.0),
+    ];
+
+    final bulk = <OrderModel>[];
+    var counter = 7;
+    for (final status in OrderStatus.values) {
+      // `cancelled` only happens via the CK-25 auto-cancel race, never
+      // seeded directly.
+      if (status == OrderStatus.cancelled) continue;
+      for (var i = 0; i < 10; i++) {
+        final meal = meals[(counter + i) % meals.length];
+        final quantity = 1 + (i % 3);
+        final subtotal = meal.price * quantity;
+        // Pending orders stay recent so they don't all read as already
+        // past CK-25's pending timeout; other statuses read as history.
+        final createdAt = status == OrderStatus.pending
+            ? now.subtract(Duration(minutes: 2 + i * 3))
+            : now.subtract(Duration(hours: 4 + counter, minutes: i * 7));
+
+        bulk.add(
+          OrderModel(
+            id: 'order-$counter',
+            cookId: currentCookId,
+            customerName: customerNames[(counter + i) % customerNames.length],
+            deliveryMethod:
+                i.isEven ? OrderDeliveryMethod.delivery : OrderDeliveryMethod.pickup,
+            status: status,
+            createdAt: createdAt,
+            totalExpectedTimeMinutes: 40,
+            subtotal: subtotal,
+            discount: 0,
+            total: subtotal,
+            rejectionReason: status == OrderStatus.rejected
+                ? 'لا تتوفر المكونات اللازمة لتحضير هذا الطلب حالياً.'
+                : null,
+            mealItems: [
+              OrderMealItemModel(
+                mealId: meal.id,
+                name: meal.name,
+                imageUrl: 'https://picsum.photos/seed/${meal.image}/200/200',
+                quantity: quantity,
+                priceAtPurchase: meal.price,
+              ),
+            ],
+          ),
+        );
+        counter++;
+      }
+    }
+    return bulk;
+  }
+
+  Future<PaginatedResult<OrderModel>> getOrders({
     required String cookId,
     OrderStatus? statusFilter,
+    String? cursor,
+    int pageSize = PaginationConstants.defaultPageSize,
   }) async {
-    return _orders
+    final filtered = _orders
         .where((o) => o.cookId == cookId && (statusFilter == null || o.status == statusFilter))
-        .toList(growable: false);
+        .toList()
+      ..sort((a, b) => b.createdAt.compareTo(a.createdAt));
+    return paginateInMemory(
+      all: filtered,
+      idOf: (o) => o.id,
+      cursor: cursor,
+      pageSize: pageSize,
+    );
   }
 
   Future<OrderModel?> getOrderById(String id) async {

@@ -26,19 +26,37 @@ void main() {
     isActive: true,
   );
 
+  final secondMeal = const MealEntity(
+    id: 'meal-2',
+    cookId: currentCookId,
+    name: 'فطائر لحم بالفرن',
+    description: 'عجينة منزلية محشوة بلحم مفروم',
+    price: 25,
+    imageUrl: 'https://example.com/fatayer.png',
+    isActive: true,
+  );
+
   // CK-06 AC: "Menu with existing meals" — meals are listed as loaded.
   blocTest<ViewMenuCubit, ViewMenuState>(
     'emits [loading, loaded] with the meals the repository returns',
     setUp: () {
       when(() => getMyMeals(currentCookId)).thenAnswer(
-        (_) async => Result.success((meals: [activeMeal], isSellingPaused: false)),
+        (_) async => Result.success((
+          page: PaginatedResult(items: [activeMeal], hasMore: false),
+          isSellingPaused: false,
+        )),
       );
     },
     build: () => ViewMenuCubit(getMyMeals),
     act: (cubit) => cubit.loadMenu(),
     expect: () => [
       const ViewMenuState.loading(),
-      ViewMenuState.loaded(meals: [activeMeal], isSellingPaused: false),
+      ViewMenuState.loaded(
+        meals: [activeMeal],
+        isSellingPaused: false,
+        hasMore: false,
+        isLoadingMore: false,
+      ),
     ],
   );
 
@@ -47,14 +65,22 @@ void main() {
     'emits [loading, loaded(empty)] when the cook has no meals',
     setUp: () {
       when(() => getMyMeals(currentCookId)).thenAnswer(
-        (_) async => Result.success((meals: <MealEntity>[], isSellingPaused: false)),
+        (_) async => Result.success((
+          page: const PaginatedResult<MealEntity>(items: [], hasMore: false),
+          isSellingPaused: false,
+        )),
       );
     },
     build: () => ViewMenuCubit(getMyMeals),
     act: (cubit) => cubit.loadMenu(),
     expect: () => [
       const ViewMenuState.loading(),
-      const ViewMenuState.loaded(meals: [], isSellingPaused: false),
+      const ViewMenuState.loaded(
+        meals: [],
+        isSellingPaused: false,
+        hasMore: false,
+        isLoadingMore: false,
+      ),
     ],
   );
 
@@ -72,6 +98,51 @@ void main() {
     expect: () => [
       const ViewMenuState.loading(),
       const ViewMenuState.error(NetworkException()),
+    ],
+  );
+
+  // Second page appends to the first without dropping or duplicating items.
+  blocTest<ViewMenuCubit, ViewMenuState>(
+    'loadMore appends the next page and keeps hasMore in sync',
+    setUp: () {
+      when(() => getMyMeals(currentCookId)).thenAnswer(
+        (_) async => Result.success((
+          page: PaginatedResult(items: [activeMeal], hasMore: true, nextCursor: 'meal-1'),
+          isSellingPaused: false,
+        )),
+      );
+      when(() => getMyMeals(currentCookId, cursor: 'meal-1')).thenAnswer(
+        (_) async => Result.success((
+          page: PaginatedResult(items: [secondMeal], hasMore: false),
+          isSellingPaused: false,
+        )),
+      );
+    },
+    build: () => ViewMenuCubit(getMyMeals),
+    act: (cubit) async {
+      await cubit.loadMenu();
+      await cubit.loadMore();
+    },
+    expect: () => [
+      const ViewMenuState.loading(),
+      ViewMenuState.loaded(
+        meals: [activeMeal],
+        isSellingPaused: false,
+        hasMore: true,
+        isLoadingMore: false,
+      ),
+      ViewMenuState.loaded(
+        meals: [activeMeal],
+        isSellingPaused: false,
+        hasMore: true,
+        isLoadingMore: true,
+      ),
+      ViewMenuState.loaded(
+        meals: [activeMeal, secondMeal],
+        isSellingPaused: false,
+        hasMore: false,
+        isLoadingMore: false,
+      ),
     ],
   );
 }

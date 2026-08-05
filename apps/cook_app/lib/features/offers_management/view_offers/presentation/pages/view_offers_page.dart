@@ -9,6 +9,8 @@ import 'package:cook_app/l10n/generated/app_localizations.dart';
 import '../../../shared/presentation/widgets/offer_discount_card.dart';
 import '../../../shared/presentation/widgets/offer_discount_delete_confirmation.dart';
 import '../../../shared/presentation/widgets/select_offer_type_sheet.dart';
+import '../../domain/entities/offer_feed_filter.dart';
+import '../../domain/entities/offer_feed_item_entity.dart';
 import '../bloc/view_offers_cubit.dart';
 import '../bloc/view_offers_state.dart';
 import '../widgets/view_offers_skeleton.dart';
@@ -35,8 +37,21 @@ Future<void> _onAddPressed(BuildContext context) async {
   });
 }
 
-class _ViewOffersView extends StatelessWidget {
+class _ViewOffersView extends StatefulWidget {
   const _ViewOffersView();
+
+  @override
+  State<_ViewOffersView> createState() => _ViewOffersViewState();
+}
+
+class _ViewOffersViewState extends State<_ViewOffersView> {
+  OfferFeedFilter _filter = OfferFeedFilter.all;
+
+  void _selectFilter(OfferFeedFilter filter) {
+    if (filter == _filter) return;
+    setState(() => _filter = filter);
+    context.read<ViewOffersCubit>().load(filter: filter);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +77,14 @@ class _ViewOffersView extends StatelessWidget {
         builder: (context, state) => state.when(
           initial: () => const SizedBox.shrink(),
           loading: () => const ViewOffersSkeleton(),
-          loaded: (offers, discounts) => _LoadedBody(offers: offers, discounts: discounts),
+          loaded: (items, hasMore, isLoadingMore) => _LoadedBody(
+            items: items,
+            hasMore: hasMore,
+            isLoadingMore: isLoadingMore,
+            filter: _filter,
+            onFilterSelected: _selectFilter,
+            onLoadMore: () => context.read<ViewOffersCubit>().loadMore(),
+          ),
           error: (exception) => _ErrorBody(message: exception.message),
         ),
       ),
@@ -70,160 +92,166 @@ class _ViewOffersView extends StatelessWidget {
   }
 }
 
-enum _OfferFilter { all, active, expired }
+class _LoadedBody extends StatelessWidget {
+  const _LoadedBody({
+    required this.items,
+    required this.hasMore,
+    required this.isLoadingMore,
+    required this.filter,
+    required this.onFilterSelected,
+    required this.onLoadMore,
+  });
 
-bool _offerIsExpired(OfferEntity offer) => offer.remainingDays <= 0;
-
-bool _discountIsExpired(DiscountEntity discount) =>
-    (discount.remainingDays != null && discount.remainingDays! <= 0) ||
-    (discount.remainingUsage != null && discount.remainingUsage! <= 0);
-
-class _LoadedBody extends StatefulWidget {
-  const _LoadedBody({required this.offers, required this.discounts});
-
-  final List<OfferEntity> offers;
-  final List<DiscountEntity> discounts;
-
-  @override
-  State<_LoadedBody> createState() => _LoadedBodyState();
-}
-
-class _LoadedBodyState extends State<_LoadedBody> {
-  _OfferFilter _filter = _OfferFilter.all;
+  final List<OfferFeedItemEntity> items;
+  final bool hasMore;
+  final bool isLoadingMore;
+  final OfferFeedFilter filter;
+  final ValueChanged<OfferFeedFilter> onFilterSelected;
+  final VoidCallback onLoadMore;
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+
+    // Nothing exists at all (not just "no matches for this filter") —
+    // only reliably knowable on the unfiltered tab once it's fully loaded.
+    final isTrulyEmpty = filter == OfferFeedFilter.all && items.isEmpty && !hasMore;
+
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(AppSpace.l, AppSpace.l, AppSpace.l, 0),
+          child: _Header(l10n: l10n),
+        ),
+        if (!isTrulyEmpty) ...[
+          const SizedBox(height: AppSpace.l),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: AppSpace.l),
+            child: SizedBox(
+              height: 40,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: [
+                  _FilterChip(
+                    label: l10n.filterAllLabel,
+                    selected: filter == OfferFeedFilter.all,
+                    onTap: () => onFilterSelected(OfferFeedFilter.all),
+                  ),
+                  const SizedBox(width: AppSpace.s),
+                  _FilterChip(
+                    label: l10n.filterActiveLabel,
+                    selected: filter == OfferFeedFilter.active,
+                    onTap: () => onFilterSelected(OfferFeedFilter.active),
+                  ),
+                  const SizedBox(width: AppSpace.s),
+                  _FilterChip(
+                    label: l10n.filterExpiredLabel,
+                    selected: filter == OfferFeedFilter.expired,
+                    onTap: () => onFilterSelected(OfferFeedFilter.expired),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+        const SizedBox(height: AppSpace.l),
+        Expanded(
+          child: isTrulyEmpty
+              ? SingleChildScrollView(
+                  padding: const EdgeInsets.symmetric(horizontal: AppSpace.l),
+                  child: EmptyState(
+                    icon: Icons.local_offer_outlined,
+                    iconBackgroundColor: AppColors.sumacContainer,
+                    iconColor: AppColors.sumac,
+                    heading: l10n.emptyOffersHeading,
+                    body: l10n.emptyOffersBody,
+                    ctaLabel: l10n.addOfferOrDiscountCta,
+                    onCtaPressed: () => _onAddPressed(context),
+                  ),
+                )
+              : PaginatedListView<OfferFeedItemEntity>(
+                  padding: const EdgeInsets.symmetric(horizontal: AppSpace.l, vertical: 0),
+                  items: items,
+                  hasMore: hasMore,
+                  isLoadingMore: isLoadingMore,
+                  onLoadMore: onLoadMore,
+                  separatorBuilder: (_, __) => const SizedBox(height: AppSpace.l),
+                  endOfListBuilder: (context) => _AddNewTile(l10n: l10n),
+                  itemBuilder: (context, item, index) => switch (item) {
+                    OfferFeedDiscountItem(:final discount) => DiscountCard(
+                        discount: discount,
+                        onEdit: () => context.push('/discounts/${discount.id}/edit').then((_) {
+                          if (context.mounted) context.read<ViewOffersCubit>().load();
+                        }),
+                        onDelete: () => showDeleteDiscountConfirmation(
+                          context,
+                          discountId: discount.id,
+                          onDeleted: () => context.read<ViewOffersCubit>().load(),
+                        ),
+                      ),
+                    OfferFeedOfferItem(:final offer) => OfferCard(
+                        offer: offer,
+                        onEdit: () => context.push('/offers/${offer.id}/edit').then((_) {
+                          if (context.mounted) context.read<ViewOffersCubit>().load();
+                        }),
+                        onDelete: () => showDeleteOfferConfirmation(
+                          context,
+                          offerId: offer.id,
+                          onDeleted: () => context.read<ViewOffersCubit>().load(),
+                        ),
+                      ),
+                  },
+                ),
+        ),
+      ],
+    );
+  }
+}
+
+class _AddNewTile extends StatelessWidget {
+  const _AddNewTile({required this.l10n});
+
+  final AppLocalizations l10n;
+
+  @override
+  Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
 
-    if (widget.offers.isEmpty && widget.discounts.isEmpty) {
-      return ListView(
-        padding: const EdgeInsets.all(AppSpace.l),
-        children: [
-          _Header(l10n: l10n),
-          const SizedBox(height: AppSpace.l),
-          EmptyState(
-            icon: Icons.local_offer_outlined,
-            iconBackgroundColor: AppColors.sumacContainer,
-            iconColor: AppColors.sumac,
-            heading: l10n.emptyOffersHeading,
-            body: l10n.emptyOffersBody,
-            ctaLabel: l10n.addOfferOrDiscountCta,
-            onCtaPressed: () => _onAddPressed(context),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: AppSpace.l),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(AppRadius.card),
+        onTap: () => _onAddPressed(context),
+        child: Container(
+          constraints: const BoxConstraints(minHeight: 140),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(AppRadius.card),
+            border: Border.all(color: scheme.outline, width: 2, style: BorderStyle.solid),
           ),
-        ],
-      );
-    }
-
-    bool matchesFilter(bool expired, bool isActive) => switch (_filter) {
-          _OfferFilter.all => true,
-          _OfferFilter.active => !expired && isActive,
-          _OfferFilter.expired => expired,
-        };
-
-    final discounts = widget.discounts
-        .where((d) => matchesFilter(_discountIsExpired(d), d.isActive))
-        .toList();
-    final offers =
-        widget.offers.where((o) => matchesFilter(_offerIsExpired(o), o.isActive)).toList();
-
-    return ListView(
-      padding: const EdgeInsets.symmetric(horizontal: AppSpace.l, vertical: AppSpace.xl),
-      children: [
-        _Header(l10n: l10n),
-        const SizedBox(height: AppSpace.l),
-        SizedBox(
-          height: 40,
-          child: ListView(
-            scrollDirection: Axis.horizontal,
-            children: [
-              _FilterChip(
-                label: l10n.filterAllLabel,
-                selected: _filter == _OfferFilter.all,
-                onTap: () => setState(() => _filter = _OfferFilter.all),
-              ),
-              const SizedBox(width: AppSpace.s),
-              _FilterChip(
-                label: l10n.filterActiveLabel,
-                selected: _filter == _OfferFilter.active,
-                onTap: () => setState(() => _filter = _OfferFilter.active),
-              ),
-              const SizedBox(width: AppSpace.s),
-              _FilterChip(
-                label: l10n.filterExpiredLabel,
-                selected: _filter == _OfferFilter.expired,
-                onTap: () => setState(() => _filter = _OfferFilter.expired),
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: AppSpace.l),
-        for (final discount in discounts) ...[
-          DiscountCard(
-            discount: discount,
-            onEdit: () => context.push('/discounts/${discount.id}/edit').then((_) {
-              if (context.mounted) context.read<ViewOffersCubit>().load();
-            }),
-            onDelete: () => showDeleteDiscountConfirmation(
-              context,
-              discountId: discount.id,
-              onDeleted: () => context.read<ViewOffersCubit>().load(),
-            ),
-          ),
-          const SizedBox(height: AppSpace.l),
-        ],
-        for (final offer in offers) ...[
-          OfferCard(
-            offer: offer,
-            onEdit: () => context.push('/offers/${offer.id}/edit').then((_) {
-              if (context.mounted) context.read<ViewOffersCubit>().load();
-            }),
-            onDelete: () => showDeleteOfferConfirmation(
-              context,
-              offerId: offer.id,
-              onDeleted: () => context.read<ViewOffersCubit>().load(),
-            ),
-          ),
-          const SizedBox(height: AppSpace.l),
-        ],
-        InkWell(
-          borderRadius: BorderRadius.circular(AppRadius.card),
-          onTap: () => _onAddPressed(context),
-          child: Container(
-            constraints: const BoxConstraints(minHeight: 140),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(AppRadius.card),
-              border: Border.all(color: scheme.outline, width: 2, style: BorderStyle.solid),
-            ),
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(AppRadius.card),
-              ),
-              child: Center(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Container(
-                      width: 48,
-                      height: 48,
-                      decoration: BoxDecoration(
-                        color: scheme.surfaceContainerHighest,
-                        shape: BoxShape.circle,
-                      ),
-                      child: Icon(Icons.add, color: scheme.onSurfaceVariant),
-                    ),
-                    const SizedBox(height: AppSpace.s),
-                    Text(l10n.addOfferOrDiscountCta, style: textTheme.labelLarge?.copyWith(
-                          color: scheme.onSurfaceVariant,
-                        )),
-                  ],
+          child: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  width: 48,
+                  height: 48,
+                  decoration: BoxDecoration(
+                    color: scheme.surfaceContainerHighest,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(Icons.add, color: scheme.onSurfaceVariant),
                 ),
-              ),
+                const SizedBox(height: AppSpace.s),
+                Text(
+                  l10n.addOfferOrDiscountCta,
+                  style: textTheme.labelLarge?.copyWith(color: scheme.onSurfaceVariant),
+                ),
+              ],
             ),
           ),
         ),
-      ],
+      ),
     );
   }
 }

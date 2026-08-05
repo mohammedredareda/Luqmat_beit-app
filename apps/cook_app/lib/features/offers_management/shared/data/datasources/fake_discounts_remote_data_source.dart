@@ -41,7 +41,52 @@ class FakeDiscountsRemoteDataSource {
           isActive: true,
           createdAt: DateTime.now(),
         ),
+        ..._generateBulkDiscounts(),
       ];
+
+  /// Bulk-generated discounts (`discount-3` onward) so the merged offers+
+  /// discounts feed is large enough to exercise cursor pagination — mixes
+  /// duration- and usage-restricted, and already-expired vs. still-active,
+  /// so the All/Active/Expired tabs each have something to show.
+  static List<DiscountModel> _generateBulkDiscounts() {
+    const mealNames = [
+      'كبسة دجاج منزلية', 'فطائر لحم بالفرن', 'شوربة عدس', 'مسقعة باذنجان',
+      'كنافة بالجبن',
+    ];
+    const imageSeeds = ['kabsa', 'fatayer', 'lentil', 'moussaka', 'kunafa'];
+
+    final bulk = <DiscountModel>[];
+    for (var i = 0; i < 22; i++) {
+      final mealIndex = i % mealNames.length;
+      final useDuration = i.isEven;
+      final durationDays = useDuration ? 3 + (i % 8) * 2 : null;
+      // Roughly a third already expired/exhausted, so the Expired tab has
+      // content.
+      final expired = i % 3 == 0;
+      final createdAt = useDuration && expired
+          ? DateTime.now().subtract(Duration(days: (durationDays ?? 0) + 4 + i))
+          : DateTime.now().subtract(Duration(days: i % 5));
+
+      bulk.add(
+        DiscountModel(
+          id: 'discount-${3 + i}',
+          cookId: currentCookId,
+          mealId: 'meal-${1 + mealIndex}',
+          mealName: mealNames[mealIndex],
+          mealImageUrl: 'https://picsum.photos/seed/${imageSeeds[mealIndex]}-$i/200/200',
+          mealBasePrice: 15.0 + mealIndex * 10,
+          percentage: 10 + (i % 4) * 5,
+          mode: useDuration ? DiscountRestrictionMode.duration : DiscountRestrictionMode.usage,
+          durationDays: durationDays,
+          usageLimit: useDuration ? null : 10 + i % 15,
+          usageCount: useDuration ? 0 : (expired ? 10 + i % 15 : i % 5),
+          isActive: i % 6 != 0,
+          createdAt: createdAt,
+        ),
+      );
+    }
+    return bulk;
+  }
 
   Future<List<DiscountModel>> getMyDiscounts(String cookId) async => _discounts
       .where((d) => d.cookId == cookId && d.deletedAt == null)

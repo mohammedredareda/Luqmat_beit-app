@@ -14,39 +14,51 @@ void main() {
   });
 
   test('getMyMeals returns Result.success with the seeded meals, kitchen active', () async {
-    final result = await repository.getMyMeals(currentCookId);
+    final result = await repository.getMyMeals(currentCookId, pageSize: 100);
 
-    expect(result, isA<Success<({List<MealEntity> meals, bool isSellingPaused})>>());
-    final data = (result as Success<({List<MealEntity> meals, bool isSellingPaused})>).data;
+    expect(result, isA<Success<({PaginatedResult<MealEntity> page, bool isSellingPaused})>>());
+    final data =
+        (result as Success<({PaginatedResult<MealEntity> page, bool isSellingPaused})>).data;
     expect(data.isSellingPaused, isFalse);
-    expect(data.meals, isNotEmpty);
+    expect(data.page.items, isNotEmpty);
     // One seeded meal (lentil soup) is intrinsically out of stock.
-    expect(data.meals.any((m) => !m.isActive), isTrue);
-    expect(data.meals.any((m) => m.isActive), isTrue);
+    expect(data.page.items.any((m) => !m.isActive), isTrue);
+    expect(data.page.items.any((m) => m.isActive), isTrue);
   });
 
   test('setSellingPaused(true) pauses the kitchen and every meal becomes inactive', () async {
     final pauseResult = await repository.setSellingPaused(cookId: currentCookId, isPaused: true);
     expect((pauseResult as Success<bool>).data, isTrue);
 
-    final menuResult = await repository.getMyMeals(currentCookId);
-    final data = (menuResult as Success<({List<MealEntity> meals, bool isSellingPaused})>).data;
+    final menuResult = await repository.getMyMeals(currentCookId, pageSize: 100);
+    final data =
+        (menuResult as Success<({PaginatedResult<MealEntity> page, bool isSellingPaused})>).data;
     expect(data.isSellingPaused, isTrue);
-    expect(data.meals.every((m) => !m.isActive), isTrue);
+    expect(data.page.items.every((m) => !m.isActive), isTrue);
   });
 
   test('resuming selling does not resurrect a meal that is independently inactive', () async {
     await repository.setSellingPaused(cookId: currentCookId, isPaused: true);
     await repository.setSellingPaused(cookId: currentCookId, isPaused: false);
 
-    final menuResult = await repository.getMyMeals(currentCookId);
-    final data = (menuResult as Success<({List<MealEntity> meals, bool isSellingPaused})>).data;
+    final menuResult = await repository.getMyMeals(currentCookId, pageSize: 100);
+    final data =
+        (menuResult as Success<({PaginatedResult<MealEntity> page, bool isSellingPaused})>).data;
     expect(data.isSellingPaused, isFalse);
 
-    final lentilSoup = data.meals.firstWhere((m) => m.name.contains('عدس'));
+    final lentilSoup = data.page.items.firstWhere((m) => m.name.contains('عدس'));
     expect(lentilSoup.isActive, isFalse);
 
-    final otherwiseActiveMeal = data.meals.firstWhere((m) => m.name.contains('كبسة'));
+    final otherwiseActiveMeal = data.page.items.firstWhere((m) => m.name.contains('كبسة'));
     expect(otherwiseActiveMeal.isActive, isTrue);
+  });
+
+  test('getMyMeals paginates: first page respects pageSize and hasMore', () async {
+    final result = await repository.getMyMeals(currentCookId, pageSize: 5);
+    final data =
+        (result as Success<({PaginatedResult<MealEntity> page, bool isSellingPaused})>).data;
+    expect(data.page.items, hasLength(5));
+    expect(data.page.hasMore, isTrue);
+    expect(data.page.nextCursor, isNotNull);
   });
 }

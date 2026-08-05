@@ -56,9 +56,11 @@ class _ViewMenuView extends StatelessWidget {
         builder: (context, state) => state.when(
           initial: () => const SizedBox.shrink(),
           loading: () => const ViewMenuSkeleton(),
-          loaded: (meals, isSellingPaused) => _LoadedBody(
+          loaded: (meals, isSellingPaused, hasMore, isLoadingMore) => _LoadedBody(
             meals: meals,
             isSellingPaused: isSellingPaused,
+            hasMore: hasMore,
+            isLoadingMore: isLoadingMore,
           ),
           error: (exception) => _ErrorBody(message: exception.message),
         ),
@@ -76,54 +78,76 @@ class _ViewMenuView extends StatelessWidget {
 }
 
 class _LoadedBody extends StatelessWidget {
-  const _LoadedBody({required this.meals, required this.isSellingPaused});
+  const _LoadedBody({
+    required this.meals,
+    required this.isSellingPaused,
+    required this.hasMore,
+    required this.isLoadingMore,
+  });
 
   final List<MealEntity> meals;
   final bool isSellingPaused;
+  final bool hasMore;
+  final bool isLoadingMore;
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
 
-    return ListView(
-      padding: const EdgeInsets.all(AppSpace.l),
+    return Column(
       children: [
-        _Header(l10n: l10n),
-        const SizedBox(height: AppSpace.xl),
-        SaleStatusCard(
-          isSellingPaused: isSellingPaused,
-          onSellingStatusChanged: () => context.read<ViewMenuCubit>().loadMenu(),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(AppSpace.l, AppSpace.l, AppSpace.l, 0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              _Header(l10n: l10n),
+              const SizedBox(height: AppSpace.xl),
+              SaleStatusCard(
+                isSellingPaused: isSellingPaused,
+                onSellingStatusChanged: () => context.read<ViewMenuCubit>().loadMenu(),
+              ),
+            ],
+          ),
         ),
         const SizedBox(height: AppSpace.xl),
-        if (meals.isEmpty)
-          EmptyState(
-            icon: Icons.soup_kitchen,
-            iconBackgroundColor: AppColors.honeyContainer,
-            iconColor: AppColors.honey,
-            heading: l10n.emptyMenuHeading,
-            body: l10n.emptyMenuBody,
-            ctaLabel: l10n.addMealCta,
-            onCtaPressed: () => context.push('/meals/create').then((_) {
-              if (context.mounted) context.read<ViewMenuCubit>().loadMenu();
-            }),
-          )
-        else
-          for (final meal in meals) ...[
-            MealCard(
-              meal: meal,
-              outOfStockLabel: l10n.outOfStockBadge,
-              startingFromLabel: l10n.startingFromLabel,
-              onEdit: () => context.push('/meals/${meal.id}/edit').then((_) {
-                if (context.mounted) context.read<ViewMenuCubit>().loadMenu();
-              }),
-              onDelete: () => showDeleteMealConfirmation(
-                context,
-                mealId: meal.id,
-                onDeleted: () => context.read<ViewMenuCubit>().loadMenu(),
-              ),
-            ),
-            const SizedBox(height: AppSpace.m),
-          ],
+        Expanded(
+          child: meals.isEmpty
+              ? SingleChildScrollView(
+                  child: EmptyState(
+                    icon: Icons.soup_kitchen,
+                    iconBackgroundColor: AppColors.honeyContainer,
+                    iconColor: AppColors.honey,
+                    heading: l10n.emptyMenuHeading,
+                    body: l10n.emptyMenuBody,
+                    ctaLabel: l10n.addMealCta,
+                    onCtaPressed: () => context.push('/meals/create').then((_) {
+                      if (context.mounted) context.read<ViewMenuCubit>().loadMenu();
+                    }),
+                  ),
+                )
+              : PaginatedListView<MealEntity>(
+                  padding: const EdgeInsets.fromLTRB(AppSpace.l, 0, AppSpace.l, AppSpace.l),
+                  items: meals,
+                  hasMore: hasMore,
+                  isLoadingMore: isLoadingMore,
+                  onLoadMore: () => context.read<ViewMenuCubit>().loadMore(),
+                  separatorBuilder: (_, __) => const SizedBox(height: AppSpace.m),
+                  itemBuilder: (context, meal, index) => MealCard(
+                    meal: meal,
+                    outOfStockLabel: l10n.outOfStockBadge,
+                    startingFromLabel: l10n.startingFromLabel,
+                    onEdit: () => context.push('/meals/${meal.id}/edit').then((_) {
+                      if (context.mounted) context.read<ViewMenuCubit>().loadMenu();
+                    }),
+                    onDelete: () => showDeleteMealConfirmation(
+                      context,
+                      mealId: meal.id,
+                      onDeleted: () => context.read<ViewMenuCubit>().loadMenu(),
+                    ),
+                  ),
+                ),
+        ),
       ],
     );
   }

@@ -29,8 +29,12 @@ void main() {
     await repository.deleteMeal('meal-1');
 
     final viewMenuRepository = ViewMenuRepositoryImpl(dataSource);
-    final result = await viewMenuRepository.getMyMeals(currentCookId);
-    final meals = (result as Success<({List<MealEntity> meals, bool isSellingPaused})>).data.meals;
+    final result = await viewMenuRepository.getMyMeals(currentCookId, pageSize: 100);
+    final meals =
+        (result as Success<({PaginatedResult<MealEntity> page, bool isSellingPaused})>)
+            .data
+            .page
+            .items;
 
     expect(meals.any((m) => m.id == 'meal-1'), isFalse);
   });

@@ -10,6 +10,8 @@ class ViewMenuState with _$ViewMenuState {
   const factory ViewMenuState.loaded({
     required List<MealEntity> meals,
     required bool isSellingPaused,
+    required bool hasMore,
+    required bool isLoadingMore,
   }) = ViewMenuLoaded;
   const factory ViewMenuState.error(AppException exception) = ViewMenuError;
 }

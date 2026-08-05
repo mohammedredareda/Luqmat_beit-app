@@ -2,6 +2,7 @@ import 'package:cook_app/features/offers_management/create_offer/data/repositori
 import 'package:cook_app/features/offers_management/shared/data/datasources/fake_offers_remote_data_source.dart';
 import 'package:cook_app/features/offers_management/shared/domain/offer_form_submission.dart';
 import 'package:cook_app/features/offers_management/view_offers/data/repositories/view_offers_repository_impl.dart';
+import 'package:cook_app/features/offers_management/view_offers/domain/entities/offer_feed_item_entity.dart';
 import 'package:cook_app/features/offers_management/shared/data/datasources/fake_discounts_remote_data_source.dart';
 import 'package:cook_app/shared/current_cook_id.dart';
 import 'package:core/core.dart';
@@ -46,12 +47,12 @@ void main() {
     await repository.createOffer(submission);
 
     final viewOffersRepository = ViewOffersRepositoryImpl(dataSource, FakeDiscountsRemoteDataSource());
-    final result = await viewOffersRepository.getOffersAndDiscounts(currentCookId);
-    final offers = (result
-            as Success<({List<OfferEntity> offers, List<DiscountEntity> discounts})>)
-        .data
-        .offers;
+    final result = await viewOffersRepository.getOffersFeed(currentCookId, pageSize: 1000);
+    final items = (result as Success<PaginatedResult<OfferFeedItemEntity>>).data.items;
 
-    expect(offers.any((o) => o.name == 'عرض الأصدقاء'), isTrue);
+    expect(
+      items.any((i) => i is OfferFeedOfferItem && i.offer.name == 'عرض الأصدقاء'),
+      isTrue,
+    );
   });
 }

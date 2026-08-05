@@ -13,7 +13,7 @@ class SelectableMealsRepositoryImpl implements SelectableMealsRepository {
   @override
   Future<Result<List<MealEntity>>> getSelectableMeals(String cookId) {
     return guard(() async {
-      final models = await _dataSource.getMyMeals(cookId);
+      final models = await _dataSource.getAllMyMeals(cookId);
       return models.where((m) => m.isActive).map((m) => m.toEntity()).toList();
     });
   }

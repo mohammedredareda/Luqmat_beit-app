@@ -9,10 +9,17 @@ class GetOrders {
 
   final ViewOrdersRepository _repository;
 
-  Future<Result<List<OrderEntity>>> call({
+  Future<Result<PaginatedResult<OrderEntity>>> call({
     required String cookId,
     OrderStatus? statusFilter,
+    String? cursor,
+    int pageSize = PaginationConstants.defaultPageSize,
   }) {
-    return _repository.getOrders(cookId: cookId, statusFilter: statusFilter);
+    return _repository.getOrders(
+      cookId: cookId,
+      statusFilter: statusFilter,
+      cursor: cursor,
+      pageSize: pageSize,
+    );
   }
 }

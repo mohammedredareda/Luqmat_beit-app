@@ -9,8 +9,10 @@ class GetMyMeals {
 
   final ViewMenuRepository _repository;
 
-  Future<Result<({List<MealEntity> meals, bool isSellingPaused})>> call(
-    String cookId,
-  ) =>
-      _repository.getMyMeals(cookId);
+  Future<Result<({PaginatedResult<MealEntity> page, bool isSellingPaused})>> call(
+    String cookId, {
+    String? cursor,
+    int pageSize = PaginationConstants.defaultPageSize,
+  }) =>
+      _repository.getMyMeals(cookId, cursor: cursor, pageSize: pageSize);
 }

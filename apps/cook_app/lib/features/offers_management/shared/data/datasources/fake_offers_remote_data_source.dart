@@ -52,7 +52,50 @@ class FakeOffersRemoteDataSource {
             ),
           ],
         ),
+        ..._generateBulkOffers(),
       ];
+
+  /// Bulk-generated offers (`offer-2` onward) so the merged offers+
+  /// discounts feed is large enough to exercise cursor pagination — mixes
+  /// already-expired and still-active durations so the All/Active/Expired
+  /// tabs each have something to show.
+  static List<OfferModel> _generateBulkOffers() {
+    const names = [
+      'وجبة الغداء السريعة', 'باقة العشاء الخفيف', 'سلة الإفطار المنزلي',
+      'طقم الأسرة الكبير', 'باقة الأصدقاء', 'وجبة المكتب',
+      'باقة نهاية الأسبوع', 'سلة الحلويات', 'باقة الشوربات', 'طقم المشاوي',
+    ];
+    final bulk = <OfferModel>[];
+    for (var i = 0; i < 18; i++) {
+      final durationDays = 3 + (i % 10) * 3;
+      // Roughly a third already expired, so the Expired tab has content.
+      final createdAt = i % 3 == 0
+          ? DateTime.now().subtract(Duration(days: durationDays + 5 + i))
+          : DateTime.now().subtract(Duration(days: i % 4));
+      bulk.add(
+        OfferModel(
+          id: 'offer-${2 + i}',
+          cookId: currentCookId,
+          name: '${names[i % names.length]} ${(i ~/ names.length) + 1}',
+          description: 'باقة مختارة بسعر مخفض لفترة محدودة.',
+          totalPrice: 60.0 + (i % 8) * 10,
+          durationDays: durationDays,
+          isActive: i % 5 != 0,
+          createdAt: createdAt,
+          includedMeals: [
+            OfferMealModel(
+              mealId: 'meal-${1 + i % 5}',
+              mealName: 'طبق رقم ${1 + i % 5}',
+              mealImageUrl: 'https://picsum.photos/seed/offer-meal-$i/200/200',
+              unitPrice: 20 + i % 5 * 5,
+              quantity: 1 + i % 3,
+            ),
+          ],
+        ),
+      );
+    }
+    return bulk;
+  }
 
   Future<List<OfferModel>> getMyOffers(String cookId) async =>
       _offers.where((o) => o.cookId == cookId && o.deletedAt == null).toList(growable: false);

@@ -2,6 +2,7 @@ import 'package:core/core.dart';
 import 'package:injectable/injectable.dart';
 
 import 'package:cook_app/shared/current_cook_id.dart';
+import 'package:cook_app/shared/in_memory_pagination.dart';
 import '../models/meal_model.dart';
 import '../models/selling_option_model.dart';
 
@@ -21,7 +22,12 @@ class FakeMealRemoteDataSource {
   /// Mirrors `COOK.isActive` — flipped by CK-10's Stop Selling switch.
   bool _cookIsActive = true;
 
-  static List<MealModel> _seed() => const [
+  static List<MealModel> _seed() => [
+        ..._handCraftedSeed,
+        ..._generateBulkMeals(),
+      ];
+
+  static const List<MealModel> _handCraftedSeed = [
         MealModel(
           id: 'meal-1',
           cookId: currentCookId,
@@ -74,17 +80,79 @@ class FakeMealRemoteDataSource {
         ),
       ];
 
-  /// Returns each meal with its *effective* isActive: the meal's own
-  /// state, AND NOT stopped (CK-24), AND the cook's kitchen-wide state —
-  /// never mutates the meal's own intrinsic state, so re-enabling selling
+  /// Bulk-generated meals (`meal-6` onward) so the menu is large enough to
+  /// actually exercise cursor pagination end-to-end — the hand-crafted
+  /// seed above only covers the specific price/selling-option/active-state
+  /// scenarios other features' tests rely on.
+  static List<MealModel> _generateBulkMeals() {
+    const dishNames = [
+      'أرز بخاري بالدجاج', 'ملوخية بالأرانب', 'مندي لحم', 'شاورما دجاج منزلية',
+      'كباب حلة', 'فتة حمص', 'ورق عنب', 'مقلوبة باذنجان', 'سمك مشوي',
+      'برياني دجاج', 'فول مدمس', 'طعمية', 'كشري', 'محشي كوسا',
+      'دجاج مشوي بالأعشاب', 'لحم مفروم بالبصل', 'شوربة خضار', 'سلطة تبولة',
+      'بامية باللحم', 'رز بالشعرية',
+    ];
+    const imageSeeds = [
+      'bukhari', 'molokhia', 'mandi', 'shawarma', 'kabab', 'fatteh', 'warak',
+      'maqluba', 'grilled-fish', 'biryani', 'foul', 'taameya', 'koshary',
+      'mahshi', 'herb-chicken', 'minced-meat', 'veg-soup', 'tabbouleh',
+      'bamia', 'rice-noodles',
+    ];
+
+    final bulk = <MealModel>[];
+    for (var i = 0; i < 35; i++) {
+      final nameIndex = i % dishNames.length;
+      bulk.add(
+        MealModel(
+          id: 'meal-${6 + i}',
+          cookId: currentCookId,
+          name: '${dishNames[nameIndex]} ${(i ~/ dishNames.length) + 1}',
+          description: 'طبق منزلي طازج يُحضّر يومياً بمكونات مختارة بعناية.',
+          price: i.isEven ? 20.0 + (i % 10) * 5 : null,
+          sellingOptions: i.isOdd
+              ? [
+                  SellingOptionModel(id: 'meal-${6 + i}-opt-1', label: 'صغير', price: 15 + i % 5),
+                  SellingOptionModel(id: 'meal-${6 + i}-opt-2', label: 'كبير', price: 30 + i % 5),
+                ]
+              : const [],
+          imageUrl: 'https://picsum.photos/seed/${imageSeeds[nameIndex]}-$i/200/200',
+          isActive: i % 7 != 0,
+        ),
+      );
+    }
+    return bulk;
+  }
+
+  /// Each meal with its *effective* isActive: the meal's own state, AND
+  /// NOT stopped (CK-24), AND the cook's kitchen-wide state — never
+  /// mutates the meal's own intrinsic state, so re-enabling selling
   /// doesn't resurrect a meal that's independently inactive (CK-10's
   /// business rule). Soft-deleted meals (CK-09) are excluded entirely.
-  Future<List<MealModel>> getMyMeals(String cookId) async {
+  List<MealModel> _effectiveMeals(String cookId) {
     return _meals
         .where((m) => m.cookId == cookId && m.deletedAt == null)
         .map((m) => m.copyWith(isActive: m.isActive && !m.isStopped && _cookIsActive))
         .toList(growable: false);
   }
+
+  /// CK-06's paginated menu listing.
+  Future<PaginatedResult<MealModel>> getMyMeals(
+    String cookId, {
+    String? cursor,
+    int pageSize = PaginationConstants.defaultPageSize,
+  }) async {
+    return paginateInMemory(
+      all: _effectiveMeals(cookId),
+      idOf: (m) => m.id,
+      cursor: cursor,
+      pageSize: pageSize,
+    );
+  }
+
+  /// The cook's full, unpaginated meal list — for callers that need every
+  /// meal at once rather than a scrollable page, e.g. the select-meal
+  /// popup used when building an offer/discount.
+  Future<List<MealModel>> getAllMyMeals(String cookId) async => _effectiveMeals(cookId);
 
   Future<MealModel?> getMealById(String id) async {
     for (final meal in _meals) {
