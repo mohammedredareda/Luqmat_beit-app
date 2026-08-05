@@ -28,7 +28,7 @@
 | Cart | S4; wireframe `S4+S5: CART + CONFIRM` (first half) |
 | Checkout / Place Order | S5; wireframe `S4+S5` (second half); flow nodes `Confirm Order → Place Order` |
 | Order Lifecycle / Tracking | S7 (partial); flow nodes `Waiting for Order Confirmation → Order Accepted? → ... → Order Out for Delivery` |
-| Split-Order Handling | S8 item 2; flow nodes `Notification → Continue Order? → Cancel Order → Return Items to Cart` |
+| Split-Order Handling | S8 item 2; flow nodes `Notification → Continue Order? → Cancel Order → Return Items to Cart` — **⚠ this entire module was deprecated in Rev. 7 when multi-cook/grouped orders were removed "for now"; see CU-19.** |
 | My Orders (active) | S7; wireframe `S7: MY ORDERS` |
 | Order History & Reorder | S10; wireframe `S10: HISTORY + REORDER` |
 | Delivery Receipt | **Not in scenario text at all** — discovered only in wireframe `S9` annotations and flow nodes `Receive Order → Accept Delivery? → Submit Rejection → Waiting for Review` |
@@ -47,16 +47,16 @@
 
 ### Entities & relationships (from ERD — same diagram as the Cook backlog)
 `USER` → `CUSTOMER` (role-specific profile, FK `UserID`)
-`CUSTOMER` → `CART` → cart lines referencing `MealID` + `SellingOptionID`
-`CUSTOMER` → `ORDER` (1) → `SUB_ORDER` (many, one per cook in a multi-cook order) → `ORDER_ITEM`
+`CUSTOMER` → `CART` (thin parent row) → `CART_MEAL_ITEM` / `CART_OFFER_ITEM` / `CART_RETURNED_MEAL_ITEM` (the three typed line-item tables) — **⚠ updated in Rev. 7; the original single-table `CART` with direct `MealID`/`SellingOptionID` fields no longer exists.**
+`CUSTOMER` → `ORDER` (single-cook, direct `CookID` FK) → `ORDER_MEAL_ITEM` / `ORDER_OFFER_ITEM` / `ORDER_RETURNED_MEAL_ITEM` — **⚠ updated in Rev. 7; `SUB_ORDER` and the generic `ORDER_ITEM` table were both removed when multi-cook/grouped orders were deprecated. This summary previously described the pre-Rev.-7 structure and was not updated until this correction.**
 `CUSTOMER` → `Follow` (→ `COOK`), `Favorites` (→ `MEAL`)
 `CUSTOMER` → `Comments` / `REACTS` (→ `CONTENT (Media)`, i.e. a cook's Shorts post)
 `COOK` → `MEAL` → `SELLING_OPTION`; `COOK` → `Offers` / `Discount`
 
 ### Decision points / branches surfaced in the flow diagram
 1. `Logged In?` — Yes → Home; No → Login.
-2. `Order Accepted?` — Yes → proceed to preparation; No → notify customer of a split/full rejection.
-3. `Continue Order?` (after a split rejection) — Yes → proceed with the accepted items; No → cancel and return items to cart.
+2. `Order Accepted?` — Yes → proceed to preparation; No → notify customer of rejection. *(Originally documented as "a split/full rejection" when multi-cook orders existed — since Rev. 7's removal of that feature, this is simply "rejection," full stop; see CU-19's deprecation banner.)*
+3. `Continue Order?` (after a split rejection) — Yes → proceed with the accepted items; No → cancel and return items to cart. **⚠ This entire decision point is obsolete as of Rev. 7 — it described the now-deprecated Split-Order Handling module (CU-19) and cannot occur under the current single-cook-order model.** Preserved here as a historical record of what the original flow diagram showed, not as a current behavior.
 4. `Accept Delivery?` — Yes → Order Completed → Rate Meal; No → Submit Rejection (mandatory reason) → Waiting for Review.
 5. `Report Problem?` (after rating) — Yes → Submit Report; No → Order History.
 
@@ -484,14 +484,17 @@ So that I can get a good deal while the platform reduces food waste.
 **Trigger:** Customer scrolls to the discount-recovery section on Home. *(No longer "scrolls to" — per CR-27, this section is now the first thing shown on Home, not a lower section requiring a scroll.)*
 
 **Main Success Scenario**
-1. Section displays meals that were rejected at delivery, subsequently declined by the cook for return, and found not to violate quality/safety standards — each showing a discount-percentage badge **and a countdown timer** indicating the limited time remaining to buy it at this discount. *(Countdown timer added per CR-27.)*
-2. Customer taps a meal → standard Meal Details screen (CU-09).
+1. Section displays meals that were rejected at delivery, subsequently declined by the cook for return, and found not to violate quality/safety standards — each showing a discount-percentage badge and a countdown timer indicating the limited time remaining to buy it at this discount.
+2. Customer taps a meal → a details view showing the returned meal's photo, description, `SalvagePrice`, remaining `Quantity`, and an **Add to Cart** action. *(Rewritten per the Project Fixes doc — see Notes for why this is a distinct action from CU-09's regular Meal Details.)*
+3. Adding it to cart creates a `CART_RETURNED_MEAL_ITEM` row, and the item appears in the customer's cart under a distinct section labeled **"من نصيبك."** *(Added per the Project Fixes doc — see the Customer backlog's CU-15 for the full cart-display treatment.)*
 
-**Postconditions:** None beyond standard browsing.
-**Business Rules:** *(Confirmed per CR-18/Activity Diagram; extended per CR-27.)*
-- A meal enters this section specifically when: (a) it was rejected by a customer at delivery, (b) the originating cook declined to take it back, and (c) it does not violate quality/safety standards. If it does violate those standards, it is destroyed instead (see CU-22).
-- **This section is now the highest-priority element on the Home screen**, appearing above Offers, Categories, Top Picks, and Chefs. *(Defined per CR-27.)*
-- **Each meal card must display a countdown timer** reflecting the limited time remaining before the discount/meal is no longer available. *(Defined per CR-27 — see Notes for the underlying data-model question this raises.)*
+**Postconditions:** A `CART_RETURNED_MEAL_ITEM` row exists if the customer added the item; otherwise none beyond standard browsing.
+**Business Rules:**
+- A meal enters this section specifically when: (a) it was rejected by a customer at delivery, (b) the originating cook declined to take it back, and (c) it does not violate quality/safety standards. If it does violate those standards, it is destroyed instead (see CU-22 and the new Delivery Support & Admin backlog).
+- This section is the highest-priority element on the Home screen, appearing above Offers, Categories, Top Picks, and Chefs.
+- Each meal card must display a countdown timer reflecting `Returned_Meals.ExpiryTime`.
+- **A returned meal is added to cart through its own action, not through CU-09's standard Meal Details/Add-to-Cart flow** — it's a distinct entity (`Returned_Meals`, with its own `SalvagePrice` and limited `Quantity`), not a regular `MEAL` row. *(Added per the Project Fixes doc.)*
+- **Claiming a returned meal must be race-condition-safe** — if two customers try to add the same limited-quantity returned meal to cart (or place an order for it) at the same moment, only the available quantity may be claimed. This uses the same pessimistic-locking pattern already established for CK-25's Pending Order Timeout and CK-12's Discount usage count. *(Added per the Project Fixes doc — "we should fix the race conditions on discount usage, and return meals.")*
 
 **Acceptance Criteria (Gherkin)**
 ```gherkin
@@ -507,6 +510,18 @@ Feature: Discount-Recovery Section
     When the customer views the Home screen
     Then those meals appear with a discount-percentage badge and a countdown timer showing time remaining
 
+  Scenario: Adding a returned meal to cart
+    Given the customer is viewing a returned meal's details
+    When the customer taps Add to Cart
+    Then a CART_RETURNED_MEAL_ITEM row is created
+    And the item appears in the cart under the "من نصيبك" section
+
+  Scenario: Race condition on limited returned-meal quantity
+    Given a returned meal has only 1 unit remaining
+    When two customers attempt to claim it at the same moment
+    Then only one succeeds
+    And the other sees the item is no longer available
+
   Scenario: No discounted meals available
     Given no meals are currently in the discount-recovery section
     When the customer views the Home screen
@@ -514,15 +529,15 @@ Feature: Discount-Recovery Section
 ```
 
 **Related Screens:** `S1` (new section, wireframe-only — not in scenario text)
-**Related User Flow:** Not present in the customer flow diagram; now traceable via `ActivityDigram.drawio` (`violate the quality laws? [No] → display it in canceled order section with the right discount`).
-**Related ERD Entities:** Meal, Returned_Meals *(updated — see Notes)*
-**Related Database Tables:** `MEAL`, `Returned_Meals` *(updated — the newly reviewed ERD adds this dedicated table; see Notes)*
-**Notes:** *(Updated per CR-18 — Activity Diagram Consistency; CR-27; and this session's ERD update.)* **Both of this story's long-standing open questions are now resolved by a new table in the updated ERD: `Returned_Meals`** (fields: `ReturnedMealID`, `OriginalSubOrderID` FK, `MealID` FK, `SalvagePrice`, `ExpiryTime`, `Quantity`, `SellingOptionID`). This directly confirms:
-1. **Sourcing mechanism (previously "still open"):** this section is **not** powered by the generic `Discount` entity at all — it has its own dedicated table, with `OriginalSubOrderID` confirming the direct link back to a rejected delivery's sub-order, exactly as this story's Business Rules describe.
-2. **Countdown-timer expiry basis (previously an open question raised by CR-27):** `Returned_Meals.ExpiryTime` is precisely the field the countdown timer should count down to — this was previously unconfirmed by any source, now settled by the ERD.
-3. **Discount price:** `SalvagePrice` is the discounted price shown on each card, rather than being computed via the `Discount` table's percentage/value fields.
+**Related User Flow:** Not present in the customer flow diagram; traceable via `ActivityDigram.drawio` and, in fuller operational detail, the new Delivery Support & Admin backlog.
+**Related ERD Entities:** Meal, Returned_Meals, CART_RETURNED_MEAL_ITEM
+**Related Database Tables:** `MEAL`, `Returned_Meals`, `CART_RETURNED_MEAL_ITEM`
+**Notes:** **This story's two long-standing open questions were resolved by the `Returned_Meals` table** (fields: `ReturnedMealID`, `OriginalItemID` FK, `MealID` FK, `SalvagePrice`, `ExpiryTime`, `Quantity`, `SellingOptionID`, `Status`). This directly confirms:
+1. **Sourcing mechanism:** this section is **not** powered by the generic `Discount` entity — it has its own dedicated table.
+2. **Countdown-timer expiry basis:** `Returned_Meals.ExpiryTime` is precisely the field the countdown timer counts down to.
+3. **Discount price:** `SalvagePrice` is the discounted price shown on each card.
 
-`Related ERD Entities`/`Related Database Tables` above are updated accordingly to replace the earlier "assumed" `Discount` reference with the now-confirmed `Returned_Meals` table.
+**Field-name correction this revision:** earlier drafts of this story cited `OriginalSubOrderID` as the FK linking a returned meal back to its originating order line — the latest ERD (post multi-cook-order removal) renames this to `OriginalItemID`, consistent with `SUB_ORDER` no longer existing (see the Revision Log). **This revision also adds the customer-facing ordering mechanism itself** (Add to Cart → `CART_RETURNED_MEAL_ITEM` → "من نصيبك" cart section), which was previously missing entirely — this section was browse-only with no way to actually acquire a listed meal, a gap this revision closes per the Project Fixes doc.
 
 ---
 
@@ -577,13 +592,13 @@ Feature: Offers List
 
 **Story ID:** CU-08
 **Epic:** Search
-**Feature:** Search & Filters
-**Title:** Search and filter meals and chefs
+**Feature:** Unified Search & Filters
+**Title:** Search across meals, offers, cooks, and returned meals
 
 **User Story**
 As a Customer,
-I want to search by keyword or apply filters,
-So that I can quickly find a specific meal or chef.
+I want to search by keyword and choose which type of result I'm looking for — meals, offers, cooks, or discounted returned meals — with filters on top,
+So that I can quickly find exactly what I want without wading through irrelevant result types.
 
 **Business Value:** Must
 **Priority:** Must
@@ -594,24 +609,42 @@ So that I can quickly find a specific meal or chef.
 **Main Success Scenario**
 1. User types a keyword.
 2. Search screen loads with results and filters: nearest, highest rated, price, category.
-3. User applies one or more filters.
-4. Results update accordingly.
-5. User taps a result → Meal Details (CU-09).
+3. **User selects which result type(s) to include — meals, offers, cooks, or returned meals — via a query parameter on the same unified search endpoint.** *(Rewritten per the Project Fixes doc: "we should make the search endpoint returns meals / offers / cooks / returned meals, and the user should be able to select what he want to return through query parameter." This resolves the long-standing ambiguity this story previously flagged about whether results represent meals or chefs — the answer is: both, and two more besides, selectable by the customer.)*
+4. User applies one or more filters.
+5. Results update accordingly.
+6. User taps a result → Meal Details (CU-09) for a meal or returned meal, Chef Profile (CU-11) for a cook, or the Offers screen for an offer.
 
 **Alternative Flows**
-- A1: User arrives via a category/option tap from Home instead of typing — the same screen loads with that filter pre-applied.
+- A1: User arrives via a category/option tap from Home instead of typing — the same screen loads with that filter pre-applied, result type defaulting to meals.
 
 **Business Rules:**
-- A single unified search endpoint serves both free-text keyword search and pre-applied filter navigation.
+- A single unified search endpoint serves free-text keyword search, pre-applied filter navigation, **and result-type selection via query parameter** (e.g. `?type=meal,offer,cook,returned_meal`). *(Rewritten per the Project Fixes doc.)*
+- If no result-type parameter is supplied, the default is meals — consistent with this story's prior behavior. *(Interpretation, since the fixes doc doesn't specify a default; flagged.)*
+- **Every meal result includes its discounted price if an active `Discount` applies**, per the cross-cutting rule established in the Cook backlog's CK-06.
 
 **Acceptance Criteria (Gherkin)**
 ```gherkin
-Feature: Search and Filters
+Feature: Unified Search and Filters
 
-  Scenario: Keyword search
+  Scenario: Keyword search with default result type
     Given the customer is on the Home screen
-    When the customer types "kabsa" in the search bar
-    Then the Search screen loads with matching results and available filters
+    When the customer types "kabsa" in the search bar with no type parameter specified
+    Then the Search screen loads with matching meal results and available filters
+
+  Scenario: Searching for cooks specifically
+    Given the customer is on the Search screen
+    When the customer selects "Cooks" as the result type and searches "Um Ahmad"
+    Then only matching cook profiles are returned, not meals or offers
+
+  Scenario: Searching across multiple result types at once
+    Given the customer is on the Search screen
+    When the customer selects both "Meals" and "Offers" as result types
+    Then results include both matching meals and matching offers, clearly distinguished from each other
+
+  Scenario: Searching returned meals
+    Given the customer selects "Returned Meals" as the result type
+    When the search runs
+    Then only discount-recovery / returned-meal listings are shown
 
   Scenario: Applying a filter
     Given the customer is viewing search results
@@ -624,15 +657,15 @@ Feature: Search and Filters
 
   Scenario: Selecting a result
     Given the customer is viewing search results
-    When the customer taps a result
+    When the customer taps a meal result
     Then the Meal Details screen opens for that item
 ```
 
 **Related Screens:** `S2`
 **Related User Flow:** `Home → Search → Meal Details`
-**Related ERD Entities:** Meal, Cook
-**Related Database Tables:** `MEAL`, `COOK`
-**Notes:** *(Updated per CR-03.)* **Confirmed:** meals can only be added to the cart from the Meal Details screen — this was already this story's modeled behavior (Add to Cart never appeared as a search-results action in its Main Success Scenario or Acceptance Criteria), and CR-03 now makes that explicit and authoritative rather than an inference from following the wireframe over the scenario text. The prior ambiguity flagged in Phase 8 regarding cart-entry point is **resolved**. **Still open:** whether search result cards represent meals or chefs remains unconfirmed — the wireframe's result cards show only a chef's name/photo/rating, while the scenario text frames these as meal results; CR-03 does not address result *composition*, only where Add-to-Cart is available.
+**Related ERD Entities:** Meal, Cook, Offers, Returned_Meals
+**Related Database Tables:** `MEAL`, `COOK`, `Offers`, `Returned_Meals`
+**Notes:** **This revision fully resolves the ambiguity this story has carried since it was first written** — "whether search result cards represent meals or chefs" — which earlier revisions could only flag, not answer, since neither the scenario text nor the wireframe settled it. The Project Fixes doc settles it decisively: results can be any of four types, customer-selectable via query parameter, not an either/or design question at all. Cart-entry-point behavior (confirmed in an earlier revision — meals can only be added to cart from Meal Details, never directly from search results) is unaffected by this rewrite and still holds for meal results; offers and returned meals reached via search follow their own respective add-to-cart flows (see CU-10 and the new returned-meal-ordering flow in CU-06).
 
 ---
 
@@ -657,13 +690,13 @@ So that I can make an informed choice.
 **Trigger:** User taps a meal card from Home, Search, Offers, or a Chef Profile.
 
 **Main Success Scenario**
-1. Meal Details screen loads with: photo, name, rating, description, chef (with a link to their profile), price (which depends on selling options if the meal has any), a quantity counter, an Add to Cart button, and an Add to Favorite button.
+1. Meal Details screen loads with: photo, name, rating, description, chef (with a link to their profile), price (which depends on selling options if the meal has any, **and reflects any active discount** — see Business Rules), a quantity counter, an Add to Cart button, and an Add to Favorite button.
 
 **Alternative Flows**
 - A1: Meal has selling-option variations (e.g. small/medium/large) — a size selector is shown and price updates per selection, instead of a single fixed price.
-- A2: Meal is currently computed **Inactive** (Cook backlog's `MEAL.is_active` derived value — see CK-24's Notes for the full formula) — the screen still loads normally, but the meal is shown greyed out with a "Not Available for Order" badge, and the Add to Cart button is disabled. This applies uniformly whether the cause is the cook being outside working hours, Stop Selling (CK-10), or this specific meal being individually Stopped (CK-24) — the customer UI does not distinguish between these three causes; the treatment is identical. *(Generalized per this session's CR-01 — previously this rule was described only for the Stop-Accepting case specifically.)*
+- A2: Meal is currently computed **Inactive** (Cook backlog's `MEAL.is_active` derived value — see CK-24's Notes for the full formula) — the screen still loads normally, but the meal is shown greyed out with a "Not Available for Order" badge, and the Add to Cart button is disabled. This applies uniformly whether the cause is the cook being outside working hours, Stop Selling (CK-10), or this specific meal being individually Stopped (CK-24) — the customer UI does not distinguish between these three causes; the treatment is identical.
 
-**Business Rules:** Price display depends on whether the meal was created with per-option pricing (mirrors the Cook module's CK-07 rule). **A meal that is computed Inactive for any reason other than deletion** (outside cook's working hours, Stop Selling, or individually Stopped) **remains visible here** — never hidden — but greyed out with a "Not Available for Order" badge and a disabled Add to Cart action. A **soft-deleted** meal (Cook backlog's `deleted_at`) is a different case entirely: the screen is simply not reachable for it, since deleted meals are excluded from every customer-facing view, not shown in a disabled state. *(Generalized per this session's CR-01.)*
+**Business Rules:** Price display depends on whether the meal was created with per-option pricing (mirrors the Cook module's CK-07 rule). **If the meal has an active, non-expired `Discount`, the displayed price is the discounted price, computed fresh on every fetch** — not merely the base price with a badge. *(Added per the Project Fixes doc, cross-referencing the Cook backlog's CK-06: "each time the meal returned to front, we should check for discounts and return the price after discount.")* A meal that is computed Inactive for any reason other than deletion (outside cook's working hours, Stop Selling, or individually Stopped) remains visible here — never hidden — but greyed out with a "Not Available for Order" badge and a disabled Add to Cart action. A soft-deleted meal (Cook backlog's `deleted_at`) is a different case entirely: the screen is simply not reachable for it, since deleted meals are excluded from every customer-facing view, not shown in a disabled state.
 
 **Acceptance Criteria (Gherkin)**
 ```gherkin
@@ -727,15 +760,22 @@ So that I can order it together with other items.
 2. Customer optionally selects a selling option (size) if applicable.
 3. Customer optionally adds a note on the meal (e.g. "no onion").
 4. Customer taps "Add to Cart."
-5. Item is added to the cart.
+5. System checks whether the cart already contains items from a **different** cook (see Alternative Flows).
+6. Item is added to the cart.
+
+**Alternative Flows**
+- A1: The cart already contains items from a different cook than this meal's — the customer is warned that adding this item will clear the current cart, since **a cart may only ever hold items from one cook at a time**. If the customer confirms, the existing cart is cleared first, then this item is added. *(Added per the Project Fixes doc: "each cart contains items from the same cook." The exact UX — warn-and-clear vs. an outright block — is not specified by the fixes doc; this story assumes warn-and-clear, matching common patterns in single-vendor-cart food delivery apps, and flags this as an interpretation.)*
 
 **Exception Flows**
 - E1: Meal has variations but none is selected — submission blocked until a selection is made.
-- E2: Meal note exceeds 100 characters — validation error, submission blocked until shortened. *(Added per CR-07.)*
-- E3: Meal is currently computed Inactive (outside working hours, Stop Selling, or individually Stopped — see Cook's CK-24 for the full derived formula) — the Add to Cart button is disabled entirely; this action cannot be reached. *(Generalized per this session's CR-01 — previously described only for the Stop-Accepting case.)*
+- E2: Meal note exceeds 100 characters — validation error, submission blocked until shortened.
+- E3: Meal is currently computed Inactive (outside working hours, Stop Selling, or individually Stopped — see Cook's CK-24 for the full derived formula) — the Add to Cart button is disabled entirely; this action cannot be reached.
 
-**Postconditions:** New (or updated) `CART` line exists for this customer.
-**Business Rules:** A meal note is limited to a maximum of 100 characters. *(Added per CR-07.)* **A meal computed Inactive for any reason can never be added to a cart**, per CU-09's display rule — this applies uniformly regardless of which of the three non-deletion causes (outside hours, Stop Selling, individually Stopped) is responsible. *(Generalized per this session's CR-01.)*
+**Postconditions:** New (or updated) `CART_MEAL_ITEM` row exists for this customer's single-cook cart.
+**Business Rules:**
+- A meal note is limited to a maximum of 100 characters.
+- **A meal computed Inactive for any reason can never be added to a cart**, per CU-09's display rule.
+- **A customer's cart can only ever contain items from one cook at a time.** *(Added per the Project Fixes doc — this is also why the earlier multi-cook "grouped by chef" cart display no longer applies; see CU-15.)*
 
 **Acceptance Criteria (Gherkin)**
 ```gherkin
@@ -762,13 +802,24 @@ Feature: Add to Cart
     When the customer views its details
     Then the Add to Cart button is disabled
     And the meal cannot be added to the cart
+
+  Scenario: Adding an item from a different cook warns and clears the cart
+    Given the customer's cart currently holds items from Cook A
+    When the customer taps "Add to Cart" on a meal belonging to Cook B
+    Then a warning explains that adding this item will clear the current cart
+    And if the customer confirms, the cart is cleared and this item is added instead
+
+  Scenario: Adding another item from the same cook is unaffected
+    Given the customer's cart currently holds items from Cook A
+    When the customer adds another meal also belonging to Cook A
+    Then it is added directly with no warning
 ```
 
 **Related Screens:** `S1` (meal-details portion)
 **Related User Flow:** `Meal Details → Add To Cart → Cart`
-**Related ERD Entities:** Cart, Meal, SellingOption
-**Related Database Tables:** `CART`, `MEAL`, `SELLING_OPTION`
-**Notes:** *(Updated per CR-07 and this session's CR-01.)* Meal-note length is capped at 100 characters. The Inactive-meal block is now understood as the customer-side enforcement of Cook's unified `is_active` formula (CK-24), not specifically the Stop-Accepting case alone — generalized this session for consistency with CU-09.
+**Related ERD Entities:** CART_MEAL_ITEM, Cart, Meal, SellingOption
+**Related Database Tables:** `CART`, `CART_MEAL_ITEM`, `MEAL`, `SELLING_OPTION`
+**Notes:** Meal-note length is capped at 100 characters. The Inactive-meal block is the customer-side enforcement of Cook's unified `is_active` formula (CK-24). **This revision adds the single-cook-cart constraint** per the Project Fixes doc, with the warn-and-clear UX flagged as an interpretation — see CU-15 for the corresponding cart-display rewrite. `CART` restructured per the updated ERD: it now only holds `CustomerID`; individual items live in `CART_MEAL_ITEM`, `CART_OFFER_ITEM`, and `CART_RETURNED_MEAL_ITEM`.
 
 ---
 
@@ -1011,110 +1062,97 @@ So that my order is exactly what I intend.
 **Trigger:** Customer taps the cart icon.
 
 **Main Success Scenario**
-1. Cart screen loads, items grouped under a header per chef (a cart spanning multiple chefs shows multiple groups).
-2. Each item shows its note (or an "add a note" prompt), a quantity +/- stepper, and a delete (🗑) button.
+1. Cart screen loads. Since a cart can now only ever hold items from **one cook**, there is no per-chef grouping — instead, items are grouped by **type**: regular meals (`CART_MEAL_ITEM`), bundled offers (`CART_OFFER_ITEM`), and a distinct section labeled **"من نصيبك"** for returned/discount-recovery meals (`CART_RETURNED_MEAL_ITEM`). *(Rewritten per the Project Fixes doc — see Notes for how this replaces the earlier multi-chef grouping.)*
+2. Each meal or offer item shows its note (or an "add a note" prompt), a quantity +/- stepper, and a delete (🗑) button. Returned-meal items under "من نصيبك" show their `SalvagePrice` and a delete button, but no quantity stepper beyond what was available at add-to-cart time (limited stock).
 3. Customer taps "Confirm All" → Checkout (CU-17).
 
 **Business Rules:**
-- Cart items are grouped by chef for display purposes.
+- **A cart can only ever contain items belonging to one cook at a time** — see CU-10 for how a conflicting add is handled.
+- **Removing an item from the cart is a hard delete** — the row is actually deleted, not soft-deleted or marked. *(Added per the Project Fixes doc: "items deleted from cart should be hard deleted.")*
+- Returned-meal items are always grouped under the "من نصيبك" section, distinct from regular meals and offers, regardless of which cook the rest of the cart belongs to (a returned meal's originating cook may differ from the cook of the rest of the cart's items — the fixes doc doesn't address this edge case explicitly; flagged in Notes).
 
 **Acceptance Criteria (Gherkin)**
 ```gherkin
 Feature: View and Manage Cart
 
-  Scenario: Cart with items from multiple chefs
-    Given the cart contains meals from 2 different chefs
+  Scenario: Cart displays items grouped by type, not by chef
+    Given the cart contains 2 meals, 1 offer, and 1 returned meal
     When the customer opens the cart
-    Then items are displayed grouped under 2 separate chef headers
+    Then meals and the offer are shown in their own sections
+    And the returned meal appears under a section labeled "من نصيبك"
 
-  Scenario: Adjusting quantity
-    Given an item is in the cart
+  Scenario: Adjusting quantity on a regular meal or offer
+    Given a meal or offer item is in the cart
     When the customer taps the "+" stepper
     Then the item's quantity increases and the total updates
 
-  Scenario: Removing an item
+  Scenario: Removing an item is a hard delete
     Given an item is in the cart
     When the customer taps the delete (🗑) button
-    Then the item is removed and the total recalculates
+    Then the row is permanently deleted, not merely marked
+    And the total recalculates
 ```
 
 **Related Screens:** `S4`
 **Related User Flow:** `Add To Cart → Cart → Confirm Order`
-**Related ERD Entities:** Cart, Meal, Cook
-**Related Database Tables:** `CART`, `MEAL`, `COOK`
-**Notes:** None.
+**Related ERD Entities:** Cart, CART_MEAL_ITEM, CART_OFFER_ITEM, CART_RETURNED_MEAL_ITEM, Meal, Offers, Returned_Meals, Cook
+**Related Database Tables:** `CART`, `CART_MEAL_ITEM`, `CART_OFFER_ITEM`, `CART_RETURNED_MEAL_ITEM`, `MEAL`, `Offers`, `Returned_Meals`, `COOK`
+**Notes:** **Rewritten per the updated ERD and the Project Fixes doc, following the removal of multi-cook orders.** The prior revision's "grouped by chef, multiple groups if multi-cook" display no longer applies at all, since a cart is now guaranteed single-cook by construction — there's nothing to group by chef anymore. The new grouping dimension is item *type* instead. `CART` itself is now a thin parent row (just `CustomerID`); the three typed child tables carry the actual line items, matching the same pattern the ERD now uses for `ORDER`. **Open question, not addressed by the fixes doc:** whether a returned meal's originating cook must match the rest of the cart's cook, or whether "من نصيبك" items are exempt from the single-cook constraint entirely — flagged for product-owner confirmation.
 
 ---
 
 **Story ID:** CU-16
 **Epic:** Cart
-**Feature:** Unavailable Cart Item Handling
-**Title:** Handle a cart item that becomes unavailable in real time
+**Feature:** Cart Reaction to Meal Deletion
+**Title:** Handle a cart item whose meal is deleted by its cook
 
 **User Story**
 As a Customer,
-I want to be notified in real time and see the item clearly marked if a meal, discount, or offer in my cart becomes unavailable,
-So that I can remove it and get an accurate order total before checking out.
+I want a meal to disappear from my cart automatically if its cook deletes it, with a notification explaining why,
+So that my cart never shows me something I can no longer actually order.
 
 **Business Value:** Must — data-integrity and trust-critical.
 **Priority:** Must
-**Dependencies:** CU-15; cross-module dependency on the Cook module's CK-09 (Delete Meal) and CK-15 (Delete Offer/Discount)
-**Preconditions:** A meal, discount, or offer currently reflected in the customer's cart is deleted by its cook.
-**Trigger:** Cook soft-deletes a meal (CK-09) that exists in this customer's cart, **or** soft-deletes a discount/offer (CK-15) that a cart line is benefiting from. *(Broadened per this session's CR-15 — previously this story covered only meal deletion.)*
+**Dependencies:** CU-15; cross-module dependency on the Cook module's CK-09 (Delete Meal)
+**Preconditions:** A meal currently reflected in the customer's cart is deleted by its cook.
+**Trigger:** Cook soft-deletes a meal (CK-09) that exists in this customer's cart.
 
 **Main Success Scenario**
-1. Cook attempts to delete the meal, discount, or offer.
-2. **For a meal:** system checks whether it belongs to any Pending or Preparing order. If so, deletion is blocked (see CK-09) — this scenario cannot occur while such an order exists.
-3. **For a discount or offer:** no such check is performed — deletion is never blocked by cart references (see CK-15, per this session's CR-15).
-4. The meal/discount/offer is soft-deleted.
-5. Customer receives a real-time notification.
-6. The affected cart item is marked with a clear unavailable state:
-   - A deleted **meal** is marked *"no longer available — removed by the chef."*
-   - A cart line that was benefiting from a deleted **discount or offer** is marked **"Out of Stock"** or **"Expired"** instead. *(Added per this session's CR-15.)*
-7. Customer removes the item.
-8. Cart total is recalculated.
+1. Cook deletes the meal (blocked entirely by CK-09 if it belongs to any "pending"/"preparing" order, or is part of an offer — this scenario cannot occur while either condition holds).
+2. The meal is soft-deleted (`MEAL.deleted_at` set).
+3. **The corresponding `CART_MEAL_ITEM` row is automatically deleted** — not marked, not left for the customer to remove manually. *(Rewritten per the Project Fixes doc: "when the cook delete a meal we should automatically delete it from users carts." This replaces this story's entire prior premise, which was built around marking the item unavailable and waiting for the customer to remove it — see Notes.)*
+4. The customer receives a notification explaining the meal is no longer available and was removed from their cart.
+5. Cart total is recalculated.
 
-**Postconditions:** Cart no longer contains the unavailable item; total is accurate.
+**Postconditions:** Cart no longer contains the deleted meal's line item; total is accurate.
 **Business Rules:**
-- A meal cannot be deleted while it belongs to a "Pending" **or** "Preparing" order. Otherwise, soft delete is allowed, and every customer who currently has that meal in their cart must receive a real-time notification that it's no longer available.
-- **A discount or offer can always be soft-deleted, with no order/cart-based blocking check at all.** Its effect on the cart is purely reactive: affected cart lines are marked "Out of Stock" or "Expired." *(Added per this session's CR-15.)*
-- **The customer cannot complete checkout while any cart line remains marked unavailable (whether from a deleted meal, or "Out of Stock"/"Expired" from a deleted discount/offer)** — see CU-17. *(Added per this session's CR-15.)*
+- A meal cannot be deleted while it belongs to a "pending" or "preparing" order, or while it's part of any Offer (see CK-09) — so this scenario is only reachable for meals genuinely free of active orders and offer bundling.
+- **Deletion cascades to an automatic hard-delete of every affected customer's `CART_MEAL_ITEM` row**, with a notification, not a "mark unavailable, customer removes manually" step.
+- **This story no longer covers Discount or Offer changes at all.** Those are never reflected in the cart in real time, under any circumstance — see CU-17 for how they're actually handled (silent re-validation at place-order time). *(Rewritten per the Project Fixes doc — this removes the real-time "Out of Stock"/"Expired" cart-marking mechanism this story previously carried; see Notes for the full reasoning and the conflict this resolves.)*
 
 **Acceptance Criteria (Gherkin)**
 ```gherkin
-Feature: Unavailable Cart Item Handling
+Feature: Cart Reaction to Meal Deletion
 
   Scenario: Meal deleted while in a customer's cart
-    Given a meal is in the customer's cart and belongs to no Pending or Preparing order
-    When the cook soft-deletes that meal
-    Then the customer receives a real-time notification
-    And the cart item is marked "no longer available"
-
-  Scenario: Discount or offer deleted while a cart line depends on it
-    Given a cart line is benefiting from a discount or offer
-    When the cook soft-deletes that discount or offer
-    Then the customer receives a real-time notification
-    And that cart line is marked "Out of Stock" or "Expired"
-
-  Scenario: Removing the unavailable item
-    Given a cart item is marked unavailable
-    When the customer taps to remove it
-    Then it is removed from the cart
+    Given a meal is in the customer's cart, with no pending/preparing orders and not part of any offer
+    When the cook deletes that meal
+    Then the corresponding cart line is automatically deleted
+    And the customer receives a notification explaining why
     And the cart total is recalculated
 
-  Scenario: Checkout is blocked while an unavailable item remains
-    Given the cart contains at least one item marked unavailable
-    When the customer attempts to check out
-    Then checkout is blocked until that item is removed
+  Scenario: Discount and offer changes never touch the cart directly
+    Given a cart line is currently benefiting from a discount or is part of an offer
+    When the cook edits or deletes that discount or offer
+    Then the cart itself is completely unchanged
+    And the cart line's price/eligibility is only re-checked when the customer reaches checkout (see CU-17)
 ```
 
 **Related Screens:** `S4` (wireframe annotation only — not in scenario text)
-**Related User Flow:** Not modeled in the customer flow diagram; sourced entirely from the S4 wireframe annotation.
-**Related ERD Entities:** Meal, Cart, Discount, Offers
-**Related Database Tables:** `MEAL`, `CART`, `Discount`, `Offers`
-**Notes:** *(Updated per this session's CR-15; historical cross-module note below retained for the meal-deletion side.)* This story's scope was broadened this session to also cover discount/offer unavailability, reusing the exact same UX pattern (real-time notification → mark unavailable → remove → recalculate) already established for meal deletion, per the "avoid duplicate functionality" instruction — rather than creating a second, near-identical story. The checkout-blocking rule is enforced in CU-17.
-
-**Historical note (meal-deletion side):** this story's cross-module inconsistency (flagged when this backlog was first built) was resolved over several revisions. Originally, the S4 wireframe annotation described a block on deletion while a meal was part of an "accepted" order, which conflicted with the Cook backlog's then-current state (no block at all). A first refinement restored a block scoped to "In Progress" orders only. A second, more specific refinement blocked the action for both "Pending" and "Preparing" orders with one exact popup message. **The Cook module's CK-09 is now at its own Rev. 6**, which further split this into Case A (Accepted/Preparing, hard block) and Case B (Pending, block with a bulk resolve option) — none of which changes this story's own scope, since carts are pre-order and were never part of the blocking condition itself.
+**Related User Flow:** Not modeled in the customer flow diagram; sourced from the S4 wireframe annotation, substantially reinterpreted this revision.
+**Related ERD Entities:** Meal, CART_MEAL_ITEM
+**Related Database Tables:** `MEAL`, `CART_MEAL_ITEM`
+**Notes:** **This is a significant reversal, confirmed by the product owner as a genuine conflict resolution, not a silent choice.** The prior revision of this story (itself the product of several earlier revisions reconciling the Cook and Customer backlogs) established: a deleted meal gets *marked* unavailable in the cart, with the customer expected to remove it manually; separately, a deleted discount or offer triggered the *same* mark-and-notify treatment, labeled "Out of Stock" or "Expired." **The Project Fixes doc replaces both halves of that mechanism.** For meals: deletion now cascades to an automatic, silent hard-delete of the cart line — there is no "marked unavailable, please remove" intermediate state anymore. For discounts and offers: the cart is not touched in real time *at all* — their validity is instead re-checked only when the customer reaches the place-order endpoint (see CU-17), the same mechanism already used for meal-price changes. This also means the "checkout blocked while an unavailable item remains" rule this story previously enforced is now moot for meals (they're removed automatically, so there's nothing left to block on) and was never applicable to discounts/offers in the first place under the new model (nothing in the cart ever shows as unavailable for those — checkout simply re-validates and can reject the specific line at that point).
 
 ---
 
@@ -1129,68 +1167,70 @@ Feature: Unavailable Cart Item Handling
 
 **User Story**
 As a Customer,
-I want to review my order, choose delivery options, and place it,
-So that my cart is converted into a real order.
+I want to review my order, see an accurate delivery price and time, and place it,
+So that my cart is converted into a real order with confidence nothing has silently changed since I added it.
 
 **Business Value:** Must — core conversion action.
 **Priority:** Must
-**Dependencies:** CU-15, CU-16 (unavailable-item checkout block)
+**Dependencies:** CU-15, CU-16
 **Preconditions:** Cart has at least one item.
-**Trigger:** Customer taps "Confirm All" in the cart.
+**Trigger:** Customer taps "عرض الفاتورة" (View Invoice) in the cart.
 
 **Main Success Scenario**
-1. Confirm Order screen loads with an itemized invoice (each item × quantity and price), delivery price, total, and expected time.
-2. Customer selects a delivery address for this order. *(Added per CR-02.)*
-3. Customer optionally adds order notes (max 150 characters).
-4. Customer chooses delivery timing.
-5. Screen displays the payment method as **Cash on Delivery** — no selection is required, since it's the platform's only supported method. *(Added per CR-19.)*
-6. Customer taps "Place Order."
-7. Order is created in the database with status "pending."
+1. Customer taps "View Invoice." The app sends the customer's chosen delivery coordinates (latitude, longitude) to a **calculate-delivery-price endpoint**, which returns the **delivery price** and an **average expected time** — computed as the sum of every cart item's individual expected preparation time divided by the number of items. *(Added per the Project Fixes doc: "when user click عرض الفاتورة the front send the location... to the calculate delivery price endpoint, and it return avg time (sum of all items times / number of them) and delivery price.")*
+2. Confirm Order screen loads with an itemized invoice (each item × quantity and price), the returned delivery price, the returned average expected time, and the order total.
+3. **Server re-validates every cart item against current database state** before allowing the order to proceed (see Business Rules) — this covers meal prices, discount terms, offer terms, and whether any referenced meal/discount/offer has since been deleted.
+4. Customer selects a delivery address for this order.
+5. Customer optionally adds order notes (max 150 characters).
+6. Customer chooses delivery timing — immediately, or a scheduled time (stored as `ORDER.choosen_delivery_time`).
+7. Screen displays the payment method as **Cash on Delivery** — fixed, no selection needed.
+8. Customer taps "Place Order."
+9. Order is created with status "pending," structured into the same three item-type tables the cart used: `ORDER_MEAL_ITEM`, `ORDER_OFFER_ITEM`, `ORDER_RETURNED_MEAL_ITEM` — each carrying its own `price_at_purchase` snapshot. *(Rewritten per the updated ERD and the Project Fixes doc: "when the user place the order, we structure the order item's in the same way we did in the cart.")*
 
 **Alternative Flows**
-- A1: Cart spans more than one chef — a delivery-method choice is shown: "separate delivery per chef" or "combined delivery." This step is skipped entirely for single-chef orders.
-- A2: Customer selects "schedule an appointment" instead of immediate delivery — date and time pickers appear; the selected time must fall within the relevant chef's availability hours.
+- A1: Customer selects "schedule an appointment" instead of immediate delivery — date and time pickers appear; the selected time must fall within the cook's availability hours.
 
 **Exception Flows**
-- E1: Scheduled time falls outside the chef's availability — validation error, submission blocked.
-- E2: No delivery address selected — submission blocked until one is chosen. *(Added per CR-02.)*
-- E3: Order note exceeds 150 characters — validation error, submission blocked until shortened. *(Added per CR-07.)*
-- E4: Cart contains an item marked unavailable ("no longer available," "Out of Stock," or "Expired" — see CU-16) — checkout is blocked entirely until the customer removes that item. *(Added per this session's CR-15.)*
+- E1: Scheduled time falls outside the cook's availability — validation error, submission blocked.
+- E2: No delivery address selected — submission blocked until one is chosen.
+- E3: Order note exceeds 150 characters — validation error, submission blocked until shortened.
+- E4: **Server-side re-validation finds a discrepancy** — a meal's current price differs from what the cart last saw, a discount's percentage/existence has changed, an offer's price/included-meals/variation-quantities/duration/existence has changed, or any referenced meal/discount/offer has been deleted since it was added to cart. The customer is shown the updated information and must confirm before the order proceeds. *(Rewritten per the Project Fixes doc — this is now the single re-validation checkpoint for meals, discounts, *and* offers, replacing the earlier real-time cart-marking mechanism entirely; see CU-16 and Notes.)*
 
-**Postconditions:** New `ORDER` row (status "pending," payment method "Cash on Delivery") with one `SUB_ORDER` per chef and their respective `ORDER_ITEM` rows, and the selected delivery address attached to the order.
+**Postconditions:** New `ORDER` row (status "pending," payment method "Cash on Delivery," `CookID` set directly, `Total expected time` set to the calculated average) with matching rows across `ORDER_MEAL_ITEM`, `ORDER_OFFER_ITEM`, and `ORDER_RETURNED_MEAL_ITEM` as applicable, and the selected delivery address attached.
 **Business Rules:**
-- The multi-chef delivery-method choice only appears when the order spans more than one chef.
+- **An order can only ever belong to one cook** — there is no multi-cook delivery-method choice anymore; that entire flow is removed. *(Rewritten per the Project Fixes doc — "the grouped order feature" is removed "for now"; see the Revision Log for the full explanation.)*
+- **Delivery price and average expected time are computed server-side** by a dedicated endpoint, given the customer's delivery coordinates — average time is `sum(item expected times) / count(items)`, not a sum or a max.
 - A scheduled delivery time must fall within the cook's `availability_time`.
-- The delivery address is selected **during checkout only** — it is not part of the customer's profile and has no separate management screen. *(Defined per CR-02.)*
-- An order note is limited to a maximum of 150 characters. *(Added per CR-07.)*
-- **Cash on Delivery is the only supported payment method.** No online payment, credit card, or digital wallet option is offered anywhere in the checkout flow. *(Defined per CR-19.)*
-- **Checkout cannot complete while the cart contains any item marked unavailable.** This applies whether the item became unavailable because its meal was deleted, or because a discount/offer it depended on was deleted (CU-16). *(Defined per this session's CR-15.)*
+- The delivery address is selected during checkout only.
+- An order note is limited to a maximum of 150 characters.
+- Cash on Delivery is the only supported payment method.
+- **At place-order time, the server re-validates every cart line against current database state**: meal price, discount percentage/existence, offer price/meals/variation-quantities/duration/existence. This is the *only* checkpoint for discount/offer changes — the cart itself is never touched in real time for those (see CU-16). *(Rewritten per the Project Fixes doc.)*
+- **Discount `UsageCount` increments, and any limited-quantity `Returned_Meals` claim, must be race-condition-safe** under this endpoint — pessimistic locking, the same pattern used for CK-25's Pending Order Timeout. *(Added per the Project Fixes doc.)*
+- An order can be cancelled by the customer only while its status is still "pending" (see CU-31).
 
 **Acceptance Criteria (Gherkin)**
 ```gherkin
 Feature: Confirm and Place Order
 
-  Scenario: Placing a single-chef order
-    Given the cart contains items from only one chef
-    When the customer selects a delivery address, reviews the invoice, and taps "Place Order"
-    Then the order is created with status "pending"
-    And the payment method is recorded as Cash on Delivery
-    And no delivery-method choice is shown
+  Scenario: Viewing the invoice calculates delivery price and average time
+    Given the customer taps "View Invoice" with a chosen delivery location
+    When the calculate-delivery-price endpoint runs
+    Then it returns a delivery price and an average expected time (sum of item times ÷ item count)
 
-  Scenario: Placing a multi-chef order
-    Given the cart contains items from 2 different chefs
-    When the customer reaches the Confirm Order screen
-    Then a delivery-method choice is shown: "separate delivery per chef" or "combined delivery"
-    And the customer must select one before placing the order
+  Scenario: Placing an order
+    Given the customer has reviewed the invoice and selected a delivery address
+    When the customer taps "Place Order"
+    Then the order is created with status "pending," a direct CookID, and Cash on Delivery as the payment method
+    And its items are split across ORDER_MEAL_ITEM, ORDER_OFFER_ITEM, and ORDER_RETURNED_MEAL_ITEM as applicable
 
   Scenario: Scheduling delivery within availability
     Given the customer selects "schedule an appointment"
-    When the customer picks a date and time within the chef's availability hours
+    When the customer picks a date and time within the cook's availability hours
     Then the order is placed successfully with that scheduled time
 
   Scenario: Scheduling delivery outside availability
     Given the customer selects "schedule an appointment"
-    When the customer picks a time outside the chef's availability hours
+    When the customer picks a time outside the cook's availability hours
     Then a validation error is shown
     And the order is not placed
 
@@ -1199,29 +1239,44 @@ Feature: Confirm and Place Order
     When the customer taps "Place Order"
     Then submission is blocked until a delivery address is selected
 
-  Scenario: Checkout blocked by an unavailable cart item
-    Given the cart contains an item marked "Out of Stock" or "Expired"
-    When the customer attempts to tap "Place Order"
-    Then checkout is blocked until that item is removed from the cart
-
   Scenario: Order note exceeds the character limit
     Given the customer is on the Confirm Order screen
     When the customer enters an order note longer than 150 characters
     Then a validation error is shown
     And the order is not placed until the note is shortened to 150 characters or fewer
 
+  Scenario: Meal price changed since it was added to cart
+    Given a meal's price in the cart no longer matches its current database price
+    When the customer attempts to place the order
+    Then the customer is shown the updated price and must confirm before proceeding
+
+  Scenario: Discount was deleted since being applied in the cart
+    Given a cart line was benefiting from a discount that has since been deleted
+    When the customer attempts to place the order
+    Then the customer is shown that the discount no longer applies and must confirm the updated price
+
+  Scenario: Offer was edited since being added to cart
+    Given an offer's price or included meals changed since it was added to the cart
+    When the customer attempts to place the order
+    Then the customer is shown the updated offer terms and must confirm before proceeding
+
+  Scenario: Race condition on limited discount usage
+    Given a discount has exactly 1 use remaining
+    When two customers attempt to place orders using it at the same moment
+    Then only one order successfully claims the discount
+    And the other sees the discount is no longer available
+
   Scenario: No payment method selection is offered
     Given the customer is on the Confirm Order screen
     When the screen renders the payment section
     Then it shows "Cash on Delivery" as a fixed, non-editable value
-    And no other payment method is selectable
 ```
 
 **Related Screens:** `S4+S5` (confirm-order portion)
-**Related User Flow:** `Cart → Confirm Order → Place Order → Waiting for Order Confirmation`
-**Related ERD Entities:** Order, SubOrder, OrderItem
-**Related Database Tables:** `ORDER`, `SUB_ORDER`, `ORDER_ITEM`
-**Notes:** *(Updated per CR-02, CR-07, CR-19, and this session's CR-15.)* Delivery-address selection is confirmed to happen exclusively at checkout. Order-note length is capped at 150 characters. **Payment method is now resolved** — Cash on Delivery only, per CR-19. **The checkout-blocking-on-unavailable-item rule is new this session (CR-15)** — enforced here as the final gate before order creation, complementing CU-16's cart-level marking. **ERD update resolves the earlier address open question:** the updated ERD now shows `delivery_address` as a direct field on `ORDER` itself (plus `address` on `CUSTOMER`, presumably a default) — confirming an ad-hoc, single-string-per-order model rather than a separate saved-addresses table. The payment-method column question remains open, since CoD is the only value that will ever be stored there.
+**Related User Flow:** `Cart → View Invoice → Confirm Order → Place Order → Waiting for Order Confirmation`
+**Related ERD Entities:** Order, ORDER_MEAL_ITEM, ORDER_OFFER_ITEM, ORDER_RETURNED_MEAL_ITEM, Discount, Offers, Returned_Meals
+**Related Database Tables:** `ORDER`, `ORDER_MEAL_ITEM`, `ORDER_OFFER_ITEM`, `ORDER_RETURNED_MEAL_ITEM`, `Discount`, `Offers`, `Returned_Meals`
+**Notes:** **This is the most substantially rewritten story in this revision.** Three changes, all per the Project Fixes doc: (1) the multi-cook delivery-method choice is removed entirely, since an order can now only belong to one cook — this was previously this story's most complex Alternative Flow; (2) the delivery-price/average-time calculation is now concretely specified, where it was previously just "displayed" with no defined source; (3) server-side re-validation is now the *single* mechanism for catching meal, discount, and offer changes, replacing what had been a mix of real-time cart marking (removed, see CU-16) and this story's own narrower "unavailable item" checkout block. The `SUB_ORDER` table and its associated `ORDER_ITEM` generic table are both gone, replaced by the three typed tables the ERD now defines, matching the cart's own structure. `ORDER.CookID` is now a direct field, confirmed by the updated ERD.
 
 ---
 
@@ -1246,17 +1301,15 @@ So that I know what's happening with my food.
 **Trigger:** Customer taps the "My Orders" tab, or taps an order-status notification.
 
 **Main Success Scenario**
-1. My Orders screen loads with a card per current order: meal(s), date, status, chef name.
-2. New statuses arrive as a notification the moment a chef accepts/rejects; tapping that notification opens this screen.
-3. Customer taps an order to open its **Order Details**. For a multi-cook order, Order Details displays one card **per cook** (per sub-order), each showing that cook's information, its own status, and the actions available for it (e.g. "Cancel," shown only while that sub-order is "Pending" — see CU-31). *(Added per CR-22.)*
+1. My Orders screen loads with a card per order: meal(s)/offer(s), date, status, cook name. Since an order is now guaranteed single-cook, each card represents exactly one order and one cook — no drill-down into per-cook sub-cards is needed anymore. *(Simplified per the Project Fixes doc — see Notes.)*
+2. New statuses arrive as a notification the moment a cook accepts/rejects; tapping that notification opens this screen.
+3. Customer taps an order to open its **Order Details**, showing the itemized breakdown (meals, offers, returned meals as applicable), status, and available actions for that order (e.g. "Cancel," shown only while the order is "pending" — see CU-31).
 
 **Business Rules:**
-- The "reply with new time" capability once described for this screen no longer applies — the underlying time-change-request feature is permanently cancelled (see Phase 1).
-- **Unified order-status vocabulary (per CR-18 — Activity Diagram Consistency):** Pending → In Progress → Ready → Delivering → Delivered, with Cancelled and Rejected as terminal off-ramps. This resolves the previously flagged mismatch between the Cook module's coarser New/In Progress/Done vocabulary and the customer flow diagram's finer Ready/Out-for-Delivery states — the Activity Diagram uses this exact five-state progression, and it is now adopted as the canonical `ORDER`/`SUB_ORDER.Status` enum for both modules.
-- Per the Activity Diagram, the customer receives a distinct notification at each of three transitions: order marked **Ready** (cook clicks "Ready to deliver"), order marked **Delivering** (Delivery Support assigns a driver), and order marked **Delivered** — not only at Accept/Reject. See CU-24.
-- A Pending order the cook doesn't respond to in time is **automatically cancelled**, with the customer notified — see the Cook backlog's CK-25 (Pending Order Timeout, CR-15). This backlog does not duplicate that story; it's referenced here for cross-module traceability only.
-- **Each sub-order (one cook's portion) has its own independent state machine.** A multi-cook order's overall display reflects the individual status of each sub-order rather than a single collapsed status. *(Added per CR-22.)*
-- **If every sub-order in a multi-cook order ends up Rejected, the parent order's own status automatically becomes "Rejected."** *(Added per CR-20 — see CU-19 for the full behavior.)*
+- The "reply with new time" capability no longer applies — the underlying time-change-request feature is permanently cancelled.
+- **Canonical order-status vocabulary:** pending → preparing → done → delivering → delivered, with cancelled, rejected, and returned as terminal off-ramps. *(Rewritten per the Project Fixes doc — this supersedes the earlier Pending/In Progress/Ready/Delivering/Delivered vocabulary: "In Progress" is renamed "preparing," "Ready" is renamed "done," and "returned" is a genuinely new terminal state for meals rejected at delivery and routed through the new Delivery Support workflow.)*
+- The customer receives a distinct notification at each status transition — accepted/rejected, done, delivering, delivered, and (new) returned. See CU-24.
+- A "pending" order the cook doesn't respond to in time is **automatically cancelled** — timeout = 25% of the order's expected preparation time, with both parties notified — see the Cook backlog's CK-25. This backlog does not duplicate that story; it's referenced here for cross-module traceability only.
 
 **Acceptance Criteria (Gherkin)**
 ```gherkin
@@ -1265,53 +1318,55 @@ Feature: My Orders
   Scenario: Viewing current orders
     Given the customer has placed orders
     When the customer opens "My Orders"
-    Then each order card shows the meal, date, status, and chef name
+    Then each order card shows the meal/offer items, date, status, and cook name
 
   Scenario: Opening My Orders from a notification
     Given the customer receives an order-status-changed notification
     When the customer taps the notification
     Then the My Orders screen opens
 
-  Scenario: Order Details shows independent per-cook cards for a multi-cook order
-    Given an order includes meals from 2 different cooks
+  Scenario: Order Details shows the itemized breakdown for a single-cook order
+    Given an order includes both a meal and an offer
     When the customer opens that order's details
-    Then 2 separate cards are shown, one per cook, each with its own status and available actions
+    Then both item types are shown, correctly attributed to their tables (ORDER_MEAL_ITEM, ORDER_OFFER_ITEM)
 
-  Scenario Outline: Status progression matches the unified vocabulary
+  Scenario Outline: Status progression matches the canonical vocabulary
     Given an order exists
     When its status is "<Status>"
-    Then it is one of: Pending, In Progress, Ready, Delivering, Delivered, Cancelled, Rejected
+    Then it is one of: pending, preparing, done, delivering, delivered, cancelled, rejected, returned
 
     Examples:
-      | Status      |
-      | Pending     |
-      | In Progress |
-      | Ready       |
-      | Delivering  |
-      | Delivered   |
+      | Status     |
+      | pending    |
+      | preparing  |
+      | done       |
+      | delivering |
+      | delivered  |
 ```
 
 **Related Screens:** `S7`
-**Related User Flow:** `Waiting for Preparation → Order Ready → Order Out for Delivery`; now formally cross-referenced against `ActivityDigram.drawio`'s five-state progression.
-**Related ERD Entities:** Order, SubOrder
-**Related Database Tables:** `ORDER`, `SUB_ORDER`
-**Notes:** *(Updated per CR-18, CR-20, and CR-22.)* The wireframe's coarser status badges ("قيد التحضير / Preparing," "Pending," "مرفوض / Rejected") are a simplified display of the five-state vocabulary now confirmed above — "Preparing" in the wireframe/UI corresponds to "In Progress" in the data model, a terminology reconciliation worth keeping in mind across both backlogs (CR-11 and CR-12, applied to the Cook backlog, use "Preparing" in their popup copy while the underlying status value is "In Progress"). No wireframe confirms the per-cook "Order Details" card layout CR-22 describes — it's modeled here as a natural drill-down from this same screen rather than a separate story, and CU-31 (Cancel) is the primary consumer of the per-card "Cancel" action this scenario describes.
+**Related User Flow:** `Waiting for Preparation → Order Ready → Order Out for Delivery`; superseded in practice by the canonical status vocabulary above.
+**Related ERD Entities:** Order, ORDER_MEAL_ITEM, ORDER_OFFER_ITEM, ORDER_RETURNED_MEAL_ITEM
+**Related Database Tables:** `ORDER`, `ORDER_MEAL_ITEM`, `ORDER_OFFER_ITEM`, `ORDER_RETURNED_MEAL_ITEM`
+**Notes:** **Substantially simplified this revision, following the removal of multi-cook orders.** The prior revision's per-cook "Order Details" drill-down (multiple cards, one per cook, each with its own status) no longer applies — an order is guaranteed single-cook (direct `ORDER.CookID`), so Order Details is now a single-status view with an itemized *item* breakdown instead of a multi-cook breakdown. The status vocabulary is also updated to the Project Fixes doc's exact terms (pending/preparing/done/delivering/delivered/cancelled/rejected/returned), replacing the earlier Activity-Diagram-derived five-state model — this is mostly a rename (In Progress→preparing, Ready→done) plus one genuinely new terminal state (returned, corresponding to the new Delivery Support workflow — see the new Delivery Support & Admin backlog). See the Revision Log for the full cross-backlog explanation of the multi-cook removal.
 
 ---
 
-**Story ID:** CU-19
+**Story ID:** CU-19 *(⚠ DEPRECATED this revision — see banner below. Story ID and full content preserved for potential future reinstatement, not deleted.)*
 **Epic:** Order Lifecycle
 **Feature:** Split-Order Response
 **Title:** Respond to a partially rejected order
+
+> **⚠ DEPRECATED per the Project Fixes doc's removal of multi-cook/grouped orders ("for now").** This entire story assumed an order could span multiple cooks, with each cook's portion independently accepted/rejected/timed-out. The updated ERD confirms `SUB_ORDER` no longer exists and an order is now guaranteed single-cook (`ORDER.CookID` is a direct field) — there is no longer a "partial" rejection to respond to; an order is either accepted, rejected, or (per CK-25) auto-cancelled on timeout, in full. **Nothing currently replaces this story's functionality**, since the scenario it handled can no longer occur. The story below is preserved verbatim as a historical record, since the fixes doc explicitly says the grouped-order feature is removed "for now" — if multi-cook ordering returns, this is the starting point for reinstating it rather than redesigning from scratch. Do not build against this story until it is explicitly un-deprecated.
 
 **User Story**
 As a Customer,
 I want to choose whether to proceed with the accepted parts of my order or cancel entirely when one or more chefs reject their portion, and to be told automatically if every chef rejects,
 So that I retain control over a multi-chef order that didn't go as planned.
 
-**Business Value:** Must — directly addressed in the scenario text and the flow diagram as an explicit decision.
-**Priority:** Must
-**Dependencies:** CU-17, CU-24 (surfaced via Notifications); cross-module dependency on the Cook backlog's CK-25 (Pending Order Timeout), which reuses this story's mechanism per CR-33.
+**Business Value:** Must — directly addressed in the scenario text and the flow diagram as an explicit decision. *(Historical — see deprecation banner above.)*
+**Priority:** Must *(as it stood while the feature was active; not a current build priority)*
+**Dependencies:** CU-17, CU-24 (surfaced via Notifications); cross-module dependency on the Cook backlog's CK-25 (Pending Order Timeout), which reused this story's mechanism per CR-33.
 **Preconditions:** Order spans more than one chef; at least one chef has rejected their portion.
 **Trigger:** `Order Accepted?` evaluates to "No" for one or more sub-orders — either because a cook rejected their portion, **or** because a sub-order's independent Pending timeout expired without a cook response (Cook backlog's CK-25, per CR-33). *(Broadened per CR-33.)*
 
@@ -1382,88 +1437,80 @@ Feature: Split-Order Response
 **Related User Flow:** `Order Accepted? [No] → Notification → Continue Order? [Yes/No] → Waiting for Preparation / Cancel Order`; the "Return Items to Cart" terminal node from the original flow diagram no longer applies — see Notes.
 **Related ERD Entities:** Order, SubOrder, Cart
 **Related Database Tables:** `ORDER`, `SUB_ORDER`, `CART`
-**Notes:** *(Updated per CR-20, CR-21, CR-25, and CR-33.)* Full-rejection behavior is now defined (CR-20), resolving the open question flagged in the prior revision. CR-21 **reverses** this story's previous cancellation behavior — the original customer flow diagram's `Cancel Order → Return Items to Cart` path is superseded; cancelled orders now leave the cart empty and rely on the Reorder button instead. This is the same behavior now confirmed for CU-31's direct cancellation, keeping both cancellation entry points consistent. **CR-33 (issued against the Cook backlog) broadens this story's trigger**: a sub-order's Pending-timeout auto-cancellation (Cook's CK-25) now explicitly reuses this exact Proceed/Cancel mechanism rather than defining a separate customer-facing flow — this is a cross-module reuse, not a duplicate story, per the "avoid duplicate functionality" instruction that CR governed.
+**Notes:** *(Historical, from when this story was active — see the deprecation banner at the top of this story for the current status.)* Full-rejection behavior was defined per CR-20. CR-21 reversed this story's cancellation behavior — cancelled orders left the cart empty and relied on the Reorder button instead of restoring items, matching CU-31's direct cancellation. CR-33 broadened this story's trigger to also cover sub-order Pending-timeout auto-cancellation (Cook's CK-25), reusing this exact Proceed/Cancel mechanism rather than a separate flow. **This revision's deprecation note:** the Cook backlog's CK-25 has since been rewritten to remove this cross-reference entirely, since the scenario (one sub-order timing out while a sibling remains active) is no longer structurally possible once an order can only belong to one cook. See the Revision Log for the full explanation.
 
 ---
 
 **Story ID:** CU-31 *(New — added per CR-16)*
 **Epic:** Order Lifecycle
 **Feature:** Customer-Initiated Cancellation
-**Title:** Cancel a pending sub-order
+**Title:** Cancel a pending order
 
 **User Story**
 As a Customer,
-I want to cancel an individual cook's portion of my order while it's still pending, without affecting any other cook's portion,
-So that I can back out of just the part that hasn't been committed to yet.
+I want to cancel my order while it's still pending,
+So that I can back out before the cook has committed to preparing it.
 
 **Business Value:** Should
 **Priority:** Should
 **Dependencies:** CU-17, CU-18
-**Preconditions:** A sub-order (one cook's portion of the order) has status "Pending" (not yet accepted by that cook).
-**Trigger:** Customer taps "Cancel" on a Pending sub-order card in Order Details.
+**Preconditions:** The order has status "pending" (not yet accepted by the cook).
+**Trigger:** Customer taps "Cancel" on a pending order in Order Details.
 
 **Main Flow**
-1. Customer opens Order Details. Each cook's portion is displayed as its own independent card, showing: cook information, status, and available actions. *(Rewritten per CR-22.)*
-2. Only cards with status "Pending" display a "Cancel" button. *(Defined per CR-22.)*
-3. Customer taps "Cancel" on a Pending sub-order.
-4. A confirmation dialog is shown: "Are you sure you want to cancel this order?" *(Added per CR-25.)*
-5. On confirmation, that sub-order's status changes to "Cancelled." Other sub-orders in the same parent order are entirely unaffected and continue through their own independent state machines. *(Defined per CR-22.)*
-6. The cart remains empty — the cancelled sub-order's items are **not** automatically restored. The cancelled sub-order's details show a prominent **Reorder** button (reusing CU-21's logic). *(Rewritten per CR-21.)*
+1. Customer opens Order Details for a "pending" order.
+2. A "Cancel" button is shown, since the order is still "pending."
+3. Customer taps "Cancel."
+4. A confirmation dialog is shown: "Are you sure you want to cancel this order?"
+5. On confirmation, the order's status changes to "cancelled."
+6. The cart remains empty — the cancelled order's items are **not** automatically restored. The cancelled order's details show a prominent **Reorder** button (reusing CU-21's logic).
 
 **Exception Flows**
-- E1: Customer attempts to cancel a sub-order that is no longer "Pending" (e.g. "Preparing" or later) — no Cancel button is shown for that card; the action is unavailable, not merely blocked after the fact. *(Defined per CR-16 and CR-22.)*
-- E2: Customer dismisses the confirmation dialog without confirming — no cancellation occurs; the sub-order remains Pending. *(Added per CR-25.)*
+- E1: The order is no longer "pending" (e.g. "preparing" or later) — no Cancel button is shown; the action is unavailable, not merely blocked after the fact.
+- E2: Customer dismisses the confirmation dialog without confirming — no cancellation occurs; the order remains "pending."
 
-**Postconditions:** The cancelled sub-order's status is "Cancelled"; its items are not returned to the cart; a Reorder button is available on its details. All sibling sub-orders in the same parent order are unaffected.
+**Postconditions:** The order's status is "cancelled"; its items are not returned to the cart; a Reorder button is available on its details.
 **Business Rules:**
-- Each cook's portion of a multi-cook order is treated as an **independent sub-order with its own state machine** — cancelling one has no effect on any other. *(Defined per CR-22.)*
-- Customer-initiated cancellation is available **only** while a sub-order's status is "Pending." *(Defined per CR-16, scoped to the sub-order level per CR-22.)*
-- Order Details displays one card per sub-order, each showing cook information, status, and available actions; the Cancel action appears **only** on cards with status "Pending." *(Defined per CR-22.)*
-- **Cancelling never auto-restores items to the cart.** The cart stays empty; the customer uses the Reorder button on the cancelled sub-order's details instead. *(Rewritten per CR-21 — same rule as CU-19's cancellation path, kept consistent.)*
-- **A confirmation dialog is always shown before cancellation is finalized.** *(Added per CR-25.)*
+- Customer-initiated cancellation is available **only** while the order's status is "pending."
+- **Cancelling never auto-restores items to the cart.** The cart stays empty; the customer uses the Reorder button instead.
+- **A confirmation dialog is always shown before cancellation is finalized.**
 
 **Acceptance Criteria (Gherkin)**
 ```gherkin
-Feature: Customer-Initiated Sub-Order Cancellation
+Feature: Customer-Initiated Order Cancellation
 
-  Scenario: Order Details shows one independent card per cook
-    Given an order includes meals from 2 different cooks
-    When the customer opens Order Details
-    Then 2 separate cards are shown, each with its own cook information, status, and actions
-
-  Scenario: Cancel button only appears on Pending sub-orders
-    Given one sub-order is "Pending" and another is "Preparing"
+  Scenario: Cancel button appears only while pending
+    Given an order has status "pending"
     When the customer views Order Details
-    Then only the "Pending" sub-order's card shows a "Cancel" button
+    Then a "Cancel" button is shown
+
+  Scenario: Cancel button disappears once the order is accepted
+    Given an order has status "preparing" or later
+    When the customer views Order Details
+    Then no "Cancel" button is shown
 
   Scenario: Cancelling with confirmation
-    Given a sub-order has status "Pending"
-    When the customer taps "Cancel" on that sub-order's card
+    Given the order has status "pending"
+    When the customer taps "Cancel"
     Then a confirmation dialog is shown asking "Are you sure you want to cancel this order?"
-    And the sub-order is only cancelled after the customer confirms
+    And the order is only cancelled after the customer confirms
 
   Scenario: Dismissing the cancellation confirmation
     Given the confirmation dialog is shown
     When the customer dismisses it without confirming
-    Then the sub-order remains "Pending" and unchanged
+    Then the order remains "pending" and unchanged
 
-  Scenario: Cancelling one sub-order doesn't affect others
-    Given a multi-cook order has one "Pending" and one "Preparing" sub-order
-    When the customer cancels the "Pending" sub-order
-    Then only that sub-order's status changes to "Cancelled"
-    And the "Preparing" sub-order continues unaffected
-
-  Scenario: Cancelled sub-order does not restore items to the cart
-    Given the customer has confirmed cancellation of a sub-order
+  Scenario: Cancelled order does not restore items to the cart
+    Given the customer has confirmed cancellation
     Then the cart remains empty
-    And that sub-order's details show a prominent "Reorder" button
+    And the order's details show a prominent "Reorder" button
 ```
 
-**Related Screens:** No wireframe was provided for this action or for a dedicated "Order Details" screen — inferred to extend `S7` (My Orders) with a details drill-down; created per CR-16, restructured per CR-22.
-**Related User Flow:** Not modeled in the flow diagram or the Activity Diagram — this is a customer-initiated action, distinct from the system/cook-initiated cancellations the diagram does show (auto-cancel on full rejection, per CU-19; auto-cancel on timeout, per the Cook backlog's CK-25).
-**Related ERD Entities:** Order, SubOrder
-**Related Database Tables:** `ORDER`, `SUB_ORDER`
-**Notes:** *(Updated per CR-21, CR-22, and CR-25.)* This story now operates at the **sub-order** level rather than the whole-order level, per CR-22 — a genuine scope expansion from the prior revision, which only handled single-cook Pending orders. The prior revision's open question about cart-restoration behavior is now **definitively resolved** by CR-21: no restoration, ever — Reorder is the intended path back. No wireframe confirms the "Order Details" screen's exact layout described by CR-22 (per-cook cards) — this is inferred to be a natural extension of My Orders (CU-18) rather than a wholly separate story, consistent with how CU-18 already touches on multi-cook order display.
+**Related Screens:** No wireframe was provided for this action or for a dedicated "Order Details" screen — inferred to extend `S7` (My Orders) with a details drill-down.
+**Related User Flow:** Not modeled in the flow diagram or the Activity Diagram — this is a customer-initiated action, distinct from the system-initiated cancellation on timeout (Cook backlog's CK-25).
+**Related ERD Entities:** Order
+**Related Database Tables:** `ORDER`
+**Notes:** **Substantially simplified this revision, following the removal of multi-cook orders.** This story previously operated at the sub-order level (one cook's portion of a multi-cook order, independently cancellable), with Order Details showing one card per cook. Both of those premises are gone: an order is now guaranteed single-cook, so there is exactly one thing to cancel, and Order Details (CU-18) no longer needs per-cook cards. This story now reads much closer to its original, pre-multi-cook form. See the Revision Log for the full cross-backlog explanation, and CU-19 for the sibling story that was fully deprecated rather than simplified, since it had no remaining scope at all once multi-cook orders were removed.
 
 ---
 
@@ -1560,9 +1607,9 @@ Feature: Reorder
 
 **Related Screens:** `S10`
 **Related User Flow:** `Order History → (shortcut) → Confirm Order` — not modeled as its own flow-diagram node; sourced from the S10 wireframe annotation and scenario S10.
-**Related ERD Entities:** Order, OrderItem
-**Related Database Tables:** `ORDER`, `SUB_ORDER`, `ORDER_ITEM`
-**Notes:** *(Updated per CR-10.)* Unavailable-item handling on reorder is now defined, resolving the item previously flagged in Phase 8.
+**Related ERD Entities:** Order, ORDER_MEAL_ITEM, ORDER_OFFER_ITEM, ORDER_RETURNED_MEAL_ITEM
+**Related Database Tables:** `ORDER`, `ORDER_MEAL_ITEM`, `ORDER_OFFER_ITEM`, `ORDER_RETURNED_MEAL_ITEM`
+**Notes:** *(Updated per CR-10; table references corrected this revision.)* Unavailable-item handling on reorder is defined, resolving the item previously flagged in Phase 8. **Correction:** this story's `Related Database Tables` still cited the removed `SUB_ORDER` and the generic `ORDER_ITEM` table after Rev. 7's multi-cook removal rewrote every other order-referencing story in this backlog — this was a genuine oversight, missed during that pass and caught in a follow-up self-audit, now fixed to match the three typed order-item tables used everywhere else (CU-17, CU-18, CU-22).
 
 ---
 
@@ -1583,13 +1630,13 @@ So that the order is only marked complete when I've actually received it correct
 **Business Value:** Must
 **Priority:** Must
 **Dependencies:** CU-18
-**Preconditions:** Order status is "Out for Delivery" and the delivery person has arrived.
+**Preconditions:** Order status is "delivering" and the delivery person has arrived.
 **Trigger:** Delivery person marks arrival; customer sees "Your order has arrived 🛵 — do you accept it?"
 
 **Main Success Scenario**
 1. Customer is shown Accept/Reject buttons while the delivery person waits for confirmation.
 2. Customer taps "Accept & Receive."
-3. Order status becomes "Completed" / Delivered.
+3. Order status becomes "delivered."
 4. Customer proceeds to the rating flow (CU-23).
 
 **Alternative Flows**
@@ -1597,15 +1644,15 @@ So that the order is only marked complete when I've actually received it correct
 
 **Exception Flows**
 - E1: Customer attempts to submit a rejection with no reason entered — submission blocked.
-- E2: Cook declines to take the rejected meal back, and it violates quality/safety standards — the meal is destroyed rather than resold. *(Per the Activity Diagram — see Notes.)*
-- E3: Cook declines to take the rejected meal back, and it does **not** violate quality/safety standards — it is listed in the discount-recovery section (CU-06) at a discount. *(Per the Activity Diagram — see Notes.)*
-- E4: Rejection reason is shorter than 15 characters or longer than 150 characters — inline validation error, submission blocked. *(Added per CR-26.)*
+- E2: Cook declines to take the rejected meal back, and it violates quality/safety standards — the meal is destroyed rather than resold. Order status becomes "returned." *(Now fully specified operationally — see the new Delivery Support & Admin backlog for the complete kanban workflow.)*
+- E3: Cook declines to take the rejected meal back, and it does **not** violate quality/safety standards — it is listed in the discount-recovery section (CU-06) at a discount. Order status becomes "returned."
+- E4: Rejection reason is shorter than 15 characters or longer than 150 characters — inline validation error, submission blocked.
 
-**Postconditions:** Order marked Completed (accept path). On the reject path: the rejection reason is reviewed (Delivery Support/Admin, per the diagram); separately and in parallel, Delivery Support asks the cook whether they'll take the meal back — if yes, it's returned to that same cook; if no, it's either destroyed (quality/safety violation) or moved into the discount-recovery section.
-**Business Rules:** *(Rewritten per CR-18 — Activity Diagram Consistency; formally resolved per this session's CR-02 — see Notes.)*
+**Postconditions:** Order marked "delivered" (accept path). On the reject path: order status becomes "returned"; the rejection reason is reviewed by Delivery Support and, depending on validity, escalated to Admin; separately and in parallel, Delivery Support asks the cook whether they'll take the meal back — if yes, status becomes "returned_to_cook" on the `Returned_Meals` record; if no, it's either destroyed or moved into the discount-recovery section.
+**Business Rules:**
 - A rejection reason is **mandatory** — there is no reject-without-reason path.
-- **The rejection reason field must be between 15 and 150 characters, inclusive.** *(Added per CR-26.)*
-- The rejection reason is evaluated for validity: a valid reason generates a quality report sent to Admin; an invalid reason generates a block request sent to Admin. Admin then decides (block/warn the cook, or block/not-block the customer) — this decision itself is out of the Customer/Cook modules' scope (see Notes).
+- **The rejection reason field must be between 15 and 150 characters, inclusive.**
+- The rejection reason is evaluated for validity by Delivery Support: a valid reason generates a quality report sent to Admin; an invalid reason generates a block request sent to Admin. Admin then decides whether to block/warn the cook, or block the customer — this decision itself is out of the Customer module's scope; see the new **Delivery Support & Admin Module Product Backlog** for the full workflow.
 - **Independently of the reason-validity review**, Delivery Support asks the cook whether they will take the rejected meal back:
   - If the cook **accepts** the return, the order is returned to **that same cook** — not reassigned to a different one.
   - If the cook **declines**, the meal is checked against quality/safety standards: if it violates them, it is **destroyed**; if not, it is listed in the **discount-recovery section** (CU-06) with an appropriate discount.
@@ -1617,14 +1664,14 @@ Feature: Delivery Confirmation
   Scenario: Accepting delivery
     Given the delivery person has arrived and the customer is prompted to confirm
     When the customer taps "Accept & Receive"
-    Then the order status changes to Completed
+    Then the order status changes to "delivered"
     And the customer proceeds to the rating flow
 
   Scenario: Rejecting delivery with a valid-length reason
     Given the customer taps "Reject Order"
     When the customer enters a reason between 15 and 150 characters and submits it
-    Then the rejection is recorded
-    And the reason is routed for validity review (quality report or block request to Admin)
+    Then the rejection is recorded and the order status changes to "returned"
+    And the reason is routed for validity review by Delivery Support (quality report or block request to Admin)
     And Delivery Support separately asks the cook whether they'll take the meal back
     And the order does not proceed to the rating flow
 
@@ -1664,10 +1711,10 @@ Feature: Delivery Confirmation
 ```
 
 **Related Screens:** `S9` (first screen — arrival/accept-reject)
-**Related User Flow:** `Order Out for Delivery → Receive Order → Accept Delivery? [Yes/No] → Order Completed / Submit Rejection → Waiting for Review → End`; cross-referenced against `ActivityDigram.drawio` swimlanes (Customer / Backend / Cook / Delivery / Admin).
-**Related ERD Entities:** Order
-**Related Database Tables:** `ORDER`, `SUB_ORDER`
-**Notes:** *(Rewritten per CR-18 — Activity Diagram Consistency; updated per CR-26; formally resolved per this session's CR-02.)* **This supersedes the previous revision's application of CR-04.** CR-04's text ("reassigned to another cook or transferred to the Refund Department") does not match the `ActivityDigram.drawio`, which shows no "Refund Department" and no reassignment to a *different* cook anywhere — instead: the *same* cook is asked whether they'll take the meal back, and if they decline, the outcome is either destruction (quality/safety violation) or listing in the discount-recovery section (CU-06) — never a refund workflow or a different cook. This story has followed the diagram over CR-04's literal wording since the diagram was first supplied. **This session's CR-02 formally ratifies that decision**, instructing explicitly that "the rejected meal handling flow must strictly follow the Activity Diagram" and that no flow conflicting with it should be invented — closing what had been carried for several revisions as an open conflict between two source-of-truth inputs requiring product-owner reconciliation. **CR-04's original text is now formally superseded, not merely worked around.** This also **fully resolves** CU-06's sourcing question: the discount-recovery section is fed by declined-return, non-violating rejected meals. The Admin-side review (quality report / block request → block-or-warn decision) remains out of the Customer/Cook modules' scope — it belongs to a not-yet-documented Admin module. **CR-26 resolves** the previously flagged UX gap ("no minimum character count... defined") with exact bounds (15–150 characters).
+**Related User Flow:** `Order delivering → Receive Order → Accept Delivery? [Yes/No] → delivered / Submit Rejection → returned`; cross-referenced against `ActivityDigram.drawio` and, for full operational detail, the new Delivery Support & Admin backlog.
+**Related ERD Entities:** Order, Returned_Meals
+**Related Database Tables:** `ORDER`, `Returned_Meals`
+**Notes:** **Status vocabulary updated this revision** to the canonical terms (delivering/delivered/returned), replacing the earlier "Out for Delivery"/"Completed" labels. **This story's rejected-meal-outcome logic follows the Activity Diagram, not CR-04's text** ("reassigned to another cook or transferred to the Refund Department," which doesn't match the diagram at all) — this was formally ratified in an earlier revision and remains unchanged here. **What is new this revision:** the Admin-side review this story routes into is no longer an undocumented external module — it's now fully specified in the new **Delivery Support & Admin Module Product Backlog**, which covers the complete kanban workflow (Done → Delivering → Delivered/Returned columns), the cook-contact/return-acceptance flow, the quality-vs-invalid-reason branching, and the resulting block-report handling. `SUB_ORDER` removed from Related Database Tables, replaced by `ORDER` directly (single-cook orders now).
 
 ---
 
@@ -2221,61 +2268,72 @@ Feature: Change Password
 ## Phase 8 — Gap Analysis
 
 **Missing User Stories**
-1. ~~Account / Profile screen has no supporting content whatsoever.~~ **Resolved** by CR-01/CR-08 — see new CU-28 (My Account), CU-29 (Edit Profile), CU-30 (Change Password).
-2. ~~No delivery address *management* story exists... ERD has no Address table.~~ **Resolved** — the updated ERD adds `delivery_address` directly on `ORDER` (plus a default `address` on `CUSTOMER`), confirming an ad-hoc per-order string rather than a separate saved-addresses entity. No dedicated management story is needed, since there's nothing to manage beyond what CU-17 already captures at checkout.
-3. ~~No payment method story exists.~~ **Resolved** by CR-19 — Cash on Delivery only, folded into CU-17.
-4. **No Admin-module stories exist**, despite the Activity Diagram showing substantial Admin-side logic. Out of scope for this Customer backlog but worth a dedicated backlog.
+1. ~~Account / Profile screen has no supporting content whatsoever.~~ **Resolved** by CR-01/CR-08 — see CU-28/29/30.
+2. ~~No delivery address *management* story exists.~~ **Resolved** — `ORDER.delivery_address` (ad-hoc per order) plus `CUSTOMER.address` (default) confirm no saved-addresses entity is needed.
+3. ~~No payment method story exists.~~ **Resolved** — Cash on Delivery only, folded into CU-17.
+4. ~~No Admin-module stories exist.~~ **Resolved this session** — the Project Fixes doc specifies the full Admin workflow (report review, block/warn decisions, account disabling, delivery-support account creation, reported-meal deletion) in enough detail to write a complete backlog. See the new **Delivery Support & Admin Module Product Backlog**.
+5. **New — no story models returned-meal "من نصيبك" cart ordering.** **Resolved this session** — see the rewritten CU-06, which now includes the full Add-to-Cart flow for `Returned_Meals`.
+6. **New — no story models the single-cook-cart constraint's UX.** Partially resolved: CU-10 now defines a warn-and-clear interaction, explicitly flagged as an interpretation since the fixes doc only states the data constraint, not the UX for violating it.
 
 **Missing Business Rules**
 1. The large-order threshold that triggers Catering/human-verification is never quantified (CU-25) — unaffected by this session's changes.
-2. ~~What happens on a full (not split) multi-chef order rejection?~~ **Resolved** by CR-20 — the parent order automatically becomes "Rejected" with a customer notification; see CU-19.
-3. ~~What determines whether a rejected-delivery meal is returned to the cook versus routed into discounts?~~ **Resolved** by the Activity Diagram (CR-18) — see CU-22/CU-06. The conflict this surfaced with CR-04's own text remains unresolved as a cross-source ambiguity (see below).
-4. ~~Whether the discount-recovery section uses the `Discount` entity or a separate mechanism — CR-27's countdown-timer expiry basis was also unconfirmed.~~ **Fully resolved this session** — the updated ERD adds a dedicated `Returned_Meals` table (`SalvagePrice`, `ExpiryTime`, `OriginalSubOrderID` FK) that answers both questions at once: it's a separate mechanism entirely from `Discount`, and `ExpiryTime` is exactly the countdown-timer basis. See CU-06's rewritten Notes.
-5. ~~Whether reordering handles unavailable items.~~ **Resolved** by CR-10 — see CU-21.
-6. ~~CR-16's item-return behavior on customer-cancellation was unconfirmed.~~ **Resolved, definitively** by CR-21 — cancellation never auto-restores items; a Reorder button is shown instead. This also reversed CU-19's previously-modeled "return items to cart" behavior to match.
-7. ~~Full multi-cook-order rejection interacts with CU-31 — unclear whether partial cancellation of one sub-order is possible.~~ **Resolved** by CR-22 — each sub-order is fully independent; cancelling one has no effect on siblings. CU-31 was broadened accordingly.
-8. **New — whether a "Stopped" meal (Cook backlog's CK-24) should be hidden or shown as unavailable to customers was open until this session.** **Resolved** by the Cook backlog's CR-34/CK-24 — must remain visible, greyed out, with a "Not Available for Order" badge and disabled Add-to-Cart; see CU-09/CU-10.
-9. **New — whether deleting a discount/offer should be blocked while referenced in a customer's cart was open until this session.** **Resolved** by the Cook backlog's CR-15 (this session, a different requirement from an earlier session's same-numbered CR) — never blocked; the affected cart line is instead marked "Out of Stock"/"Expired," and checkout is blocked until removed; see CU-16/CU-17.
+2. ~~What happens on a full (not split) multi-chef order rejection?~~ **Moot — the underlying feature (multi-cook orders) has been removed "for now."** CU-19, which owned this question, is now deprecated in full; see its banner.
+3. ~~What determines whether a rejected-delivery meal is returned to the cook versus routed into discounts?~~ **Resolved** by the Activity Diagram — see CU-22/CU-06, now with the full operational detail also captured in the new Delivery Support & Admin backlog.
+4. ~~Whether the discount-recovery section uses the `Discount` entity or a separate mechanism.~~ **Resolved** — the `Returned_Meals` table. Field-name correction this session: `OriginalSubOrderID` is now `OriginalItemID`, consistent with `SUB_ORDER`'s removal.
+5. ~~Whether reordering handles unavailable items.~~ **Resolved** — see CU-21.
+6. ~~Customer-cancellation item-return behavior was unconfirmed.~~ **Resolved** — cancellation never restores items; Reorder is the path back. Unaffected by this session, though CU-31's scope narrowed back to whole-order (see below).
+7. ~~Full multi-cook-order rejection interacts with CU-31.~~ **Moot — resolved by removal.** CU-31 no longer operates at the sub-order level at all, since sub-orders don't exist; it's back to plain whole-order cancellation.
+8. ~~Whether a "Stopped" meal should be hidden or shown as unavailable.~~ **Resolved** — visible, greyed out, badge; see CU-09/CU-10.
+9. ~~Whether deleting a discount/offer should be blocked while referenced in a customer's cart.~~ **Resolved again, differently, this session.** The immediately preceding revision had established: never blocked, with real-time "Out of Stock"/"Expired" cart marking. **The Project Fixes doc reverses both halves**: Offers (not Discounts) can now be blocked by active Pending/Preparing *orders* (not carts); and neither Discount nor Offer changes touch the cart in real time at all anymore — both are silently re-validated only at place-order time. See CK-14/CK-15 in the Cook backlog and the rewritten CU-16/CU-17 here.
+10. **New — meal-in-offer blocking.** The Project Fixes doc introduces a rule with no prior equivalent: a meal cannot be edited, deleted, or (with a warning rather than a block) disabled while it's part of any Offer. This resolves, from the meal side rather than the offer side, this backlog's long-standing "what happens to the Offer when a bundled meal changes" question — see Cook's CK-08/09/24.
+11. **New — the Cook-side bulk Accept-All/Reject-All resolve mechanism (from an earlier session's CR-28) has been removed entirely** by this session's fixes, reverting to a single, simpler "prevent the action until no orders remain" rule for both edit and delete. This is a confirmed conflict resolution, not an oversight — flagged for completeness since it reverses real prior work.
+12. **New — the Pending Order Timeout duration has been finalized at 25% (a quarter) of the order's total expected preparation time**, confirmed explicitly by the product owner this session — superseding both the original 1/3-of-meal-duration figure and a "flat 1 hour" figure that appeared in an intermediate reading of the fixes doc. See Cook's CK-25.
+13. **New — a customer cart can only ever hold items from one cook at a time**, per the fixes doc. This retires the earlier multi-chef "grouped by chef" cart display entirely — see CU-15.
 
 **Missing Validation Rules**
-1. ~~Registration field-level validation is entirely unspecified for the customer.~~ **Resolved** by CR-05 — CU-01 now mirrors the Cook module's CK-01 exactly.
-2. ~~No password-complexity rule confirmed for customers.~~ **Resolved** by CR-05.
-3. ~~Phone-number format validation specifics remain unconfirmed.~~ **Resolved** by CR-23 — exactly 10 digits, "09" prefix, no country selector; reused across CU-01, CU-03, CU-04, and synced to the Cook module's CK-01.
-4. ~~CU-22's mandatory rejection-reason step had no minimum character count.~~ **Resolved** by CR-26 — 15–150 characters.
+1. ~~Registration field-level validation.~~ **Resolved** — CU-01 mirrors Cook's CK-01.
+2. ~~No password-complexity rule.~~ **Resolved.**
+3. ~~Phone-number format.~~ **Resolved.**
+4. ~~CU-22's rejection-reason had no minimum character count.~~ **Resolved** — 15–150 characters.
+5. **New — meal name uniqueness added this session** (CU-08's search results aside, this is really a Cook-side rule — CK-07 — but affects what customers can expect to see: two different cooks may legitimately have identically-named meals, since uniqueness is scoped per cook, not platform-wide). Flagged as an interpretation, since the fixes doc doesn't state the scope explicitly.
 
 **Missing Edge Cases / Alternative Flows**
-1. ~~Ad-click behavior on the Home banner is never described.~~ **Resolved** by CR-06 — see CU-05.
-2. ~~"Available now" chef status has no clear backing field or rule.~~ **Resolved** by CR-12/CR-13 — see CU-11. ~~New nuance: the ERD's `status` column on `COOK` — unclear if it's the backing field.~~ **Resolved this session (CR-01):** `status` is confirmed **not** the driver — `availability_time` plus the new `is_selling_paused` are; CU-11 has been updated accordingly.
-3. ~~CR-15's race condition (cook responds at the exact moment the Pending timeout expires) is unresolved.~~ **Resolved** by CR-32, issued against the Cook backlog — pessimistic locking now guards this; see Cook's CK-25.
+1. ~~Ad-click behavior on the Home banner.~~ **Resolved.**
+2. ~~"Available now" chef status backing field.~~ **Resolved** — `availability_time` + `is_selling_paused`.
+3. ~~CR-32's race condition (cook responds at the exact moment the Pending timeout expires).~~ **Resolved** — pessimistic locking; see Cook's CK-25.
+4. **New — race conditions on Discount usage and limited-quantity Returned_Meals claims.** **Resolved this session** — both now use the same pessimistic-locking pattern as CK-25's timeout protection; see CK-12 and the rewritten CU-06/CU-17.
 
 **Missing Security Requirements**
-1. ~~No document addresses session/token expiry.~~ **Resolved** by CR-13/CR-14 — 45-day refresh tokens, identical across both modules.
-2. **New — notification delivery reliability was undefined for the customer, same as the Cook side.** **Resolved** by CR-30 (issued against the Cook backlog, synced here) — the Notification Center is the primary/authoritative source with immediate DB persistence; Push is secondary with a 3-retry/1-minute-interval policy; see CU-24.
+1. ~~Session/token expiry.~~ **Resolved** — 45-day refresh tokens.
+2. ~~Notification delivery reliability.~~ **Resolved** — DB-primary/Push-secondary, 3 retries at 1-minute intervals.
 
 **Missing Data Validation**
-1. ~~No maximum length/content rule for cart notes, order notes...~~ **Resolved (meal & order notes)** by CR-07. **Still open:** Shorts comments (CU-27) remain unbounded.
-2. ~~No customer-side image upload constraint existed anywhere.~~ **Resolved** by CR-24 — profile-photo upload/replace/remove now reuses CR-17's 10 MB + client-compression rule (CU-29).
+1. ~~No maximum length for cart/order notes.~~ **Resolved.** Shorts comments remain unbounded — still open.
+2. ~~No customer-side image upload constraint.~~ **Resolved** — reuses the 10 MB + compression rule.
 
 **Potential UX Improvements**
-1. ~~CU-22's mandatory rejection-reason step had no minimum character count or example categories.~~ **Partially resolved** — CR-26 fixed the character bounds; example categories are still not defined.
-2. ~~The Home screen mixed five distinct browsing paradigms with no stated priority.~~ **Resolved** by CR-27 — a fixed five-tier hierarchy is now defined, though the Browse-Chefs placement (bottom of Home vs. new nav tab) is explicitly left open by CR-27 itself.
-3. ~~CU-31's cancellation flow had no confirmation step specified.~~ **Resolved** by CR-25 — a confirmation dialog is now required before any cancellation (CU-19 and CU-31 both).
+1. ~~CU-22's rejection-reason step had no character bounds.~~ **Resolved.**
+2. ~~The Home screen had no stated section priority.~~ **Resolved** by CR-27.
+3. ~~CU-31's cancellation flow had no confirmation step.~~ **Resolved** — a confirmation dialog is required (CU-31 only now, since CU-19 is deprecated).
+4. **New — the single-cook-cart warn-and-clear interaction (CU-10) has no wireframe or confirmed copy.** The fixes doc states the data rule but not the exact UX; flagged for design input before this is built.
 
 **Potential Requirement Ambiguities (cross-source and cross-module)**
-1. ~~CR-04 directly conflicts with the supplied Activity Diagram.~~ **Formally resolved this session.** CR-04's text said a rejected meal is either "reassigned to another cook" or "transferred to the Refund Department"; the Activity Diagram showed neither. The backlog had already been following the diagram over CR-04's text since the diagram was first supplied — **this session's CR-02 explicitly instructs the rejected-meal flow to strictly follow the Activity Diagram**, formally superseding CR-04's literal wording rather than leaving it as an unreconciled conflict. See CU-22's Notes.
-2. ~~CU-16 vs. Cook module CK-09.~~ **Resolved, and now resolved again more precisely** — CR-28 split the rule into Case A/Case B; CU-16's own scope (cart-level notification) is unaffected, and was further broadened this session to also cover discount/offer unavailability (this session's CR-15).
-3. ~~CU-08's cart-entry-point conflict.~~ **Resolved** by CR-03.
-4. ~~CU-04's missing "set new password" step.~~ **Resolved** by CR-09.
-5. ~~CU-22's reference to a missing Activity Diagram.~~ **Resolved** — supplied and analyzed.
-6. ~~Order status vocabulary broader on the customer side.~~ **Resolved** — unified five-state vocabulary.
-7. ~~The Delivery Support Dashboard is referenced repeatedly but never documented as its own module.~~ **Reinforced, not resolved.**
-8. **CU-23 / Ratings — still the largest data-model gap, though partially narrowed this session.** The updated ERD adds `rate` columns directly on both `COOK` and `MEAL`, but still no table models individual customer ratings, their aggregation into those columns, or written review text (`Comments`/`REACTS` remain tied to Shorts content, not to meals/orders). Narrower than before, but still open.
-9. ~~CR-11 (Cook) vs. CR-12 (Cook) use different block conditions.~~ **Moot, resolved by reversal** — the Cook backlog's (earlier-session) CR-34 removed CK-24's (formerly CR-12's) blocking condition entirely, so there's no longer a scope difference to reconcile.
-10. **CR-15 (Pending Order Timeout, an earlier session) is entirely absent from the Activity Diagram** — unaffected by this session. **Note:** this session introduced a *different* CR-15 (discount/offer cart protection) against the Cook backlog that happens to share the number — the two are unrelated; flagged here only to prevent confusion when cross-referencing.
-11. ~~CR-27's countdown timer has no defined expiry basis.~~ **Resolved** — the updated ERD's `Returned_Meals.ExpiryTime` field is exactly this basis; see CU-06's Notes.
-12. **New — CR-27 explicitly leaves the "Browse Chefs" placement undecided** (bottom of Home vs. a new bottom-nav tab), which has knock-on implications for the existing 5-tab navigation structure (Home, My Orders, Shorts, Favorites, Account) if a 6th tab is added. Flagged for product-owner decision before CU-05 is finalized for design.
-13. **New — CR-24's "system image upload rules" phrase is an interpretation, not a restated number.** CU-29 assumes this means CR-17's exact 10 MB + compression rule (the only image rule defined anywhere), since CR-24 doesn't repeat the figures itself — flagged as an interpretation.
-14. **New — several change-request numbers have now been reused across sessions for entirely unrelated requirements** (CR-15, CR-18, CR-34 each have two distinct meanings across this backlog's history). Every affected story's Notes explicitly disambiguates which version is meant, but this is worth flagging to whoever is issuing change requests, since it's a process risk rather than a requirements gap.
+1. ~~CR-04 directly conflicts with the supplied Activity Diagram.~~ **Formally resolved** — CR-02 explicitly ratified following the diagram, superseding CR-04's text.
+2. ~~CU-16 vs. Cook module CK-09.~~ **Resolved yet again, more simply this time** — the entire Case A/B bulk-resolve framework was removed by this session's fixes doc, replaced with one plain blocking rule for both edit and delete. CU-16 itself was substantially narrowed back to meal-deletion-only, since discount/offer changes no longer touch the cart at all.
+3. ~~CU-08's cart-entry-point conflict.~~ **Resolved** by CR-03, and CU-08 itself was fully rewritten this session for unified search — the underlying result-composition ambiguity this item originally flagged is also now resolved (results can be any of four types, customer-selectable).
+4. ~~CU-04's missing "set new password" step.~~ **Resolved.**
+5. ~~CU-22's reference to a missing Activity Diagram.~~ **Resolved.**
+6. ~~Order status vocabulary broader on the customer side.~~ **Resolved, and resolved again this session with the fixes doc's exact final terms** — pending/preparing/done/delivering/delivered/cancelled/rejected/returned, replacing the earlier Pending/In Progress/Ready/Delivering/Delivered model. Mostly a rename (In Progress→preparing, Ready→done) plus one genuinely new terminal state (returned).
+7. ~~The Delivery Support Dashboard is referenced repeatedly but never documented as its own module.~~ **Resolved this session** — see the new Delivery Support & Admin backlog.
+8. **CU-23 / Ratings — still the largest data-model gap, unaffected by this session.** No table models individual customer ratings or written review text.
+9. ~~CR-11 (Cook) vs. CR-12 (Cook) use different block conditions.~~ **Moot, resolved by reversal**, and now doubly moot since this session removed the bulk-resolve mechanism those CRs were about entirely.
+10. ~~CR-15 (Pending Order Timeout) is entirely absent from the Activity Diagram.~~ **Still true, but the duration itself is now finalized** (25% of expected time, confirmed by the product owner this session) rather than merely defined by an earlier, superseded change request.
+11. ~~CR-27's countdown timer has no defined expiry basis.~~ **Resolved** — `Returned_Meals.ExpiryTime`.
+12. **CR-27's "Browse Chefs" placement remains explicitly undecided** — unaffected by this session.
+13. ~~CR-24's "system image upload rules" phrase is an interpretation.~~ Unaffected by this session, still an interpretation.
+14. **Several change-request numbers have now been reused across sessions for entirely unrelated requirements** (CR-15, CR-18, CR-34, and now this session's own fixes doc content overlapping with several of those same numbers again in places). Every affected story's Notes disambiguates which version is meant — this is now a recurring pattern worth raising as a process issue, not just a one-off.
+15. **New — whether a "من نصيبك" returned meal must share the same cook as the rest of the cart, or is exempt from the single-cook-cart constraint, is not addressed by the fixes doc.** Flagged in CU-15's Notes for product-owner confirmation.
+16. **New — `offer_meal` still has no `SellingOptionID` column**, so a bundled meal with multiple size variants has no way to specify which size is included in the offer. Raised again this session since the new ERD didn't add it; recommend flagging to whoever owns the ERD.
 
 ---
 
@@ -2297,6 +2355,10 @@ Total story count: **27 → 31**. Corresponding updates applied throughout to th
 
 **Rev. 6 — July 26, 2026.** A change-request batch issued against the Cook backlog (CR-01, CR-02, CR-03) resolved the two flagship open issues carried since the harmonization report. **CU-09/CU-10**: generalized from "Stop-Accepting-only" treatment to cover all three non-deletion causes of a meal being Inactive (outside working hours, Stop Selling, individually Stopped) uniformly — the customer UI never needed to distinguish these, only the Cook-side data model did. **CU-11**: "Available Now" now also requires `COOK.is_selling_paused = false`, preventing the contradiction of a chef showing "Available Now" while every meal in their menu shows unavailable; this also resolved the open question about the ERD's `COOK.status` field (confirmed not to be the driver). **CU-22**: Notes formally close the CR-04/Activity-Diagram conflict — CR-02 explicitly ratifies following the diagram, superseding CR-04's text rather than leaving it as an open reconciliation. Total story count unchanged at **31**. On the Cook side (now Rev. 9, 27 stories), this batch also reversed CK-08's edit-block scope back to include Pending orders (CR-03), restoring parity with CK-09's delete-block condition. Phase 8 updated throughout.
 
+**Rev. 7 — July 27, 2026.** The largest single revision this backlog has undergone: a full "Project Fixes" document plus a structurally new ERD, driven primarily by the **removal of multi-cook/grouped orders "for now"** — `SUB_ORDER` no longer exists; every order is now guaranteed single-cook via a direct `ORDER.CookID`. **CU-19 (Split-Order Response) is deprecated in full**, its content preserved verbatim behind a deprecation banner rather than deleted, since the fixes doc frames the removal as temporary. **CU-31**: simplified back to plain whole-order cancellation, stripped of all sub-order/per-cook-card language. **CU-18**: per-cook Order Details cards removed; adopted the fixes doc's final status vocabulary (pending/preparing/done/delivering/delivered/cancelled/rejected/returned — mostly a rename of the prior model, plus the new terminal "returned" state). **CU-08**: fully rewritten for unified search across meals/offers/cooks/returned-meals via a type query parameter — this also resolved the long-standing "do results represent meals or chefs" ambiguity outright. **CU-06**: gained the actual returned-meal ordering mechanism ("من نصيبك" → `CART_RETURNED_MEAL_ITEM`), which had been missing entirely — browsing existed, ordering didn't. **CU-10**: added the single-cook-cart constraint (warn-and-clear, flagged as an interpretation) and the discounted-price-on-retrieval cross-reference. **CU-15**: fully restructured around the ERD's three typed cart tables, replacing the old multi-chef grouping with item-type grouping. **CU-16**: narrowed back to meal-deletion-only (now an automatic hard-delete-from-cart, not a mark-and-notify step) — the real-time discount/offer cart-marking mechanism from Rev. 5 is fully removed, reversed by the fixes doc in favor of checkout-time-only re-validation. **CU-17**: the single largest rewrite in this document's history — the multi-cook delivery-choice flow is gone, the delivery-price/average-time calculation is now concretely specified, the order structure matches the cart's three-table split, and server-side re-validation (with race-condition-safe discount/returned-meal claiming) is now the sole checkpoint for price/discount/offer changes. **CU-22**: status vocabulary updated, and its Admin-review dependency is no longer an undocumented external reference — it now points to a real, newly-built **Delivery Support & Admin Module Product Backlog**. Total story count unchanged at **31** (no new stories, one full deprecation). Phase 7 and Phase 8 rewritten extensively — several long-carried gaps closed (Admin module, returned-meal ordering, delivery-price calculation, final status vocabulary, pending-timeout duration), and a few new ones surfaced (single-cook-cart UX for "من نصيبك," meal-name-uniqueness scope, `offer_meal`'s still-missing `SellingOptionID`).
+
+**Rev. 7.1 — August 3, 2026 (self-audit correction).** After a report that this backlog might not fully reflect the fixes doc and updated ERD, I re-verified both source files were byte-identical to what Rev. 7 was built from (confirmed via diff — they were), then did a systematic sweep for stale references rather than assuming Rev. 7 was complete. Found and fixed two genuine gaps: **(1) CU-21 (Reorder)** still cited the removed `SUB_ORDER` table and the generic `ORDER_ITEM` table in its `Related Database Tables` field — this story was missed entirely during Rev. 7's rewrite pass, since its own scenario text doesn't obviously reference order structure. Corrected to the three typed tables used everywhere else. **(2) The Phase 1 Analysis section's "Entities & relationships" and "Decision points" summaries**, written when this document was first created, were never revisited during Rev. 7 or any earlier revision — they still described the pre-removal `CART`/`ORDER`/`SUB_ORDER` structure and the now-deprecated split-order decision branch as if current. Corrected with explicit ⚠ flags rather than silently rewritten, so the correction itself is visible. The Phase 1 Modules table's "Split-Order Handling" row was similarly flagged as deprecated. No story content beyond CU-21's table reference required a rules-level change — the underlying Rev. 7 rewrite of the actual stories (CU-06 through CU-22) was verified correct on review; the errors were confined to reference-table hygiene and a stale front-matter summary, not incorrect business logic.
+
 ---
 
-*End of document. 31 stories delivered across 16 epics; both major cross-module conflicts carried since the harmonization report — the CR-04/Activity-Diagram conflict and the `MEAL.is_active` collision — are now formally resolved rather than merely flagged.*
+*End of document. 31 stories delivered across 16 epics (1 fully deprecated — CU-19, preserved not deleted); every cross-module conflict from this revision's source batch is either resolved or explicitly flagged for a decision that remains outside this document's authority.*

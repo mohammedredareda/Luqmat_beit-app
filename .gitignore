@@ -13,3 +13,17 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+# Flutter/Dart/Melos (monorepo — every package/app gets these, not just root)
+**/.dart_tool/
+**/.flutter-plugins
+**/.flutter-plugins-dependencies
+**/.packages
+**/build/
+.melos_tool/
+
+# Generated code (freezed, injectable, json_serializable, go_router codegen)
+**/*.freezed.dart
+**/*.g.dart
+**/*.gr.dart
+**/*.config.dart

@@ -1,0 +1,22 @@
+name: luqmat_beit
+
+packages:
+  - apps/**
+  - packages/**
+
+command:
+  bootstrap:
+    usePubspecOverrides: true
+
+scripts:
+  analyze:
+    description: Run flutter analyze in every package.
+    exec: flutter analyze .
+  test:
+    description: Run flutter test in every package that has a test/ directory.
+    exec: flutter test
+    packageFilters:
+      dirExists: test
+  format:
+    description: Check formatting in every package.
+    exec: dart format --output=none --set-exit-if-changed .
