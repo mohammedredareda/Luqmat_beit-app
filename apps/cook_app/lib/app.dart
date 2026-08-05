@@ -13,17 +13,23 @@ class CookApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => getIt<LocaleCubit>()..loadSavedLocale(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => getIt<LocaleCubit>()..loadSavedLocale()),
+        BlocProvider(create: (_) => getIt<ThemeCubit>()..loadSavedThemeMode()),
+      ],
       child: BlocBuilder<LocaleCubit, Locale>(
-        builder: (context, locale) => MaterialApp.router(
-          debugShowCheckedModeBanner: false,
-          locale: locale,
-          supportedLocales: const [Locale('ar'), Locale('en')],
-          localizationsDelegates: AppLocalizations.localizationsDelegates,
-          theme: AppTheme.light,
-          darkTheme: AppTheme.dark,
-          routerConfig: _router,
+        builder: (context, locale) => BlocBuilder<ThemeCubit, ThemeMode>(
+          builder: (context, themeMode) => MaterialApp.router(
+            debugShowCheckedModeBanner: false,
+            locale: locale,
+            supportedLocales: const [Locale('ar'), Locale('en')],
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            theme: AppTheme.light,
+            darkTheme: AppTheme.dark,
+            themeMode: themeMode,
+            routerConfig: _router,
+          ),
         ),
       ),
     );

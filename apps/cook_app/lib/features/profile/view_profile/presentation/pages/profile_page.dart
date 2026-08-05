@@ -48,6 +48,15 @@ class _ProfileView extends StatelessWidget {
             icon: const Icon(Icons.notifications_outlined),
             tooltip: l10n.notificationsTitle,
           ),
+          IconButton(
+            onPressed: () {
+              final state = context.read<ProfileCubit>().state;
+              final phoneNumber = state is ProfileLoaded ? state.profile.phoneNumber : null;
+              context.push('/account/settings', extra: phoneNumber);
+            },
+            icon: const Icon(Icons.settings_outlined),
+            tooltip: l10n.settingsTitle,
+          ),
         ],
       ),
       body: BlocBuilder<ProfileCubit, ProfileState>(

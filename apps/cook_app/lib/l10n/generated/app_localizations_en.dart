@@ -485,12 +485,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get fullNameHint => 'Enter your full name';
 
   @override
-  String get phoneNumberLabel => 'Phone Number';
-
-  @override
-  String get phoneNumberHint => 'Phone number';
-
-  @override
   String get bioLabel => 'About Me';
 
   @override
@@ -747,4 +741,133 @@ class AppLocalizationsEn extends AppLocalizations {
   String selectedOptionLabel(String label) {
     return 'Option: $label';
   }
+
+  @override
+  String get settingsTitle => 'Settings';
+
+  @override
+  String get accountSettingsSectionTitle => 'Account Settings';
+
+  @override
+  String get changePhoneNumberRowTitle => 'Change Phone Number';
+
+  @override
+  String get changePasswordRowTitle => 'Change Password';
+
+  @override
+  String get preferencesSectionTitle => 'Preferences';
+
+  @override
+  String get languageLabel => 'Language';
+
+  @override
+  String get arabicLanguageOption => 'Arabic';
+
+  @override
+  String get englishLanguageOption => 'English';
+
+  @override
+  String get darkModeLabel => 'Dark Mode';
+
+  @override
+  String get logoutConfirmTitle => 'Log out?';
+
+  @override
+  String get logoutConfirmBody => 'You\'ll be logged out of the app. You can log back in at any time.';
+
+  @override
+  String get logoutCta => 'Log Out';
+
+  @override
+  String get loginTitle => 'Log In';
+
+  @override
+  String get changePasswordTitle => 'Change Password';
+
+  @override
+  String get changePasswordHeading => 'Update Security Info';
+
+  @override
+  String get changePasswordDescription => 'Please enter your current password, then set a new strong password.';
+
+  @override
+  String get currentPasswordLabel => 'Current Password';
+
+  @override
+  String get currentPasswordIncorrectError => 'The current password is incorrect';
+
+  @override
+  String get newPasswordLabel => 'New Password';
+
+  @override
+  String get confirmNewPasswordLabel => 'Confirm New Password';
+
+  @override
+  String get passwordMismatchError => 'Passwords don\'t match';
+
+  @override
+  String get passwordComplexityError => 'Must be at least 8 characters with an uppercase letter, a lowercase letter, a digit, and a symbol';
+
+  @override
+  String get updatePasswordCta => 'Update Password';
+
+  @override
+  String get passwordUpdatedSuccessMessage => 'Password updated successfully';
+
+  @override
+  String get passwordStrengthHint => 'Must contain at least 8 characters';
+
+  @override
+  String get passwordStrengthWeak => 'Weak - add numbers and symbols';
+
+  @override
+  String get passwordStrengthMedium => 'Medium - could be stronger';
+
+  @override
+  String get passwordStrengthGood => 'Good - add more symbols';
+
+  @override
+  String get passwordStrengthVeryStrong => 'Very strong';
+
+  @override
+  String get changePhoneNumberTitle => 'Change Phone Number';
+
+  @override
+  String get changePhoneNumberHeading => 'Update Phone Number';
+
+  @override
+  String get changePhoneNumberDescription => 'Please enter your new phone number, we\'ll send you a verification code to confirm.';
+
+  @override
+  String get newPhoneNumberLabel => 'New Phone Number';
+
+  @override
+  String get newPhoneNumberHelper => 'Make sure to enter the number correctly to receive the code';
+
+  @override
+  String get sendVerificationCodeCta => 'Send Verification Code';
+
+  @override
+  String get phoneNumberInvalidError => 'Please enter a valid 9-digit phone number';
+
+  @override
+  String get otpVerificationTitle => 'Verification Code';
+
+  @override
+  String get otpSentHeading => 'Verification Code Sent';
+
+  @override
+  String get otpSentDescription => 'We\'ve sent a 4-digit code to your new phone number';
+
+  @override
+  String get resendCodePrompt => 'Didn\'t receive the code?';
+
+  @override
+  String get resendCodeCta => 'Resend';
+
+  @override
+  String get verifyCta => 'Verify';
+
+  @override
+  String get otpIncorrectError => 'The code is incorrect, please try again';
 }

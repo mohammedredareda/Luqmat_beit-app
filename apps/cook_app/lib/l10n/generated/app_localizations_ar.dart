@@ -485,12 +485,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get fullNameHint => 'أدخل اسمك الكامل';
 
   @override
-  String get phoneNumberLabel => 'رقم الهاتف';
-
-  @override
-  String get phoneNumberHint => 'رقم الهاتف';
-
-  @override
   String get bioLabel => 'نبذة عني';
 
   @override
@@ -747,4 +741,133 @@ class AppLocalizationsAr extends AppLocalizations {
   String selectedOptionLabel(String label) {
     return 'الخيار: $label';
   }
+
+  @override
+  String get settingsTitle => 'الإعدادات';
+
+  @override
+  String get accountSettingsSectionTitle => 'إعدادات الحساب';
+
+  @override
+  String get changePhoneNumberRowTitle => 'تغيير رقم الهاتف';
+
+  @override
+  String get changePasswordRowTitle => 'تغيير كلمة المرور';
+
+  @override
+  String get preferencesSectionTitle => 'التفضيلات';
+
+  @override
+  String get languageLabel => 'اللغة';
+
+  @override
+  String get arabicLanguageOption => 'العربية';
+
+  @override
+  String get englishLanguageOption => 'الإنجليزية';
+
+  @override
+  String get darkModeLabel => 'الوضع الداكن';
+
+  @override
+  String get logoutConfirmTitle => 'تسجيل الخروج؟';
+
+  @override
+  String get logoutConfirmBody => 'سيتم تسجيل خروجك من التطبيق. يمكنك تسجيل الدخول مرة أخرى في أي وقت.';
+
+  @override
+  String get logoutCta => 'تسجيل الخروج';
+
+  @override
+  String get loginTitle => 'تسجيل الدخول';
+
+  @override
+  String get changePasswordTitle => 'تغيير كلمة المرور';
+
+  @override
+  String get changePasswordHeading => 'تحديث بيانات الأمان';
+
+  @override
+  String get changePasswordDescription => 'يرجى إدخال كلمة المرور الحالية ثم تعيين كلمة مرور جديدة قوية.';
+
+  @override
+  String get currentPasswordLabel => 'كلمة المرور الحالية';
+
+  @override
+  String get currentPasswordIncorrectError => 'كلمة المرور الحالية غير صحيحة';
+
+  @override
+  String get newPasswordLabel => 'كلمة المرور الجديدة';
+
+  @override
+  String get confirmNewPasswordLabel => 'تأكيد كلمة المرور الجديدة';
+
+  @override
+  String get passwordMismatchError => 'كلمات المرور غير متطابقة';
+
+  @override
+  String get passwordComplexityError => 'يجب أن تحتوي على 8 أحرف على الأقل مع حرف كبير وصغير ورقم ورمز';
+
+  @override
+  String get updatePasswordCta => 'تحديث كلمة المرور';
+
+  @override
+  String get passwordUpdatedSuccessMessage => 'تم تحديث كلمة المرور بنجاح';
+
+  @override
+  String get passwordStrengthHint => 'يجب أن تحتوي على 8 أحرف على الأقل';
+
+  @override
+  String get passwordStrengthWeak => 'ضعيفة - أضف أرقام ورموز';
+
+  @override
+  String get passwordStrengthMedium => 'متوسطة - يمكن أن تكون أقوى';
+
+  @override
+  String get passwordStrengthGood => 'جيدة - أضف المزيد من الرموز';
+
+  @override
+  String get passwordStrengthVeryStrong => 'قوية جداً';
+
+  @override
+  String get changePhoneNumberTitle => 'تغيير رقم الهاتف';
+
+  @override
+  String get changePhoneNumberHeading => 'تحديث رقم الهاتف';
+
+  @override
+  String get changePhoneNumberDescription => 'يرجى إدخال رقم الهاتف الجديد، سنرسل لك رمز تحقق للتأكيد.';
+
+  @override
+  String get newPhoneNumberLabel => 'رقم الهاتف الجديد';
+
+  @override
+  String get newPhoneNumberHelper => 'تأكد من إدخال الرقم بشكل صحيح لتلقي الرمز';
+
+  @override
+  String get sendVerificationCodeCta => 'إرسال رمز التحقق';
+
+  @override
+  String get phoneNumberInvalidError => 'يرجى إدخال رقم هاتف صحيح مكون من 9 أرقام';
+
+  @override
+  String get otpVerificationTitle => 'رمز التحقق';
+
+  @override
+  String get otpSentHeading => 'تم إرسال رمز التحقق';
+
+  @override
+  String get otpSentDescription => 'لقد قمنا بإرسال رمز مكون من 4 أرقام إلى رقم هاتفك الجديد';
+
+  @override
+  String get resendCodePrompt => 'لم تستلم الرمز؟';
+
+  @override
+  String get resendCodeCta => 'إعادة الإرسال';
+
+  @override
+  String get verifyCta => 'تحقق';
+
+  @override
+  String get otpIncorrectError => 'الرمز غير صحيح، يرجى المحاولة مرة أخرى';
 }

@@ -30,6 +30,13 @@ abstract class RegisterModule {
   LocaleCubit localeCubit(LocalePreferenceStorage storage) => LocaleCubit(storage);
 
   @lazySingleton
+  ThemePreferenceStorage themePreferenceStorage(FlutterSecureStorage storage) =>
+      SecureThemeStorage(storage);
+
+  @lazySingleton
+  ThemeCubit themeCubit(ThemePreferenceStorage storage) => ThemeCubit(storage);
+
+  @lazySingleton
   Dio get dio => Dio();
 
   @lazySingleton

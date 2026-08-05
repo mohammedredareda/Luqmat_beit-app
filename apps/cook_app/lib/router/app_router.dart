@@ -11,8 +11,11 @@ import '../features/offers_management/create_offer/presentation/pages/create_off
 import '../features/offers_management/edit_discount/presentation/pages/edit_discount_page.dart';
 import '../features/offers_management/edit_offer/presentation/pages/edit_offer_page.dart';
 import '../features/offers_management/view_offers/presentation/pages/view_offers_page.dart';
+import '../features/profile/change_password/presentation/pages/change_password_page.dart';
+import '../features/profile/change_phone_number/presentation/pages/change_phone_number_page.dart';
 import '../features/profile/edit_profile/presentation/pages/edit_profile_page.dart';
 import '../features/profile/view_profile/presentation/pages/profile_page.dart';
+import '../features/settings/presentation/pages/settings_page.dart';
 import '../l10n/generated/app_localizations.dart';
 import 'placeholder_page.dart';
 
@@ -78,9 +81,26 @@ GoRouter buildRouter() {
         builder: (context, state) => const EditProfilePage(),
       ),
       GoRoute(
+        path: '/account/settings',
+        builder: (context, state) => SettingsPage(initialPhoneNumber: state.extra as String?),
+      ),
+      GoRoute(
+        path: '/account/settings/change-password',
+        builder: (context, state) => const ChangePasswordPage(),
+      ),
+      GoRoute(
+        path: '/account/settings/change-phone',
+        builder: (context, state) => const ChangePhoneNumberPage(),
+      ),
+      GoRoute(
         path: '/notifications',
         builder: (context, state) =>
             PlaceholderPage(title: AppLocalizations.of(context)!.notificationsTitle),
+      ),
+      GoRoute(
+        path: '/login',
+        builder: (context, state) =>
+            PlaceholderPage(title: AppLocalizations.of(context)!.loginTitle),
       ),
     ],
   );

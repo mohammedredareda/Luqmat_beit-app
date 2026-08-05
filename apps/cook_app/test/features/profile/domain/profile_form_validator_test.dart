@@ -9,7 +9,6 @@ void main() {
 
   Map<String, List<String>> validate({
     String? fullName,
-    String? phoneNumber,
     String? address,
     Set<Weekday>? availabilityDays,
     AvailabilityTime? availabilityStartTime,
@@ -18,7 +17,6 @@ void main() {
   }) =>
       validateProfileForm(
         fullName: fullName ?? 'أم أحمد',
-        phoneNumber: phoneNumber ?? '+966 50 123 4567',
         address: address ?? 'حي الياسمين، الرياض',
         availabilityDays: availabilityDays ?? validDays,
         availabilityStartTime: availabilityStartTime ?? validStart,
@@ -32,10 +30,6 @@ void main() {
 
   test('empty fullName is required', () {
     expect(validate(fullName: '  ')['fullName'], contains('required'));
-  });
-
-  test('empty phoneNumber is required', () {
-    expect(validate(phoneNumber: '')['phoneNumber'], contains('required'));
   });
 
   test('empty address is required', () {
@@ -73,7 +67,6 @@ void main() {
   test('null avatarSizeBytes (no new photo picked) is not an error', () {
     final errors = validateProfileForm(
       fullName: 'أم أحمد',
-      phoneNumber: '+966 50 123 4567',
       address: 'حي الياسمين، الرياض',
       availabilityDays: validDays,
       availabilityStartTime: validStart,

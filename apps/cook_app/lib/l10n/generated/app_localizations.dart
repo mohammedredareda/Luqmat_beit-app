@@ -1019,18 +1019,6 @@ abstract class AppLocalizations {
   /// **'أدخل اسمك الكامل'**
   String get fullNameHint;
 
-  /// No description provided for @phoneNumberLabel.
-  ///
-  /// In ar, this message translates to:
-  /// **'رقم الهاتف'**
-  String get phoneNumberLabel;
-
-  /// No description provided for @phoneNumberHint.
-  ///
-  /// In ar, this message translates to:
-  /// **'رقم الهاتف'**
-  String get phoneNumberHint;
-
   /// No description provided for @bioLabel.
   ///
   /// In ar, this message translates to:
@@ -1510,6 +1498,264 @@ abstract class AppLocalizations {
   /// In ar, this message translates to:
   /// **'الخيار: {label}'**
   String selectedOptionLabel(String label);
+
+  /// No description provided for @settingsTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'الإعدادات'**
+  String get settingsTitle;
+
+  /// No description provided for @accountSettingsSectionTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'إعدادات الحساب'**
+  String get accountSettingsSectionTitle;
+
+  /// No description provided for @changePhoneNumberRowTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'تغيير رقم الهاتف'**
+  String get changePhoneNumberRowTitle;
+
+  /// No description provided for @changePasswordRowTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'تغيير كلمة المرور'**
+  String get changePasswordRowTitle;
+
+  /// No description provided for @preferencesSectionTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'التفضيلات'**
+  String get preferencesSectionTitle;
+
+  /// No description provided for @languageLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'اللغة'**
+  String get languageLabel;
+
+  /// No description provided for @arabicLanguageOption.
+  ///
+  /// In ar, this message translates to:
+  /// **'العربية'**
+  String get arabicLanguageOption;
+
+  /// No description provided for @englishLanguageOption.
+  ///
+  /// In ar, this message translates to:
+  /// **'الإنجليزية'**
+  String get englishLanguageOption;
+
+  /// No description provided for @darkModeLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'الوضع الداكن'**
+  String get darkModeLabel;
+
+  /// No description provided for @logoutConfirmTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'تسجيل الخروج؟'**
+  String get logoutConfirmTitle;
+
+  /// No description provided for @logoutConfirmBody.
+  ///
+  /// In ar, this message translates to:
+  /// **'سيتم تسجيل خروجك من التطبيق. يمكنك تسجيل الدخول مرة أخرى في أي وقت.'**
+  String get logoutConfirmBody;
+
+  /// No description provided for @logoutCta.
+  ///
+  /// In ar, this message translates to:
+  /// **'تسجيل الخروج'**
+  String get logoutCta;
+
+  /// No description provided for @loginTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'تسجيل الدخول'**
+  String get loginTitle;
+
+  /// No description provided for @changePasswordTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'تغيير كلمة المرور'**
+  String get changePasswordTitle;
+
+  /// No description provided for @changePasswordHeading.
+  ///
+  /// In ar, this message translates to:
+  /// **'تحديث بيانات الأمان'**
+  String get changePasswordHeading;
+
+  /// No description provided for @changePasswordDescription.
+  ///
+  /// In ar, this message translates to:
+  /// **'يرجى إدخال كلمة المرور الحالية ثم تعيين كلمة مرور جديدة قوية.'**
+  String get changePasswordDescription;
+
+  /// No description provided for @currentPasswordLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'كلمة المرور الحالية'**
+  String get currentPasswordLabel;
+
+  /// No description provided for @currentPasswordIncorrectError.
+  ///
+  /// In ar, this message translates to:
+  /// **'كلمة المرور الحالية غير صحيحة'**
+  String get currentPasswordIncorrectError;
+
+  /// No description provided for @newPasswordLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'كلمة المرور الجديدة'**
+  String get newPasswordLabel;
+
+  /// No description provided for @confirmNewPasswordLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'تأكيد كلمة المرور الجديدة'**
+  String get confirmNewPasswordLabel;
+
+  /// No description provided for @passwordMismatchError.
+  ///
+  /// In ar, this message translates to:
+  /// **'كلمات المرور غير متطابقة'**
+  String get passwordMismatchError;
+
+  /// No description provided for @passwordComplexityError.
+  ///
+  /// In ar, this message translates to:
+  /// **'يجب أن تحتوي على 8 أحرف على الأقل مع حرف كبير وصغير ورقم ورمز'**
+  String get passwordComplexityError;
+
+  /// No description provided for @updatePasswordCta.
+  ///
+  /// In ar, this message translates to:
+  /// **'تحديث كلمة المرور'**
+  String get updatePasswordCta;
+
+  /// No description provided for @passwordUpdatedSuccessMessage.
+  ///
+  /// In ar, this message translates to:
+  /// **'تم تحديث كلمة المرور بنجاح'**
+  String get passwordUpdatedSuccessMessage;
+
+  /// No description provided for @passwordStrengthHint.
+  ///
+  /// In ar, this message translates to:
+  /// **'يجب أن تحتوي على 8 أحرف على الأقل'**
+  String get passwordStrengthHint;
+
+  /// No description provided for @passwordStrengthWeak.
+  ///
+  /// In ar, this message translates to:
+  /// **'ضعيفة - أضف أرقام ورموز'**
+  String get passwordStrengthWeak;
+
+  /// No description provided for @passwordStrengthMedium.
+  ///
+  /// In ar, this message translates to:
+  /// **'متوسطة - يمكن أن تكون أقوى'**
+  String get passwordStrengthMedium;
+
+  /// No description provided for @passwordStrengthGood.
+  ///
+  /// In ar, this message translates to:
+  /// **'جيدة - أضف المزيد من الرموز'**
+  String get passwordStrengthGood;
+
+  /// No description provided for @passwordStrengthVeryStrong.
+  ///
+  /// In ar, this message translates to:
+  /// **'قوية جداً'**
+  String get passwordStrengthVeryStrong;
+
+  /// No description provided for @changePhoneNumberTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'تغيير رقم الهاتف'**
+  String get changePhoneNumberTitle;
+
+  /// No description provided for @changePhoneNumberHeading.
+  ///
+  /// In ar, this message translates to:
+  /// **'تحديث رقم الهاتف'**
+  String get changePhoneNumberHeading;
+
+  /// No description provided for @changePhoneNumberDescription.
+  ///
+  /// In ar, this message translates to:
+  /// **'يرجى إدخال رقم الهاتف الجديد، سنرسل لك رمز تحقق للتأكيد.'**
+  String get changePhoneNumberDescription;
+
+  /// No description provided for @newPhoneNumberLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'رقم الهاتف الجديد'**
+  String get newPhoneNumberLabel;
+
+  /// No description provided for @newPhoneNumberHelper.
+  ///
+  /// In ar, this message translates to:
+  /// **'تأكد من إدخال الرقم بشكل صحيح لتلقي الرمز'**
+  String get newPhoneNumberHelper;
+
+  /// No description provided for @sendVerificationCodeCta.
+  ///
+  /// In ar, this message translates to:
+  /// **'إرسال رمز التحقق'**
+  String get sendVerificationCodeCta;
+
+  /// No description provided for @phoneNumberInvalidError.
+  ///
+  /// In ar, this message translates to:
+  /// **'يرجى إدخال رقم هاتف صحيح مكون من 9 أرقام'**
+  String get phoneNumberInvalidError;
+
+  /// No description provided for @otpVerificationTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'رمز التحقق'**
+  String get otpVerificationTitle;
+
+  /// No description provided for @otpSentHeading.
+  ///
+  /// In ar, this message translates to:
+  /// **'تم إرسال رمز التحقق'**
+  String get otpSentHeading;
+
+  /// No description provided for @otpSentDescription.
+  ///
+  /// In ar, this message translates to:
+  /// **'لقد قمنا بإرسال رمز مكون من 4 أرقام إلى رقم هاتفك الجديد'**
+  String get otpSentDescription;
+
+  /// No description provided for @resendCodePrompt.
+  ///
+  /// In ar, this message translates to:
+  /// **'لم تستلم الرمز؟'**
+  String get resendCodePrompt;
+
+  /// No description provided for @resendCodeCta.
+  ///
+  /// In ar, this message translates to:
+  /// **'إعادة الإرسال'**
+  String get resendCodeCta;
+
+  /// No description provided for @verifyCta.
+  ///
+  /// In ar, this message translates to:
+  /// **'تحقق'**
+  String get verifyCta;
+
+  /// No description provided for @otpIncorrectError.
+  ///
+  /// In ar, this message translates to:
+  /// **'الرمز غير صحيح، يرجى المحاولة مرة أخرى'**
+  String get otpIncorrectError;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

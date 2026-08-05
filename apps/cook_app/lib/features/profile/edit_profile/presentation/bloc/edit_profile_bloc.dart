@@ -20,8 +20,6 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
           retryLoadPressed: () => _load(emit),
           fullNameChanged: (value) async =>
               _updateForm(emit, (data) => data.copyWith(fullName: value)),
-          phoneNumberChanged: (value) async =>
-              _updateForm(emit, (data) => data.copyWith(phoneNumber: value)),
           bioChanged: (value) async => _updateForm(emit, (data) => data.copyWith(bio: value)),
           addressChanged: (value) async =>
               _updateForm(emit, (data) => data.copyWith(address: value)),
@@ -78,7 +76,6 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
 
     final errors = validateProfileForm(
       fullName: data.fullName,
-      phoneNumber: data.phoneNumber,
       address: data.address,
       availabilityDays: data.availabilityDays,
       availabilityStartTime: data.availabilityStartTime,

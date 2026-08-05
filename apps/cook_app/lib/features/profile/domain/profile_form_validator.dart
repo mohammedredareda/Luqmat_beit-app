@@ -13,12 +13,13 @@ const maxProfileImageBytes = 10 * 1024 * 1024;
 /// message), matching `ValidationException.fieldErrors`'s shape. An empty
 /// map means the form is valid.
 ///
-/// Keys used: `fullName`, `phoneNumber`, `address`, `availabilityDays`,
+/// Keys used: `fullName`, `address`, `availabilityDays`,
 /// `availabilityHours`, `avatar`. `bio` is intentionally not validated —
-/// no rule requires it, unlike the other fields.
+/// no rule requires it, unlike the other fields. Phone number is no longer
+/// editable here — it moved to Settings' Change Phone Number flow, which
+/// has its own validation.
 Map<String, List<String>> validateProfileForm({
   required String fullName,
-  required String phoneNumber,
   required String address,
   required Set<Weekday> availabilityDays,
   required AvailabilityTime availabilityStartTime,
@@ -32,7 +33,6 @@ Map<String, List<String>> validateProfileForm({
   }
 
   if (fullName.trim().isEmpty) addError('fullName', 'required');
-  if (phoneNumber.trim().isEmpty) addError('phoneNumber', 'required');
   if (address.trim().isEmpty) addError('address', 'required');
 
   if (availabilityDays.isEmpty) addError('availabilityDays', 'zeroDays');

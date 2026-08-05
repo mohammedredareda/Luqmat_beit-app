@@ -8,7 +8,6 @@ class EditProfileEvent with _$EditProfileEvent {
   const factory EditProfileEvent.started() = _Started;
   const factory EditProfileEvent.retryLoadPressed() = _RetryLoadPressed;
   const factory EditProfileEvent.fullNameChanged(String value) = _FullNameChanged;
-  const factory EditProfileEvent.phoneNumberChanged(String value) = _PhoneNumberChanged;
   const factory EditProfileEvent.bioChanged(String value) = _BioChanged;
   const factory EditProfileEvent.addressChanged(String value) = _AddressChanged;
   const factory EditProfileEvent.availabilityDayToggled(Weekday day) = _AvailabilityDayToggled;

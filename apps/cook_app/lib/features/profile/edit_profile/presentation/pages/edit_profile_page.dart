@@ -148,19 +148,6 @@ class _FormBody extends StatelessWidget {
         ),
         const SizedBox(height: AppSpace.l),
         TextFormField(
-          initialValue: data.phoneNumber,
-          onChanged: (value) => bloc.add(EditProfileEvent.phoneNumberChanged(value)),
-          keyboardType: TextInputType.phone,
-          textDirection: TextDirection.ltr,
-          decoration: InputDecoration(
-            labelText: l10n.phoneNumberLabel,
-            hintText: l10n.phoneNumberHint,
-            errorText: fieldError('phoneNumber'),
-            prefixIcon: const Icon(Icons.call_outlined),
-          ),
-        ),
-        const SizedBox(height: AppSpace.l),
-        TextFormField(
           initialValue: data.bio,
           onChanged: (value) => bloc.add(EditProfileEvent.bioChanged(value)),
           maxLines: 4,

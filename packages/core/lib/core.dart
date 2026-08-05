@@ -1,5 +1,7 @@
 // Theme
 export 'src/theme/sumac_theme.dart';
+export 'src/theme/theme_cubit.dart';
+export 'src/theme/secure_theme_storage.dart';
 
 // Network / error handling
 export 'src/network/api_client.dart';
