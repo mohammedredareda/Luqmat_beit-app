@@ -13,3 +13,16 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+# Flutter/Dart/Pub related (root pubspec is a stale pre-restructure
+# boilerplate app — see apps/customer_app and apps/cook_app for the real
+# ones, which each carry their own generated .gitignore already).
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+
+# Android build artifacts (Kotlin incremental compiler cache etc.)
+.kotlin/
+android/.kotlin/

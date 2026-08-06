@@ -1,0 +1,323 @@
+<!DOCTYPE html><html dir="rtl" lang="ar" style="width: 390px; height: 884px; overflow: hidden; position: relative;"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>طلباتي - Luqmat Beit</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;700;800&amp;family=Tajawal:wght@400;500;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "error-container": "#ffdad6",
+                "surface-dim": "#e8d7cc",
+                "primary": "#871a11",
+                "secondary-container": "#E4EDD3",
+                "primary-fixed-dim": "#ffb4a9",
+                "on-primary-fixed": "#410000",
+                "on-tertiary-container": "#ffcc91",
+                "tertiary-fixed-dim": "#ffb95f",
+                "tertiary-container": "#F7E7CC",
+                "primary-container": "#a83226",
+                "on-primary-container": "#6E1A11",
+                "on-secondary-fixed-variant": "#374d12",
+                "on-secondary": "#ffffff",
+                "error": "#ba1a1a",
+                "surface-variant": "#f0dfd4",
+                "primary-fixed": "#ffdad5",
+                "on-tertiary": "#ffffff",
+                "surface-container-high": "#f6e5da",
+                "on-secondary-container": "#546c2e",
+                "outline-variant": "#e0bfba",
+                "tahini-bg": "#FBF7F1",
+                "on-tertiary-fixed-variant": "#653e00",
+                "on-error": "#ffffff",
+                "inverse-on-surface": "#ffeee2",
+                "on-error-container": "#93000a",
+                "secondary-fixed-dim": "#b4d086",
+                "background": "#fff8f5",
+                "zaatar-green": "#5A7233",
+                "surface-container-lowest": "#ffffff",
+                "tertiary-fixed": "#ffddb8",
+                "surface-bright": "#fff8f5",
+                "on-secondary-fixed": "#121f00",
+                "on-primary": "#ffffff",
+                "surface": "#fff8f5",
+                "inverse-primary": "#ffb4a9",
+                "honey-gold": "#B97A1E",
+                "secondary": "#4e6628",
+                "ink-muted": "#71655B",
+                "surface-container": "#fcebdf",
+                "surface-tint": "#ab3428",
+                "surface-container-highest": "#f0dfd4",
+                "sumac-red": "#A83226",
+                "warm-charcoal": "#2A211A",
+                "tertiary": "#623c00",
+                "secondary-fixed": "#d0eda0",
+                "on-tertiary-fixed": "#2a1700",
+                "on-surface-variant": "#58413e",
+                "on-primary-fixed-variant": "#8a1c13",
+                "outline": "#D9CEC1",
+                "surface-container-low": "#fff1e8",
+                "inverse-surface": "#382e27",
+                "on-background": "#221a13",
+                "on-surface": "#221a13"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+        },
+        "spacing": {
+                "xxl": "32px",
+                "s": "8px",
+                "xs": "4px",
+                "gutter-card": "12px",
+                "padding-card": "14px",
+                "margin-screen": "16px",
+                "m": "12px",
+                "l": "16px",
+                "xl": "24px"
+        },
+        "fontFamily": {
+                "title-lg": [
+                        "Alexandria"
+                ],
+                "display-lg": [
+                        "Alexandria"
+                ],
+                "body-md": [
+                        "Tajawal"
+                ],
+                "headline-lg": [
+                        "Alexandria"
+                ],
+                "display-lg-mobile": [
+                        "Alexandria"
+                ],
+                "body-lg": [
+                        "Tajawal"
+                ],
+                "body-sm": [
+                        "Tajawal"
+                ],
+                "price-display": [
+                        "Tajawal"
+                ],
+                "label-lg": [
+                        "Tajawal"
+                ]
+        },
+        "fontSize": {
+                "title-lg": [
+                        "17px",
+                        {
+                                "lineHeight": "1.45",
+                                "fontWeight": "700"
+                        }
+                ],
+                "display-lg": [
+                        "40px",
+                        {
+                                "lineHeight": "1.35",
+                                "fontWeight": "800"
+                        }
+                ],
+                "body-md": [
+                        "14.5px",
+                        {
+                                "lineHeight": "1.75",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-lg": [
+                        "22px",
+                        {
+                                "lineHeight": "1.4",
+                                "fontWeight": "700"
+                        }
+                ],
+                "display-lg-mobile": [
+                        "30px",
+                        {
+                                "lineHeight": "1.35",
+                                "fontWeight": "800"
+                        }
+                ],
+                "body-lg": [
+                        "15.5px",
+                        {
+                                "lineHeight": "1.7",
+                                "fontWeight": "500"
+                        }
+                ],
+                "body-sm": [
+                        "12px",
+                        {
+                                "lineHeight": "1.5",
+                                "fontWeight": "500"
+                        }
+                ],
+                "price-display": [
+                        "16px",
+                        {
+                                "lineHeight": "1.0",
+                                "fontWeight": "800"
+                        }
+                ],
+                "label-lg": [
+                        "14px",
+                        {
+                                "lineHeight": "1.2",
+                                "fontWeight": "700"
+                        }
+                ]
+        }
+},
+    },
+  }
+</script>
+<style>
+        body { font-family: 'Tajawal', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .filled-icon { font-variation-settings: 'FILL' 1; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-surface min-h-screen text-on-surface pb-[100px]">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-surface-dim docked full-width top-0 z-40 sticky shadow-[0_4px_6px_-1px_rgba(43,33,26,0.02)]">
+<div class="flex justify-between items-center w-full px-margin-screen h-16">
+<button class="text-primary dark:text-primary-fixed-dim hover:bg-surface-container-high transition-colors rounded-full p-2 flex items-center justify-center">
+
+</button>
+<h1 class="text-title-lg font-title-lg font-bold text-sumac-red dark:text-primary-fixed-dim">
+                طلباتي
+            </h1>
+<button class="text-primary dark:text-primary-fixed-dim hover:bg-surface-container-high transition-colors rounded-full p-2 flex items-center justify-center">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="px-margin-screen pt-xl pb-xxl">
+<!-- Page Title Override (Since App Bar holds brand) -->
+<div class="mb-xl">
+<p class="text-body-md font-body-md text-ink-muted"><br></p>
+</div>
+<!-- Orders List -->
+<div class="flex flex-col gap-m">
+<!-- Order Card 1: Preparing -->
+<div class="bg-surface-container-lowest rounded-xl p-padding-card shadow-[0_2px_4px_-1px_rgba(43,33,26,0.05)] border border-surface-variant flex gap-m items-center transition-transform hover:scale-[1.01] cursor-pointer">
+<!-- Thumbnail -->
+<div class="w-24 h-18 shrink-0 rounded-lg overflow-hidden bg-surface-variant relative">
+<img class="w-full h-full object-cover aspect-[4/3]" data-alt="A warm, overhead shot of a freshly prepared Levantine dish, specifically a rich, golden Maklouba, resting on a rustic wooden table. The lighting is soft and natural, emphasizing the artisanal, homegrown quality of the meal. The colors are dominated by warm earthy tones, sumac red accents, and fresh green parsley." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCd0Cit_A5Lo8zcm7Q4JFxCSnhUeUxRG7z19ydq1rYrbVGGb4Bp7wgV1S2QXGo5xUlfnNeoQCjZni5CLQabPJQxIlrh4C_Awo5BWOnr6H4uNhpcWZO1a8FEjqLB8NyOWbPpLciHKlXXnjCYpIi-tWWemFWBRVJqoFu1SLIRNz6cpovjBFbdQALR8Fe4loAT8WT2cV13M4S6cdwuPtG9JgG1HwjS7BsHCbsDDksKIMldDnAf2sjVd2TG">
+</div>
+<!-- Info -->
+<div class="flex-1 flex flex-col justify-center">
+<h3 class="text-title-lg font-title-lg text-on-surface mb-xs truncate">مقلوبة باذنجان لحم</h3>
+<div class="flex items-center text-ink-muted text-body-sm font-body-sm gap-s">
+<span class="material-symbols-outlined text-[16px]">person</span>
+<span class="">أم أحمد</span>
+</div>
+<div class="flex items-center text-ink-muted text-body-sm font-body-sm gap-s mt-xs">
+<span class="material-symbols-outlined text-[16px]">calendar_today</span>
+<span class="">2026/07/02</span>
+</div>
+</div>
+<!-- Status Badge -->
+<div class="shrink-0 flex flex-col items-end justify-center">
+<span class="bg-tertiary-container text-on-tertiary-container text-label-lg font-label-lg px-3 py-1 rounded-full flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-honey-gold"></span>
+                        قيد التحضير
+                    </span>
+</div>
+</div>
+<!-- Order Card 2: Pending -->
+<div class="bg-surface-container-lowest rounded-xl p-padding-card shadow-[0_2px_4px_-1px_rgba(43,33,26,0.05)] border border-surface-variant flex gap-m items-center transition-transform hover:scale-[1.01] cursor-pointer">
+<!-- Thumbnail -->
+<div class="w-24 h-18 shrink-0 rounded-lg overflow-hidden bg-surface-variant relative">
+<img class="w-full h-full object-cover aspect-[4/3]" data-alt="A beautifully plated dish of traditional Arabic stuffed vine leaves (Warak Enab), glistening with olive oil and lemon juice, presented on an artisanal ceramic plate. The scene is lit with a bright, clean light-mode aesthetic, highlighting the vibrant greens and rich culinary textures against a warm tahini-toned background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuByPJ06q2ei6EZ2J8CwZ5ZrbeJGPTGLPIQ4jyT3ebcGWPgCWJSgg_VzylQtwlkf9LRqts_SSkwA8rz527XCRJJQ38F2dUxjgI_Cbbb3qzu1sD02p6J2C9pocvFOWFyFo54UL14lynbPsYUFC4nWnsSTIO4K2rf1QvI8Ydb8IHy3QmuzaCgioLAWLZF_2rL9-RFwqGzl9i7WoLCfUlaEPF8yvI0KXBmWEHYZh0MEJ3NZOrNUp3h4di_X">
+</div>
+<!-- Info -->
+<div class="flex-1 flex flex-col justify-center">
+<h3 class="text-title-lg font-title-lg text-on-surface mb-xs truncate">ورق عنب بالزيت</h3>
+<div class="flex items-center text-ink-muted text-body-sm font-body-sm gap-s">
+<span class="material-symbols-outlined text-[16px]">person</span>
+<span class="">الشيف محمود</span>
+</div>
+<div class="flex items-center text-ink-muted text-body-sm font-body-sm gap-s mt-xs">
+<span class="material-symbols-outlined text-[16px]">calendar_today</span>
+<span class="">2026/07/05</span>
+</div>
+</div>
+<!-- Status Badge -->
+<div class="shrink-0 flex flex-col items-end justify-center">
+<span class="bg-surface-variant text-on-surface-variant text-label-lg font-label-lg px-3 py-1 rounded-full flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-ink-muted"></span>
+                        قيد الانتظار
+                    </span>
+</div>
+</div>
+<!-- Order Card 3: Rejected -->
+<div class="bg-surface-container-lowest rounded-xl p-padding-card shadow-[0_2px_4px_-1px_rgba(43,33,26,0.05)] border border-surface-variant flex gap-m items-center transition-transform hover:scale-[1.01] cursor-pointer opacity-75 grayscale-[30%]">
+<!-- Thumbnail -->
+<div class="w-24 h-18 shrink-0 rounded-lg overflow-hidden bg-surface-variant relative">
+<img class="w-full h-full object-cover aspect-[4/3]" data-alt="A comforting bowl of traditional lentil soup garnished with a sprinkle of sumac and crisp pita bread croutons, served in a handmade clay bowl. The setting exudes warmth and domestic comfort, styled with soft, diffused lighting and earthy colors that reflect a premium yet accessible home-cooked vibe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBslSS4mt_sWdKOT_EBaymGvmm49_pnuihaw9iTav0GOrH_HH899CYAPaG_LadmX_eBSzysMcV34Dsuwc5Y1jF9uAxVCWQQVB62-5e4QAl2b9yelanGXRUYePiF-SYae7x01iX8GLgcNVASIzEiVzd1ABCobecF4tp9y-XoDiBeJ4__WiUnjgCMU5_jLJzpS3driuYyT6Bgr1UfDpHF8aLq0BbN04x8UItXbGffecBTK_z_nNQRalt7">
+</div>
+<!-- Info -->
+<div class="flex-1 flex flex-col justify-center">
+<h3 class="text-title-lg font-title-lg text-on-surface mb-xs truncate">شوربة عدس</h3>
+<div class="flex items-center text-ink-muted text-body-sm font-body-sm gap-s">
+<span class="material-symbols-outlined text-[16px]">person</span>
+<span class="">خالة فاطمة</span>
+</div>
+<div class="flex items-center text-ink-muted text-body-sm font-body-sm gap-s mt-xs">
+<span class="material-symbols-outlined text-[16px]">calendar_today</span>
+<span class="">2026/06/28</span>
+</div>
+</div>
+<!-- Status Badge -->
+<div class="shrink-0 flex flex-col items-end justify-center">
+<span class="bg-error-container text-on-error-container text-label-lg font-label-lg px-3 py-1 rounded-full flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-error"></span>
+                        مرفوض
+                    </span>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="bg-surface dark:bg-surface-dim shadow-[0_-4px_6px_-1px_rgba(43,33,26,0.05)] docked full-width bottom-0 rounded-t-xl fixed left-0 w-full z-50 flex justify-around items-center px-2 py-3 pb-safe md:hidden">
+<!-- Tab 1: Inactive -->
+<button class="flex flex-col items-center justify-center text-ink-muted dark:text-surface-variant px-5 py-1 hover:bg-surface-container-highest transition-all rounded-full group">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">home</span>
+<span class="text-label-lg font-label-lg mt-1">الرئيسية</span>
+</button>
+<!-- Tab 2: Active (طلباتي) -->
+<button class="flex flex-col items-center justify-center bg-primary-container dark:bg-tertiary-container text-on-primary-container dark:text-on-tertiary-container rounded-full px-5 py-1 hover:bg-surface-container-highest transition-all scale-95 duration-100">
+<span class="material-symbols-outlined filled-icon">receipt_long</span>
+<span class="text-label-lg font-label-lg mt-1">طلباتي</span>
+</button>
+<!-- Tab 3: Inactive -->
+<button class="flex flex-col items-center justify-center text-ink-muted dark:text-surface-variant px-5 py-1 hover:bg-surface-container-highest transition-all rounded-full group">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">favorite</span>
+<span class="text-label-lg font-label-lg mt-1">المفضلة</span>
+</button>
+<!-- Tab 4: Inactive -->
+<button class="flex flex-col items-center justify-center text-ink-muted dark:text-surface-variant px-5 py-1 hover:bg-surface-container-highest transition-all rounded-full group">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">person</span>
+<span class="text-label-lg font-label-lg mt-1">حسابي</span>
+</button>
+</nav>
+
+
+<div id="snapdom-sandbox" data-snapdom-sandbox="true" aria-hidden="true" style="position: absolute; left: -9999px; top: -9999px; width: 0px; height: 0px; overflow: hidden;"></div></body></html>

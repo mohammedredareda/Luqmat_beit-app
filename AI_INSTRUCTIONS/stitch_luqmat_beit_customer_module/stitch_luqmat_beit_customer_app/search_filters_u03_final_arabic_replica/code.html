@@ -1,0 +1,349 @@
+<!DOCTYPE html><html dir="rtl" lang="ar" style="width: 462px; height: 1600px; overflow: hidden; position: relative;"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Luqmat Beit - Search &amp; Filters</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;700;800&amp;family=Tajawal:wght@400;500;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-highest": "#f0dfd4",
+                        "surface-variant": "#f0dfd4",
+                        "primary-fixed": "#ffdad5",
+                        "primary-fixed-dim": "#ffb4a9",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed": "#d0eda0",
+                        "primary": "#871a11",
+                        "zaatar-green": "#5A7233",
+                        "surface": "#fff8f5",
+                        "on-surface-variant": "#58413e",
+                        "outline-variant": "#e0bfba",
+                        "inverse-primary": "#ffb4a9",
+                        "honey-gold": "#B97A1E",
+                        "on-secondary-fixed": "#121f00",
+                        "on-error-container": "#93000a",
+                        "on-primary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "primary-container": "#a83226",
+                        "surface-tint": "#ab3428",
+                        "tertiary-fixed": "#ffddb8",
+                        "tahini-bg": "#FBF7F1",
+                        "surface-container": "#fcebdf",
+                        "on-surface": "#221a13",
+                        "on-tertiary-fixed": "#2a1700",
+                        "secondary-container": "#d0eda0",
+                        "on-primary-container": "#ffc9c0",
+                        "sumac-red": "#A83226",
+                        "inverse-surface": "#382e27",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "on-background": "#221a13",
+                        "tertiary": "#623c00",
+                        "tertiary-container": "#825100",
+                        "surface-container-low": "#fff1e8",
+                        "on-error": "#ffffff",
+                        "outline": "#D9CEC1",
+                        "surface-container-high": "#f6e5da",
+                        "on-tertiary-container": "#ffcc91",
+                        "on-primary-fixed": "#410000",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "secondary-fixed-dim": "#b4d086",
+                        "on-secondary": "#ffffff",
+                        "ink-muted": "#71655B",
+                        "background": "#fff8f5",
+                        "secondary": "#4e6628",
+                        "on-secondary-container": "#546c2e",
+                        "warm-charcoal": "#2A211A",
+                        "on-secondary-fixed-variant": "#374d12",
+                        "surface-dim": "#e8d7cc",
+                        "error-container": "#ffdad6",
+                        "inverse-on-surface": "#ffeee2",
+                        "surface-bright": "#fff8f5",
+                        "on-primary-fixed-variant": "#8a1c13"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "s": "8px",
+                        "l": "16px",
+                        "gutter-card": "12px",
+                        "margin-screen": "16px",
+                        "padding-card": "14px",
+                        "xl": "24px",
+                        "xxl": "32px",
+                        "m": "12px",
+                        "xs": "4px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Alexandria"],
+                        "body-md": ["Tajawal"],
+                        "label-lg": ["Tajawal"],
+                        "headline-lg": ["Alexandria"],
+                        "title-lg": ["Alexandria"],
+                        "display-lg-mobile": ["Alexandria"],
+                        "price-display": ["Tajawal"],
+                        "body-sm": ["Tajawal"],
+                        "body-lg": ["Tajawal"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["40px", { "lineHeight": "1.35", "fontWeight": "800" }],
+                        "body-md": ["14.5px", { "lineHeight": "1.75", "fontWeight": "400" }],
+                        "label-lg": ["14px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "headline-lg": ["22px", { "lineHeight": "1.4", "fontWeight": "700" }],
+                        "title-lg": ["17px", { "lineHeight": "1.45", "fontWeight": "700" }],
+                        "display-lg-mobile": ["30px", { "lineHeight": "1.35", "fontWeight": "800" }],
+                        "price-display": ["16px", { "lineHeight": "1.0", "fontWeight": "800" }],
+                        "body-sm": ["12px", { "lineHeight": "1.5", "fontWeight": "500" }],
+                        "body-lg": ["15.5px", { "lineHeight": "1.7", "fontWeight": "500" }]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom shadow for e1 */
+        .shadow-e1 {
+            box-shadow: 0 1px 3px rgba(43, 33, 26, 0.1), 0 1px 2px rgba(43, 33, 26, 0.06);
+        }
+
+        .shadow-e2 {
+            box-shadow: 0 4px 6px -1px rgba(43, 33, 26, 0.1), 0 2px 4px -1px rgba(43, 33, 26, 0.06);
+        }
+
+        body {
+            background-color: #FBF7F1;
+            /* tahini-bg */
+            padding-bottom: 80px;
+            /* Space for BottomNavBar */
+        }
+
+        /* Hide scrollbar for chips */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+<body class="text-warm-charcoal">
+<!-- TopAppBar -->
+<header class="bg-tahini-bg docked full-width top-0 flat no shadows flex justify-between items-center w-full px-margin-screen h-16 sticky z-40">
+
+<div></div>
+<button class="text-sumac-red hover:bg-surface-container-high transition-colors p-2 rounded-full flex items-center justify-center">
+
+</button>
+</header>
+<main class="max-w-3xl mx-auto md:pt-6">
+<!-- Search and Filter Row -->
+<div class="px-margin-screen mt-s flex gap-m items-center">
+<button class="bg-surface border-1.5 border-outline rounded-full p-3 text-ink-muted hover:border-sumac-red hover:text-sumac-red transition-colors shadow-sm flex items-center justify-center min-w-[48px] min-h-[48px]">
+<span class="material-symbols-outlined">tune</span>
+</button>
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-ink-muted z-10 pointer-events-none">search</span>
+<input class="w-full bg-surface border-1.5 border-outline rounded-full py-3 pr-12 pl-12 text-body-md font-body-md text-warm-charcoal focus:outline-none focus:border-sumac-red focus:ring-1 focus:ring-sumac-red transition-colors shadow-sm" placeholder="كبسة" type="text" value="كبسة">
+<button class="absolute left-4 top-1/2 -translate-y-1/2 text-ink-muted hover:text-sumac-red p-1 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+</div>
+<!-- Filter Chips -->
+<div class="px-margin-screen mt-l overflow-x-auto no-scrollbar flex gap-s pb-2">
+<button class="whitespace-nowrap px-4 py-2 rounded-full bg-sumac-red text-on-primary text-label-lg font-label-lg border border-transparent shadow-sm flex items-center gap-2 transition-colors">
+                الأقرب
+                <span class="material-symbols-outlined text-[16px]">check</span>
+</button>
+<button class="whitespace-nowrap px-4 py-2 rounded-full bg-surface text-ink-muted text-label-lg font-label-lg border border-outline hover:bg-surface-container transition-colors shadow-sm">
+                الأعلى تقييماً
+            </button>
+<button class="whitespace-nowrap px-4 py-2 rounded-full bg-surface text-ink-muted text-label-lg font-label-lg border border-outline hover:bg-surface-container transition-colors flex items-center gap-2 shadow-sm">
+                السعر
+                <span class="material-symbols-outlined text-[16px]">arrow_drop_down</span>
+</button>
+<button class="whitespace-nowrap px-4 py-2 rounded-full bg-surface text-ink-muted text-label-lg font-label-lg border border-outline hover:bg-surface-container transition-colors flex items-center gap-2 shadow-sm">
+                الصنف
+                <span class="material-symbols-outlined text-[16px]">arrow_drop_down</span>
+</button>
+</div>
+<!-- Results Header -->
+<div class="px-margin-screen mt-xl mb-m flex justify-between items-end">
+<h2 class="text-title-lg font-title-lg font-bold text-warm-charcoal">النتائج (12)</h2>
+</div>
+<!-- Results Grid/List -->
+<div class="px-margin-screen flex flex-col gap-l pb-xl">
+<!-- Meal Card 1 -->
+<div class="bg-surface rounded-xl shadow-e1 overflow-hidden flex flex-col active:scale-[0.98] transition-transform cursor-pointer border border-surface-container-highest pb-3">
+<div class="w-full aspect-[4/3] relative flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A delicious looking Kabsa dish with tender meat, fragrant yellow rice, toasted almonds, and raisins, served in a traditional Levantine clay bowl. The lighting is warm and inviting, highlighting the spices and textures of the Middle Eastern home-cooked meal." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsoiDilewsq_w2zIi7Rdy6CvKKRn3f5w9G1Ea8yes20dyhc8H604MNhpCd27Y_B6B8foUM-rWzZhTvpjUxc8OEc9-gPJJWPVgiCKcGJ4cj6Patm6qS4jGfH6_5Mw366D3AQkZ9e8NAK_pNIpOQBI-X36hBhru-yN-9GDKlZsPAFeScFYw7LBNnXXCQxNIfFOU0sZI6wCJ_3YTB4gsuFf6qkW0G0Pek7JhnqVYleOsBBtKWHVA3v5ai">
+<div class="absolute top-3 left-3 flex gap-2">
+<button class="bg-surface/90 backdrop-blur-sm p-2 rounded-full text-ink-muted hover:text-sumac-red transition-colors shadow-sm flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">favorite</span>
+</button>
+</div>
+<div class="absolute top-3 right-3 flex flex-col gap-2">
+<div class="bg-tertiary-container/90 backdrop-blur-sm text-on-tertiary-container px-2 py-1 rounded-md flex items-center gap-1 shadow-sm">
+<span class="text-label-lg font-label-lg">4.9</span>
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1; color: #B97A1E;">star</span>
+</div>
+</div>
+</div>
+<div class="px-3 pt-3 flex flex-col gap-2">
+<div class="flex justify-between items-start">
+<h3 class="text-title-lg font-title-lg text-warm-charcoal line-clamp-1 font-bold">كبسة لحم بلدي</h3>
+<span class="text-price-display font-price-display text-sumac-red whitespace-nowrap">85,000 ل.س</span>
+</div>
+<p class="text-body-sm font-body-sm text-ink-muted line-clamp-2">لحم خروف بلدي طازج مع أرز بسمتي بالبهارات الخاصة ومكسرات محمصة.</p>
+<div class="flex justify-between items-center mt-1">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-surface-container overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A smiling middle-aged female chef wearing a traditional apron in a bright, modern yet rustic kitchen setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDiMXKY3l9frtx0yyVehLg54kci1Qn7hUoGNf8cTIAgbT_BCeo40i0VkNZcHSJWgb5TFopddAbkg6XJY2C_jAZmbPEBpFbeFAya8RA3fE327b-eJez8UbiCMTFisyxVLIzY8IPuU0SV9h5R8YgUDLKIvDEcuTEqbHgMmBVXheOOzHO3Yq5FNu3efOMmTDrPzxL6mHSEn_iSQR_gPJjfXdzphpzxhL01A-lBijcPgELnrk8ntFpRL62D">
+</div>
+<span class="text-body-sm font-body-sm text-ink-muted">أم محمد</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Meal Card 2 -->
+<div class="bg-surface rounded-xl shadow-e1 overflow-hidden flex flex-col active:scale-[0.98] transition-transform cursor-pointer border border-surface-container-highest pb-3">
+<div class="w-full aspect-[4/3] relative flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A beautifully plated chicken Kabsa with perfectly cooked basmati rice, seasoned chicken pieces, decorated with fried onions and pine nuts, set on a rustic wooden table with a side of yogurt." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7MlVWAjcJfA2uoJGbikCiDGMZK7KrJQ-Ev4QyGUpil6vk3eL7rmAp3-YdguwkEd-BCbnsZRYEf6eWxm--FqPtiW8XRan0uyDyjnstNVlrEc6Tr_dGrH5H4gt9A2ZAE5SkN4viuPT4uXK_izFwk-fvHGo8TikhLvZV6A3jaKc4NCfkYQh4fdNLZkXSGh7oUh4zfIOYa40mVmoxxtTMlirmOCABkF3ouT3Z5NUzxNrzUS62GVaxKpwL">
+<div class="absolute top-3 left-3 flex gap-2">
+<button class="bg-surface/90 backdrop-blur-sm p-2 rounded-full text-ink-muted hover:text-sumac-red transition-colors shadow-sm flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">favorite</span>
+</button>
+</div>
+<div class="absolute top-3 right-3 flex flex-col gap-2">
+<div class="bg-tertiary-container/90 backdrop-blur-sm text-on-tertiary-container px-2 py-1 rounded-md flex items-center gap-1 shadow-sm">
+<span class="text-label-lg font-label-lg">4.7</span>
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1; color: #B97A1E;">star</span>
+</div>
+</div>
+</div>
+<div class="px-3 pt-3 flex flex-col gap-2">
+<div class="flex justify-between items-start">
+<h3 class="text-title-lg font-title-lg text-warm-charcoal line-clamp-1 font-bold">كبسة دجاج محمر</h3>
+<span class="text-price-display font-price-display text-sumac-red whitespace-nowrap">45,000 ل.س</span>
+</div>
+<p class="text-body-sm font-body-sm text-ink-muted line-clamp-2">دجاج محمر بالفرن مع أرز الكبسة الشهي ودقوس حار.</p>
+<div class="flex justify-between items-center mt-1">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-surface-container overflow-hidden border border-outline-variant flex items-center justify-center text-sumac-red font-bold text-xs">
+                                ع
+                            </div>
+<span class="text-body-sm font-body-sm text-ink-muted">مطبخ عائشة</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Meal Card 3 -->
+<div class="bg-surface rounded-xl shadow-e1 overflow-hidden flex flex-col active:scale-[0.98] transition-transform cursor-pointer border border-surface-container-highest pb-3">
+<div class="w-full aspect-[4/3] relative flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A large family-sized serving of traditional meat Kabsa in a massive round tray, surrounded by small plates of salads and dips, creating a festive communal eating atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGsZUZJzcUhuSi2FB37wfjjYWL2vJy1rZlaztiSCmUsiB264CWHIg8TqRCw6c3At0e0qdzUkMvEBIPeMOz5BaI5brjdXqQD8xYcwxz7p9LevrskiUppZZC_msJ5hipzBSk0h-1AmgUJPRf58FguayCbDnm8VUAfU42mvt1NTIucFXGHeg_l43Guq0Wx4SyRLPEX1iuvNMJqE-tk5tOcRlEbLr4Ou-H7Jn5RUpTfR7G8gquvHLHZx0F">
+<div class="absolute top-3 left-3 flex gap-2">
+<button class="bg-surface/90 backdrop-blur-sm p-2 rounded-full text-ink-muted hover:text-sumac-red transition-colors shadow-sm flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">favorite</span>
+</button>
+</div>
+<div class="absolute top-3 right-3 flex flex-col gap-2">
+<div class="bg-tertiary-container/90 backdrop-blur-sm text-on-tertiary-container px-2 py-1 rounded-md flex items-center gap-1 shadow-sm">
+<span class="text-label-lg font-label-lg">4.8</span>
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1; color: #B97A1E;">star</span>
+</div>
+</div>
+</div>
+<div class="px-3 pt-3 flex flex-col gap-2">
+<div class="flex justify-between items-start">
+<h3 class="text-title-lg font-title-lg text-warm-charcoal line-clamp-1 font-bold">صينية كبسة عائلية</h3>
+<span class="text-price-display font-price-display text-sumac-red whitespace-nowrap">150,000 ل.س</span>
+</div>
+<p class="text-body-sm font-body-sm text-ink-muted line-clamp-2">تكفي 5-6 أشخاص، مع 3 دجاجات كاملة وسلطات متنوعة.</p>
+<div class="flex justify-between items-center mt-1">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-surface-container overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A portrait of a male chef in a professional yet warm kitchen environment, conveying expertise in Middle Eastern cuisine." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAAtYFtj91nDFVghdupvgvAWxE5PvulCD8SNV63CnrlmZSbtvs0iiQQ1wj3Q2DybSV2dDdEre70XKCRHH28Bi1eruFDAf_G_VyBsLyxNj_q5pxvZm6q8V3SWb0P2tJrGD6f5FgsQcvpyY8_wehMJcsewfXanO7y6b8_Z_2QGNjewf212H-RHnEC4qP4VeNoPHThcqijFZlknP0IdapdE8Gc9n8FgjRCw2l6QTnyWtsJXMaX2292FWOk">
+</div>
+<span class="text-body-sm font-body-sm text-ink-muted">الشيف رامي</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="bg-surface rounded-t-xl shadow-[0_-4px_6px_-1px_rgba(43,33,26,0.05)] shadow-md fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-2 py-3 pb-safe md:hidden">
+<button class="flex flex-col items-center justify-center text-sumac-red px-4 py-1 hover:bg-surface-container-highest transition-all">
+<div class="bg-primary-container/20 rounded-full px-5 py-1 mb-1">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">home</span>
+</div>
+<span class="text-label-lg font-label-lg font-bold">الرئيسية</span>
+</button>
+<button class="flex flex-col items-center justify-center text-ink-muted px-4 py-1 hover:bg-surface-container-highest transition-all">
+<span class="material-symbols-outlined text-[24px] mb-1">receipt_long</span>
+<span class="text-label-lg font-label-lg">طلباتي</span>
+</button>
+<button class="flex flex-col items-center justify-center text-ink-muted px-4 py-1 hover:bg-surface-container-highest transition-all">
+<span class="material-symbols-outlined text-[24px] mb-1">play_circle</span>
+<span class="text-label-lg font-label-lg">الشورتس</span>
+</button>
+<button class="flex flex-col items-center justify-center text-ink-muted px-4 py-1 hover:bg-surface-container-highest transition-all">
+<span class="material-symbols-outlined text-[24px] mb-1">favorite</span>
+<span class="text-label-lg font-label-lg">المفضلة</span>
+</button>
+<button class="flex flex-col items-center justify-center text-ink-muted px-4 py-1 hover:bg-surface-container-highest transition-all">
+<span class="material-symbols-outlined text-[24px] mb-1">person</span>
+<span class="text-label-lg font-label-lg">حسابي</span>
+</button>
+</nav>
+<!-- Desktop Bottom Nav placeholder -->
+<div class="hidden md:flex bg-surface fixed bottom-0 w-full border-t border-surface-container-highest p-4 justify-center shadow-e2 z-50">
+<div class="max-w-3xl w-full flex justify-between items-center">
+<span class="text-on-surface-variant font-body-sm">Luqmat Beit Web View</span>
+</div>
+</div>
+<script>
+        // Simple script to toggle chip selection for demo purposes
+        document.querySelectorAll('.overflow-x-auto button').forEach(button => {
+            button.addEventListener('click', function () {
+                if (this.classList.contains('bg-sumac-red')) {
+                    // Already active, could toggle off, but let's keep one active for demo
+                } else {
+                    // Remove active from all
+                    document.querySelectorAll('.overflow-x-auto button').forEach(btn => {
+                        btn.className = "whitespace-nowrap px-4 py-2 rounded-full bg-surface text-ink-muted text-label-lg font-label-lg border border-outline hover:bg-surface-container transition-colors shadow-sm flex items-center gap-2";
+                        // Remove checkmark if exists
+                        const icon = btn.querySelector('.material-symbols-outlined');
+                        if (icon && icon.textContent === 'check') {
+                            icon.remove();
+                        }
+                    });
+
+                    // Add active to this
+                    this.className = "whitespace-nowrap px-4 py-2 rounded-full bg-sumac-red text-on-primary text-label-lg font-label-lg border border-transparent shadow-sm flex items-center gap-2 transition-colors";
+
+                    // Add checkmark if it doesn't have drop down
+                    if (!this.querySelector('.material-symbols-outlined') || this.querySelector('.material-symbols-outlined').textContent !== 'arrow_drop_down') {
+                        this.innerHTML += '<span class="material-symbols-outlined text-[16px]">check</span>';
+                    }
+                }
+            });
+        });
+    </script>
+
+
+<div id="snapdom-sandbox" data-snapdom-sandbox="true" aria-hidden="true" style="position: absolute; left: -9999px; top: -9999px; width: 0px; height: 0px; overflow: hidden;"></div></body></html>

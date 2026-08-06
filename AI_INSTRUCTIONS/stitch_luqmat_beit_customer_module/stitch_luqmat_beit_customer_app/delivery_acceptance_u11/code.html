@@ -1,0 +1,285 @@
+<!DOCTYPE html><html dir="rtl" lang="ar" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>تأكيد الطلب - Delivery Acceptance</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;700;800&amp;family=Tajawal:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-surface-variant": "#58413e",
+                    "on-secondary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "on-secondary-fixed-variant": "#374d12",
+                    "on-error": "#ffffff",
+                    "secondary": "#4e6628",
+                    "ink-muted": "#71655B",
+                    "secondary-fixed": "#d0eda0",
+                    "on-primary-container": "#6E1A11",
+                    "on-tertiary-fixed": "#2a1700",
+                    "warm-charcoal": "#2A211A",
+                    "primary-container": "#FADDD7",
+                    "inverse-primary": "#ffb4a9",
+                    "surface-tint": "#ab3428",
+                    "tertiary": "#623c00",
+                    "on-secondary-fixed": "#121f00",
+                    "secondary-fixed-dim": "#b4d086",
+                    "outline": "#D9CEC1",
+                    "on-secondary-container": "#546c2e",
+                    "on-tertiary": "#ffffff",
+                    "outline-variant": "#e0bfba",
+                    "on-primary-fixed": "#410000",
+                    "on-surface": "#221a13",
+                    "surface-container-high": "#f6e5da",
+                    "surface-dim": "#e8d7cc",
+                    "primary-fixed-dim": "#ffb4a9",
+                    "tertiary-container": "#F7E7CC",
+                    "surface-container": "#fcebdf",
+                    "inverse-surface": "#382e27",
+                    "zaatar-green": "#5A7233",
+                    "surface-variant": "#F2EBE1",
+                    "surface-container-low": "#fff1e8",
+                    "tertiary-fixed-dim": "#ffb95f",
+                    "surface-container-lowest": "#ffffff",
+                    "error": "#ba1a1a",
+                    "on-error-container": "#93000a",
+                    "inverse-on-surface": "#ffeee2",
+                    "tertiary-fixed": "#ffddb8",
+                    "sumac-red": "#A83226",
+                    "on-tertiary-fixed-variant": "#653e00",
+                    "tahini-bg": "#FBF7F1",
+                    "on-primary-fixed-variant": "#8a1c13",
+                    "surface-bright": "#fff8f5",
+                    "secondary-container": "#E4EDD3",
+                    "background": "#fff8f5",
+                    "honey-gold": "#B97A1E",
+                    "primary-fixed": "#ffdad5",
+                    "on-background": "#221a13",
+                    "surface": "#fff8f5",
+                    "surface-container-highest": "#f0dfd4",
+                    "on-primary": "#ffffff",
+                    "on-tertiary-container": "#ffcc91",
+                    "primary": "#871a11"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xxl": "32px",
+                    "m": "12px",
+                    "l": "16px",
+                    "gutter-card": "12px",
+                    "xs": "4px",
+                    "xl": "24px",
+                    "s": "8px",
+                    "margin-screen": "16px",
+                    "padding-card": "14px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Tajawal"],
+                    "label-lg": ["Tajawal"],
+                    "title-lg": ["Alexandria"],
+                    "body-sm": ["Tajawal"],
+                    "display-lg-mobile": ["Alexandria"],
+                    "body-md": ["Tajawal"],
+                    "headline-lg": ["Alexandria"],
+                    "display-lg": ["Alexandria"],
+                    "price-display": ["Tajawal"]
+            },
+            "fontSize": {
+                    "body-lg": ["15.5px", {"lineHeight": "1.7", "fontWeight": "500"}],
+                    "label-lg": ["14px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                    "title-lg": ["17px", {"lineHeight": "1.45", "fontWeight": "700"}],
+                    "body-sm": ["12px", {"lineHeight": "1.5", "fontWeight": "500"}],
+                    "display-lg-mobile": ["30px", {"lineHeight": "1.35", "fontWeight": "800"}],
+                    "body-md": ["14.5px", {"lineHeight": "1.75", "fontWeight": "400"}],
+                    "headline-lg": ["22px", {"lineHeight": "1.4", "fontWeight": "700"}],
+                    "display-lg": ["40px", {"lineHeight": "1.35", "fontWeight": "800"}],
+                    "price-display": ["16px", {"lineHeight": "1.0", "fontWeight": "800"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #FBF7F1;
+            font-family: 'Tajawal', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .order-card-shadow {
+            box-shadow: 0 4px 12px rgba(43, 33, 26, 0.08);
+        }
+        .rejection-panel {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+        }
+        .rejection-panel.active {
+            max-height: 400px;
+            opacity: 1;
+            margin-top: 16px;
+        }
+    </style>
+</head>
+<body class="bg-tahini-bg min-h-screen flex flex-col">
+<!-- Top App Bar (From Shared Components) -->
+<header class="flex justify-between items-center px-margin-screen w-full h-16 bg-surface dark:bg-surface sticky top-0 z-40">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-primary hover:opacity-80 transition-opacity duration-200">arrow_forward</button>
+<h1 class="font-title-lg text-title-lg text-primary">تأكيد الطلب</h1>
+</div>
+<div class="w-10"></div> <!-- Spacer for balance -->
+</header>
+<!-- Background Content (Dimmed Order Details) -->
+<main class="flex-grow px-margin-screen py-6 space-y-6 opacity-40 select-none pointer-events-none">
+<!-- Driver Info -->
+<section class="bg-surface p-padding-card rounded-xl order-card-shadow flex items-center gap-4">
+<div class="w-16 h-16 rounded-full overflow-hidden border-2 border-secondary-container">
+<img class="w-full h-full object-cover" data-alt="A close-up portrait of a friendly Middle Eastern delivery driver smiling warmly. He wears a clean branded polo shirt in a subtle olive green tone. The background is a soft-focus urban street during golden hour, reflecting a warm, communal atmosphere consistent with artisanal food delivery services." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCe_c1wBBE-E8Ya_Xagf0nFCJZA84drekJqSkm2rY-RXEwywecKg4Nmv72Iw-sGGL0t1bZfNGkc1SYXnIPL5G03RLKrHpheEkC7eU9GyB_vju7J4SAjLTEFhsZah2hg16UJPyrAIaIsEe0poSWgmRSuK2Ed2gDP0E6Mjvu3z_alR4VLfo2P2D0hHl3gKLPRi-MJ4qg5z7ZGzdwghg-2GGVELuVqqhYNlJWrbta7EN9saCgvm8OLJ9HW">
+</div>
+<div>
+<h3 class="font-title-lg text-title-lg text-on-surface">أحمد محمود</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">stars</span>
+                    4.9 (240 تقييم)
+                </p>
+</div>
+<div class="mr-auto">
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full font-label-lg text-label-lg">في الطريق</span>
+</div>
+</section>
+<!-- Order Summary -->
+<section class="bg-surface p-padding-card rounded-xl order-card-shadow space-y-4">
+<h2 class="font-headline-lg text-headline-lg text-on-surface border-b border-outline-variant pb-2">تفاصيل العشاء</h2>
+<div class="space-y-3">
+<div class="flex justify-between items-center">
+<span class="font-body-md text-body-md text-on-surface-variant">2x منسف بلدي (كبير)</span>
+<span class="font-price-display text-price-display text-on-surface">45.00 JOD</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-body-md text-body-md text-on-surface-variant">1x فتوش طازج</span>
+<span class="font-price-display text-price-display text-on-surface">3.50 JOD</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-body-md text-body-md text-on-surface-variant">رسوم التوصيل</span>
+<span class="font-price-display text-price-display text-on-surface text-zaatar-green">2.00 JOD</span>
+</div>
+</div>
+<div class="pt-4 border-t-2 border-dashed border-outline-variant flex justify-between items-center">
+<span class="font-title-lg text-title-lg text-warm-charcoal">الإجمالي</span>
+<span class="font-display-lg-mobile text-display-lg-mobile text-primary">50.50 JOD</span>
+</div>
+</section>
+<!-- Map Placeholder -->
+<section class="h-48 rounded-xl overflow-hidden order-card-shadow grayscale contrast-50">
+<div class="w-full h-full bg-cover bg-center" data-location="Amman, Jordan" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA6Kpn3cBfdwxxw1oDuLTI2D6fUqi_wSa4hbvy_S_Kg-hceNSi9drt2TPbudxt0L6DX8YwiD7VwYMz9UPsJU8SRXFytvxJ7Jr5zskTbCo22k71avbc5UxrSpLe3v_laTRnZR27-V3ZLTr-QCTWhH8fMrM12Q8qtXeJSw5DDli2-gqZzBly4AQFE4xOIyr0kZuMk7GvGPL-lzM3lr6c-hH5M66LtRs07ZuzBtATB8NB2ArxaF0zyAR-V')"></div>
+</section>
+</main>
+<!-- Acceptance Overlay / Dialog -->
+<div class="fixed inset-0 z-50 flex items-center justify-center px-4" id="acceptanceModal">
+<!-- Backdrop -->
+<div class="absolute inset-0 bg-warm-charcoal/60 backdrop-blur-sm transition-opacity duration-300"></div>
+<!-- Dialog Content -->
+<div class="relative bg-surface w-full max-w-md rounded-xxl shadow-2xl overflow-hidden flex flex-col p-6 animate-in fade-in zoom-in duration-300">
+<div class="text-center space-y-2 mb-8">
+<div class="inline-flex items-center justify-center w-16 h-16 bg-primary-container rounded-full text-primary mb-4">
+<span class="material-symbols-outlined text-[32px]" style="font-variation-settings: 'FILL' 1;">package_2</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">هل تستلم الطلب؟</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">عامل التوصيل بانتظار تأكيدك</p>
+</div>
+<div class="flex flex-row gap-4 mb-4">
+<!-- Accept Button -->
+<button class="flex-1 bg-sumac-red text-on-primary py-3 rounded-xl font-label-lg text-label-lg flex items-center justify-center gap-2 hover:opacity-90 active:scale-95 transition-all shadow-md" onclick="handleAccept()">
+<span class="material-symbols-outlined">check_circle</span>
+                    قبول واستلام ✓
+                </button>
+<!-- Reject Button -->
+<button class="flex-1 border-1.5 border-error text-error py-3 rounded-xl font-label-lg text-label-lg flex items-center justify-center gap-2 hover:bg-error-container/20 active:scale-95 transition-all" onclick="toggleRejection()">
+<span class="material-symbols-outlined">cancel</span>
+                    رفض الطلب
+                </button>
+</div>
+<!-- Conditional Area: Rejection Reason -->
+<div class="rejection-panel border-2 border-dashed border-outline-variant rounded-xl p-4 bg-surface-container-low mt-4" id="rejectionPanel">
+<label class="block font-label-lg text-label-lg text-on-surface-variant mb-2">سبب الرفض</label>
+<textarea class="w-full bg-surface border-outline focus:border-sumac-red focus:ring-0 rounded-lg p-3 font-body-md text-body-md text-on-surface resize-none h-24 mb-4" id="rejectionInput" placeholder="اكتب سبب الرفض..."></textarea>
+<button class="w-full bg-sumac-red text-on-primary py-3 rounded-xl font-label-lg text-label-lg hover:opacity-90 active:scale-95 transition-all shadow-md" onclick="submitRejection()">
+                    إرسال السبب
+                </button>
+</div>
+</div>
+</div>
+<!-- Bottom Nav Bar (From Shared Components) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 bg-surface dark:bg-surface shadow-[0_-2px_10px_rgba(43,33,26,0.08)] rounded-t-xl opacity-30 select-none pointer-events-none">
+<div class="flex flex-col items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-lg text-label-lg">الرئيسية</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-label-lg text-label-lg">طلباتي</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="font-label-lg text-label-lg">السلة</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-lg text-label-lg">الحساب</span>
+</div>
+</nav>
+<script>
+        function toggleRejection() {
+            const panel = document.getElementById('rejectionPanel');
+            panel.classList.toggle('active');
+            if (panel.classList.contains('active')) {
+                panel.scrollIntoView({ behavior: 'smooth' });
+                document.getElementById('rejectionInput').focus();
+            }
+        }
+
+        function handleAccept() {
+            const btn = event.currentTarget;
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin">progress_activity</span> جاري التأكيد...';
+            btn.classList.add('opacity-80', 'pointer-events-none');
+            
+            setTimeout(() => {
+                alert('تم استلام الطلب بنجاح! بالعافية.');
+                window.location.reload();
+            }, 1500);
+        }
+
+        function submitRejection() {
+            const reason = document.getElementById('rejectionInput').value.trim();
+            if (!reason) {
+                alert('يرجى كتابة سبب الرفض');
+                return;
+            }
+            
+            const btn = event.currentTarget;
+            btn.innerHTML = 'جاري الإرسال...';
+            btn.classList.add('opacity-80', 'pointer-events-none');
+
+            setTimeout(() => {
+                alert('تم إرسال سبب الرفض. سيقوم فريق الدعم بالتواصل معك فوراً.');
+                window.location.reload();
+            }, 1500);
+        }
+    </script>
+
+
+</body></html>

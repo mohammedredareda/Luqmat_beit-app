@@ -1,0 +1,205 @@
+<!DOCTYPE html><html dir="rtl" lang="ar" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Catering Review - Luqmat Beit</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;700;800&amp;family=Tajawal:wght@400;500;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "warm-charcoal": "#2A211A",
+                        "on-primary-container": "#6E1A11",
+                        "tertiary-container": "#F7E7CC",
+                        "on-primary-fixed-variant": "#8a1c13",
+                        "sumac-red": "#A83226",
+                        "secondary-container": "#E4EDD3",
+                        "secondary": "#4e6628",
+                        "surface-variant": "#f0dfd4",
+                        "ink-muted": "#71655B",
+                        "on-tertiary-container": "#ffcc91",
+                        "surface-container-high": "#f6e5da",
+                        "surface-bright": "#fff8f5",
+                        "primary-container": "#FADDD7",
+                        "surface": "#fff8f5",
+                        "background": "#fff8f5",
+                        "on-primary": "#ffffff",
+                        "inverse-primary": "#ffb4a9",
+                        "tahini-bg": "#FBF7F1",
+                        "on-secondary-fixed-variant": "#374d12",
+                        "on-error": "#ffffff",
+                        "surface-container": "#fcebdf",
+                        "on-tertiary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "on-surface-variant": "#58413e",
+                        "error": "#ba1a1a",
+                        "error-container": "#ffdad6",
+                        "on-surface": "#221a13",
+                        "outline-variant": "#e0bfba",
+                        "on-background": "#221a13",
+                        "primary-fixed-dim": "#ffb4a9",
+                        "on-secondary-fixed": "#121f00",
+                        "primary-fixed": "#ffdad5",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "inverse-on-surface": "#ffeee2",
+                        "tertiary-fixed": "#ffddb8",
+                        "honey-gold": "#B97A1E",
+                        "primary": "#871a11",
+                        "on-primary-fixed": "#410000",
+                        "zaatar-green": "#5A7233",
+                        "surface-container-low": "#fff1e8",
+                        "tertiary": "#623c00",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-highest": "#f0dfd4",
+                        "secondary-fixed-dim": "#b4d086",
+                        "on-secondary-container": "#546c2e",
+                        "on-error-container": "#93000a",
+                        "inverse-surface": "#382e27",
+                        "outline": "#D9CEC1",
+                        "on-tertiary-fixed": "#2a1700",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed": "#d0eda0",
+                        "surface-tint": "#ab3428",
+                        "surface-dim": "#e8d7cc"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter-card": "12px",
+                        "xs": "4px",
+                        "xl": "24px",
+                        "padding-card": "14px",
+                        "margin-screen": "16px",
+                        "s": "8px",
+                        "m": "12px",
+                        "xxl": "32px",
+                        "l": "16px"
+                    },
+                    "fontFamily": {
+                        "title-lg": ["Alexandria", "sans-serif"],
+                        "body-md": ["Tajawal", "sans-serif"],
+                        "display-lg": ["Alexandria", "sans-serif"],
+                        "display-lg-mobile": ["Alexandria", "sans-serif"],
+                        "headline-lg": ["Alexandria", "sans-serif"],
+                        "body-sm": ["Tajawal", "sans-serif"],
+                        "body-lg": ["Tajawal", "sans-serif"],
+                        "price-display": ["Tajawal", "sans-serif"],
+                        "label-lg": ["Tajawal", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "title-lg": ["17px", { "lineHeight": "1.45", "fontWeight": "700" }],
+                        "body-md": ["14.5px", { "lineHeight": "1.75", "fontWeight": "400" }],
+                        "display-lg": ["40px", { "lineHeight": "1.35", "fontWeight": "800" }],
+                        "display-lg-mobile": ["30px", { "lineHeight": "1.35", "fontWeight": "800" }],
+                        "headline-lg": ["22px", { "lineHeight": "1.4", "fontWeight": "700" }],
+                        "body-sm": ["12px", { "lineHeight": "1.5", "fontWeight": "500" }],
+                        "body-lg": ["15.5px", { "lineHeight": "1.7", "fontWeight": "500" }],
+                        "price-display": ["16px", { "lineHeight": "1.0", "fontWeight": "800" }],
+                        "label-lg": ["14px", { "lineHeight": "1.2", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(251, 247, 241, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(217, 206, 193, 0.4);
+        }
+    </style>
+</head>
+<body class="bg-tahini-bg text-on-surface font-body-md antialiased overflow-hidden selection:bg-primary-container selection:text-primary">
+<!-- TopAppBar (Blurred Background Context) -->
+<header class="w-full top-0 sticky bg-surface dark:bg-surface-dim shadow-sm flex items-center px-margin-screen h-16 w-full max-w-screen-xl mx-auto blur-[2px] opacity-70 transition-all pointer-events-none">
+<div class="flex items-center gap-4">
+<button aria-label="Go back" class="p-2 rounded-full hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-sumac-red dark:text-primary-fixed-dim">arrow_back</span>
+</button>
+<h1 class="font-title-lg text-title-lg md:font-headline-lg md:text-headline-lg text-sumac-red dark:text-primary-fixed-dim">Luqmat Beit</h1>
+</div>
+</header>
+<!-- Main Content Canvas (Blurred Background Context) -->
+<main class="max-w-screen-md mx-auto px-margin-screen py-xl blur-[2px] opacity-70 pointer-events-none min-h-screen">
+<h2 class="font-headline-lg text-headline-lg text-warm-charcoal mb-xl">ملخص الطلب</h2>
+<!-- Order Items List (High Quantities) -->
+<div class="flex flex-col gap-gutter-card mb-xxl">
+<!-- Item 1 -->
+<div class="bg-surface rounded-xl shadow-sm border border-outline-variant/30 p-padding-card flex items-center gap-m">
+<img class="w-20 h-20 rounded-lg object-cover bg-surface-variant" data-alt="A beautifully plated traditional Levantine Mansaf dish, with rich yogurt sauce poured over rice and tender lamb, garnished with golden roasted pine nuts and almonds, warm overhead lighting, high-end food photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAOwyj6kTj_ACsQqhfxITWTMU0mKoNhc4X_31yjvS3mLdtBgJv0euUS1_Wk6MT2mAzxoNTTFcHYm2CCVD5piP2JhkfP5Jo22tnqClG_4H9mvyZKz2z3A1qqz9_TDdtLS41hVMyjFAic_hcF1rzuloVYFbip0KGxDAUU3E-jLYOCEkhZgqF1AwSmuG6KhxarRsaGCtmiDhMTDx0BEb8ow50_w_GQNKBcIsVNIzzQfRfxLTsc9ZJlhvih">
+<div class="flex-1 flex flex-col justify-center">
+<h3 class="font-title-lg text-title-lg text-warm-charcoal">منسف أردني</h3>
+<p class="font-body-sm text-body-sm text-ink-muted">وجبة عائلية فاخرة</p>
+</div>
+<div class="flex flex-col items-end gap-s">
+<span class="font-price-display text-price-display text-warm-charcoal">75 د.أ</span>
+<span class="font-label-lg text-label-lg text-primary bg-primary-container px-3 py-1 rounded-full">x15</span>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="bg-surface rounded-xl shadow-sm border border-outline-variant/30 p-padding-card flex items-center gap-m">
+<img class="w-20 h-20 rounded-lg object-cover bg-surface-variant" data-alt="A large tray of freshly baked Musakhan, featuring flatbread soaked in olive oil and sumac, topped with tender roasted chicken, caramelized onions, and toasted pine nuts, rustic warm lighting, authentic Levantine food photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3BJbfPJopTQgzSiGHjA8a4JUtcsDgoWxxaJIPw9BaEBi2ocYnBuTEI2yi6kr3xvNgRdYl6ZvQenSpvGF_HG91B7hVnCMVS5s1VQjh_EBv46kw7YALAH-mC8N1jq0a-eq8_GTz_uOYcPGXY9IWiSGLmv5bD3FYVWAN8GG61qnAReH9QUP7dvdw6FP08tyEScxKv5JTupmjXnIhh_MNhiMP6pmd8f1yWNCJ62AL1nGp9K_O5_aRPcuB">
+<div class="flex-1 flex flex-col justify-center">
+<h3 class="font-title-lg text-title-lg text-warm-charcoal">مسخن فلسطيني</h3>
+<p class="font-body-sm text-body-sm text-ink-muted">دجاج بلدي مع بصل وسماق</p>
+</div>
+<div class="flex flex-col items-end gap-s">
+<span class="font-price-display text-price-display text-warm-charcoal">45 د.أ</span>
+<span class="font-label-lg text-label-lg text-primary bg-primary-container px-3 py-1 rounded-full">x10</span>
+</div>
+</div>
+</div>
+<!-- Fake Total -->
+<div class="border-t border-outline py-m flex justify-between items-center mb-xl">
+<span class="font-title-lg text-title-lg text-warm-charcoal">المجموع التقريبي</span>
+<span class="font-price-display text-price-display text-primary text-xl">1,575 د.أ</span>
+</div>
+</main>
+<!-- Overlay & Modal -->
+<div class="fixed inset-0 z-50 flex items-center justify-center p-margin-screen bg-warm-charcoal/40 backdrop-blur-sm transition-opacity duration-300">
+<div class="bg-surface rounded-[24px] shadow-[0_8px_32px_rgba(42,33,26,0.12)] w-full max-w-sm overflow-hidden flex flex-col animate-[slideUp_0.3s_ease-out]">
+<!-- Modal Header (Honey Gold / Amber Status) -->
+<div class="p-xl flex flex-col items-center justify-center border-b border-outline/20 relative bg-surface text-on-surface">
+
+<h2 class="font-headline-lg text-headline-lg text-tertiary text-center"><span class="material-symbols-outlined text-honey-gold align-middle ml-2" style="font-variation-settings: &quot;FILL&quot; 1; font-size: 28px;">hourglass_top</span>الطلب قيد المراجعة</h2>
+</div>
+<!-- Modal Body -->
+<div class="p-xl flex flex-col gap-m text-center">
+<p class="font-body-lg text-body-lg text-on-surface-variant">
+                    هذا الطلب يتطلب تحققا بشريا نظرا لكميته الكبيرة سيتواصل معك فريق الدعم قريبا للتاكيد</p>
+
+</div>
+<!-- Modal Actions -->
+<div class="p-xl pt-0 mt-s">
+<button class="w-full bg-sumac-red text-on-primary font-label-lg text-label-lg py-m rounded-full flex items-center justify-center gap-2 hover:opacity-90 active:scale-[0.98] transition-all h-[48px]">
+<span class="">حسناً</span>
+</button>
+</div>
+</div>
+</div>
+<style>
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+    </style>
+
+
+</body></html>

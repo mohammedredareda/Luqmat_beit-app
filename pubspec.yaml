@@ -46,6 +46,12 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^5.0.0
 
+  # Melos workspace root — the real apps now live under apps/customer_app and
+  # apps/cook_app (see melos.yaml). This root pubspec is kept only so `melos`
+  # has a workspace anchor; this package's own lib/main.dart is stale
+  # pre-restructure boilerplate, not a shipped app.
+  melos: ^6.1.0
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

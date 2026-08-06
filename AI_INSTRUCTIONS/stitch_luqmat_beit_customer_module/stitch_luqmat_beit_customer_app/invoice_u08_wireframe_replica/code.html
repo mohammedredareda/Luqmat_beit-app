@@ -1,0 +1,207 @@
+<!DOCTYPE html><html dir="rtl" lang="ar" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Invoice - Luqmat Beit</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;700;800&amp;family=Tajawal:wght@400;500;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface-variant": "#58413e",
+                        "on-primary-container": "#ffc9c0",
+                        "tertiary-container": "#F7E7CC",
+                        "on-background": "#221a13",
+                        "inverse-surface": "#382e27",
+                        "error": "#ba1a1a",
+                        "secondary-container": "#E4EDD3",
+                        "ink-muted": "#71655B",
+                        "outline-variant": "#e0bfba",
+                        "primary": "#871a11",
+                        "on-primary-fixed-variant": "#8a1c13",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "secondary": "#4e6628",
+                        "on-secondary-fixed": "#121f00",
+                        "on-error": "#ffffff",
+                        "sumac-red": "#A83226",
+                        "inverse-on-surface": "#ffeee2",
+                        "inverse-primary": "#ffb4a9",
+                        "surface": "#fff8f5",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "secondary-fixed": "#d0eda0",
+                        "surface-variant": "#f0dfd4",
+                        "on-primary": "#ffffff",
+                        "tahini-bg": "#FBF7F1",
+                        "zaatar-green": "#5A7233",
+                        "on-tertiary-container": "#ffcc91",
+                        "on-tertiary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "outline": "#D9CEC1",
+                        "surface-container-highest": "#f0dfd4",
+                        "primary-fixed": "#ffdad5",
+                        "surface-container": "#fcebdf",
+                        "primary-container": "#FADDD7",
+                        "surface-container-high": "#f6e5da",
+                        "on-primary-fixed": "#410000",
+                        "on-surface": "#221a13",
+                        "surface-tint": "#ab3428",
+                        "secondary-fixed-dim": "#b4d086",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed-variant": "#374d12",
+                        "surface-container-low": "#fff1e8",
+                        "on-secondary": "#ffffff",
+                        "warm-charcoal": "#2A211A",
+                        "honey-gold": "#B97A1E",
+                        "surface-dim": "#e8d7cc",
+                        "tertiary-fixed": "#ffddb8",
+                        "on-tertiary-fixed": "#2a1700",
+                        "primary-fixed-dim": "#ffb4a9",
+                        "on-secondary-container": "#546c2e",
+                        "tertiary": "#623c00",
+                        "surface-bright": "#fff8f5",
+                        "background": "#fff8f5"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "s": "8px",
+                        "xxl": "32px",
+                        "xl": "24px",
+                        "l": "16px",
+                        "gutter-card": "12px",
+                        "margin-screen": "16px",
+                        "m": "12px",
+                        "xs": "4px",
+                        "padding-card": "14px"
+                    },
+                    fontFamily: {
+                        "label-lg": ["Tajawal", "sans-serif"],
+                        "price-display": ["Tajawal", "sans-serif"],
+                        "headline-lg": ["Alexandria", "sans-serif"],
+                        "display-lg": ["Alexandria", "sans-serif"],
+                        "display-lg-mobile": ["Alexandria", "sans-serif"],
+                        "body-md": ["Tajawal", "sans-serif"],
+                        "title-lg": ["Alexandria", "sans-serif"],
+                        "body-lg": ["Tajawal", "sans-serif"],
+                        "body-sm": ["Tajawal", "sans-serif"]
+                    },
+                    fontSize: {
+                        "label-lg": ["14px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "price-display": ["16px", { "lineHeight": "1.0", "fontWeight": "800" }],
+                        "headline-lg": ["22px", { "lineHeight": "1.4", "fontWeight": "700" }],
+                        "display-lg": ["40px", { "lineHeight": "1.35", "fontWeight": "800" }],
+                        "display-lg-mobile": ["30px", { "lineHeight": "1.35", "fontWeight": "800" }],
+                        "body-md": ["14.5px", { "lineHeight": "1.75", "fontWeight": "400" }],
+                        "title-lg": ["17px", { "lineHeight": "1.45", "fontWeight": "700" }],
+                        "body-lg": ["15.5px", { "lineHeight": "1.7", "fontWeight": "500" }],
+                        "body-sm": ["12px", { "lineHeight": "1.5", "fontWeight": "500" }]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #FBF7F1; /* tahini-bg */
+            color: #221a13; /* on-surface */
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 1;
+        }
+        .dashed-border {
+            border-bottom: 2px dashed #D9CEC1; /* outline */
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col font-body-md antialiased pb-safe">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky bg-surface dark:bg-surface-dim shadow-sm z-50">
+<div class="flex items-center px-margin-screen h-16 w-full max-w-screen-xl mx-auto justify-between">
+<button class="text-sumac-red dark:text-primary-fixed-dim hover:opacity-80 transition-opacity active:scale-95 transition-transform flex items-center justify-center p-2 rounded-full hover:bg-surface-variant/50">
+
+</button>
+<h1 class="font-title-lg text-title-lg md:font-headline-lg md:text-headline-lg text-on-surface">الفاتورة 🧾</h1>
+<div class="w-10"></div> <!-- Spacer for symmetry -->
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 w-full max-w-md mx-auto px-margin-screen py-xl flex flex-col gap-xl">
+<!-- Order Info Header -->
+<div class="flex flex-col items-center justify-center gap-xs text-center">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">طلب #ORD-2026-014</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">10/07/2026 — 1:30 م</p>
+</div>
+<!-- Invoice Card (Glassmorphism / Bento style container) -->
+<div class="bg-surface rounded-xl shadow-[0_2px_8px_rgba(43,33,26,0.05)] border border-outline-variant p-padding-card flex flex-col gap-l relative overflow-hidden">
+<!-- Decorative corner accent -->
+<div class="absolute -top-10 -right-10 w-24 h-24 bg-primary-container rounded-full opacity-50 blur-xl"></div>
+<!-- Section 1: Order Details -->
+<div class="relative z-10 flex flex-col gap-s">
+<h3 class="font-title-lg text-title-lg text-on-surface mb-xs">تفاصيل الطلب</h3>
+<div class="flex justify-between items-center py-xs border-b border-surface-variant">
+<span class="font-body-lg text-body-lg text-on-surface">كبسة دجاج ×2</span>
+<span class="font-price-display text-price-display text-on-surface">80,000</span>
+</div>
+<div class="flex justify-between items-center py-xs border-b border-surface-variant">
+<span class="font-body-lg text-body-lg text-on-surface">فتوش ×1</span>
+<span class="font-price-display text-price-display text-on-surface">15,000</span>
+</div>
+</div>
+<!-- Section 2: Breakdown -->
+<div class="relative z-10 flex flex-col gap-xs mt-s">
+<h3 class="font-title-lg text-title-lg text-on-surface mb-xs hidden">الحساب</h3> <!-- Hidden visually, good for structure -->
+<div class="flex justify-between items-center py-xs text-on-surface-variant">
+<span class="font-body-md text-body-md">المجموع الفرعي</span>
+<span class="font-body-md text-body-md">95,000</span>
+</div>
+<div class="flex justify-between items-center py-xs text-zaatar-green">
+<span class="font-body-md text-body-md">الخصم (S8)</span>
+<span class="font-body-md text-body-md">-10,000</span>
+</div>
+<div class="flex justify-between items-center py-xs text-on-surface-variant">
+<span class="font-body-md text-body-md">أجرة التوصيل</span>
+<span class="font-body-md text-body-md">10,000</span>
+</div>
+</div>
+<!-- Dashed Divider -->
+<div class="dashed-border w-full my-xs"></div>
+<!-- Total -->
+<div class="relative z-10 flex justify-between items-center py-s">
+<span class="font-title-lg text-title-lg text-on-surface">الإجمالي</span>
+<span class="font-display-lg-mobile text-display-lg-mobile text-sumac-red">95,000 ل.س</span>
+</div>
+<!-- Cutout effect at bottom of receipt -->
+<div class="absolute -bottom-2 left-0 right-0 h-4 flex justify-around overflow-hidden opacity-20">
+<div class="w-4 h-4 rounded-full bg-tahini-bg -mt-2"></div>
+<div class="w-4 h-4 rounded-full bg-tahini-bg -mt-2"></div>
+<div class="w-4 h-4 rounded-full bg-tahini-bg -mt-2"></div>
+<div class="w-4 h-4 rounded-full bg-tahini-bg -mt-2"></div>
+<div class="w-4 h-4 rounded-full bg-tahini-bg -mt-2"></div>
+<div class="w-4 h-4 rounded-full bg-tahini-bg -mt-2"></div>
+<div class="w-4 h-4 rounded-full bg-tahini-bg -mt-2"></div>
+<div class="w-4 h-4 rounded-full bg-tahini-bg -mt-2"></div>
+</div>
+</div>
+<!-- Action Button -->
+
+<div class="mt-auto pt-xl pb-l w-full">
+<button class="w-full py-m px-l rounded-xl border border-sumac-red text-sumac-red font-label-lg text-label-lg flex justify-center items-center gap-s hover:bg-surface-variant/50 transition-opacity active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-sumac-red focus:ring-offset-2 focus:ring-offset-tahini-bg shadow-sm">
+<span class="material-symbols-outlined text-[20px]" data-icon="share">share</span>
+تحميل / مشاركة الفاتورة
+</button>
+</div></main>
+<!-- Suppressed Nav Shell as this is a transactional/focused screen (U08) -->
+
+
+
+
+</body></html>

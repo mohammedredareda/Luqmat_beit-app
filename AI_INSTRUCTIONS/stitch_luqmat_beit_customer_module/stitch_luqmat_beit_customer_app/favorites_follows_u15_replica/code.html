@@ -1,0 +1,260 @@
+<!DOCTYPE html><html dir="rtl" lang="ar" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;700;800&amp;family=Tajawal:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-high": "#f6e5da",
+                    "on-tertiary-container": "#ffcc91",
+                    "inverse-primary": "#ffb4a9",
+                    "tertiary-container": "#825100",
+                    "on-primary-fixed-variant": "#8a1c13",
+                    "primary-container": "#a83226",
+                    "on-tertiary-fixed": "#2a1700",
+                    "on-tertiary": "#ffffff",
+                    "tertiary": "#623c00",
+                    "secondary-container": "#d0eda0",
+                    "error-container": "#ffdad6",
+                    "on-error": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-container": "#546c2e",
+                    "secondary-fixed": "#d0eda0",
+                    "surface-container-highest": "#f0dfd4",
+                    "on-surface": "#221a13",
+                    "surface-variant": "#F2EBE1",
+                    "surface-bright": "#fff8f5",
+                    "surface-container": "#fcebdf",
+                    "outline-variant": "#e0bfba",
+                    "error": "#ba1a1a",
+                    "secondary-fixed-dim": "#b4d086",
+                    "background": "#fff8f5",
+                    "surface-container-low": "#fff1e8",
+                    "honey-gold": "#B97A1E",
+                    "on-background": "#221a13",
+                    "tertiary-fixed": "#ffddb8",
+                    "surface-tint": "#ab3428",
+                    "tertiary-fixed-dim": "#ffb95f",
+                    "on-tertiary-fixed-variant": "#653e00",
+                    "inverse-surface": "#382e27",
+                    "inverse-on-surface": "#ffeee2",
+                    "primary": "#871a11",
+                    "on-error-container": "#93000a",
+                    "on-secondary-fixed": "#121f00",
+                    "zaatar-green": "#5A7233",
+                    "surface-dim": "#e8d7cc",
+                    "sumac-red": "#A83226",
+                    "outline": "#D9CEC1",
+                    "on-primary-fixed": "#410000",
+                    "primary-fixed": "#ffdad5",
+                    "on-secondary": "#ffffff",
+                    "tahini-bg": "#FBF7F1",
+                    "secondary": "#4e6628",
+                    "on-secondary-fixed-variant": "#374d12",
+                    "on-primary": "#ffffff",
+                    "ink-muted": "#71655B",
+                    "warm-charcoal": "#2A211A",
+                    "surface": "#fff8f5",
+                    "on-primary-container": "#6E1A11",
+                    "primary-fixed-dim": "#ffb4a9",
+                    "on-surface-variant": "#58413e"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xs": "4px",
+                    "s": "8px",
+                    "m": "12px",
+                    "xxl": "32px",
+                    "padding-card": "14px",
+                    "margin-screen": "16px",
+                    "gutter-card": "12px",
+                    "l": "16px",
+                    "xl": "24px"
+            },
+            "fontFamily": {
+                    "title-lg": ["Alexandria"],
+                    "body-lg": ["Tajawal"],
+                    "label-lg": ["Tajawal"],
+                    "headline-lg": ["Alexandria"],
+                    "display-lg-mobile": ["Alexandria"],
+                    "body-md": ["Tajawal"],
+                    "display-lg": ["Alexandria"],
+                    "body-sm": ["Tajawal"],
+                    "price-display": ["Tajawal"]
+            },
+            "fontSize": {
+                    "title-lg": ["17px", {"lineHeight": "1.45", "fontWeight": "700"}],
+                    "body-lg": ["15.5px", {"lineHeight": "1.7", "fontWeight": "500"}],
+                    "label-lg": ["14px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                    "headline-lg": ["22px", {"lineHeight": "1.4", "fontWeight": "700"}],
+                    "display-lg-mobile": ["30px", {"lineHeight": "1.35", "fontWeight": "800"}],
+                    "body-md": ["14.5px", {"lineHeight": "1.75", "fontWeight": "400"}],
+                    "display-lg": ["40px", {"lineHeight": "1.35", "fontWeight": "800"}],
+                    "body-sm": ["12px", {"lineHeight": "1.5", "fontWeight": "500"}],
+                    "price-display": ["16px", {"lineHeight": "1.0", "fontWeight": "800"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #FBF7F1;
+            color: #221a13;
+            font-family: 'Tajawal', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .fill-icon {
+            font-variation-settings: 'FILL' 1;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .tab-indicator {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+</head>
+<body class="bg-tahini-bg min-h-screen pb-24">
+<!-- Top App Bar -->
+<header class="w-full sticky top-0 z-50 bg-background flex items-center justify-between px-margin-screen h-16 shadow-none">
+<button class="material-symbols-outlined text-primary p-2 active:scale-95 transition-transform">notifications</button>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary">المفضلة ♥</h1>
+<button class="material-symbols-outlined text-primary p-2 active:scale-95 transition-transform">arrow_back</button>
+</header>
+<!-- Tabs Container -->
+<div class="sticky top-16 z-40 bg-tahini-bg border-b border-outline/30 px-margin-screen">
+<div class="flex justify-around items-center h-12 relative">
+<button class="flex-1 font-title-lg text-title-lg text-primary transition-colors py-2" id="tab-meals" onclick="switchTab('meals')">
+                وجبات مفضلة
+            </button>
+<button class="flex-1 font-title-lg text-title-lg text-on-surface-variant transition-colors py-2" id="tab-cooks" onclick="switchTab('cooks')">
+                طباخات أتابعها
+            </button>
+<!-- Animated Pill Indicator -->
+<div class="absolute bottom-0 h-1 bg-primary rounded-t-full w-1/2 right-0 tab-indicator" id="active-indicator"></div>
+</div>
+</div>
+<main class="mt-xl px-margin-screen">
+<!-- Tab Content: Meals (Active) -->
+<div class="space-y-m" id="content-meals">
+<!-- Meal Card 1 -->
+<div class="bg-surface rounded-xl p-padding-card flex items-center gap-m shadow-[0_4px_12px_rgba(43,33,26,0.08)] animate-fade-in"><div class="w-24 h-24 rounded-lg overflow-hidden flex-shrink-0"><img class="w-full h-full object-cover" data-alt="A top-down professional food photograph of a traditional Palestinian Maklouba dish with layered rice, eggplant, and succulent meat. The lighting is warm and natural, suggesting a home kitchen setting. The colors are rich browns and golden yellows, fitting the Sumac Red and Tahini aesthetic of the brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFJuRHOv7nhuZP3IttAgNsqy4-lx_GBAD-vzgXoxVAhXvD-6A9CQOsy9nKe3fpviUT94kwRc8pTIa89Ii95S7t-to6kcCvaxcYK3oe0v0Fnv0tmzmnEkZwuKIZ3VIcTpC0IEKPbL7iNf9aYTiEiRb4qvglddejF2WuNpJTVubuYKbok8NR0GsY-leQYhSuQ8EaBMGGjS0EtW1xPuCsviguv8gsi1WVf4VMHyv3PZBMr3kocx8ZNV09"></div><div class="flex-1 min-w-0"><h3 class="font-title-lg text-title-lg text-warm-charcoal truncate">مقلوبة باذنجان باللحم</h3><p class="font-body-md text-body-md text-ink-muted">الشيف منيرة الشامي</p><div class="flex items-center gap-1 mt-1"><span class="material-symbols-outlined text-[14px] text-honey-gold fill-icon">star</span><span class="font-label-lg text-label-lg text-honey-gold">4.9</span><span class="text-outline mx-1">|</span><span class="font-price-display text-price-display text-sumac-red">85 ر.س</span></div></div><button class="material-symbols-outlined text-primary fill-icon text-[28px] active:scale-90 transition-transform">favorite</button></div>
+<!-- Meal Card 2 -->
+<div class="bg-surface rounded-xl p-padding-card flex items-center gap-m shadow-[0_4px_12px_rgba(43,33,26,0.08)] animate-fade-in"><div class="w-24 h-24 rounded-lg overflow-hidden flex-shrink-0"><img class="w-full h-full object-cover" data-alt="Close-up of golden-brown fried Kibbeh balls served on a ceramic plate with a sprig of mint. The texture of the cracked wheat crust is visible, suggesting artisanal quality. Soft focus background with a warm Levantine kitchen vibe, using a palette of earthy ochres and deep reds." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvRbXyAHvY_1jOimWhhIrgWFq6q30JWxvXVbu9FtVZ7aNzMraANn7wKxBLNHbRQ2qQz4t9h-rOSsXY8Ac73fyGgaSh9KdmXNf_9AnddhNZzQKSWbGLnTDrytqIcbQn54i8Fbgu6UeDHOhRDSy9ie2lLckREuuNSTLl_X00Xgx7cJ7gVqIbOYtpLmr0wbflTz7RNywNd6qeAWxYGMl8JgjjCdza75ObAKs98bvl8nqqSpVxS4lESE6K"></div><div class="flex-1 min-w-0"><h3 class="font-title-lg text-title-lg text-warm-charcoal truncate">كبة مقلية شامية</h3><p class="font-body-md text-body-md text-ink-muted">خالة أم محمد</p><div class="flex items-center gap-1 mt-1"><span class="material-symbols-outlined text-[14px] text-honey-gold fill-icon">star</span><span class="font-label-lg text-label-lg text-honey-gold">4.8</span><span class="text-outline mx-1">|</span><span class="font-price-display text-price-display text-sumac-red">45 ر.س</span></div></div><button class="material-symbols-outlined text-primary fill-icon text-[28px] active:scale-90 transition-transform">favorite</button></div>
+<!-- Meal Card 3 -->
+<div class="bg-surface rounded-xl p-padding-card flex items-center gap-m shadow-[0_4px_12px_rgba(43,33,26,0.08)] animate-fade-in"><div class="w-24 h-24 rounded-lg overflow-hidden flex-shrink-0"><img class="w-full h-full object-cover" data-alt="A festive Mansaf platter featuring tender lamb over turmeric rice, topped with toasted pine nuts and a side of jameed sauce. The styling is elegant yet authentic, capturing the communal spirit of Middle Eastern dining. The image is bright with high-key lighting and warm neutral tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBuKiPeAZoEpruo7vGu7r6edfv8G94pQHKmk_t2k8bFpfDDRuSGM_SAGy-oUETtDTtEctr1sPRXSFmr9hd5fT8d9MTat9qsBhOuO6rBhCl-R8e8ax3K7BfDEdCBjVNRux1GsTDsoCNw5gA_QIrp6GT4xmTNmrd4oSw3s9YT8qm96_epksP5ghf6yrf12fLehwtoB04V71GljaVXcTCjy9xxkIAgTjrpVEu0Oq_T1cHkX-mP1iuWmA6I"></div><div class="flex-1 min-w-0"><h3 class="font-title-lg text-title-lg text-warm-charcoal truncate">منسف كركي أصيل</h3><p class="font-body-md text-body-md text-ink-muted">مطبخ جمانة</p><div class="flex items-center gap-1 mt-1"><span class="material-symbols-outlined text-[14px] text-honey-gold fill-icon">star</span><span class="font-label-lg text-label-lg text-honey-gold">5.0</span><span class="text-outline mx-1">|</span><span class="font-price-display text-price-display text-sumac-red">120 ر.س</span></div></div><button class="material-symbols-outlined text-primary fill-icon text-[28px] active:scale-90 transition-transform">favorite</button></div>
+</div>
+<!-- Tab Content: Cooks (Hidden by Default) -->
+<div class="hidden space-y-m" id="content-cooks">
+<!-- Cook Card 1 -->
+<div class="bg-surface rounded-xl p-padding-card flex items-center gap-m shadow-[0_4px_12px_rgba(43,33,26,0.08)]">
+<div class="w-16 h-16 rounded-full overflow-hidden border-2 border-primary/20">
+<img class="w-full h-full object-cover" data-alt="Portrait of a smiling Middle Eastern woman in her 50s wearing a clean, white apron in a sunny, rustic kitchen. She looks friendly and experienced. The photographic style is warm and lifestyle-oriented, emphasizing the artisanal and homegrown brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCF3E89t4baYuLKNVeGKg2pIqKD0B_yHmh2-9Kb8LEy2R4tkcf5HF69u93NBZ_GSCZVEBiIvupyiza7gESqccphUSyqeiB0o6ZvBNfXzyXPBwzOwLReL5-2dVF3BKbTsqYExJGc46IkhQd8avDrBnZrkMQgOtYQBhrWH4hPD0wn3K-4SpwYjzCR8F9K3QNWTzmqjeR89IWF-g4VIVyki9gf979kZEpQ8PLwYOJ4uOo7XwPzvI54_NxG">
+</div>
+<div class="flex-1 min-w-0">
+<h3 class="font-title-lg text-title-lg text-warm-charcoal">منيرة الشامي</h3>
+<div class="flex items-center gap-2 mt-1">
+<span class="font-body-sm text-body-sm bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded-full">3.2 كم</span>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-honey-gold fill-icon">star</span>
+<span class="font-label-lg text-label-lg text-honey-gold">4.9 (120)</span>
+</div>
+</div>
+</div>
+<button class="bg-primary/10 text-primary font-label-lg text-label-lg px-4 py-2 rounded-full active:scale-95 transition-transform">متابعة</button>
+</div>
+<!-- Cook Card 2 -->
+<div class="bg-surface rounded-xl p-padding-card flex items-center gap-m shadow-[0_4px_12px_rgba(43,33,26,0.08)]">
+<div class="w-16 h-16 rounded-full overflow-hidden border-2 border-primary/20">
+<img class="w-full h-full object-cover" data-alt="A cheerful home chef arranging fresh herbs on a plate in a kitchen decorated with traditional Arabic tiles. High-end, soft lighting highlights the authentic ingredients. The mood is welcoming and artisanal, consistent with a premium food app aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkVrIF1x-TlarOrHGKsQMduiCOPnXGyKwM7-1nCVPLXauZjZkV8T3BDYhQCKPCBj5kyF9hZ6OV5q-pBbfsPTMLf3fbu2mH32c31Hq21EGbCFNx3NKvgEXfPvNYdZJ3ji0EajjxUzvlfPxlK2RHoJr3sJip4NAV3t1jHY8_ykuWJnRpnZq6IcYd-6hWOvKSpnBxsFFoiaomJSp5DYr7dmj7spmTWy_P5L1zoTtozyC_MaHaTCZVMVlI">
+</div>
+<div class="flex-1 min-w-0">
+<h3 class="font-title-lg text-title-lg text-warm-charcoal">خالة أم محمد</h3>
+<div class="flex items-center gap-2 mt-1">
+<span class="font-body-sm text-body-sm bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded-full">1.5 كم</span>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-honey-gold fill-icon">star</span>
+<span class="font-label-lg text-label-lg text-honey-gold">4.8 (85)</span>
+</div>
+</div>
+</div>
+<button class="bg-primary/10 text-primary font-label-lg text-label-lg px-4 py-2 rounded-full active:scale-95 transition-transform">متابعة</button>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 right-0 z-50 bg-surface-container flex justify-around items-center px-s pb-4 pt-3 w-full shadow-lg rounded-t-xl">
+<button class="flex flex-col items-center justify-center gap-1 text-on-surface-variant group">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-lg text-label-lg">حسابي</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-1 bg-primary-container text-on-primary-container rounded-full px-5 py-1">
+<span class="material-symbols-outlined fill-icon">favorite</span>
+<span class="font-label-lg text-label-lg">المفضلة</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined">play_circle</span>
+<span class="font-label-lg text-label-lg">الشورتس</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-label-lg text-label-lg">طلباتي</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-lg text-label-lg">الرئيسية</span>
+</button>
+</nav>
+<script>
+        function switchTab(tab) {
+            const mealsTab = document.getElementById('tab-meals');
+            const cooksTab = document.getElementById('tab-cooks');
+            const mealsContent = document.getElementById('content-meals');
+            const cooksContent = document.getElementById('content-cooks');
+            const indicator = document.getElementById('active-indicator');
+
+            if (tab === 'meals') {
+                mealsTab.classList.add('text-primary');
+                mealsTab.classList.remove('text-on-surface-variant');
+                cooksTab.classList.remove('text-primary');
+                cooksTab.classList.add('text-on-surface-variant');
+                
+                mealsContent.classList.remove('hidden');
+                cooksContent.classList.add('hidden');
+                
+                indicator.style.right = '0';
+            } else {
+                cooksTab.classList.add('text-primary');
+                cooksTab.classList.remove('text-on-surface-variant');
+                mealsTab.classList.remove('text-primary');
+                mealsTab.classList.add('text-on-surface-variant');
+                
+                cooksContent.classList.remove('hidden');
+                mealsContent.classList.add('hidden');
+                
+                indicator.style.right = '50%';
+            }
+        }
+    </script>
+
+
+</body></html>

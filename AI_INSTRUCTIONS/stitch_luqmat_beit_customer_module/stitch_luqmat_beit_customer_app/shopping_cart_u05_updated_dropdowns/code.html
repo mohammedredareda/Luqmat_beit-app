@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Luqmat Beit - Shopping Cart</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;700;800&amp;family=Tajawal:wght@300;400;500;700;800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "sumac-red": "#A83226",
+                    "surface-variant": "#F2EBE1",
+                    "secondary-container": "#d0eda0",
+                    "surface-dim": "#e8d7cc",
+                    "tertiary-container": "#F7E7CC",
+                    "tahini-bg": "#FBF7F1",
+                    "primary-container": "#FADDD7",
+                    "background": "#fff8f5",
+                    "tertiary-fixed": "#ffddb8",
+                    "secondary": "#4e6628",
+                    "on-primary": "#ffffff",
+                    "secondary-fixed-dim": "#b4d086",
+                    "primary-fixed": "#ffdad5",
+                    "on-primary-fixed": "#410000",
+                    "surface-tint": "#ab3428",
+                    "surface-bright": "#fff8f5",
+                    "on-secondary-fixed-variant": "#374d12",
+                    "outline-variant": "#e0bfba",
+                    "on-primary-container": "#6E1A11",
+                    "error-container": "#ffdad6",
+                    "primary-fixed-dim": "#ffb4a9",
+                    "on-secondary-fixed": "#121f00",
+                    "tertiary": "#623c00",
+                    "surface": "#fff8f5",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "on-tertiary-container": "#ffcc91",
+                    "primary": "#871a11",
+                    "on-primary-fixed-variant": "#8a1c13",
+                    "surface-container-highest": "#f0dfd4",
+                    "on-secondary-container": "#546c2e",
+                    "on-surface-variant": "#58413e",
+                    "on-error": "#ffffff",
+                    "tertiary-fixed-dim": "#ffb95f",
+                    "error": "#ba1a1a",
+                    "surface-container-low": "#fff1e8",
+                    "ink-muted": "#71655B",
+                    "surface-container-high": "#f6e5da",
+                    "inverse-surface": "#382e27",
+                    "on-error-container": "#93000a",
+                    "on-tertiary": "#ffffff",
+                    "on-background": "#221a13",
+                    "surface-container": "#fcebdf",
+                    "outline": "#D9CEC1",
+                    "on-tertiary-fixed": "#2a1700",
+                    "on-surface": "#221a13",
+                    "honey-gold": "#B97A1E",
+                    "secondary-fixed": "#d0eda0",
+                    "zaatar-green": "#5A7233",
+                    "on-tertiary-fixed-variant": "#653e00",
+                    "inverse-primary": "#ffb4a9",
+                    "warm-charcoal": "#2A211A",
+                    "inverse-on-surface": "#ffeee2"
+            },
+            "borderRadius": {
+                    "DEFAULT": "4px",
+                    "lg": "8px",
+                    "xl": "12px",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-screen": "16px",
+                    "s": "8px",
+                    "l": "16px",
+                    "gutter-card": "12px",
+                    "padding-card": "14px",
+                    "m": "12px",
+                    "xxl": "32px",
+                    "xl": "24px",
+                    "xs": "4px"
+            },
+            "fontFamily": {
+                    "label-lg": ["Tajawal"],
+                    "headline-lg": ["Alexandria"],
+                    "body-lg": ["Tajawal"],
+                    "display-lg": ["Alexandria"],
+                    "price-display": ["Tajawal"],
+                    "body-sm": ["Tajawal"],
+                    "title-lg": ["Alexandria"],
+                    "display-lg-mobile": ["Alexandria"],
+                    "body-md": ["Tajawal"]
+            },
+            "fontSize": {
+                    "label-lg": ["14px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                    "headline-lg": ["22px", {"lineHeight": "1.4", "fontWeight": "700"}],
+                    "body-lg": ["15.5px", {"lineHeight": "1.7", "fontWeight": "500"}],
+                    "display-lg": ["40px", {"lineHeight": "1.35", "fontWeight": "800"}],
+                    "price-display": ["16px", {"lineHeight": "1.0", "fontWeight": "800"}],
+                    "body-sm": ["12px", {"lineHeight": "1.5", "fontWeight": "500"}],
+                    "title-lg": ["17px", {"lineHeight": "1.45", "fontWeight": "700"}],
+                    "display-lg-mobile": ["30px", {"lineHeight": "1.35", "fontWeight": "800"}],
+                    "body-md": ["14.5px", {"lineHeight": "1.75", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #FBF7F1;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .shadow-e1 {
+            box-shadow: 0 2px 8px rgba(43, 33, 26, 0.08);
+        }
+        .shadow-e2 {
+            box-shadow: 0 4px 12px rgba(43, 33, 26, 0.12);
+        }
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-tahini-bg text-on-surface font-body-md min-h-screen pb-32">
+<!-- Top App Bar -->
+<header class="w-full top-0 sticky z-50 bg-surface shadow-sm h-16 flex items-center px-margin-screen">
+<div class="flex items-center justify-between w-full max-w-screen-xl mx-auto">
+<div class="flex items-center gap-4">
+<button class="active:scale-95 transition-transform text-sumac-red">
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+<h1 class="font-headline-lg text-headline-lg text-sumac-red">السلة 🛒</h1>
+</div>
+<button class="text-on-surface-variant hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined">delete_sweep</span>
+</button>
+</div>
+</header>
+<main class="max-w-screen-xl mx-auto px-margin-screen py-l space-y-m">
+<!-- Chef Group 1 -->
+<details class="group bg-surface rounded-xl border border-outline/30 shadow-sm overflow-hidden" open="">
+<summary class="flex items-center justify-between p-padding-card cursor-pointer list-none select-none">
+<div class="flex items-center gap-m">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-variant border border-outline">
+<img alt="Chef" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVjuWD-QuzWwvpwdeGvo4pCODMpxysIioYHkCdVyS8alvZXWOq-f2oVMZ-NHsJda7_KylvwmakoVKD-IrBhgmuOGOVbuqAGZSm7-nkHEQZof5UO6M8V6tloo7odw28ZFMjxd830us2BnSneG_NcaN83_BIpqme9oQQrbBCoOBl7A1ehD8bZLjtYI1CiF1XrhYSXYoKA3dE5ZXr0wLfm_4tl-xhingCqD3LLT65W4hoka5osrc4uOfv"/>
+</div>
+<div>
+<h2 class="font-title-lg text-title-lg text-warm-charcoal flex items-center gap-1">👩‍🍳 أم أحمد</h2>
+<p class="font-body-sm text-body-sm text-ink-muted">مطبخ بيروت • ٢٥-٣٥ دقيقة</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-sumac-red transition-transform group-open:rotate-180">expand_more</span>
+</summary>
+<div class="px-padding-card pb-padding-card space-y-m">
+<!-- Meal 1 -->
+<div class="border-t border-outline/20 pt-m">
+<div class="flex gap-m">
+<img alt="Meal" class="w-20 h-20 rounded-lg object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWnx7j5oy7kK8CZDM0keg7wolGyifShSirOr2WYxLII_Zyagr3fD4wrpOqsK2nUcPEtvbRm-h2Fw3KJxVZSuAFiqGRFSPew-VvfOJNmxUr7gUtM0hNMm42QrdYzLZ_6pZFPUQ6LUABayQHHaOOIWJnCvWchp2LlhhE4olZBHwOfcoq9wLEv7ucRnob2Ra_jakQO61nZgxm8GS3ZqTVOfFNHeiKC4qyMjxJRmYoXrqjy6zQdGMjVrRT"/>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<h3 class="font-title-lg text-on-surface">مقلوبة لحم</h3>
+<span class="font-price-display text-sumac-red">65.00 AED</span>
+</div>
+<div class="mt-s flex flex-wrap gap-xs">
+<button class="px-3 py-1 rounded-full border border-sumac-red bg-sumac-red text-on-primary text-body-sm">صغير</button>
+<button class="px-3 py-1 rounded-full border border-outline text-on-surface-variant text-body-sm">وسط</button>
+<button class="px-3 py-1 rounded-full border border-outline text-on-surface-variant text-body-sm">كبير</button>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between mt-m">
+<div class="flex items-center bg-surface-container rounded-full px-1 py-1 border border-outline">
+<button class="w-8 h-8 flex items-center justify-center text-sumac-red"><span class="material-symbols-outlined text-[20px]">remove</span></button>
+<span class="px-m font-title-lg">2</span>
+<button class="w-8 h-8 flex items-center justify-center text-sumac-red"><span class="material-symbols-outlined text-[20px]">add</span></button>
+</div>
+<button class="flex items-center gap-xs text-ink-muted font-body-sm active:text-sumac-red">
+<span class="material-symbols-outlined text-[18px]">edit_note</span>
+<span>إضافة ملاحظة</span>
+</button>
+</div>
+</div>
+<!-- Meal 2 -->
+<div class="border-t border-outline/20 pt-m">
+<div class="flex gap-m">
+<img alt="Meal" class="w-20 h-20 rounded-lg object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCcJCrXBFScPgsdHpDimvLRiFUGWjLQodWi7fbAob3Y4Y703JLDiM59eJhSJOP_PncLth7-Sy_cZRythkrpwRLATHj3Wh-glyRiB1uHZchd54vGtcQ-d3GfpF4Qz_LR888V4oBeFJIYHYtqnEyUfKxiV9UfDs8rVcBITr9xsJD_AE-Noy-LfHH6fav7sLW_86MxBE4GbOA35GYqnZQ9s1XyO25d2-vbI0pM-SCyZi1GMfHqNYL51zmx"/>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<h3 class="font-title-lg text-on-surface">سلطة فتوش</h3>
+<span class="font-price-display text-sumac-red">22.00 AED</span>
+</div>
+<div class="mt-s flex flex-wrap gap-xs">
+<button class="px-3 py-1 rounded-full border border-outline text-on-surface-variant text-body-sm">صغير</button>
+<button class="px-3 py-1 rounded-full border border-sumac-red bg-sumac-red text-on-primary text-body-sm">وسط</button>
+<button class="px-3 py-1 rounded-full border border-outline text-on-surface-variant text-body-sm">كبير</button>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between mt-m">
+<div class="flex items-center bg-surface-container rounded-full px-1 py-1 border border-outline">
+<button class="w-8 h-8 flex items-center justify-center text-sumac-red"><span class="material-symbols-outlined text-[20px]">remove</span></button>
+<span class="px-m font-title-lg">1</span>
+<button class="w-8 h-8 flex items-center justify-center text-sumac-red"><span class="material-symbols-outlined text-[20px]">add</span></button>
+</div>
+<button class="flex items-center gap-xs text-ink-muted font-body-sm">
+<span class="material-symbols-outlined text-[18px]">notes</span>
+<span>بدون بصل</span>
+</button>
+</div>
+</div>
+<!-- Footer Section of Details -->
+<div class="border-t border-outline/20 pt-m space-y-m">
+<button class="w-full flex items-center justify-between p-m bg-surface-variant/30 rounded-xl text-on-surface-variant active:bg-surface-variant/50 transition-colors">
+<div class="flex items-center gap-s">
+<span class="material-symbols-outlined text-sumac-red">location_on</span>
+<span class="font-body-md">تحديد الموقع</span>
+</div>
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="w-full border-2 border-sumac-red text-sumac-red h-14 rounded-xl font-title-lg text-title-lg shadow-sm flex items-center justify-center gap-m active:scale-[0.98] active:bg-sumac-red/5 transition-all">
+                        تأكيد طلب أم أحمد
+                    </button>
+</div>
+</div>
+</details>
+<!-- Chef Group 2: Unavailable Item Example -->
+<details class="group bg-surface rounded-xl border border-outline/30 shadow-sm overflow-hidden">
+<summary class="flex items-center justify-between p-padding-card cursor-pointer list-none select-none">
+<div class="flex items-center gap-m">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-variant border border-outline">
+<img alt="Chef" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHlhchHP2vBLG_VEYj50o1bMzcjw2udqNl3jno86LSvC48iPwp-TAcyI8DrW6j7ALrZP1wJ_jtIhErdIj7eqNOcXA-P_Kk24rkCMJKzeo2NVhn74FC9HIq2Qb4JNHS5WuFd5lVD9eRDVtJusoIk1LkPHbdY88zux30iVWuVj1LERS9MoPi2JogP0Kf9rCvCdx5Mpqtj9BGSsETPk8E3lC0rftN5e2TPZFuLho22-okeCR5AocDDxfa"/>
+</div>
+<div>
+<h2 class="font-title-lg text-title-lg text-warm-charcoal">ام خالد</h2>
+<p class="font-body-sm text-body-sm text-ink-muted">خبير المشاوي • ٤٠-٥٠ دقيقة</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-sumac-red transition-transform group-open:rotate-180">expand_more</span>
+</summary>
+<div class="px-padding-card pb-padding-card space-y-m">
+<div class="border-t border-outline/20 pt-m opacity-60 grayscale-[0.5]">
+<div class="flex gap-m">
+<img alt="Meal" class="w-20 h-20 rounded-lg object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVonjiBVd7MIQA49Mj--CpeAj5EAqn2sB1uVgyqBNSW8IA_vV37jzXWFxaFb0P4JAblwwkoH6p-1DLeYIBFg7u_u5fDZtwQQgL7K1O1_XsZq1eiU-PIHwfr1IVtwo9UuS7LaRjp2xVf1LLnnZHX3S__Y8QMsH2SXIjFNIyUlEjefp7omheiktxJdUDRj4z937BG5jsc6fJNnOscJ7kF0nJRkcd37gFynIfY7-ofQThazp4WPoj35K9"/>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<h3 class="font-title-lg text-on-surface">طبق شيش طاووق</h3>
+<span class="font-price-display text-ink-muted line-through">45.00 AED</span>
+</div>
+<p class="text-error font-label-lg mt-1">⚠ غير متوفر حالياً</p>
+</div>
+</div>
+</div>
+<div class="border-t border-outline/20 pt-m space-y-m">
+<button class="w-full flex items-center justify-between p-m bg-surface-variant/30 rounded-xl text-on-surface-variant">
+<div class="flex items-center gap-s">
+<span class="material-symbols-outlined text-sumac-red">location_on</span>
+<span class="font-body-md">تحديد الموقع</span>
+</div>
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="w-full border-2 border-sumac-red text-sumac-red h-14 rounded-xl font-title-lg text-title-lg shadow-sm flex items-center justify-center gap-m opacity-50 cursor-not-allowed">
+                        تأكيد طلب ام خالد
+                    </button>
+</div>
+</div>
+</details>
+</main>
+<!-- Fixed Bottom Action Button -->
+<div class="fixed bottom-0 left-0 right-0 z-50 bg-tahini-bg/95 backdrop-blur-md border-t border-outline/20 px-margin-screen py-4 pb-8">
+<button class="w-full bg-sumac-red text-on-primary h-14 rounded-xl font-headline-lg text-headline-lg shadow-e2 flex items-center justify-center gap-m active:scale-[0.98] transition-transform">
+            تأكيد الكل
+        </button>
+</div>
+<!-- Simple Interactivity Scripts -->
+<script>
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                const icon = this.querySelector('.material-symbols-outlined');
+                if (icon && (icon.innerText === 'add' || icon.innerText === 'remove')) {
+                    const counter = this.parentElement.querySelector('span:not(.material-symbols-outlined)');
+                    let val = parseInt(counter.innerText);
+                    if (icon.innerText === 'add') val++;
+                    if (icon.innerText === 'remove' && val > 1) val--;
+                    counter.innerText = val;
+                }
+            });
+        });
+    </script>
+</body></html>

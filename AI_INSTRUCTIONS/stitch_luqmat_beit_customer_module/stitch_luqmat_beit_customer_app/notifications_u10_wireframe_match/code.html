@@ -1,0 +1,230 @@
+<!DOCTYPE html><html dir="rtl" lang="ar" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>الإشعارات - Luqmat Beit</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&amp;family=Tajawal:wght@200;300;400;500;700;800;900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "surface": "#fff8f5",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-container": "#546c2e",
+                        "primary-fixed": "#ffdad5",
+                        "error": "#ba1a1a",
+                        "outline": "#D9CEC1",
+                        "on-primary-container": "#ffc9c0",
+                        "tertiary": "#623c00",
+                        "zaatar-green": "#5A7233",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-bright": "#fff8f5",
+                        "secondary-container": "#E4EDD3",
+                        "tahini-bg": "#FBF7F1",
+                        "sumac-red": "#A83226",
+                        "surface-container-high": "#f6e5da",
+                        "error-container": "#ffdad6",
+                        "on-error": "#ffffff",
+                        "on-tertiary-fixed": "#2a1700",
+                        "on-primary-fixed-variant": "#8a1c13",
+                        "tertiary-container": "#825100",
+                        "on-background": "#221a13",
+                        "inverse-on-surface": "#ffeee2",
+                        "primary-container": "#a83226",
+                        "surface-tint": "#ab3428",
+                        "secondary-fixed": "#d0eda0",
+                        "ink-muted": "#71655B",
+                        "surface-variant": "#f0dfd4",
+                        "on-primary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "primary-fixed-dim": "#ffb4a9",
+                        "on-surface": "#221a13",
+                        "on-secondary-fixed-variant": "#374d12",
+                        "surface-container-low": "#fff1e8",
+                        "tertiary-fixed": "#ffddb8",
+                        "inverse-primary": "#ffb4a9",
+                        "warm-charcoal": "#2A211A",
+                        "outline-variant": "#e0bfba",
+                        "on-surface-variant": "#58413e",
+                        "surface-dim": "#e8d7cc",
+                        "on-tertiary-container": "#ffcc91",
+                        "secondary": "#4e6628",
+                        "inverse-surface": "#382e27",
+                        "surface-container-highest": "#f0dfd4",
+                        "on-primary-fixed": "#410000",
+                        "surface-container": "#fcebdf",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "primary": "#871a11",
+                        "on-secondary": "#ffffff",
+                        "honey-gold": "#B97A1E",
+                        "secondary-fixed-dim": "#b4d086",
+                        "on-secondary-fixed": "#121f00",
+                        "background": "#fff8f5"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xxl": "32px",
+                        "gutter-card": "12px",
+                        "s": "8px",
+                        "margin-screen": "16px",
+                        "l": "16px",
+                        "padding-card": "14px",
+                        "xs": "4px",
+                        "xl": "24px",
+                        "m": "12px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Alexandria"],
+                        "body-sm": ["Tajawal"],
+                        "headline-lg": ["Alexandria"],
+                        "body-lg": ["Tajawal"],
+                        "title-lg": ["Alexandria"],
+                        "label-lg": ["Tajawal"],
+                        "price-display": ["Tajawal"],
+                        "display-lg-mobile": ["Alexandria"],
+                        "body-md": ["Tajawal"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["40px", { "lineHeight": "1.35", "fontWeight": "800" }],
+                        "body-sm": ["12px", { "lineHeight": "1.5", "fontWeight": "500" }],
+                        "headline-lg": ["22px", { "lineHeight": "1.4", "fontWeight": "700" }],
+                        "body-lg": ["15.5px", { "lineHeight": "1.7", "fontWeight": "500" }],
+                        "title-lg": ["17px", { "lineHeight": "1.45", "fontWeight": "700" }],
+                        "label-lg": ["14px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "price-display": ["16px", { "lineHeight": "1.0", "fontWeight": "800" }],
+                        "display-lg-mobile": ["30px", { "lineHeight": "1.35", "fontWeight": "800" }],
+                        "body-md": ["14.5px", { "lineHeight": "1.75", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .shadow-e1 {
+            box-shadow: 0 1px 3px 0 rgba(43, 33, 26, 0.1), 0 1px 2px -1px rgba(43, 33, 26, 0.1);
+        }
+        .shadow-e2 {
+            box-shadow: 0 4px 6px -1px rgba(43, 33, 26, 0.1), 0 2px 4px -2px rgba(43, 33, 26, 0.1);
+        }
+        
+        /* Hide scrollbar for tabs */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-tahini-bg text-on-background font-body-md min-h-screen pb-[80px]">
+<!-- TopAppBar -->
+<main class="w-full max-w-2xl mx-auto px-margin-screen pt-xl pb-xxl">
+<!-- Header Section -->
+<div class="mb-xl">
+<h2 class="text-headline-lg-mobile md:text-headline-lg font-headline-lg-mobile md:font-headline-lg text-sumac-red mb-l text-right">الإشعارات</h2>
+<!-- Tabs -->
+<div class="flex border-b-2 border-outline-variant relative"><button class="flex-1 py-m text-center text-title-lg font-title-lg text-primary font-bold relative transition-colors">
+                    إشعاراتي
+                    <div class="absolute bottom-[-2px] left-0 right-0 h-0.5 bg-primary rounded-t-full"></div>
+</button>
+<button class="flex-1 py-m text-center text-title-lg font-title-lg text-on-surface-variant transition-colors">
+                    إشعارات النظام
+                </button></div>
+</div>
+<!-- Notifications List -->
+<div class="flex flex-col gap-l">
+<!-- Notification Card 1 (Order Status) -->
+<div class="bg-surface rounded-xl p-padding-card flex gap-m items-start relative border border-outline-variant">
+<div class="w-2.5 h-2.5 bg-sumac-red rounded-full absolute top-padding-card right-padding-card transform translate-x-1/2 -translate-y-1/2"></div>
+<div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center flex-shrink-0 text-on-secondary-container">
+<span class="material-symbols-outlined">package_2</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-xs">
+<h3 class="text-title-lg font-title-lg text-on-surface">تغيّرت حالة طلبك</h3>
+<span class="text-body-sm font-body-sm text-ink-muted whitespace-nowrap">الآن</span>
+</div>
+<p class="text-body-md font-body-md text-on-surface-variant">
+                        طلبك رقم #48291 من "مطبخ أم صهيب" في الطريق إليك. تتبع الطلب لمعرفة وقت الوصول المتوقع.
+                    </p>
+</div>
+</div>
+<!-- Notification Card 2 (Split Order Alert - Action Required) -->
+<div class="bg-surface rounded-xl border border-outline-variant p-padding-card flex gap-m items-start relative bg-error-container/20">
+<div class="w-12 h-12 rounded-full bg-error-container flex items-center justify-center flex-shrink-0 text-error">
+<span class="material-symbols-outlined">warning</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-xs">
+<h3 class="text-title-lg font-title-lg text-error">رفضت طباخة جزءاً من طلبك المقسّم</h3>
+<span class="text-body-sm font-body-sm text-ink-muted whitespace-nowrap">منذ ساعتين</span>
+</div>
+<p class="text-body-md font-body-md text-on-surface-variant mb-m"><br></p>
+<div class="flex gap-m mt-s flex-row"><button class="bg-sumac-red text-on-primary py-s px-l rounded-full text-label-lg font-label-lg hover:bg-surface-tint transition-colors text-center flex-1">
+                            المتابعة بالمقبول
+                        </button>
+<button class="bg-transparent border border-error text-error py-s px-l rounded-full text-label-lg font-label-lg hover:bg-error-container transition-colors text-center flex-1">
+                            إلغاء الطلب كاملاً
+                        </button></div>
+</div>
+</div>
+<!-- Notification Card 3 (Promo) -->
+<div class="bg-surface rounded-xl p-padding-card flex gap-m items-start border border-outline-variant opacity-80">
+<div class="w-12 h-12 rounded-full bg-surface-variant flex items-center justify-center flex-shrink-0 text-on-surface-variant">
+<span class="material-symbols-outlined">sell</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-xs">
+<h3 class="text-title-lg font-title-lg text-on-surface">خصم جديد من أم أحمد!</h3>
+<span class="text-body-sm font-body-sm text-ink-muted whitespace-nowrap">أمس</span>
+</div>
+<p class="text-body-md font-body-md text-on-surface-variant"><br></p>
+</div>
+</div>
+<!-- Notification Card 4 (Followed Chef Activity) -->
+
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="bg-surface docked full-width bottom-0 rounded-t-xl shadow-e2 fixed left-0 w-full z-50 flex justify-around items-center px-2 py-3 pb-safe border-none md:hidden">
+<a class="flex flex-col items-center justify-center text-ink-muted px-5 py-1 hover:bg-surface-container-highest transition-all rounded-xl" href="#">
+<span class="material-symbols-outlined mb-1">home</span>
+<span class="text-label-lg font-label-lg">الرئيسية</span>
+</a>
+<a class="flex flex-col items-center justify-center text-ink-muted px-5 py-1 hover:bg-surface-container-highest transition-all rounded-xl" href="#">
+<span class="material-symbols-outlined mb-1">receipt_long</span>
+<span class="text-label-lg font-label-lg">طلباتي</span>
+</a>
+<a class="flex flex-col items-center justify-center text-ink-muted px-5 py-1 hover:bg-surface-container-highest transition-all rounded-xl" href="#">
+<span class="material-symbols-outlined mb-1">favorite</span>
+<span class="text-label-lg font-label-lg">المفضلة</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-5 py-1 scale-95 transition-transform duration-100 opacity-80" href="#">
+<span class="material-symbols-outlined fill mb-1">person</span>
+<span class="text-label-lg font-label-lg">حسابي</span>
+</a>
+</nav>
+
+
+</body></html>

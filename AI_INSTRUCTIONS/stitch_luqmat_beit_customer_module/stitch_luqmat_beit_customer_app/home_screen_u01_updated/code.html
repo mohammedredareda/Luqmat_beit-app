@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>Luqmat Beit - Home Screen</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;700;800&amp;family=Tajawal:wght@300;400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "inverse-on-surface": "#ffeee2",
+                "on-secondary-container": "#546c2e",
+                "on-error-container": "#93000a",
+                "surface-dim": "#e8d7cc",
+                "tertiary-container": "#825100",
+                "on-tertiary-fixed": "#2a1700",
+                "surface-container-lowest": "#ffffff",
+                "on-secondary-fixed-variant": "#374d12",
+                "primary-container": "#a83226",
+                "surface-container": "#fcebdf",
+                "primary-fixed-dim": "#ffb4a9",
+                "on-secondary": "#ffffff",
+                "on-secondary-fixed": "#121f00",
+                "tahini-bg": "#FBF7F1",
+                "outline": "#D9CEC1",
+                "on-primary-fixed": "#410000",
+                "tertiary-fixed-dim": "#ffb95f",
+                "surface-variant": "#f0dfd4",
+                "inverse-surface": "#382e27",
+                "on-primary": "#ffffff",
+                "surface-bright": "#fff8f5",
+                "on-error": "#ffffff",
+                "sumac-red": "#A83226",
+                "tertiary-fixed": "#ffddb8",
+                "surface": "#fff8f5",
+                "on-surface": "#221a13",
+                "surface-container-low": "#fff1e8",
+                "on-surface-variant": "#58413e",
+                "tertiary": "#623c00",
+                "surface-tint": "#ab3428",
+                "on-background": "#221a13",
+                "inverse-primary": "#ffb4a9",
+                "ink-muted": "#71655B",
+                "primary-fixed": "#ffdad5",
+                "error-container": "#ffdad6",
+                "secondary-fixed-dim": "#b4d086",
+                "on-tertiary-fixed-variant": "#653e00",
+                "secondary-fixed": "#d0eda0",
+                "secondary-container": "#E4EDD3",
+                "primary": "#871a11",
+                "on-primary-container": "#ffc9c0",
+                "on-tertiary-container": "#ffcc91",
+                "zaatar-green": "#5A7233",
+                "on-tertiary": "#ffffff",
+                "on-primary-fixed-variant": "#8a1c13",
+                "error": "#ba1a1a",
+                "background": "#fff8f5",
+                "warm-charcoal": "#2A211A",
+                "honey-gold": "#B97A1E",
+                "surface-container-highest": "#f0dfd4",
+                "secondary": "#4e6628",
+                "outline-variant": "#e0bfba",
+                "surface-container-high": "#f6e5da"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+            "spacing": {
+                "xl": "24px",
+                "gutter-card": "12px",
+                "padding-card": "14px",
+                "l": "16px",
+                "m": "12px",
+                "xs": "4px",
+                "margin-screen": "16px",
+                "xxl": "32px",
+                "s": "8px"
+            },
+            "fontFamily": {
+                "price-display": ["Tajawal"],
+                "body-md": ["Tajawal"],
+                "display-lg": ["Alexandria"],
+                "label-lg": ["Tajawal"],
+                "title-lg": ["Alexandria"],
+                "headline-lg": ["Alexandria"],
+                "body-sm": ["Tajawal"],
+                "body-lg": ["Tajawal"],
+                "display-lg-mobile": ["Alexandria"]
+            },
+            "fontSize": {
+                "price-display": ["16px", {"lineHeight": "1.0", "fontWeight": "800"}],
+                "body-md": ["14.5px", {"lineHeight": "1.75", "fontWeight": "400"}],
+                "display-lg": ["40px", {"lineHeight": "1.35", "fontWeight": "800"}],
+                "label-lg": ["14px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                "title-lg": ["17px", {"lineHeight": "1.45", "fontWeight": "700"}],
+                "headline-lg": ["22px", {"lineHeight": "1.4", "fontWeight": "700"}],
+                "body-sm": ["12px", {"lineHeight": "1.5", "fontWeight": "500"}],
+                "body-lg": ["15.5px", {"lineHeight": "1.7", "fontWeight": "500"}],
+                "display-lg-mobile": ["30px", {"lineHeight": "1.35", "fontWeight": "800"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #FBF7F1; /* tahini-bg */
+            font-family: 'Tajawal', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .shadow-warm {
+            box-shadow: 0 4px 20px rgba(42, 33, 26, 0.08);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="text-on-surface">
+<main class="pb-24 max-w-screen-xl mx-auto pt-4">
+<!-- Search Bar Section -->
+<section class="px-margin-screen">
+<div class="relative group">
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full h-14 bg-white border-1.5 border-outline rounded-xl pr-12 pl-4 focus:ring-0 focus:border-sumac-red transition-colors text-body-lg font-body-lg" placeholder="بحث عن أكلة أو شيف..." type="text"/>
+<button class="absolute left-3 top-1/2 -translate-y-1/2 bg-surface-variant/50 p-2 rounded-lg">
+<span class="material-symbols-outlined text-on-surface-variant">tune</span>
+</button>
+</div>
+</section>
+<!-- Promotional Ads Banner -->
+<section class="px-margin-screen mt-xl">
+<div class="relative w-full h-48 rounded-2xl overflow-hidden shadow-warm bg-warm-charcoal group">
+<div class="absolute inset-0 bg-cover bg-center opacity-70 group-hover:scale-105 transition-transform duration-700" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB22C2nhD9QDuONrabjGXLIPrRzi6MrQTUQhjEhzqgkRoSmmIAhLXw0bgk9Djq8zMMUMUFc4s_2yPgC9Eunx6R_VHW7SrmzI_wDEZW_Dne6S4T2xn2_b7h9_oidQqUKGaas5--eIDNpW_Lh2cnhVGLrdiJYhP9EiaZdcdYzJjXdyW2Ikz3zPyz4rx89mueyukYPkUDq3xbSle9G6vtetWwSfHDpDu8zqlGRB-djGaFwT273ukz4c8qV')"></div>
+<div class="absolute inset-0 bg-gradient-to-l from-warm-charcoal/80 to-transparent flex flex-col justify-center px-8 text-right">
+<span class="text-white bg-sumac-red self-start px-3 py-1 rounded-full text-label-lg font-label-lg mb-2">عرض محدود</span>
+<h2 class="text-white font-headline-lg text-headline-lg-mobile leading-tight mb-2">أشهى الطبخات البيتية<br/>بخصم 30% لأول طلب</h2>
+<button class="bg-white text-sumac-red font-label-lg text-label-lg px-6 py-2.5 rounded-full w-fit hover:opacity-90 transition-opacity active:scale-95">اطلب الآن</button>
+</div>
+</div>
+</section>
+<!-- Categories (Renamed to الأصناف) -->
+<section class="mt-xl overflow-hidden">
+<div class="flex items-center justify-between px-margin-screen mb-m">
+<h3 class="font-title-lg text-title-lg text-warm-charcoal">الأصناف</h3>
+<button class="text-sumac-red text-label-lg font-label-lg">الكل</button>
+</div>
+<div class="flex gap-3 overflow-x-auto hide-scrollbar px-margin-screen pb-2">
+<button class="flex items-center gap-2 bg-primary-container text-on-primary-container px-5 py-3 rounded-full shrink-0 shadow-sm active:scale-95 transition-all">
+<span class="material-symbols-outlined">restaurant</span>
+<span class="font-label-lg text-label-lg">أطباق رئيسية</span>
+</button>
+<button class="flex items-center gap-2 bg-surface shadow-sm border border-outline/30 text-on-surface-variant px-5 py-3 rounded-full shrink-0 active:scale-95 transition-all">
+<span class="material-symbols-outlined">bakery_dining</span>
+<span class="font-label-lg text-label-lg">معجنات</span>
+</button>
+<button class="flex items-center gap-2 bg-surface shadow-sm border border-outline/30 text-on-surface-variant px-5 py-3 rounded-full shrink-0 active:scale-95 transition-all">
+<span class="material-symbols-outlined">icecream</span>
+<span class="font-label-lg text-label-lg">حلويات</span>
+</button>
+<button class="flex items-center gap-2 bg-surface shadow-sm border border-outline/30 text-on-surface-variant px-5 py-3 rounded-full shrink-0 active:scale-95 transition-all">
+<span class="material-symbols-outlined">tapas</span>
+<span class="font-label-lg text-label-lg">مقبلات</span>
+</button>
+</div>
+</section>
+<!-- Best Sellers Section -->
+<section class="mt-xl">
+<div class="flex items-center justify-between px-margin-screen mb-m">
+<h3 class="font-title-lg text-title-lg text-warm-charcoal">الأكثر طلباً</h3>
+<button class="text-sumac-red text-label-lg font-label-lg">مشاهدة المزيد</button>
+</div>
+<div class="flex gap-gutter-card overflow-x-auto hide-scrollbar px-margin-screen pb-4">
+<div class="w-64 shrink-0 bg-surface rounded-xl shadow-warm border border-outline/10 overflow-hidden group">
+<div class="relative h-40 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDWoa0Rgp9xu91ZbgeJRLs1Ju33JrcfekrLh1GgBECDmZvAGOLFSkoxM25JQN14BUKPJ9rhRFxgAkuIcfGEu8VxI5w7B-05RpSTpWwv4RoMPDavgJGXk9QTiv-ODLeUM1nZ_MMWo6LIMwUf3oPpHYRXraWtE_efxuMczBzN8TauQ9WbOZnut77Cd0-Jj-5Q3I0xR2XxYbvtEyTOwfDx-xbvQKDMe8kNSA2W0uKcN0n0gRFzoVVemAgE"/>
+<div class="absolute top-2 left-2 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-lg flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-honey-gold text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-body-sm font-price-display text-on-surface">4.8</span>
+</div>
+</div>
+<div class="p-padding-card">
+<h4 class="font-title-lg text-title-lg mb-1">مقلوبة باذنجان باللحم</h4>
+<div class="flex items-center justify-between mt-s">
+<span class="text-sumac-red font-price-display text-price-display">45.00 ر.س</span>
+<span class="text-on-surface-variant text-body-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">schedule</span> 45 دقيقة
+                        </span>
+</div>
+</div>
+</div>
+<div class="w-64 shrink-0 bg-surface rounded-xl shadow-warm border border-outline/10 overflow-hidden group">
+<div class="relative h-40 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHC1-ibjsMdIRBcS8SPbXFT7pcHWdCAQyS_gfkYKsfEVPPNy04Zgs-xCWAxP_5COnyZYGNWLZecOui6nECV3Vq3NT-BPBKG89wpnyJAuDuHMZM7QSFhFz8o6DMEfQ2Jr-QHxnUEAxojhCsBVFe_jOrV-31RyI8rvSbTDo2ZrO_TCMmhe9VH8t1q3ye1M-2oRAY2IcM0aPn4LLbYffnGFIET1lih9zYV3kFhCn0f_9tuJmp4HR7cjTg"/>
+<div class="absolute top-2 left-2 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-lg flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-honey-gold text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-body-sm font-price-display text-on-surface">4.9</span>
+</div>
+</div>
+<div class="p-padding-card">
+<h4 class="font-title-lg text-title-lg mb-1">لفائف مسخن دجاج</h4>
+<div class="flex items-center justify-between mt-s">
+<span class="text-sumac-red font-price-display text-price-display">32.00 ر.س</span>
+<span class="text-on-surface-variant text-body-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">schedule</span> 30 دقيقة
+                        </span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Chefs Section -->
+<section class="mt-xl">
+<div class="flex items-center justify-between px-margin-screen mb-m">
+<h3 class="font-title-lg text-title-lg text-warm-charcoal">طباخين متميزين</h3>
+<button class="text-sumac-red text-label-lg font-label-lg">الكل</button>
+</div>
+<div class="px-margin-screen space-y-m">
+<div class="flex items-center gap-m p-m bg-surface rounded-xl border border-outline/20 shadow-sm active:scale-[0.98] transition-transform">
+<div class="relative w-16 h-16 shrink-0 rounded-full overflow-hidden border-2 border-primary-fixed">
+<img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCkD8-eLNtXO1AAv80KI49zuHLEKWmpKgkpzppLfWgPwOGLpPeMS7FHS2ZBBdzg2ZxHE3ZgBFNgXc80yL94SoUTXYaFNskpyqxczpwjxPiu7kvSTxCi6PEqXBBgw85K4Qb7eIAKX6vn4bpfapH1wOg3vNkawROvvq44rs9OdK7pyXwEYlplWIeOk-rWyH-5mbcx6kRZysERvLSqtEYGqf2coND2JokIYPmEngY_jwEfbZ_YMd4hJ58A"/>
+</div>
+<div class="flex-1">
+<h4 class="font-title-lg text-title-lg">أم أحمد للمأكولات الشامية</h4>
+<div class="flex items-center gap-4 mt-1">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-honey-gold text-xs" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-body-sm text-on-surface">4.9 (120+)</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant text-body-sm">
+<span class="material-symbols-outlined text-xs">location_on</span>
+<span>2.4 كم</span>
+</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-sumac-red">chevron_left</span>
+</div>
+</div>
+</section>
+<!-- NEW: Offers (العروض) Section -->
+<section class="mt-xl">
+<div class="flex items-center justify-between px-margin-screen mb-m">
+<h3 class="font-title-lg text-title-lg text-warm-charcoal">العروض</h3>
+<button class="text-sumac-red text-label-lg font-label-lg">الكل</button>
+</div>
+<div class="flex gap-gutter-card overflow-x-auto hide-scrollbar px-margin-screen pb-4">
+<!-- Offer Card 1 -->
+<div class="w-48 shrink-0 bg-surface rounded-xl shadow-sm border border-outline/10 overflow-hidden relative">
+<div class="h-28 overflow-hidden">
+<img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB22C2nhD9QDuONrabjGXLIPrRzi6MrQTUQhjEhzqgkRoSmmIAhLXw0bgk9Djq8zMMUMUFc4s_2yPgC9Eunx6R_VHW7SrmzI_wDEZW_Dne6S4T2xn2_b7h9_oidQqUKGaas5--eIDNpW_Lh2cnhVGLrdiJYhP9EiaZdcdYzJjXdyW2Ikz3zPyz4rx89mueyukYPkUDq3xbSle9G6vtetWwSfHDpDu8zqlGRB-djGaFwT273ukz4c8qV"/>
+</div>
+<div class="p-3">
+<h5 class="text-body-md font-title-lg truncate">منسف بلدي عرض</h5>
+<span class="text-sumac-red font-price-display text-label-lg">55.00 ر.س</span>
+</div>
+<div class="absolute top-2 left-2 bg-sumac-red text-white text-[10px] px-2 py-0.5 rounded-full font-bold">25% OFF</div>
+</div>
+<!-- Offer Card 2 -->
+<div class="w-48 shrink-0 bg-surface rounded-xl shadow-sm border border-outline/10 overflow-hidden relative">
+<div class="h-28 overflow-hidden">
+<img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHC1-ibjsMdIRBcS8SPbXFT7pcHWdCAQyS_gfkYKsfEVPPNy04Zgs-xCWAxP_5COnyZYGNWLZecOui6nECV3Vq3NT-BPBKG89wpnyJAuDuHMZM7QSFhFz8o6DMEfQ2Jr-QHxnUEAxojhCsBVFe_jOrV-31RyI8rvSbTDo2ZrO_TCMmhe9VH8t1q3ye1M-2oRAY2IcM0aPn4LLbYffnGFIET1lih9zYV3kFhCn0f_9tuJmp4HR7cjTg"/>
+</div>
+<div class="p-3">
+<h5 class="text-body-md font-title-lg truncate">لفائف المسخن بوكس</h5>
+<span class="text-sumac-red font-price-display text-label-lg">28.00 ر.س</span>
+</div>
+<div class="absolute top-2 left-2 bg-sumac-red text-white text-[10px] px-2 py-0.5 rounded-full font-bold">15% OFF</div>
+</div>
+<!-- Offer Card 3 -->
+<div class="w-48 shrink-0 bg-surface rounded-xl shadow-sm border border-outline/10 overflow-hidden relative">
+<div class="h-28 overflow-hidden">
+<img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAe2qyhOsqRpsy8jCZ3E2DIeay5GlSa9eRiAnEJrxA7nO0bM7GM9JrfnDyhL3Skpw1shfHZS4SDgYLlEPFSNnRNZIil5gn0vh-AFZrXLps6PPZby6KtdjFmJtEdns9j4wc09zFrILc5Dq4FklGfnH9L8z4LckvLu1tTU6j6MEuD3jgL0mc2EaNkkbFr8ONP2xIb3T4AlYoNhn0pXh5YXnvI1KpnEehsd61Xg2mSQL9BqU_7cwm034f"/>
+</div>
+<div class="p-3">
+<h5 class="text-body-md font-title-lg truncate">وجبة فلافل عائلية</h5>
+<span class="text-sumac-red font-price-display text-label-lg">19.00 ر.س</span>
+</div>
+<div class="absolute top-2 left-2 bg-sumac-red text-white text-[10px] px-2 py-0.5 rounded-full font-bold">20% OFF</div>
+</div>
+</div>
+</section>
+<!-- Large Discounts (Renamed to خصومات ضخمة) -->
+<section class="mt-xl px-margin-screen">
+<div class="flex items-center justify-between mb-m">
+<h3 class="font-title-lg text-title-lg text-warm-charcoal">خصومات ضخمة</h3>
+<div class="flex items-center gap-1 text-zaatar-green">
+<span class="material-symbols-outlined text-sm">savings</span>
+<span class="text-label-lg font-label-lg">خصومات حتى 50%</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-gutter-card">
+<div class="bg-surface rounded-xl border border-outline/20 overflow-hidden shadow-sm relative group">
+<div class="absolute top-2 right-2 z-10 bg-sumac-red text-white text-[10px] font-bold px-2 py-0.5 rounded-full">-50%</div>
+<div class="h-32 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_T50-Ybv9jlSr0mmILjDvoewDTopN2b_6l9m5xFyxe_4qAtCl93ek4DWbFKBc8WDyS2fN7Cc6pyY5von8_zOwH28eSNhZ7Xt7eXyeRQJM04a6YY8gDWcsZwX8dESdnSXDhxBY06OmxFL0GHRie9mdlRMBsX1LTKIMCjowgenbZzaMLRwE-KQglr9iGJGYdxXhpcucmMfEmLbcvXhq-NaXbzu_rKuij4Dm-uuELnR_60CwvTBgpcKw"/>
+</div>
+<div class="p-3">
+<h5 class="text-body-lg font-title-lg truncate">شوربة عدس فاخرة</h5>
+<div class="flex flex-col mt-1">
+<span class="text-sumac-red font-price-display text-price-display">9.00 ر.س</span>
+<span class="text-on-surface-variant text-[11px] line-through">18.00 ر.س</span>
+</div>
+</div>
+</div>
+<div class="bg-surface rounded-xl border border-outline/20 overflow-hidden shadow-sm relative group">
+<div class="absolute top-2 right-2 z-10 bg-sumac-red text-white text-[10px] font-bold px-2 py-0.5 rounded-full">-35%</div>
+<div class="h-32 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAe2qyhOsqRpsy8jCZ3E2DIeay5GlSa9eRiAnEJrxA7nO0bM7GM9JrfnDyhL3Skpw1shfHZS4SDgYLlEPFSNnRNZIil5gn0vh-AFZrXLps6PPZby6KtdjFmJtEdns9j4wc09zFrILc5Dq4FklGfnH9L8z4LckvLu1tTU6j6MEuD3jgL0mc2EaNkkbFr8ONP2xIb3T4AlYoNhn0pXh5YXnvI1KpnEehsd61Xg2mSQL9BqU_7cwm034f"/>
+</div>
+<div class="p-3">
+<h5 class="text-body-lg font-title-lg truncate">بوكس فلافل منزلي</h5>
+<div class="flex flex-col mt-1">
+<span class="text-sumac-red font-price-display text-price-display">12.00 ر.س</span>
+<span class="text-on-surface-variant text-[11px] line-through">20.00 ر.س</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Translated Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 right-0 w-full z-50 bg-surface shadow-[0_-2px_10px_rgba(42,33,26,0.08)] rounded-t-xl h-[72px] flex justify-around items-center px-2 pb-safe">
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-5 py-1 active:scale-90 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label-lg text-label-lg">الرئيسية</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1 hover:bg-surface-variant/50 rounded-full active:scale-90 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">reorder</span>
+<span class="font-label-lg text-label-lg">طلباتي</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1 hover:bg-surface-variant/50 rounded-full active:scale-90 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">play_circle</span>
+<span class="font-label-lg text-label-lg">الشورتس</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1 hover:bg-surface-variant/50 rounded-full active:scale-90 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">favorite</span>
+<span class="font-label-lg text-label-lg">المفضلة</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1 hover:bg-surface-variant/50 rounded-full active:scale-90 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-lg text-label-lg">حسابي</span>
+</a>
+</nav>
+<script>
+    // Bottom Nav interaction
+    document.querySelectorAll('nav a').forEach(item => {
+        item.addEventListener('click', function(e) {
+            document.querySelectorAll('nav a').forEach(nav => {
+                nav.classList.remove('bg-primary-container', 'text-on-primary-container');
+                nav.classList.add('text-on-surface-variant');
+            });
+            this.classList.add('bg-primary-container', 'text-on-primary-container');
+            this.classList.remove('text-on-surface-variant');
+        });
+    });
+
+    // Category filter interaction
+    document.querySelectorAll('.overflow-x-auto button').forEach(chip => {
+        chip.addEventListener('click', function() {
+            const isSelected = this.classList.contains('bg-primary-container');
+            if(!isSelected) {
+                this.parentElement.querySelectorAll('button').forEach(btn => {
+                    btn.classList.remove('bg-primary-container', 'text-on-primary-container');
+                    btn.classList.add('bg-surface', 'text-on-surface-variant');
+                });
+                this.classList.add('bg-primary-container', 'text-on-primary-container');
+                this.classList.remove('bg-surface', 'text-on-surface-variant');
+            }
+        });
+    });
+</script>
+</body></html>

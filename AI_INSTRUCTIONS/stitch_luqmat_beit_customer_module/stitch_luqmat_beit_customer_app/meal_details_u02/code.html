@@ -1,0 +1,260 @@
+<!DOCTYPE html><html class="light" dir="rtl" lang="ar" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;700;800&amp;family=Tajawal:wght@400;500;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed-dim": "#b4d086",
+                    "inverse-surface": "#382e27",
+                    "primary-container": "#a83226",
+                    "on-primary-fixed": "#410000",
+                    "outline": "#D9CEC1",
+                    "error-container": "#ffdad6",
+                    "on-tertiary-container": "#ffcc91",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-fixed-dim": "#ffb95f",
+                    "zaatar-green": "#5A7233",
+                    "tertiary-container": "#825100",
+                    "on-background": "#221a13",
+                    "surface-bright": "#fff8f5",
+                    "surface-container": "#fcebdf",
+                    "on-secondary-container": "#546c2e",
+                    "on-error": "#ffffff",
+                    "secondary-fixed": "#d0eda0",
+                    "tertiary-fixed": "#ffddb8",
+                    "on-secondary-fixed": "#121f00",
+                    "surface-container-low": "#fff1e8",
+                    "primary": "#871a11",
+                    "on-secondary-fixed-variant": "#374d12",
+                    "on-error-container": "#93000a",
+                    "surface-variant": "#f0dfd4",
+                    "background": "#fff8f5",
+                    "on-tertiary-fixed-variant": "#653e00",
+                    "sumac-red": "#A83226",
+                    "on-primary": "#ffffff",
+                    "surface-container-highest": "#f0dfd4",
+                    "on-primary-container": "#ffc9c0",
+                    "secondary": "#4e6628",
+                    "warm-charcoal": "#2A211A",
+                    "error": "#ba1a1a",
+                    "secondary-container": "#E4EDD3",
+                    "surface-tint": "#ab3428",
+                    "ink-muted": "#71655B",
+                    "on-primary-fixed-variant": "#8a1c13",
+                    "outline-variant": "#e0bfba",
+                    "inverse-primary": "#ffb4a9",
+                    "on-surface": "#221a13",
+                    "on-secondary": "#ffffff",
+                    "primary-fixed-dim": "#ffb4a9",
+                    "on-tertiary-fixed": "#2a1700",
+                    "surface-dim": "#e8d7cc",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-high": "#f6e5da",
+                    "tahini-bg": "#FBF7F1",
+                    "tertiary": "#623c00",
+                    "primary-fixed": "#ffdad5",
+                    "inverse-on-surface": "#ffeee2",
+                    "on-surface-variant": "#58413e",
+                    "honey-gold": "#B97A1E",
+                    "surface": "#fff8f5"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "l": "16px",
+                    "xxl": "32px",
+                    "padding-card": "14px",
+                    "gutter-card": "12px",
+                    "xs": "4px",
+                    "xl": "24px",
+                    "margin-screen": "16px",
+                    "m": "12px",
+                    "s": "8px"
+            },
+            "fontFamily": {
+                    "price-display": ["Tajawal"],
+                    "display-lg": ["Alexandria"],
+                    "display-lg-mobile": ["Alexandria"],
+                    "label-lg": ["Tajawal"],
+                    "title-lg": ["Alexandria"],
+                    "headline-lg": ["Alexandria"],
+                    "body-sm": ["Tajawal"],
+                    "body-md": ["Tajawal"],
+                    "body-lg": ["Tajawal"]
+            },
+            "fontSize": {
+                    "price-display": ["16px", {"lineHeight": "1.0", "fontWeight": "800"}],
+                    "display-lg": ["40px", {"lineHeight": "1.35", "fontWeight": "800"}],
+                    "display-lg-mobile": ["30px", {"lineHeight": "1.35", "fontWeight": "800"}],
+                    "label-lg": ["14px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                    "title-lg": ["17px", {"lineHeight": "1.45", "fontWeight": "700"}],
+                    "headline-lg": ["22px", {"lineHeight": "1.4", "fontWeight": "700"}],
+                    "body-sm": ["12px", {"lineHeight": "1.5", "fontWeight": "500"}],
+                    "body-md": ["14.5px", {"lineHeight": "1.75", "fontWeight": "400"}],
+                    "body-lg": ["15.5px", {"lineHeight": "1.7", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #FBF7F1; /* Tahini base */
+            font-family: 'Tajawal', sans-serif;
+            color: #221a13;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .shadow-warm {
+            box-shadow: 0 4px 12px rgba(43, 33, 26, 0.08);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #D9CEC1;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center">
+<!-- Mobile Shell Mockup -->
+<div class="w-full max-w-md bg-background min-h-screen relative flex flex-col shadow-2xl overflow-hidden">
+<!-- Top App Bar (From JSON) -->
+
+<!-- Main Content -->
+<main class="flex-1 overflow-y-auto pb-32 custom-scrollbar">
+<!-- Hero Image Section -->
+<div class="px-margin-screen mt-s relative">
+<div class="relative w-full aspect-[4/3] rounded-xl overflow-hidden shadow-warm bg-surface-variant border-2 border-outline/20">
+<img class="w-full h-full object-cover" data-alt="A premium close-up food photography shot of a large plate of traditional Kabsa chicken. The rice is golden-orange with aromatic spices, topped with tender roasted chicken, roasted nuts, and fresh parsley. The lighting is warm and organic, captured in a rustic Levantine kitchen setting with sunbeams filtering through a window, using a soft depth of field." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAiL1p8o07Q2bYwjQOojZtGuyDJIyDhLXCnb_IOjwodXL8mpGBgJtp0m_HolnPFG9vTDom56bJp1UyQ6NCy9_CZ5Zi1PQQHbv2egfi5nWCcA75E_wwkYi3P7Wvjy5Bg9Xd86scZN2sleQ-7BwiNTfTG0JEwr89-ojQjxiwBq0A6pcU90F4gQR_tXNsLNgWcTNLXiaHZeUzRDXbTr92v2U0vcDqXoQv3L0S17wm7JIaFhsKRX9Qc2M0B">
+<button class="absolute top-4 right-4 bg-white/80 backdrop-blur-sm p-2 rounded-full shadow-lg active:scale-90 transition-transform text-primary">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+</button>
+</div>
+</div>
+<!-- Title & Rating -->
+<div class="px-margin-screen mt-l flex justify-between items-baseline">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-warm-charcoal">كبسة دجاج</h2>
+<div class="bg-surface-container-high px-3 py-1 rounded-full flex items-center gap-1 border border-outline">
+<span class="material-symbols-outlined text-sm text-honey-gold" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-label-lg text-label-lg text-warm-charcoal">4.7 (120)</span>
+</div>
+</div>
+<!-- Chef Card -->
+<div class="px-margin-screen mt-l">
+<div class="bg-surface border border-outline rounded-xl p-m flex items-center justify-between shadow-warm">
+<div class="flex items-center gap-m">
+<div class="w-12 h-12 rounded-full overflow-hidden border-2 border-primary-fixed">
+<img class="w-full h-full object-cover" data-alt="A portrait of a warm, smiling middle-aged woman in a clean, professional chef apron, standing in a brightly lit, home-style kitchen. She has a friendly and trustworthy expression, embodying the spirit of a home cook. The image uses warm, natural light and a soft color palette consistent with the Tahini and Sumac Red brand colors." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDs-4skKshFUdX8gcSVXO8zaohn6YVACMW7T90vKGhUmYe7DGlcDkkS-MXPzNkF3_h9E6YeaQsguJeMFIdsqDcethVQzJ-reaTVAe8sIYP9StpZh2mm3XyB0erOPL5ZvIVFif7femYRpdVmV54sxBFEPY5S9Wd31ZQX-ST03RZvL91oFv0meKwa7jJ9KZzNsv-w4xVOjrxZJt_zDCAtYTe8mssvcU90WQ78ichTwvh4w9V8OJhzX8eC">
+</div>
+<div>
+<p class="font-title-lg text-title-lg text-warm-charcoal">أم أحمد</p>
+<p class="font-body-sm text-body-sm text-ink-muted">شيف محترف</p>
+</div>
+</div>
+<button class="font-label-lg text-label-lg text-warm-charcoal border border-outline rounded-lg px-3 py-2 hover:bg-surface-container-low transition-colors flex items-center gap-1">
+                        عرض البروفايل ←
+                    </button>
+</div>
+</div>
+<!-- Description Placeholders -->
+<div class="px-margin-screen mt-l space-y-s">
+<div class="h-4 w-11/12 bg-surface-variant rounded-full animate-pulse"></div>
+<div class="h-4 w-2/3 bg-surface-variant rounded-full opacity-60 animate-pulse"></div>
+</div>
+<hr class="mx-margin-screen mt-xl border-outline/50">
+<!-- Selling Options -->
+<div class="px-margin-screen mt-l">
+<h3 class="font-title-lg text-title-lg text-warm-charcoal mb-m">خيارات البيع</h3>
+<div class="flex flex-wrap gap-s">
+<!-- Active Chip -->
+<button class="flex items-center gap-2 bg-warm-charcoal text-white px-l py-2 rounded-full transition-all active:scale-95 shadow-lg">
+<span class="font-label-lg text-label-lg">صغير — 40,000</span>
+</button>
+<!-- Inactive Chips -->
+<button class="flex items-center gap-2 border border-outline text-warm-charcoal px-l py-2 rounded-full hover:bg-surface-container-low transition-all active:scale-95">
+<span class="font-label-lg text-label-lg">وسط — 60,000</span>
+</button>
+<button class="flex items-center gap-2 border border-outline text-warm-charcoal px-l py-2 rounded-full hover:bg-surface-container-low transition-all active:scale-95">
+<span class="font-label-lg text-label-lg">كبير — 80,000</span>
+</button>
+</div>
+</div>
+<!-- Quantity & Price Row -->
+<div class="px-margin-screen mt-xl flex items-center justify-between flex-row-reverse">
+<div class="flex flex-col items-start">
+<span class="font-body-sm text-body-sm text-ink-muted">السعر الإجمالي</span>
+<span class="font-display-lg-mobile text-display-lg-mobile text-primary">40,000 ل.س</span>
+</div>
+<div class="flex items-center border-2 border-outline rounded-full p-1 bg-surface-container-low">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined">add</span>
+</button>
+<span class="px-4 font-price-display text-price-display text-warm-charcoal">1</span>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined">remove</span>
+</button>
+</div>
+</div>
+<!-- Notes Section -->
+
+</main>
+<!-- Bottom Action Bar -->
+<div class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-background/80 backdrop-blur-md p-margin-screen z-[60] border-t border-outline/20">
+<button class="w-full bg-sumac-red hover:bg-primary transition-all active:scale-95 text-white py-4 rounded-xl font-headline-lg flex items-center justify-center gap-3 shadow-xl">
+<span class="">إضافة إلى السلة</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">shopping_cart</span>
+</button>
+</div>
+<!-- Bottom Nav Shell (Suppressed as per context - focus screen) -->
+<!-- But including it for layout fidelity if needed - usually hidden in detail views -->
+</div>
+<!-- Micro-interactions Script -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const chips = document.querySelectorAll('.selling-chip');
+            const qtyDisplay = document.querySelector('.qty-display');
+            
+            // Simple chip toggle logic for demo
+            document.querySelectorAll('button').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    const ripple = document.createElement('span');
+                    ripple.classList.add('ripple');
+                    this.appendChild(ripple);
+                    setTimeout(() => ripple.remove(), 600);
+                });
+            });
+        });
+    </script>
+<style>
+        .ripple {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: scale(0);
+            animation: ripple-effect 0.6s linear;
+            pointer-events: none;
+        }
+        @keyframes ripple-effect {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+    </style>
+
+
+</body></html>
