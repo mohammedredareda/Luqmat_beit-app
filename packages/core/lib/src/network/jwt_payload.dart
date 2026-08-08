@@ -18,3 +18,14 @@ Map<String, dynamic> decodeJwtPayload(String token) {
     return const {};
   }
 }
+
+/// Reads a JWT's `exp` claim (Unix seconds) and reports whether it's already
+/// in the past. A token with no `exp` claim (or an unparseable one) is
+/// treated as expired — fail closed, since the alternative is silently
+/// trusting a token we can't actually verify a lifetime for.
+bool isJwtExpired(String token) {
+  final exp = decodeJwtPayload(token)['exp'];
+  if (exp is! int) return true;
+  final expiresAt = DateTime.fromMillisecondsSinceEpoch(exp * 1000, isUtc: true);
+  return DateTime.now().toUtc().isAfter(expiresAt);
+}

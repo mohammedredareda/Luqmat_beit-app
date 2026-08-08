@@ -1,0 +1,43 @@
+name: luqmat_beit_app
+description: "لُقمة بيت — single app, role-routed between the customer and cook shells based on the logged-in account's role."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.5.3 <4.0.0'
+  flutter: ">=3.24.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  core:
+    path: ../../packages/core
+
+  cupertino_icons: ^1.0.8
+  flutter_bloc: ^9.1.1
+  bloc: ^9.0.0
+  freezed_annotation: ^2.4.4
+  equatable: ^2.0.5
+  get_it: ^8.0.3
+  go_router: ^14.6.2
+  intl: ^0.20.2
+  image_picker: ^1.1.2
+  path_provider: ^2.1.5
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  build_runner: ^2.4.13
+  freezed: ^2.4.5
+  mocktail: ^1.0.4
+  network_image_mock: ^2.1.1
+  hive: ^2.2.3
+  meta: ^1.16.0
+
+flutter:
+  uses-material-design: true
+  generate: true

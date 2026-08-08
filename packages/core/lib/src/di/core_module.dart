@@ -2,7 +2,11 @@ import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 
+import '../auth/auth_session_repository.dart';
+import '../auth/auth_session_repository_impl.dart';
 import '../l10n/locale_cubit.dart';
+import '../location/location_repository.dart';
+import '../location/location_repository_impl.dart';
 import '../network/api_client.dart';
 import '../network/dio_client.dart';
 import '../network/interceptors/auth_interceptor.dart';
@@ -57,4 +61,13 @@ Future<void> registerCoreDependencies(
 
   getIt.registerLazySingleton<LocaleCubit>(() => LocaleCubit());
   getIt.registerLazySingleton<ConnectivityCubit>(() => ConnectivityCubit());
+
+  // Login/OTP/reset-password are identical across roles — shared here so
+  // neither app reimplements the same API calls. Registration stays
+  // per-app (each app's own AuthRepository) since its fields differ.
+  getIt.registerLazySingleton<AuthSessionRepository>(
+    () => AuthSessionRepositoryImpl(getIt<ApiClient>(), getIt<SecureTokenStorage>()),
+  );
+
+  getIt.registerLazySingleton<LocationRepository>(() => LocationRepositoryImpl());
 }
