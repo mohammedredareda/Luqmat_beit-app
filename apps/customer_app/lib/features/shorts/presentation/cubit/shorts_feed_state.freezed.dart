@@ -1,5 +1,5 @@
-// GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,380 +9,632 @@ part of 'shorts_feed_state.dart';
 // FreezedGenerator
 // **************************************************************************
 
-// dart format off
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+
 /// @nodoc
 mixin _$ShortsFeedState {
-
-
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ShortsFeedState);
-}
-
-
-@override
-int get hashCode => runtimeType.hashCode;
-
-@override
-String toString() {
-  return 'ShortsFeedState()';
-}
-
-
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(List<ShortEntity> shorts) loaded,
+    required TResult Function(AppException exception) failure,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(List<ShortEntity> shorts)? loaded,
+    TResult? Function(AppException exception)? failure,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(List<ShortEntity> shorts)? loaded,
+    TResult Function(AppException exception)? failure,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ShortsFeedInitial value) initial,
+    required TResult Function(ShortsFeedLoading value) loading,
+    required TResult Function(ShortsFeedLoaded value) loaded,
+    required TResult Function(ShortsFeedFailure value) failure,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ShortsFeedInitial value)? initial,
+    TResult? Function(ShortsFeedLoading value)? loading,
+    TResult? Function(ShortsFeedLoaded value)? loaded,
+    TResult? Function(ShortsFeedFailure value)? failure,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ShortsFeedInitial value)? initial,
+    TResult Function(ShortsFeedLoading value)? loading,
+    TResult Function(ShortsFeedLoaded value)? loaded,
+    TResult Function(ShortsFeedFailure value)? failure,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-class $ShortsFeedStateCopyWith<$Res>  {
-$ShortsFeedStateCopyWith(ShortsFeedState _, $Res Function(ShortsFeedState) __);
+abstract class $ShortsFeedStateCopyWith<$Res> {
+  factory $ShortsFeedStateCopyWith(
+          ShortsFeedState value, $Res Function(ShortsFeedState) then) =
+      _$ShortsFeedStateCopyWithImpl<$Res, ShortsFeedState>;
 }
 
+/// @nodoc
+class _$ShortsFeedStateCopyWithImpl<$Res, $Val extends ShortsFeedState>
+    implements $ShortsFeedStateCopyWith<$Res> {
+  _$ShortsFeedStateCopyWithImpl(this._value, this._then);
 
-/// Adds pattern-matching-related methods to [ShortsFeedState].
-extension ShortsFeedStatePatterns on ShortsFeedState {
-/// A variant of `map` that fallback to returning `orElse`.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case _:
-///     return orElse();
-/// }
-/// ```
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( ShortsFeedInitial value)?  initial,TResult Function( ShortsFeedLoading value)?  loading,TResult Function( ShortsFeedLoaded value)?  loaded,TResult Function( ShortsFeedFailure value)?  failure,required TResult orElse(),}){
-final _that = this;
-switch (_that) {
-case ShortsFeedInitial() when initial != null:
-return initial(_that);case ShortsFeedLoading() when loading != null:
-return loading(_that);case ShortsFeedLoaded() when loaded != null:
-return loaded(_that);case ShortsFeedFailure() when failure != null:
-return failure(_that);case _:
-  return orElse();
-
-}
-}
-/// A `switch`-like method, using callbacks.
-///
-/// Callbacks receives the raw object, upcasted.
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case final Subclass2 value:
-///     return ...;
-/// }
-/// ```
-
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( ShortsFeedInitial value)  initial,required TResult Function( ShortsFeedLoading value)  loading,required TResult Function( ShortsFeedLoaded value)  loaded,required TResult Function( ShortsFeedFailure value)  failure,}){
-final _that = this;
-switch (_that) {
-case ShortsFeedInitial():
-return initial(_that);case ShortsFeedLoading():
-return loading(_that);case ShortsFeedLoaded():
-return loaded(_that);case ShortsFeedFailure():
-return failure(_that);}
-}
-/// A variant of `map` that fallback to returning `null`.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case _:
-///     return null;
-/// }
-/// ```
-
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( ShortsFeedInitial value)?  initial,TResult? Function( ShortsFeedLoading value)?  loading,TResult? Function( ShortsFeedLoaded value)?  loaded,TResult? Function( ShortsFeedFailure value)?  failure,}){
-final _that = this;
-switch (_that) {
-case ShortsFeedInitial() when initial != null:
-return initial(_that);case ShortsFeedLoading() when loading != null:
-return loading(_that);case ShortsFeedLoaded() when loaded != null:
-return loaded(_that);case ShortsFeedFailure() when failure != null:
-return failure(_that);case _:
-  return null;
-
-}
-}
-/// A variant of `when` that fallback to an `orElse` callback.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case Subclass(:final field):
-///     return ...;
-///   case _:
-///     return orElse();
-/// }
-/// ```
-
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( List<ShortEntity> shorts)?  loaded,TResult Function( AppException exception)?  failure,required TResult orElse(),}) {final _that = this;
-switch (_that) {
-case ShortsFeedInitial() when initial != null:
-return initial();case ShortsFeedLoading() when loading != null:
-return loading();case ShortsFeedLoaded() when loaded != null:
-return loaded(_that.shorts);case ShortsFeedFailure() when failure != null:
-return failure(_that.exception);case _:
-  return orElse();
-
-}
-}
-/// A `switch`-like method, using callbacks.
-///
-/// As opposed to `map`, this offers destructuring.
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case Subclass(:final field):
-///     return ...;
-///   case Subclass2(:final field2):
-///     return ...;
-/// }
-/// ```
-
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( List<ShortEntity> shorts)  loaded,required TResult Function( AppException exception)  failure,}) {final _that = this;
-switch (_that) {
-case ShortsFeedInitial():
-return initial();case ShortsFeedLoading():
-return loading();case ShortsFeedLoaded():
-return loaded(_that.shorts);case ShortsFeedFailure():
-return failure(_that.exception);}
-}
-/// A variant of `when` that fallback to returning `null`
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case Subclass(:final field):
-///     return ...;
-///   case _:
-///     return null;
-/// }
-/// ```
-
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( List<ShortEntity> shorts)?  loaded,TResult? Function( AppException exception)?  failure,}) {final _that = this;
-switch (_that) {
-case ShortsFeedInitial() when initial != null:
-return initial();case ShortsFeedLoading() when loading != null:
-return loading();case ShortsFeedLoaded() when loaded != null:
-return loaded(_that.shorts);case ShortsFeedFailure() when failure != null:
-return failure(_that.exception);case _:
-  return null;
-
-}
+  /// Create a copy of ShortsFeedState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
+/// @nodoc
+abstract class _$$ShortsFeedInitialImplCopyWith<$Res> {
+  factory _$$ShortsFeedInitialImplCopyWith(_$ShortsFeedInitialImpl value,
+          $Res Function(_$ShortsFeedInitialImpl) then) =
+      __$$ShortsFeedInitialImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ShortsFeedInitialImplCopyWithImpl<$Res>
+    extends _$ShortsFeedStateCopyWithImpl<$Res, _$ShortsFeedInitialImpl>
+    implements _$$ShortsFeedInitialImplCopyWith<$Res> {
+  __$$ShortsFeedInitialImplCopyWithImpl(_$ShortsFeedInitialImpl _value,
+      $Res Function(_$ShortsFeedInitialImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of ShortsFeedState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
 
+class _$ShortsFeedInitialImpl implements ShortsFeedInitial {
+  const _$ShortsFeedInitialImpl();
 
-class ShortsFeedInitial implements ShortsFeedState {
-  const ShortsFeedInitial();
-  
+  @override
+  String toString() {
+    return 'ShortsFeedState.initial()';
+  }
 
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$ShortsFeedInitialImpl);
+  }
 
+  @override
+  int get hashCode => runtimeType.hashCode;
 
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(List<ShortEntity> shorts) loaded,
+    required TResult Function(AppException exception) failure,
+  }) {
+    return initial();
+  }
 
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(List<ShortEntity> shorts)? loaded,
+    TResult? Function(AppException exception)? failure,
+  }) {
+    return initial?.call();
+  }
 
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(List<ShortEntity> shorts)? loaded,
+    TResult Function(AppException exception)? failure,
+    required TResult orElse(),
+  }) {
+    if (initial != null) {
+      return initial();
+    }
+    return orElse();
+  }
 
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ShortsFeedInitial);
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ShortsFeedInitial value) initial,
+    required TResult Function(ShortsFeedLoading value) loading,
+    required TResult Function(ShortsFeedLoaded value) loaded,
+    required TResult Function(ShortsFeedFailure value) failure,
+  }) {
+    return initial(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ShortsFeedInitial value)? initial,
+    TResult? Function(ShortsFeedLoading value)? loading,
+    TResult? Function(ShortsFeedLoaded value)? loaded,
+    TResult? Function(ShortsFeedFailure value)? failure,
+  }) {
+    return initial?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ShortsFeedInitial value)? initial,
+    TResult Function(ShortsFeedLoading value)? loading,
+    TResult Function(ShortsFeedLoaded value)? loaded,
+    TResult Function(ShortsFeedFailure value)? failure,
+    required TResult orElse(),
+  }) {
+    if (initial != null) {
+      return initial(this);
+    }
+    return orElse();
+  }
 }
 
-
-@override
-int get hashCode => runtimeType.hashCode;
-
-@override
-String toString() {
-  return 'ShortsFeedState.initial()';
-}
-
-
-}
-
-
-
-
-/// @nodoc
-
-
-class ShortsFeedLoading implements ShortsFeedState {
-  const ShortsFeedLoading();
-  
-
-
-
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ShortsFeedLoading);
-}
-
-
-@override
-int get hashCode => runtimeType.hashCode;
-
-@override
-String toString() {
-  return 'ShortsFeedState.loading()';
-}
-
-
-}
-
-
-
-
-/// @nodoc
-
-
-class ShortsFeedLoaded implements ShortsFeedState {
-  const ShortsFeedLoaded(final  List<ShortEntity> shorts): _shorts = shorts;
-  
-
- final  List<ShortEntity> _shorts;
- List<ShortEntity> get shorts {
-  if (_shorts is EqualUnmodifiableListView) return _shorts;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_shorts);
-}
-
-
-/// Create a copy of ShortsFeedState
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$ShortsFeedLoadedCopyWith<ShortsFeedLoaded> get copyWith => _$ShortsFeedLoadedCopyWithImpl<ShortsFeedLoaded>(this, _$identity);
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ShortsFeedLoaded&&const DeepCollectionEquality().equals(other._shorts, _shorts));
-}
-
-
-@override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_shorts));
-
-@override
-String toString() {
-  return 'ShortsFeedState.loaded(shorts: $shorts)';
-}
-
-
+abstract class ShortsFeedInitial implements ShortsFeedState {
+  const factory ShortsFeedInitial() = _$ShortsFeedInitialImpl;
 }
 
 /// @nodoc
-abstract mixin class $ShortsFeedLoadedCopyWith<$Res> implements $ShortsFeedStateCopyWith<$Res> {
-  factory $ShortsFeedLoadedCopyWith(ShortsFeedLoaded value, $Res Function(ShortsFeedLoaded) _then) = _$ShortsFeedLoadedCopyWithImpl;
-@useResult
-$Res call({
- List<ShortEntity> shorts
-});
-
-
-
-
+abstract class _$$ShortsFeedLoadingImplCopyWith<$Res> {
+  factory _$$ShortsFeedLoadingImplCopyWith(_$ShortsFeedLoadingImpl value,
+          $Res Function(_$ShortsFeedLoadingImpl) then) =
+      __$$ShortsFeedLoadingImplCopyWithImpl<$Res>;
 }
+
 /// @nodoc
-class _$ShortsFeedLoadedCopyWithImpl<$Res>
-    implements $ShortsFeedLoadedCopyWith<$Res> {
-  _$ShortsFeedLoadedCopyWithImpl(this._self, this._then);
+class __$$ShortsFeedLoadingImplCopyWithImpl<$Res>
+    extends _$ShortsFeedStateCopyWithImpl<$Res, _$ShortsFeedLoadingImpl>
+    implements _$$ShortsFeedLoadingImplCopyWith<$Res> {
+  __$$ShortsFeedLoadingImplCopyWithImpl(_$ShortsFeedLoadingImpl _value,
+      $Res Function(_$ShortsFeedLoadingImpl) _then)
+      : super(_value, _then);
 
-  final ShortsFeedLoaded _self;
-  final $Res Function(ShortsFeedLoaded) _then;
-
-/// Create a copy of ShortsFeedState
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? shorts = null,}) {
-  return _then(ShortsFeedLoaded(
-null == shorts ? _self._shorts : shorts // ignore: cast_nullable_to_non_nullable
-as List<ShortEntity>,
-  ));
-}
-
-
+  /// Create a copy of ShortsFeedState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
 
+class _$ShortsFeedLoadingImpl implements ShortsFeedLoading {
+  const _$ShortsFeedLoadingImpl();
 
-class ShortsFeedFailure implements ShortsFeedState {
-  const ShortsFeedFailure(this.exception);
-  
+  @override
+  String toString() {
+    return 'ShortsFeedState.loading()';
+  }
 
- final  AppException exception;
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$ShortsFeedLoadingImpl);
+  }
 
-/// Create a copy of ShortsFeedState
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$ShortsFeedFailureCopyWith<ShortsFeedFailure> get copyWith => _$ShortsFeedFailureCopyWithImpl<ShortsFeedFailure>(this, _$identity);
+  @override
+  int get hashCode => runtimeType.hashCode;
 
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(List<ShortEntity> shorts) loaded,
+    required TResult Function(AppException exception) failure,
+  }) {
+    return loading();
+  }
 
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(List<ShortEntity> shorts)? loaded,
+    TResult? Function(AppException exception)? failure,
+  }) {
+    return loading?.call();
+  }
 
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ShortsFeedFailure&&(identical(other.exception, exception) || other.exception == exception));
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(List<ShortEntity> shorts)? loaded,
+    TResult Function(AppException exception)? failure,
+    required TResult orElse(),
+  }) {
+    if (loading != null) {
+      return loading();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ShortsFeedInitial value) initial,
+    required TResult Function(ShortsFeedLoading value) loading,
+    required TResult Function(ShortsFeedLoaded value) loaded,
+    required TResult Function(ShortsFeedFailure value) failure,
+  }) {
+    return loading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ShortsFeedInitial value)? initial,
+    TResult? Function(ShortsFeedLoading value)? loading,
+    TResult? Function(ShortsFeedLoaded value)? loaded,
+    TResult? Function(ShortsFeedFailure value)? failure,
+  }) {
+    return loading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ShortsFeedInitial value)? initial,
+    TResult Function(ShortsFeedLoading value)? loading,
+    TResult Function(ShortsFeedLoaded value)? loaded,
+    TResult Function(ShortsFeedFailure value)? failure,
+    required TResult orElse(),
+  }) {
+    if (loading != null) {
+      return loading(this);
+    }
+    return orElse();
+  }
 }
 
-
-@override
-int get hashCode => Object.hash(runtimeType,exception);
-
-@override
-String toString() {
-  return 'ShortsFeedState.failure(exception: $exception)';
-}
-
-
+abstract class ShortsFeedLoading implements ShortsFeedState {
+  const factory ShortsFeedLoading() = _$ShortsFeedLoadingImpl;
 }
 
 /// @nodoc
-abstract mixin class $ShortsFeedFailureCopyWith<$Res> implements $ShortsFeedStateCopyWith<$Res> {
-  factory $ShortsFeedFailureCopyWith(ShortsFeedFailure value, $Res Function(ShortsFeedFailure) _then) = _$ShortsFeedFailureCopyWithImpl;
-@useResult
-$Res call({
- AppException exception
-});
-
-
-
-
+abstract class _$$ShortsFeedLoadedImplCopyWith<$Res> {
+  factory _$$ShortsFeedLoadedImplCopyWith(_$ShortsFeedLoadedImpl value,
+          $Res Function(_$ShortsFeedLoadedImpl) then) =
+      __$$ShortsFeedLoadedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<ShortEntity> shorts});
 }
+
 /// @nodoc
-class _$ShortsFeedFailureCopyWithImpl<$Res>
-    implements $ShortsFeedFailureCopyWith<$Res> {
-  _$ShortsFeedFailureCopyWithImpl(this._self, this._then);
+class __$$ShortsFeedLoadedImplCopyWithImpl<$Res>
+    extends _$ShortsFeedStateCopyWithImpl<$Res, _$ShortsFeedLoadedImpl>
+    implements _$$ShortsFeedLoadedImplCopyWith<$Res> {
+  __$$ShortsFeedLoadedImplCopyWithImpl(_$ShortsFeedLoadedImpl _value,
+      $Res Function(_$ShortsFeedLoadedImpl) _then)
+      : super(_value, _then);
 
-  final ShortsFeedFailure _self;
-  final $Res Function(ShortsFeedFailure) _then;
-
-/// Create a copy of ShortsFeedState
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? exception = null,}) {
-  return _then(ShortsFeedFailure(
-null == exception ? _self.exception : exception // ignore: cast_nullable_to_non_nullable
-as AppException,
-  ));
+  /// Create a copy of ShortsFeedState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? shorts = null,
+  }) {
+    return _then(_$ShortsFeedLoadedImpl(
+      null == shorts
+          ? _value._shorts
+          : shorts // ignore: cast_nullable_to_non_nullable
+              as List<ShortEntity>,
+    ));
+  }
 }
 
+/// @nodoc
 
+class _$ShortsFeedLoadedImpl implements ShortsFeedLoaded {
+  const _$ShortsFeedLoadedImpl(final List<ShortEntity> shorts)
+      : _shorts = shorts;
+
+  final List<ShortEntity> _shorts;
+  @override
+  List<ShortEntity> get shorts {
+    if (_shorts is EqualUnmodifiableListView) return _shorts;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_shorts);
+  }
+
+  @override
+  String toString() {
+    return 'ShortsFeedState.loaded(shorts: $shorts)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ShortsFeedLoadedImpl &&
+            const DeepCollectionEquality().equals(other._shorts, _shorts));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_shorts));
+
+  /// Create a copy of ShortsFeedState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ShortsFeedLoadedImplCopyWith<_$ShortsFeedLoadedImpl> get copyWith =>
+      __$$ShortsFeedLoadedImplCopyWithImpl<_$ShortsFeedLoadedImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(List<ShortEntity> shorts) loaded,
+    required TResult Function(AppException exception) failure,
+  }) {
+    return loaded(shorts);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(List<ShortEntity> shorts)? loaded,
+    TResult? Function(AppException exception)? failure,
+  }) {
+    return loaded?.call(shorts);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(List<ShortEntity> shorts)? loaded,
+    TResult Function(AppException exception)? failure,
+    required TResult orElse(),
+  }) {
+    if (loaded != null) {
+      return loaded(shorts);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ShortsFeedInitial value) initial,
+    required TResult Function(ShortsFeedLoading value) loading,
+    required TResult Function(ShortsFeedLoaded value) loaded,
+    required TResult Function(ShortsFeedFailure value) failure,
+  }) {
+    return loaded(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ShortsFeedInitial value)? initial,
+    TResult? Function(ShortsFeedLoading value)? loading,
+    TResult? Function(ShortsFeedLoaded value)? loaded,
+    TResult? Function(ShortsFeedFailure value)? failure,
+  }) {
+    return loaded?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ShortsFeedInitial value)? initial,
+    TResult Function(ShortsFeedLoading value)? loading,
+    TResult Function(ShortsFeedLoaded value)? loaded,
+    TResult Function(ShortsFeedFailure value)? failure,
+    required TResult orElse(),
+  }) {
+    if (loaded != null) {
+      return loaded(this);
+    }
+    return orElse();
+  }
 }
 
-// dart format on
+abstract class ShortsFeedLoaded implements ShortsFeedState {
+  const factory ShortsFeedLoaded(final List<ShortEntity> shorts) =
+      _$ShortsFeedLoadedImpl;
+
+  List<ShortEntity> get shorts;
+
+  /// Create a copy of ShortsFeedState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$ShortsFeedLoadedImplCopyWith<_$ShortsFeedLoadedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ShortsFeedFailureImplCopyWith<$Res> {
+  factory _$$ShortsFeedFailureImplCopyWith(_$ShortsFeedFailureImpl value,
+          $Res Function(_$ShortsFeedFailureImpl) then) =
+      __$$ShortsFeedFailureImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({AppException exception});
+}
+
+/// @nodoc
+class __$$ShortsFeedFailureImplCopyWithImpl<$Res>
+    extends _$ShortsFeedStateCopyWithImpl<$Res, _$ShortsFeedFailureImpl>
+    implements _$$ShortsFeedFailureImplCopyWith<$Res> {
+  __$$ShortsFeedFailureImplCopyWithImpl(_$ShortsFeedFailureImpl _value,
+      $Res Function(_$ShortsFeedFailureImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of ShortsFeedState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? exception = null,
+  }) {
+    return _then(_$ShortsFeedFailureImpl(
+      null == exception
+          ? _value.exception
+          : exception // ignore: cast_nullable_to_non_nullable
+              as AppException,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ShortsFeedFailureImpl implements ShortsFeedFailure {
+  const _$ShortsFeedFailureImpl(this.exception);
+
+  @override
+  final AppException exception;
+
+  @override
+  String toString() {
+    return 'ShortsFeedState.failure(exception: $exception)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ShortsFeedFailureImpl &&
+            (identical(other.exception, exception) ||
+                other.exception == exception));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, exception);
+
+  /// Create a copy of ShortsFeedState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ShortsFeedFailureImplCopyWith<_$ShortsFeedFailureImpl> get copyWith =>
+      __$$ShortsFeedFailureImplCopyWithImpl<_$ShortsFeedFailureImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(List<ShortEntity> shorts) loaded,
+    required TResult Function(AppException exception) failure,
+  }) {
+    return failure(exception);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(List<ShortEntity> shorts)? loaded,
+    TResult? Function(AppException exception)? failure,
+  }) {
+    return failure?.call(exception);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(List<ShortEntity> shorts)? loaded,
+    TResult Function(AppException exception)? failure,
+    required TResult orElse(),
+  }) {
+    if (failure != null) {
+      return failure(exception);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ShortsFeedInitial value) initial,
+    required TResult Function(ShortsFeedLoading value) loading,
+    required TResult Function(ShortsFeedLoaded value) loaded,
+    required TResult Function(ShortsFeedFailure value) failure,
+  }) {
+    return failure(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ShortsFeedInitial value)? initial,
+    TResult? Function(ShortsFeedLoading value)? loading,
+    TResult? Function(ShortsFeedLoaded value)? loaded,
+    TResult? Function(ShortsFeedFailure value)? failure,
+  }) {
+    return failure?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ShortsFeedInitial value)? initial,
+    TResult Function(ShortsFeedLoading value)? loading,
+    TResult Function(ShortsFeedLoaded value)? loaded,
+    TResult Function(ShortsFeedFailure value)? failure,
+    required TResult orElse(),
+  }) {
+    if (failure != null) {
+      return failure(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ShortsFeedFailure implements ShortsFeedState {
+  const factory ShortsFeedFailure(final AppException exception) =
+      _$ShortsFeedFailureImpl;
+
+  AppException get exception;
+
+  /// Create a copy of ShortsFeedState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$ShortsFeedFailureImplCopyWith<_$ShortsFeedFailureImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}

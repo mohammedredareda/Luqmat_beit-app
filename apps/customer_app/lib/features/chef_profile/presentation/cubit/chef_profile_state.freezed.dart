@@ -1,5 +1,5 @@
-// GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,378 +9,680 @@ part of 'chef_profile_state.dart';
 // FreezedGenerator
 // **************************************************************************
 
-// dart format off
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+
 /// @nodoc
 mixin _$ChefProfileState {
-
-
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ChefProfileState);
-}
-
-
-@override
-int get hashCode => runtimeType.hashCode;
-
-@override
-String toString() {
-  return 'ChefProfileState()';
-}
-
-
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(
+            ChefProfileEntity profile, String searchQuery, String? selectedTag)
+        loaded,
+    required TResult Function(AppException exception) failure,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(
+            ChefProfileEntity profile, String searchQuery, String? selectedTag)?
+        loaded,
+    TResult? Function(AppException exception)? failure,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(
+            ChefProfileEntity profile, String searchQuery, String? selectedTag)?
+        loaded,
+    TResult Function(AppException exception)? failure,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ChefProfileInitial value) initial,
+    required TResult Function(ChefProfileLoading value) loading,
+    required TResult Function(ChefProfileLoaded value) loaded,
+    required TResult Function(ChefProfileFailure value) failure,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ChefProfileInitial value)? initial,
+    TResult? Function(ChefProfileLoading value)? loading,
+    TResult? Function(ChefProfileLoaded value)? loaded,
+    TResult? Function(ChefProfileFailure value)? failure,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ChefProfileInitial value)? initial,
+    TResult Function(ChefProfileLoading value)? loading,
+    TResult Function(ChefProfileLoaded value)? loaded,
+    TResult Function(ChefProfileFailure value)? failure,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-class $ChefProfileStateCopyWith<$Res>  {
-$ChefProfileStateCopyWith(ChefProfileState _, $Res Function(ChefProfileState) __);
+abstract class $ChefProfileStateCopyWith<$Res> {
+  factory $ChefProfileStateCopyWith(
+          ChefProfileState value, $Res Function(ChefProfileState) then) =
+      _$ChefProfileStateCopyWithImpl<$Res, ChefProfileState>;
 }
 
+/// @nodoc
+class _$ChefProfileStateCopyWithImpl<$Res, $Val extends ChefProfileState>
+    implements $ChefProfileStateCopyWith<$Res> {
+  _$ChefProfileStateCopyWithImpl(this._value, this._then);
 
-/// Adds pattern-matching-related methods to [ChefProfileState].
-extension ChefProfileStatePatterns on ChefProfileState {
-/// A variant of `map` that fallback to returning `orElse`.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case _:
-///     return orElse();
-/// }
-/// ```
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( ChefProfileInitial value)?  initial,TResult Function( ChefProfileLoading value)?  loading,TResult Function( ChefProfileLoaded value)?  loaded,TResult Function( ChefProfileFailure value)?  failure,required TResult orElse(),}){
-final _that = this;
-switch (_that) {
-case ChefProfileInitial() when initial != null:
-return initial(_that);case ChefProfileLoading() when loading != null:
-return loading(_that);case ChefProfileLoaded() when loaded != null:
-return loaded(_that);case ChefProfileFailure() when failure != null:
-return failure(_that);case _:
-  return orElse();
-
-}
-}
-/// A `switch`-like method, using callbacks.
-///
-/// Callbacks receives the raw object, upcasted.
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case final Subclass2 value:
-///     return ...;
-/// }
-/// ```
-
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( ChefProfileInitial value)  initial,required TResult Function( ChefProfileLoading value)  loading,required TResult Function( ChefProfileLoaded value)  loaded,required TResult Function( ChefProfileFailure value)  failure,}){
-final _that = this;
-switch (_that) {
-case ChefProfileInitial():
-return initial(_that);case ChefProfileLoading():
-return loading(_that);case ChefProfileLoaded():
-return loaded(_that);case ChefProfileFailure():
-return failure(_that);}
-}
-/// A variant of `map` that fallback to returning `null`.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case _:
-///     return null;
-/// }
-/// ```
-
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( ChefProfileInitial value)?  initial,TResult? Function( ChefProfileLoading value)?  loading,TResult? Function( ChefProfileLoaded value)?  loaded,TResult? Function( ChefProfileFailure value)?  failure,}){
-final _that = this;
-switch (_that) {
-case ChefProfileInitial() when initial != null:
-return initial(_that);case ChefProfileLoading() when loading != null:
-return loading(_that);case ChefProfileLoaded() when loaded != null:
-return loaded(_that);case ChefProfileFailure() when failure != null:
-return failure(_that);case _:
-  return null;
-
-}
-}
-/// A variant of `when` that fallback to an `orElse` callback.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case Subclass(:final field):
-///     return ...;
-///   case _:
-///     return orElse();
-/// }
-/// ```
-
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( ChefProfileEntity profile,  String searchQuery,  String? selectedTag)?  loaded,TResult Function( AppException exception)?  failure,required TResult orElse(),}) {final _that = this;
-switch (_that) {
-case ChefProfileInitial() when initial != null:
-return initial();case ChefProfileLoading() when loading != null:
-return loading();case ChefProfileLoaded() when loaded != null:
-return loaded(_that.profile,_that.searchQuery,_that.selectedTag);case ChefProfileFailure() when failure != null:
-return failure(_that.exception);case _:
-  return orElse();
-
-}
-}
-/// A `switch`-like method, using callbacks.
-///
-/// As opposed to `map`, this offers destructuring.
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case Subclass(:final field):
-///     return ...;
-///   case Subclass2(:final field2):
-///     return ...;
-/// }
-/// ```
-
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( ChefProfileEntity profile,  String searchQuery,  String? selectedTag)  loaded,required TResult Function( AppException exception)  failure,}) {final _that = this;
-switch (_that) {
-case ChefProfileInitial():
-return initial();case ChefProfileLoading():
-return loading();case ChefProfileLoaded():
-return loaded(_that.profile,_that.searchQuery,_that.selectedTag);case ChefProfileFailure():
-return failure(_that.exception);}
-}
-/// A variant of `when` that fallback to returning `null`
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case Subclass(:final field):
-///     return ...;
-///   case _:
-///     return null;
-/// }
-/// ```
-
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( ChefProfileEntity profile,  String searchQuery,  String? selectedTag)?  loaded,TResult? Function( AppException exception)?  failure,}) {final _that = this;
-switch (_that) {
-case ChefProfileInitial() when initial != null:
-return initial();case ChefProfileLoading() when loading != null:
-return loading();case ChefProfileLoaded() when loaded != null:
-return loaded(_that.profile,_that.searchQuery,_that.selectedTag);case ChefProfileFailure() when failure != null:
-return failure(_that.exception);case _:
-  return null;
-
-}
+  /// Create a copy of ChefProfileState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
+/// @nodoc
+abstract class _$$ChefProfileInitialImplCopyWith<$Res> {
+  factory _$$ChefProfileInitialImplCopyWith(_$ChefProfileInitialImpl value,
+          $Res Function(_$ChefProfileInitialImpl) then) =
+      __$$ChefProfileInitialImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ChefProfileInitialImplCopyWithImpl<$Res>
+    extends _$ChefProfileStateCopyWithImpl<$Res, _$ChefProfileInitialImpl>
+    implements _$$ChefProfileInitialImplCopyWith<$Res> {
+  __$$ChefProfileInitialImplCopyWithImpl(_$ChefProfileInitialImpl _value,
+      $Res Function(_$ChefProfileInitialImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of ChefProfileState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
 
+class _$ChefProfileInitialImpl implements ChefProfileInitial {
+  const _$ChefProfileInitialImpl();
 
-class ChefProfileInitial implements ChefProfileState {
-  const ChefProfileInitial();
-  
+  @override
+  String toString() {
+    return 'ChefProfileState.initial()';
+  }
 
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$ChefProfileInitialImpl);
+  }
 
+  @override
+  int get hashCode => runtimeType.hashCode;
 
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(
+            ChefProfileEntity profile, String searchQuery, String? selectedTag)
+        loaded,
+    required TResult Function(AppException exception) failure,
+  }) {
+    return initial();
+  }
 
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(
+            ChefProfileEntity profile, String searchQuery, String? selectedTag)?
+        loaded,
+    TResult? Function(AppException exception)? failure,
+  }) {
+    return initial?.call();
+  }
 
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(
+            ChefProfileEntity profile, String searchQuery, String? selectedTag)?
+        loaded,
+    TResult Function(AppException exception)? failure,
+    required TResult orElse(),
+  }) {
+    if (initial != null) {
+      return initial();
+    }
+    return orElse();
+  }
 
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ChefProfileInitial);
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ChefProfileInitial value) initial,
+    required TResult Function(ChefProfileLoading value) loading,
+    required TResult Function(ChefProfileLoaded value) loaded,
+    required TResult Function(ChefProfileFailure value) failure,
+  }) {
+    return initial(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ChefProfileInitial value)? initial,
+    TResult? Function(ChefProfileLoading value)? loading,
+    TResult? Function(ChefProfileLoaded value)? loaded,
+    TResult? Function(ChefProfileFailure value)? failure,
+  }) {
+    return initial?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ChefProfileInitial value)? initial,
+    TResult Function(ChefProfileLoading value)? loading,
+    TResult Function(ChefProfileLoaded value)? loaded,
+    TResult Function(ChefProfileFailure value)? failure,
+    required TResult orElse(),
+  }) {
+    if (initial != null) {
+      return initial(this);
+    }
+    return orElse();
+  }
 }
 
-
-@override
-int get hashCode => runtimeType.hashCode;
-
-@override
-String toString() {
-  return 'ChefProfileState.initial()';
+abstract class ChefProfileInitial implements ChefProfileState {
+  const factory ChefProfileInitial() = _$ChefProfileInitialImpl;
 }
-
-
-}
-
-
-
 
 /// @nodoc
-
-
-class ChefProfileLoading implements ChefProfileState {
-  const ChefProfileLoading();
-  
-
-
-
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ChefProfileLoading);
-}
-
-
-@override
-int get hashCode => runtimeType.hashCode;
-
-@override
-String toString() {
-  return 'ChefProfileState.loading()';
-}
-
-
-}
-
-
-
-
-/// @nodoc
-
-
-class ChefProfileLoaded implements ChefProfileState {
-  const ChefProfileLoaded(this.profile, {this.searchQuery = '', this.selectedTag});
-  
-
- final  ChefProfileEntity profile;
-@JsonKey() final  String searchQuery;
- final  String? selectedTag;
-
-/// Create a copy of ChefProfileState
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$ChefProfileLoadedCopyWith<ChefProfileLoaded> get copyWith => _$ChefProfileLoadedCopyWithImpl<ChefProfileLoaded>(this, _$identity);
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ChefProfileLoaded&&(identical(other.profile, profile) || other.profile == profile)&&(identical(other.searchQuery, searchQuery) || other.searchQuery == searchQuery)&&(identical(other.selectedTag, selectedTag) || other.selectedTag == selectedTag));
-}
-
-
-@override
-int get hashCode => Object.hash(runtimeType,profile,searchQuery,selectedTag);
-
-@override
-String toString() {
-  return 'ChefProfileState.loaded(profile: $profile, searchQuery: $searchQuery, selectedTag: $selectedTag)';
-}
-
-
+abstract class _$$ChefProfileLoadingImplCopyWith<$Res> {
+  factory _$$ChefProfileLoadingImplCopyWith(_$ChefProfileLoadingImpl value,
+          $Res Function(_$ChefProfileLoadingImpl) then) =
+      __$$ChefProfileLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-abstract mixin class $ChefProfileLoadedCopyWith<$Res> implements $ChefProfileStateCopyWith<$Res> {
-  factory $ChefProfileLoadedCopyWith(ChefProfileLoaded value, $Res Function(ChefProfileLoaded) _then) = _$ChefProfileLoadedCopyWithImpl;
-@useResult
-$Res call({
- ChefProfileEntity profile, String searchQuery, String? selectedTag
-});
+class __$$ChefProfileLoadingImplCopyWithImpl<$Res>
+    extends _$ChefProfileStateCopyWithImpl<$Res, _$ChefProfileLoadingImpl>
+    implements _$$ChefProfileLoadingImplCopyWith<$Res> {
+  __$$ChefProfileLoadingImplCopyWithImpl(_$ChefProfileLoadingImpl _value,
+      $Res Function(_$ChefProfileLoadingImpl) _then)
+      : super(_value, _then);
 
-
-
-
-}
-/// @nodoc
-class _$ChefProfileLoadedCopyWithImpl<$Res>
-    implements $ChefProfileLoadedCopyWith<$Res> {
-  _$ChefProfileLoadedCopyWithImpl(this._self, this._then);
-
-  final ChefProfileLoaded _self;
-  final $Res Function(ChefProfileLoaded) _then;
-
-/// Create a copy of ChefProfileState
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? profile = null,Object? searchQuery = null,Object? selectedTag = freezed,}) {
-  return _then(ChefProfileLoaded(
-null == profile ? _self.profile : profile // ignore: cast_nullable_to_non_nullable
-as ChefProfileEntity,searchQuery: null == searchQuery ? _self.searchQuery : searchQuery // ignore: cast_nullable_to_non_nullable
-as String,selectedTag: freezed == selectedTag ? _self.selectedTag : selectedTag // ignore: cast_nullable_to_non_nullable
-as String?,
-  ));
-}
-
-
+  /// Create a copy of ChefProfileState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
 
+class _$ChefProfileLoadingImpl implements ChefProfileLoading {
+  const _$ChefProfileLoadingImpl();
 
-class ChefProfileFailure implements ChefProfileState {
-  const ChefProfileFailure(this.exception);
-  
+  @override
+  String toString() {
+    return 'ChefProfileState.loading()';
+  }
 
- final  AppException exception;
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$ChefProfileLoadingImpl);
+  }
 
-/// Create a copy of ChefProfileState
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$ChefProfileFailureCopyWith<ChefProfileFailure> get copyWith => _$ChefProfileFailureCopyWithImpl<ChefProfileFailure>(this, _$identity);
+  @override
+  int get hashCode => runtimeType.hashCode;
 
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(
+            ChefProfileEntity profile, String searchQuery, String? selectedTag)
+        loaded,
+    required TResult Function(AppException exception) failure,
+  }) {
+    return loading();
+  }
 
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(
+            ChefProfileEntity profile, String searchQuery, String? selectedTag)?
+        loaded,
+    TResult? Function(AppException exception)? failure,
+  }) {
+    return loading?.call();
+  }
 
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ChefProfileFailure&&(identical(other.exception, exception) || other.exception == exception));
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(
+            ChefProfileEntity profile, String searchQuery, String? selectedTag)?
+        loaded,
+    TResult Function(AppException exception)? failure,
+    required TResult orElse(),
+  }) {
+    if (loading != null) {
+      return loading();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ChefProfileInitial value) initial,
+    required TResult Function(ChefProfileLoading value) loading,
+    required TResult Function(ChefProfileLoaded value) loaded,
+    required TResult Function(ChefProfileFailure value) failure,
+  }) {
+    return loading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ChefProfileInitial value)? initial,
+    TResult? Function(ChefProfileLoading value)? loading,
+    TResult? Function(ChefProfileLoaded value)? loaded,
+    TResult? Function(ChefProfileFailure value)? failure,
+  }) {
+    return loading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ChefProfileInitial value)? initial,
+    TResult Function(ChefProfileLoading value)? loading,
+    TResult Function(ChefProfileLoaded value)? loaded,
+    TResult Function(ChefProfileFailure value)? failure,
+    required TResult orElse(),
+  }) {
+    if (loading != null) {
+      return loading(this);
+    }
+    return orElse();
+  }
 }
 
-
-@override
-int get hashCode => Object.hash(runtimeType,exception);
-
-@override
-String toString() {
-  return 'ChefProfileState.failure(exception: $exception)';
-}
-
-
+abstract class ChefProfileLoading implements ChefProfileState {
+  const factory ChefProfileLoading() = _$ChefProfileLoadingImpl;
 }
 
 /// @nodoc
-abstract mixin class $ChefProfileFailureCopyWith<$Res> implements $ChefProfileStateCopyWith<$Res> {
-  factory $ChefProfileFailureCopyWith(ChefProfileFailure value, $Res Function(ChefProfileFailure) _then) = _$ChefProfileFailureCopyWithImpl;
-@useResult
-$Res call({
- AppException exception
-});
-
-
-
-
+abstract class _$$ChefProfileLoadedImplCopyWith<$Res> {
+  factory _$$ChefProfileLoadedImplCopyWith(_$ChefProfileLoadedImpl value,
+          $Res Function(_$ChefProfileLoadedImpl) then) =
+      __$$ChefProfileLoadedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call(
+      {ChefProfileEntity profile, String searchQuery, String? selectedTag});
 }
+
 /// @nodoc
-class _$ChefProfileFailureCopyWithImpl<$Res>
-    implements $ChefProfileFailureCopyWith<$Res> {
-  _$ChefProfileFailureCopyWithImpl(this._self, this._then);
+class __$$ChefProfileLoadedImplCopyWithImpl<$Res>
+    extends _$ChefProfileStateCopyWithImpl<$Res, _$ChefProfileLoadedImpl>
+    implements _$$ChefProfileLoadedImplCopyWith<$Res> {
+  __$$ChefProfileLoadedImplCopyWithImpl(_$ChefProfileLoadedImpl _value,
+      $Res Function(_$ChefProfileLoadedImpl) _then)
+      : super(_value, _then);
 
-  final ChefProfileFailure _self;
-  final $Res Function(ChefProfileFailure) _then;
-
-/// Create a copy of ChefProfileState
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? exception = null,}) {
-  return _then(ChefProfileFailure(
-null == exception ? _self.exception : exception // ignore: cast_nullable_to_non_nullable
-as AppException,
-  ));
+  /// Create a copy of ChefProfileState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? profile = null,
+    Object? searchQuery = null,
+    Object? selectedTag = freezed,
+  }) {
+    return _then(_$ChefProfileLoadedImpl(
+      null == profile
+          ? _value.profile
+          : profile // ignore: cast_nullable_to_non_nullable
+              as ChefProfileEntity,
+      searchQuery: null == searchQuery
+          ? _value.searchQuery
+          : searchQuery // ignore: cast_nullable_to_non_nullable
+              as String,
+      selectedTag: freezed == selectedTag
+          ? _value.selectedTag
+          : selectedTag // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
 }
 
+/// @nodoc
 
+class _$ChefProfileLoadedImpl implements ChefProfileLoaded {
+  const _$ChefProfileLoadedImpl(this.profile,
+      {this.searchQuery = '', this.selectedTag});
+
+  @override
+  final ChefProfileEntity profile;
+  @override
+  @JsonKey()
+  final String searchQuery;
+  @override
+  final String? selectedTag;
+
+  @override
+  String toString() {
+    return 'ChefProfileState.loaded(profile: $profile, searchQuery: $searchQuery, selectedTag: $selectedTag)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ChefProfileLoadedImpl &&
+            (identical(other.profile, profile) || other.profile == profile) &&
+            (identical(other.searchQuery, searchQuery) ||
+                other.searchQuery == searchQuery) &&
+            (identical(other.selectedTag, selectedTag) ||
+                other.selectedTag == selectedTag));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, profile, searchQuery, selectedTag);
+
+  /// Create a copy of ChefProfileState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ChefProfileLoadedImplCopyWith<_$ChefProfileLoadedImpl> get copyWith =>
+      __$$ChefProfileLoadedImplCopyWithImpl<_$ChefProfileLoadedImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(
+            ChefProfileEntity profile, String searchQuery, String? selectedTag)
+        loaded,
+    required TResult Function(AppException exception) failure,
+  }) {
+    return loaded(profile, searchQuery, selectedTag);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(
+            ChefProfileEntity profile, String searchQuery, String? selectedTag)?
+        loaded,
+    TResult? Function(AppException exception)? failure,
+  }) {
+    return loaded?.call(profile, searchQuery, selectedTag);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(
+            ChefProfileEntity profile, String searchQuery, String? selectedTag)?
+        loaded,
+    TResult Function(AppException exception)? failure,
+    required TResult orElse(),
+  }) {
+    if (loaded != null) {
+      return loaded(profile, searchQuery, selectedTag);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ChefProfileInitial value) initial,
+    required TResult Function(ChefProfileLoading value) loading,
+    required TResult Function(ChefProfileLoaded value) loaded,
+    required TResult Function(ChefProfileFailure value) failure,
+  }) {
+    return loaded(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ChefProfileInitial value)? initial,
+    TResult? Function(ChefProfileLoading value)? loading,
+    TResult? Function(ChefProfileLoaded value)? loaded,
+    TResult? Function(ChefProfileFailure value)? failure,
+  }) {
+    return loaded?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ChefProfileInitial value)? initial,
+    TResult Function(ChefProfileLoading value)? loading,
+    TResult Function(ChefProfileLoaded value)? loaded,
+    TResult Function(ChefProfileFailure value)? failure,
+    required TResult orElse(),
+  }) {
+    if (loaded != null) {
+      return loaded(this);
+    }
+    return orElse();
+  }
 }
 
-// dart format on
+abstract class ChefProfileLoaded implements ChefProfileState {
+  const factory ChefProfileLoaded(final ChefProfileEntity profile,
+      {final String searchQuery,
+      final String? selectedTag}) = _$ChefProfileLoadedImpl;
+
+  ChefProfileEntity get profile;
+  String get searchQuery;
+  String? get selectedTag;
+
+  /// Create a copy of ChefProfileState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$ChefProfileLoadedImplCopyWith<_$ChefProfileLoadedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ChefProfileFailureImplCopyWith<$Res> {
+  factory _$$ChefProfileFailureImplCopyWith(_$ChefProfileFailureImpl value,
+          $Res Function(_$ChefProfileFailureImpl) then) =
+      __$$ChefProfileFailureImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({AppException exception});
+}
+
+/// @nodoc
+class __$$ChefProfileFailureImplCopyWithImpl<$Res>
+    extends _$ChefProfileStateCopyWithImpl<$Res, _$ChefProfileFailureImpl>
+    implements _$$ChefProfileFailureImplCopyWith<$Res> {
+  __$$ChefProfileFailureImplCopyWithImpl(_$ChefProfileFailureImpl _value,
+      $Res Function(_$ChefProfileFailureImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of ChefProfileState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? exception = null,
+  }) {
+    return _then(_$ChefProfileFailureImpl(
+      null == exception
+          ? _value.exception
+          : exception // ignore: cast_nullable_to_non_nullable
+              as AppException,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ChefProfileFailureImpl implements ChefProfileFailure {
+  const _$ChefProfileFailureImpl(this.exception);
+
+  @override
+  final AppException exception;
+
+  @override
+  String toString() {
+    return 'ChefProfileState.failure(exception: $exception)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ChefProfileFailureImpl &&
+            (identical(other.exception, exception) ||
+                other.exception == exception));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, exception);
+
+  /// Create a copy of ChefProfileState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ChefProfileFailureImplCopyWith<_$ChefProfileFailureImpl> get copyWith =>
+      __$$ChefProfileFailureImplCopyWithImpl<_$ChefProfileFailureImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(
+            ChefProfileEntity profile, String searchQuery, String? selectedTag)
+        loaded,
+    required TResult Function(AppException exception) failure,
+  }) {
+    return failure(exception);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(
+            ChefProfileEntity profile, String searchQuery, String? selectedTag)?
+        loaded,
+    TResult? Function(AppException exception)? failure,
+  }) {
+    return failure?.call(exception);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(
+            ChefProfileEntity profile, String searchQuery, String? selectedTag)?
+        loaded,
+    TResult Function(AppException exception)? failure,
+    required TResult orElse(),
+  }) {
+    if (failure != null) {
+      return failure(exception);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ChefProfileInitial value) initial,
+    required TResult Function(ChefProfileLoading value) loading,
+    required TResult Function(ChefProfileLoaded value) loaded,
+    required TResult Function(ChefProfileFailure value) failure,
+  }) {
+    return failure(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ChefProfileInitial value)? initial,
+    TResult? Function(ChefProfileLoading value)? loading,
+    TResult? Function(ChefProfileLoaded value)? loaded,
+    TResult? Function(ChefProfileFailure value)? failure,
+  }) {
+    return failure?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ChefProfileInitial value)? initial,
+    TResult Function(ChefProfileLoading value)? loading,
+    TResult Function(ChefProfileLoaded value)? loaded,
+    TResult Function(ChefProfileFailure value)? failure,
+    required TResult orElse(),
+  }) {
+    if (failure != null) {
+      return failure(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ChefProfileFailure implements ChefProfileState {
+  const factory ChefProfileFailure(final AppException exception) =
+      _$ChefProfileFailureImpl;
+
+  AppException get exception;
+
+  /// Create a copy of ChefProfileState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$ChefProfileFailureImplCopyWith<_$ChefProfileFailureImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}

@@ -67,7 +67,7 @@ class _OrderHistoryList extends StatelessWidget {
     return ListView.separated(
       padding: const EdgeInsetsDirectional.all(AppSpace.l),
       itemCount: orders.length,
-      separatorBuilder: (_, _) => const SizedBox(height: AppSpace.l),
+      separatorBuilder: (context, index) => const SizedBox(height: AppSpace.l),
       itemBuilder: (context, index) {
         final order = orders[index];
         return OrderHistoryCard(
@@ -87,8 +87,8 @@ class _OrderHistoryLoadingSkeleton extends StatelessWidget {
     return ListView.separated(
       padding: const EdgeInsetsDirectional.all(AppSpace.l),
       itemCount: 4,
-      separatorBuilder: (_, _) => const SizedBox(height: AppSpace.l),
-      itemBuilder: (_, _) => const LoadingSkeleton(height: 96, borderRadius: 16),
+      separatorBuilder: (context, index) => const SizedBox(height: AppSpace.l),
+      itemBuilder: (context, index) => const LoadingSkeleton(height: 96, borderRadius: 16),
     );
   }
 }

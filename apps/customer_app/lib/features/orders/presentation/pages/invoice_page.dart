@@ -69,7 +69,11 @@ class _InvoiceContent extends StatelessWidget {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
-    final allItems = order.subOrders.expand((sub) => sub.items).toList();
+    final lineItemRows = [
+      ...order.mealItems.map((item) => OrderLineItemRow.meal(item)),
+      ...order.offerItems.map((item) => OrderLineItemRow.offer(item)),
+      ...order.returnedMealItems.map((item) => OrderLineItemRow.returnedMeal(item)),
+    ];
 
     return ListView(
       padding: const EdgeInsetsDirectional.all(AppSpace.l),
@@ -97,10 +101,10 @@ class _InvoiceContent extends StatelessWidget {
             children: [
               Text('تفاصيل الطلب', style: textTheme.titleLarge),
               const SizedBox(height: AppSpace.s),
-              for (final item in allItems)
+              for (final row in lineItemRows)
                 Padding(
                   padding: const EdgeInsetsDirectional.symmetric(vertical: AppSpace.xs),
-                  child: OrderLineItemRow(item: item),
+                  child: row,
                 ),
               const SizedBox(height: AppSpace.s),
               _BreakdownRow(label: 'المجموع الفرعي', value: order.itemsTotal),

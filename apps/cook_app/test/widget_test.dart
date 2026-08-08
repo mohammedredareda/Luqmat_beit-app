@@ -1,30 +1,34 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:network_image_mock/network_image_mock.dart';
 
-import 'package:cook_app/main.dart';
+import 'package:cook_app/app.dart';
+import 'package:cook_app/di/injection.dart';
+
+import 'support/hive_test_init.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  const secureStorageChannel = MethodChannel('plugins.it_nomads.com/flutter_secure_storage');
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+  setUpAll(() async {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(secureStorageChannel, (call) async => null);
+    // Real file I/O (Hive) can't resolve inside a testWidgets zone — this
+    // setUpAll callback runs in the normal async zone, same pattern as
+    // app_test.dart/app_router_test.dart.
+    await initHiveForTest();
+    configureDependencies();
+  });
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+  testWidgets('CookApp builds without throwing', (WidgetTester tester) async {
+    await mockNetworkImagesFor(() async {
+      await tester.pumpWidget(CookApp());
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 50));
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+      expect(find.byType(MaterialApp), findsOneWidget);
+    });
   });
 }

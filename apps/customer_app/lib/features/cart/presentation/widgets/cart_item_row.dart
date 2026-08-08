@@ -1,22 +1,19 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 
-/// A single cart line: meal image, name, price, a quantity stepper, a
-/// selling-option dropdown (per the "updated dropdowns" mockup variant),
-/// and an optional note. Remove is reached via [onRemove] (confirmed by
-/// the caller with [ConfirmationDialog] before calling this).
+/// A single cart line: meal image, name, price, a quantity stepper, and an
+/// optional note. Remove is reached via [onRemove] (confirmed by the
+/// caller with [ConfirmationDialog] before calling this).
 class CartItemRow extends StatelessWidget {
   const CartItemRow({
     super.key,
     required this.item,
     required this.onQuantityChanged,
-    required this.onSellingOptionChanged,
     required this.onRemove,
   });
 
-  final CartItemEntity item;
+  final CartMealItemEntity item;
   final ValueChanged<int> onQuantityChanged;
-  final ValueChanged<String> onSellingOptionChanged;
   final VoidCallback onRemove;
 
   @override
@@ -38,7 +35,7 @@ class CartItemRow extends StatelessWidget {
                   width: 80,
                   child: AspectRatio(
                     aspectRatio: 4 / 3,
-                    child: Image.network(item.meal.imageUrl, fit: BoxFit.cover),
+                    child: Image.network(item.mealImageUrl, fit: BoxFit.cover),
                   ),
                 ),
               ),
@@ -52,7 +49,7 @@ class CartItemRow extends StatelessWidget {
                       children: [
                         Expanded(
                           child: Text(
-                            item.meal.name,
+                            item.mealName,
                             style: textTheme.titleMedium,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
@@ -64,36 +61,13 @@ class CartItemRow extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const SizedBox(height: AppSpace.s),
-                    Wrap(
-                      spacing: AppSpace.xs,
-                      runSpacing: AppSpace.xs,
-                      children: item.meal.sellingOptions.map((option) {
-                        final isSelected = option.id == item.sellingOption.id;
-                        return GestureDetector(
-                          onTap: () => onSellingOptionChanged(option.id),
-                          child: Container(
-                            padding: const EdgeInsetsDirectional.symmetric(
-                              horizontal: AppSpace.m,
-                              vertical: AppSpace.xs,
-                            ),
-                            decoration: BoxDecoration(
-                              color: isSelected ? scheme.primary : Colors.transparent,
-                              borderRadius: BorderRadius.circular(AppRadius.pill),
-                              border: Border.all(
-                                color: isSelected ? scheme.primary : scheme.outline,
-                              ),
-                            ),
-                            child: Text(
-                              option.label,
-                              style: textTheme.bodySmall?.copyWith(
-                                color: isSelected ? scheme.onPrimary : scheme.onSurfaceVariant,
-                              ),
-                            ),
-                          ),
-                        );
-                      }).toList(),
-                    ),
+                    if (item.sellingOptionLabel != null) ...[
+                      const SizedBox(height: AppSpace.s),
+                      Text(
+                        item.sellingOptionLabel!,
+                        style: textTheme.bodySmall?.copyWith(color: scheme.onSurfaceVariant),
+                      ),
+                    ],
                   ],
                 ),
               ),

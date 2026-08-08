@@ -8,7 +8,6 @@ import '../../../../shared/widgets/customer_bottom_nav.dart';
 import '../../domain/usecases/get_in_progress_orders.dart';
 import '../cubit/my_orders_cubit.dart';
 import '../cubit/my_orders_state.dart';
-import '../widgets/order_status_badge.dart';
 
 /// CU-31 — in-progress orders list (U09 mockup, which has the bottom nav).
 class MyOrdersPage extends StatelessWidget {
@@ -81,7 +80,7 @@ class _MyOrdersList extends StatelessWidget {
     return ListView.separated(
       padding: const EdgeInsetsDirectional.all(AppSpace.l),
       itemCount: orders.length,
-      separatorBuilder: (_, _) => const SizedBox(height: AppSpace.m),
+      separatorBuilder: (context, index) => const SizedBox(height: AppSpace.m),
       itemBuilder: (context, index) => _OrderCard(order: orders[index]),
     );
   }
@@ -96,9 +95,12 @@ class _OrderCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
-    final subOrder = order.subOrders.first;
-    final firstItem = subOrder.items.first;
-    final isRejected = subOrder.status == OrderStatus.rejected;
+    final (firstItemName, firstItemImageUrl) = order.mealItems.isNotEmpty
+        ? (order.mealItems.first.mealName, order.mealItems.first.mealImageUrl)
+        : order.offerItems.isNotEmpty
+            ? (order.offerItems.first.offerName, '')
+            : (order.returnedMealItems.first.mealName, order.returnedMealItems.first.mealImageUrl);
+    final isRejected = order.status == OrderStatus.rejected;
 
     return GestureDetector(
       onTap: () => context.push('/invoice/${order.id}'),
@@ -119,7 +121,7 @@ class _OrderCard extends StatelessWidget {
                   width: 96,
                   child: AspectRatio(
                     aspectRatio: 4 / 3,
-                    child: Image.network(firstItem.mealImageUrl, fit: BoxFit.cover),
+                    child: Image.network(firstItemImageUrl, fit: BoxFit.cover),
                   ),
                 ),
               ),
@@ -129,7 +131,7 @@ class _OrderCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      firstItem.mealName,
+                      firstItemName,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: textTheme.titleLarge,
@@ -140,7 +142,7 @@ class _OrderCard extends StatelessWidget {
                         Icon(Icons.person, size: 16, color: scheme.onSurfaceVariant),
                         const SizedBox(width: AppSpace.xs),
                         Text(
-                          subOrder.cookName,
+                          order.cookName,
                           style: textTheme.bodySmall
                               ?.copyWith(color: scheme.onSurfaceVariant),
                         ),
@@ -162,7 +164,7 @@ class _OrderCard extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: AppSpace.s),
-              OrderStatusBadge(status: subOrder.status),
+              OrderStatusBadge(status: order.status),
             ],
           ),
         ),
@@ -186,8 +188,8 @@ class _MyOrdersLoadingSkeleton extends StatelessWidget {
     return ListView.separated(
       padding: const EdgeInsetsDirectional.all(AppSpace.l),
       itemCount: 3,
-      separatorBuilder: (_, _) => const SizedBox(height: AppSpace.m),
-      itemBuilder: (_, _) => const LoadingSkeleton(height: 96, borderRadius: 16),
+      separatorBuilder: (context, index) => const SizedBox(height: AppSpace.m),
+      itemBuilder: (context, index) => const LoadingSkeleton(height: 96, borderRadius: 16),
     );
   }
 }

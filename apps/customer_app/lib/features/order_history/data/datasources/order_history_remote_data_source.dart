@@ -25,36 +25,33 @@ class OrderHistoryRemoteDataSource implements OrderHistoryDataSource {
     final mealsJson = json['meals'] as List? ?? const [];
     return OrderEntity(
       id: (json['order_id'] ?? json['id']).toString(),
+      cookId: json['cook_id']?.toString() ?? '',
+      cookName: json['cook_name'] as String? ?? '',
+      cookAvatarUrl: json['cook_image'] as String?,
+      customerId: json['customer_id']?.toString() ?? '',
       createdAt: DateTime.tryParse(json['created_at']?.toString() ?? '') ?? DateTime.now(),
+      status: OrderStatus.values.firstWhere(
+        (s) => s.name.toUpperCase() == json['status']?.toString().toUpperCase(),
+        orElse: () => OrderStatus.delivered,
+      ),
       deliveryAddress: json['delivery_address'] as String? ?? '',
       deliveryFee: (json['delivery_fee'] as num?)?.toDouble() ?? 0,
       discountAmount: (json['discount_amount'] as num?)?.toDouble() ?? 0,
-      subOrders: [
-        SubOrderEntity(
-          id: (json['order_id'] ?? json['id']).toString(),
-          cookId: json['cook_id']?.toString() ?? '',
-          cookName: json['cook_name'] as String? ?? '',
-          cookAvatarUrl: json['cook_image'] as String?,
-          status: OrderStatus.values.firstWhere(
-            (s) => s.name.toUpperCase() == json['status']?.toString().toUpperCase(),
-            orElse: () => OrderStatus.delivered,
-          ),
-          items: mealsJson.map((m) {
-            final meal = m as Map;
-            return OrderItemEntity(
-              id: (meal['cart_item_id'] ?? meal['meal_id']).toString(),
-              mealId: meal['meal_id'].toString(),
-              mealName: meal['name'] as String? ?? '',
-              mealImageUrl: meal['image'] as String? ?? '',
-              sellingOptionLabel: meal['selling_option_label'] as String? ?? '',
-              priceAtPurchase: (meal['final_price'] as num?)?.toDouble() ??
-                  (meal['price'] as num?)?.toDouble() ??
-                  0,
-              quantity: (meal['quantity'] as num?)?.toInt() ?? 1,
-            );
-          }).toList(),
-        ),
-      ],
+      totalExpectedTimeMinutes: (json['total_expected_time'] as num?)?.toInt() ?? 0,
+      mealItems: mealsJson.map((m) {
+        final meal = m as Map;
+        return OrderMealItemEntity(
+          id: (meal['cart_item_id'] ?? meal['meal_id']).toString(),
+          mealId: meal['meal_id'].toString(),
+          mealName: meal['name'] as String? ?? '',
+          mealImageUrl: meal['image'] as String? ?? '',
+          sellingOptionLabel: meal['selling_option_label'] as String?,
+          priceAtPurchase: (meal['final_price'] as num?)?.toDouble() ??
+              (meal['price'] as num?)?.toDouble() ??
+              0,
+          quantity: (meal['quantity'] as num?)?.toInt() ?? 1,
+        );
+      }).toList(),
     );
   }
 }

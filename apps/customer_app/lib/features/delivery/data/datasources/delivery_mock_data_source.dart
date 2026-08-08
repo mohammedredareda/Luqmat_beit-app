@@ -19,36 +19,33 @@ class DeliveryMockDataSource {
 
     return OrderEntity(
       id: orderId,
+      cookId: mainMeal.cookId,
+      cookName: mainMeal.cookName,
+      cookAvatarUrl: mainMeal.cookAvatarUrl,
+      customerId: 'customer-1',
       createdAt: DateTime.now().subtract(const Duration(minutes: 35)),
+      status: OrderStatus.delivering,
       deliveryAddress: 'شارع الرينبو، جبل عمّان، عمّان',
       deliveryFee: 2,
-      subOrders: [
-        SubOrderEntity(
-          id: 'sub-$orderId',
-          cookId: mainMeal.cookId,
-          cookName: mainMeal.cookName,
-          cookAvatarUrl: mainMeal.cookAvatarUrl,
-          status: OrderStatus.delivered,
-          items: [
-            OrderItemEntity(
-              id: '$orderId-item-1',
-              mealId: mainMeal.id,
-              mealName: mainMeal.name,
-              mealImageUrl: mainMeal.imageUrl,
-              sellingOptionLabel: mainMeal.sellingOptions.first.label,
-              priceAtPurchase: mainMeal.sellingOptions.first.price,
-              quantity: 2,
-            ),
-            OrderItemEntity(
-              id: '$orderId-item-2',
-              mealId: sideMeal.id,
-              mealName: sideMeal.name,
-              mealImageUrl: sideMeal.imageUrl,
-              sellingOptionLabel: sideMeal.sellingOptions.first.label,
-              priceAtPurchase: sideMeal.sellingOptions.first.price,
-              quantity: 1,
-            ),
-          ],
+      totalExpectedTimeMinutes: 35,
+      mealItems: [
+        OrderMealItemEntity(
+          id: '$orderId-item-1',
+          mealId: mainMeal.id,
+          mealName: mainMeal.name,
+          mealImageUrl: mainMeal.imageUrl,
+          sellingOptionLabel: mainMeal.sellingOptions.first.label,
+          priceAtPurchase: mainMeal.sellingOptions.first.price,
+          quantity: 2,
+        ),
+        OrderMealItemEntity(
+          id: '$orderId-item-2',
+          mealId: sideMeal.id,
+          mealName: sideMeal.name,
+          mealImageUrl: sideMeal.imageUrl,
+          sellingOptionLabel: sideMeal.sellingOptions.first.label,
+          priceAtPurchase: sideMeal.sellingOptions.first.price,
+          quantity: 1,
         ),
       ],
     );

@@ -1,5 +1,5 @@
-// GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,378 +9,677 @@ part of 'profile_state.dart';
 // FreezedGenerator
 // **************************************************************************
 
-// dart format off
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+
 /// @nodoc
 mixin _$ProfileState {
-
-
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProfileState);
-}
-
-
-@override
-int get hashCode => runtimeType.hashCode;
-
-@override
-String toString() {
-  return 'ProfileState()';
-}
-
-
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(
+            CustomerProfileEntity profile, bool isEditing, bool isSaving)
+        loaded,
+    required TResult Function(AppException exception) failure,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(
+            CustomerProfileEntity profile, bool isEditing, bool isSaving)?
+        loaded,
+    TResult? Function(AppException exception)? failure,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(
+            CustomerProfileEntity profile, bool isEditing, bool isSaving)?
+        loaded,
+    TResult Function(AppException exception)? failure,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ProfileInitial value) initial,
+    required TResult Function(ProfileLoading value) loading,
+    required TResult Function(ProfileLoaded value) loaded,
+    required TResult Function(ProfileFailure value) failure,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ProfileInitial value)? initial,
+    TResult? Function(ProfileLoading value)? loading,
+    TResult? Function(ProfileLoaded value)? loaded,
+    TResult? Function(ProfileFailure value)? failure,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ProfileInitial value)? initial,
+    TResult Function(ProfileLoading value)? loading,
+    TResult Function(ProfileLoaded value)? loaded,
+    TResult Function(ProfileFailure value)? failure,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-class $ProfileStateCopyWith<$Res>  {
-$ProfileStateCopyWith(ProfileState _, $Res Function(ProfileState) __);
+abstract class $ProfileStateCopyWith<$Res> {
+  factory $ProfileStateCopyWith(
+          ProfileState value, $Res Function(ProfileState) then) =
+      _$ProfileStateCopyWithImpl<$Res, ProfileState>;
 }
 
+/// @nodoc
+class _$ProfileStateCopyWithImpl<$Res, $Val extends ProfileState>
+    implements $ProfileStateCopyWith<$Res> {
+  _$ProfileStateCopyWithImpl(this._value, this._then);
 
-/// Adds pattern-matching-related methods to [ProfileState].
-extension ProfileStatePatterns on ProfileState {
-/// A variant of `map` that fallback to returning `orElse`.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case _:
-///     return orElse();
-/// }
-/// ```
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( ProfileInitial value)?  initial,TResult Function( ProfileLoading value)?  loading,TResult Function( ProfileLoaded value)?  loaded,TResult Function( ProfileFailure value)?  failure,required TResult orElse(),}){
-final _that = this;
-switch (_that) {
-case ProfileInitial() when initial != null:
-return initial(_that);case ProfileLoading() when loading != null:
-return loading(_that);case ProfileLoaded() when loaded != null:
-return loaded(_that);case ProfileFailure() when failure != null:
-return failure(_that);case _:
-  return orElse();
-
-}
-}
-/// A `switch`-like method, using callbacks.
-///
-/// Callbacks receives the raw object, upcasted.
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case final Subclass2 value:
-///     return ...;
-/// }
-/// ```
-
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( ProfileInitial value)  initial,required TResult Function( ProfileLoading value)  loading,required TResult Function( ProfileLoaded value)  loaded,required TResult Function( ProfileFailure value)  failure,}){
-final _that = this;
-switch (_that) {
-case ProfileInitial():
-return initial(_that);case ProfileLoading():
-return loading(_that);case ProfileLoaded():
-return loaded(_that);case ProfileFailure():
-return failure(_that);}
-}
-/// A variant of `map` that fallback to returning `null`.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case _:
-///     return null;
-/// }
-/// ```
-
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( ProfileInitial value)?  initial,TResult? Function( ProfileLoading value)?  loading,TResult? Function( ProfileLoaded value)?  loaded,TResult? Function( ProfileFailure value)?  failure,}){
-final _that = this;
-switch (_that) {
-case ProfileInitial() when initial != null:
-return initial(_that);case ProfileLoading() when loading != null:
-return loading(_that);case ProfileLoaded() when loaded != null:
-return loaded(_that);case ProfileFailure() when failure != null:
-return failure(_that);case _:
-  return null;
-
-}
-}
-/// A variant of `when` that fallback to an `orElse` callback.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case Subclass(:final field):
-///     return ...;
-///   case _:
-///     return orElse();
-/// }
-/// ```
-
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( CustomerProfileEntity profile,  bool isEditing,  bool isSaving)?  loaded,TResult Function( AppException exception)?  failure,required TResult orElse(),}) {final _that = this;
-switch (_that) {
-case ProfileInitial() when initial != null:
-return initial();case ProfileLoading() when loading != null:
-return loading();case ProfileLoaded() when loaded != null:
-return loaded(_that.profile,_that.isEditing,_that.isSaving);case ProfileFailure() when failure != null:
-return failure(_that.exception);case _:
-  return orElse();
-
-}
-}
-/// A `switch`-like method, using callbacks.
-///
-/// As opposed to `map`, this offers destructuring.
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case Subclass(:final field):
-///     return ...;
-///   case Subclass2(:final field2):
-///     return ...;
-/// }
-/// ```
-
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( CustomerProfileEntity profile,  bool isEditing,  bool isSaving)  loaded,required TResult Function( AppException exception)  failure,}) {final _that = this;
-switch (_that) {
-case ProfileInitial():
-return initial();case ProfileLoading():
-return loading();case ProfileLoaded():
-return loaded(_that.profile,_that.isEditing,_that.isSaving);case ProfileFailure():
-return failure(_that.exception);}
-}
-/// A variant of `when` that fallback to returning `null`
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case Subclass(:final field):
-///     return ...;
-///   case _:
-///     return null;
-/// }
-/// ```
-
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( CustomerProfileEntity profile,  bool isEditing,  bool isSaving)?  loaded,TResult? Function( AppException exception)?  failure,}) {final _that = this;
-switch (_that) {
-case ProfileInitial() when initial != null:
-return initial();case ProfileLoading() when loading != null:
-return loading();case ProfileLoaded() when loaded != null:
-return loaded(_that.profile,_that.isEditing,_that.isSaving);case ProfileFailure() when failure != null:
-return failure(_that.exception);case _:
-  return null;
-
-}
+  /// Create a copy of ProfileState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
+/// @nodoc
+abstract class _$$ProfileInitialImplCopyWith<$Res> {
+  factory _$$ProfileInitialImplCopyWith(_$ProfileInitialImpl value,
+          $Res Function(_$ProfileInitialImpl) then) =
+      __$$ProfileInitialImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ProfileInitialImplCopyWithImpl<$Res>
+    extends _$ProfileStateCopyWithImpl<$Res, _$ProfileInitialImpl>
+    implements _$$ProfileInitialImplCopyWith<$Res> {
+  __$$ProfileInitialImplCopyWithImpl(
+      _$ProfileInitialImpl _value, $Res Function(_$ProfileInitialImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of ProfileState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
 
+class _$ProfileInitialImpl implements ProfileInitial {
+  const _$ProfileInitialImpl();
 
-class ProfileInitial implements ProfileState {
-  const ProfileInitial();
-  
+  @override
+  String toString() {
+    return 'ProfileState.initial()';
+  }
 
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$ProfileInitialImpl);
+  }
 
+  @override
+  int get hashCode => runtimeType.hashCode;
 
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(
+            CustomerProfileEntity profile, bool isEditing, bool isSaving)
+        loaded,
+    required TResult Function(AppException exception) failure,
+  }) {
+    return initial();
+  }
 
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(
+            CustomerProfileEntity profile, bool isEditing, bool isSaving)?
+        loaded,
+    TResult? Function(AppException exception)? failure,
+  }) {
+    return initial?.call();
+  }
 
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(
+            CustomerProfileEntity profile, bool isEditing, bool isSaving)?
+        loaded,
+    TResult Function(AppException exception)? failure,
+    required TResult orElse(),
+  }) {
+    if (initial != null) {
+      return initial();
+    }
+    return orElse();
+  }
 
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProfileInitial);
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ProfileInitial value) initial,
+    required TResult Function(ProfileLoading value) loading,
+    required TResult Function(ProfileLoaded value) loaded,
+    required TResult Function(ProfileFailure value) failure,
+  }) {
+    return initial(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ProfileInitial value)? initial,
+    TResult? Function(ProfileLoading value)? loading,
+    TResult? Function(ProfileLoaded value)? loaded,
+    TResult? Function(ProfileFailure value)? failure,
+  }) {
+    return initial?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ProfileInitial value)? initial,
+    TResult Function(ProfileLoading value)? loading,
+    TResult Function(ProfileLoaded value)? loaded,
+    TResult Function(ProfileFailure value)? failure,
+    required TResult orElse(),
+  }) {
+    if (initial != null) {
+      return initial(this);
+    }
+    return orElse();
+  }
 }
 
-
-@override
-int get hashCode => runtimeType.hashCode;
-
-@override
-String toString() {
-  return 'ProfileState.initial()';
+abstract class ProfileInitial implements ProfileState {
+  const factory ProfileInitial() = _$ProfileInitialImpl;
 }
-
-
-}
-
-
-
 
 /// @nodoc
-
-
-class ProfileLoading implements ProfileState {
-  const ProfileLoading();
-  
-
-
-
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProfileLoading);
-}
-
-
-@override
-int get hashCode => runtimeType.hashCode;
-
-@override
-String toString() {
-  return 'ProfileState.loading()';
-}
-
-
-}
-
-
-
-
-/// @nodoc
-
-
-class ProfileLoaded implements ProfileState {
-  const ProfileLoaded(this.profile, {this.isEditing = false, this.isSaving = false});
-  
-
- final  CustomerProfileEntity profile;
-@JsonKey() final  bool isEditing;
-@JsonKey() final  bool isSaving;
-
-/// Create a copy of ProfileState
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$ProfileLoadedCopyWith<ProfileLoaded> get copyWith => _$ProfileLoadedCopyWithImpl<ProfileLoaded>(this, _$identity);
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProfileLoaded&&(identical(other.profile, profile) || other.profile == profile)&&(identical(other.isEditing, isEditing) || other.isEditing == isEditing)&&(identical(other.isSaving, isSaving) || other.isSaving == isSaving));
-}
-
-
-@override
-int get hashCode => Object.hash(runtimeType,profile,isEditing,isSaving);
-
-@override
-String toString() {
-  return 'ProfileState.loaded(profile: $profile, isEditing: $isEditing, isSaving: $isSaving)';
-}
-
-
+abstract class _$$ProfileLoadingImplCopyWith<$Res> {
+  factory _$$ProfileLoadingImplCopyWith(_$ProfileLoadingImpl value,
+          $Res Function(_$ProfileLoadingImpl) then) =
+      __$$ProfileLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-abstract mixin class $ProfileLoadedCopyWith<$Res> implements $ProfileStateCopyWith<$Res> {
-  factory $ProfileLoadedCopyWith(ProfileLoaded value, $Res Function(ProfileLoaded) _then) = _$ProfileLoadedCopyWithImpl;
-@useResult
-$Res call({
- CustomerProfileEntity profile, bool isEditing, bool isSaving
-});
+class __$$ProfileLoadingImplCopyWithImpl<$Res>
+    extends _$ProfileStateCopyWithImpl<$Res, _$ProfileLoadingImpl>
+    implements _$$ProfileLoadingImplCopyWith<$Res> {
+  __$$ProfileLoadingImplCopyWithImpl(
+      _$ProfileLoadingImpl _value, $Res Function(_$ProfileLoadingImpl) _then)
+      : super(_value, _then);
 
-
-
-
-}
-/// @nodoc
-class _$ProfileLoadedCopyWithImpl<$Res>
-    implements $ProfileLoadedCopyWith<$Res> {
-  _$ProfileLoadedCopyWithImpl(this._self, this._then);
-
-  final ProfileLoaded _self;
-  final $Res Function(ProfileLoaded) _then;
-
-/// Create a copy of ProfileState
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? profile = null,Object? isEditing = null,Object? isSaving = null,}) {
-  return _then(ProfileLoaded(
-null == profile ? _self.profile : profile // ignore: cast_nullable_to_non_nullable
-as CustomerProfileEntity,isEditing: null == isEditing ? _self.isEditing : isEditing // ignore: cast_nullable_to_non_nullable
-as bool,isSaving: null == isSaving ? _self.isSaving : isSaving // ignore: cast_nullable_to_non_nullable
-as bool,
-  ));
-}
-
-
+  /// Create a copy of ProfileState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
 
+class _$ProfileLoadingImpl implements ProfileLoading {
+  const _$ProfileLoadingImpl();
 
-class ProfileFailure implements ProfileState {
-  const ProfileFailure(this.exception);
-  
+  @override
+  String toString() {
+    return 'ProfileState.loading()';
+  }
 
- final  AppException exception;
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$ProfileLoadingImpl);
+  }
 
-/// Create a copy of ProfileState
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$ProfileFailureCopyWith<ProfileFailure> get copyWith => _$ProfileFailureCopyWithImpl<ProfileFailure>(this, _$identity);
+  @override
+  int get hashCode => runtimeType.hashCode;
 
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(
+            CustomerProfileEntity profile, bool isEditing, bool isSaving)
+        loaded,
+    required TResult Function(AppException exception) failure,
+  }) {
+    return loading();
+  }
 
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(
+            CustomerProfileEntity profile, bool isEditing, bool isSaving)?
+        loaded,
+    TResult? Function(AppException exception)? failure,
+  }) {
+    return loading?.call();
+  }
 
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProfileFailure&&(identical(other.exception, exception) || other.exception == exception));
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(
+            CustomerProfileEntity profile, bool isEditing, bool isSaving)?
+        loaded,
+    TResult Function(AppException exception)? failure,
+    required TResult orElse(),
+  }) {
+    if (loading != null) {
+      return loading();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ProfileInitial value) initial,
+    required TResult Function(ProfileLoading value) loading,
+    required TResult Function(ProfileLoaded value) loaded,
+    required TResult Function(ProfileFailure value) failure,
+  }) {
+    return loading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ProfileInitial value)? initial,
+    TResult? Function(ProfileLoading value)? loading,
+    TResult? Function(ProfileLoaded value)? loaded,
+    TResult? Function(ProfileFailure value)? failure,
+  }) {
+    return loading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ProfileInitial value)? initial,
+    TResult Function(ProfileLoading value)? loading,
+    TResult Function(ProfileLoaded value)? loaded,
+    TResult Function(ProfileFailure value)? failure,
+    required TResult orElse(),
+  }) {
+    if (loading != null) {
+      return loading(this);
+    }
+    return orElse();
+  }
 }
 
-
-@override
-int get hashCode => Object.hash(runtimeType,exception);
-
-@override
-String toString() {
-  return 'ProfileState.failure(exception: $exception)';
-}
-
-
+abstract class ProfileLoading implements ProfileState {
+  const factory ProfileLoading() = _$ProfileLoadingImpl;
 }
 
 /// @nodoc
-abstract mixin class $ProfileFailureCopyWith<$Res> implements $ProfileStateCopyWith<$Res> {
-  factory $ProfileFailureCopyWith(ProfileFailure value, $Res Function(ProfileFailure) _then) = _$ProfileFailureCopyWithImpl;
-@useResult
-$Res call({
- AppException exception
-});
-
-
-
-
+abstract class _$$ProfileLoadedImplCopyWith<$Res> {
+  factory _$$ProfileLoadedImplCopyWith(
+          _$ProfileLoadedImpl value, $Res Function(_$ProfileLoadedImpl) then) =
+      __$$ProfileLoadedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({CustomerProfileEntity profile, bool isEditing, bool isSaving});
 }
+
 /// @nodoc
-class _$ProfileFailureCopyWithImpl<$Res>
-    implements $ProfileFailureCopyWith<$Res> {
-  _$ProfileFailureCopyWithImpl(this._self, this._then);
+class __$$ProfileLoadedImplCopyWithImpl<$Res>
+    extends _$ProfileStateCopyWithImpl<$Res, _$ProfileLoadedImpl>
+    implements _$$ProfileLoadedImplCopyWith<$Res> {
+  __$$ProfileLoadedImplCopyWithImpl(
+      _$ProfileLoadedImpl _value, $Res Function(_$ProfileLoadedImpl) _then)
+      : super(_value, _then);
 
-  final ProfileFailure _self;
-  final $Res Function(ProfileFailure) _then;
-
-/// Create a copy of ProfileState
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? exception = null,}) {
-  return _then(ProfileFailure(
-null == exception ? _self.exception : exception // ignore: cast_nullable_to_non_nullable
-as AppException,
-  ));
+  /// Create a copy of ProfileState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? profile = null,
+    Object? isEditing = null,
+    Object? isSaving = null,
+  }) {
+    return _then(_$ProfileLoadedImpl(
+      null == profile
+          ? _value.profile
+          : profile // ignore: cast_nullable_to_non_nullable
+              as CustomerProfileEntity,
+      isEditing: null == isEditing
+          ? _value.isEditing
+          : isEditing // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isSaving: null == isSaving
+          ? _value.isSaving
+          : isSaving // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
 }
 
+/// @nodoc
 
+class _$ProfileLoadedImpl implements ProfileLoaded {
+  const _$ProfileLoadedImpl(this.profile,
+      {this.isEditing = false, this.isSaving = false});
+
+  @override
+  final CustomerProfileEntity profile;
+  @override
+  @JsonKey()
+  final bool isEditing;
+  @override
+  @JsonKey()
+  final bool isSaving;
+
+  @override
+  String toString() {
+    return 'ProfileState.loaded(profile: $profile, isEditing: $isEditing, isSaving: $isSaving)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ProfileLoadedImpl &&
+            (identical(other.profile, profile) || other.profile == profile) &&
+            (identical(other.isEditing, isEditing) ||
+                other.isEditing == isEditing) &&
+            (identical(other.isSaving, isSaving) ||
+                other.isSaving == isSaving));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, profile, isEditing, isSaving);
+
+  /// Create a copy of ProfileState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ProfileLoadedImplCopyWith<_$ProfileLoadedImpl> get copyWith =>
+      __$$ProfileLoadedImplCopyWithImpl<_$ProfileLoadedImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(
+            CustomerProfileEntity profile, bool isEditing, bool isSaving)
+        loaded,
+    required TResult Function(AppException exception) failure,
+  }) {
+    return loaded(profile, isEditing, isSaving);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(
+            CustomerProfileEntity profile, bool isEditing, bool isSaving)?
+        loaded,
+    TResult? Function(AppException exception)? failure,
+  }) {
+    return loaded?.call(profile, isEditing, isSaving);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(
+            CustomerProfileEntity profile, bool isEditing, bool isSaving)?
+        loaded,
+    TResult Function(AppException exception)? failure,
+    required TResult orElse(),
+  }) {
+    if (loaded != null) {
+      return loaded(profile, isEditing, isSaving);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ProfileInitial value) initial,
+    required TResult Function(ProfileLoading value) loading,
+    required TResult Function(ProfileLoaded value) loaded,
+    required TResult Function(ProfileFailure value) failure,
+  }) {
+    return loaded(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ProfileInitial value)? initial,
+    TResult? Function(ProfileLoading value)? loading,
+    TResult? Function(ProfileLoaded value)? loaded,
+    TResult? Function(ProfileFailure value)? failure,
+  }) {
+    return loaded?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ProfileInitial value)? initial,
+    TResult Function(ProfileLoading value)? loading,
+    TResult Function(ProfileLoaded value)? loaded,
+    TResult Function(ProfileFailure value)? failure,
+    required TResult orElse(),
+  }) {
+    if (loaded != null) {
+      return loaded(this);
+    }
+    return orElse();
+  }
 }
 
-// dart format on
+abstract class ProfileLoaded implements ProfileState {
+  const factory ProfileLoaded(final CustomerProfileEntity profile,
+      {final bool isEditing, final bool isSaving}) = _$ProfileLoadedImpl;
+
+  CustomerProfileEntity get profile;
+  bool get isEditing;
+  bool get isSaving;
+
+  /// Create a copy of ProfileState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$ProfileLoadedImplCopyWith<_$ProfileLoadedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ProfileFailureImplCopyWith<$Res> {
+  factory _$$ProfileFailureImplCopyWith(_$ProfileFailureImpl value,
+          $Res Function(_$ProfileFailureImpl) then) =
+      __$$ProfileFailureImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({AppException exception});
+}
+
+/// @nodoc
+class __$$ProfileFailureImplCopyWithImpl<$Res>
+    extends _$ProfileStateCopyWithImpl<$Res, _$ProfileFailureImpl>
+    implements _$$ProfileFailureImplCopyWith<$Res> {
+  __$$ProfileFailureImplCopyWithImpl(
+      _$ProfileFailureImpl _value, $Res Function(_$ProfileFailureImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of ProfileState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? exception = null,
+  }) {
+    return _then(_$ProfileFailureImpl(
+      null == exception
+          ? _value.exception
+          : exception // ignore: cast_nullable_to_non_nullable
+              as AppException,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ProfileFailureImpl implements ProfileFailure {
+  const _$ProfileFailureImpl(this.exception);
+
+  @override
+  final AppException exception;
+
+  @override
+  String toString() {
+    return 'ProfileState.failure(exception: $exception)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ProfileFailureImpl &&
+            (identical(other.exception, exception) ||
+                other.exception == exception));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, exception);
+
+  /// Create a copy of ProfileState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ProfileFailureImplCopyWith<_$ProfileFailureImpl> get copyWith =>
+      __$$ProfileFailureImplCopyWithImpl<_$ProfileFailureImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(
+            CustomerProfileEntity profile, bool isEditing, bool isSaving)
+        loaded,
+    required TResult Function(AppException exception) failure,
+  }) {
+    return failure(exception);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(
+            CustomerProfileEntity profile, bool isEditing, bool isSaving)?
+        loaded,
+    TResult? Function(AppException exception)? failure,
+  }) {
+    return failure?.call(exception);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(
+            CustomerProfileEntity profile, bool isEditing, bool isSaving)?
+        loaded,
+    TResult Function(AppException exception)? failure,
+    required TResult orElse(),
+  }) {
+    if (failure != null) {
+      return failure(exception);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ProfileInitial value) initial,
+    required TResult Function(ProfileLoading value) loading,
+    required TResult Function(ProfileLoaded value) loaded,
+    required TResult Function(ProfileFailure value) failure,
+  }) {
+    return failure(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ProfileInitial value)? initial,
+    TResult? Function(ProfileLoading value)? loading,
+    TResult? Function(ProfileLoaded value)? loaded,
+    TResult? Function(ProfileFailure value)? failure,
+  }) {
+    return failure?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ProfileInitial value)? initial,
+    TResult Function(ProfileLoading value)? loading,
+    TResult Function(ProfileLoaded value)? loaded,
+    TResult Function(ProfileFailure value)? failure,
+    required TResult orElse(),
+  }) {
+    if (failure != null) {
+      return failure(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ProfileFailure implements ProfileState {
+  const factory ProfileFailure(final AppException exception) =
+      _$ProfileFailureImpl;
+
+  AppException get exception;
+
+  /// Create a copy of ProfileState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$ProfileFailureImplCopyWith<_$ProfileFailureImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}

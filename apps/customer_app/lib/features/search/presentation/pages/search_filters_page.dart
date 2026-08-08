@@ -136,7 +136,7 @@ class _SearchContent extends StatelessWidget {
                   hasMore: cubit.hasMore,
                   isLoadingMore: cubit.isLoadingMore,
                   onLoadMore: () => context.read<SearchCubit>().loadMore(),
-                  separatorBuilder: (_, _) => const SizedBox(height: AppSpace.l),
+                  separatorBuilder: (context, index) => const SizedBox(height: AppSpace.l),
                   itemBuilder: (context, meal, index) {
                     return MealCard(
                       meal: meal,

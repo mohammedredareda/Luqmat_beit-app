@@ -221,18 +221,18 @@ abstract final class SampleCatalog {
     'meal-3': DiscountEntity(
       id: 'disc-1',
       mealId: 'meal-3',
-      type: DiscountType.percentage,
-      value: 50,
-      startDate: DateTime.now().subtract(const Duration(days: 1)),
-      endDate: DateTime.now().add(const Duration(days: 5)),
+      discountPercentage: 50,
+      discountDurationDays: 6,
+      createdAt: DateTime.now().subtract(const Duration(days: 1)),
+      expiryTime: DateTime.now().add(const Duration(days: 5)),
     ),
     'meal-4': DiscountEntity(
       id: 'disc-2',
       mealId: 'meal-4',
-      type: DiscountType.percentage,
-      value: 35,
-      startDate: DateTime.now().subtract(const Duration(days: 1)),
-      endDate: DateTime.now().add(const Duration(days: 5)),
+      discountPercentage: 35,
+      discountDurationDays: 6,
+      createdAt: DateTime.now().subtract(const Duration(days: 1)),
+      expiryTime: DateTime.now().add(const Duration(days: 5)),
     ),
   };
 }

@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 class CateringItemCard extends StatelessWidget {
   const CateringItemCard({super.key, required this.item});
 
-  final CartItemEntity item;
+  final CartMealItemEntity item;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class CateringItemCard extends StatelessWidget {
               width: 80,
               height: 80,
               child: Image.network(
-                item.meal.imageUrl,
+                item.mealImageUrl,
                 fit: BoxFit.cover,
                 errorBuilder: (context, error, stackTrace) => Container(
                   color: scheme.surfaceContainerHighest,
@@ -50,14 +50,14 @@ class CateringItemCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  item.meal.name,
+                  item.mealName,
                   style: textTheme.titleMedium,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
                 const SizedBox(height: AppSpace.xs),
                 Text(
-                  item.sellingOption.label,
+                  item.sellingOptionLabel ?? '',
                   style: textTheme.bodySmall?.copyWith(color: scheme.onSurfaceVariant),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
@@ -71,7 +71,7 @@ class CateringItemCard extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                '${item.sellingOption.price.toStringAsFixed(0)} د.أ',
+                '${item.unitPrice.toStringAsFixed(0)} د.أ',
                 style: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w800),
               ),
               const SizedBox(height: AppSpace.xs),

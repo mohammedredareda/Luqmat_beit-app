@@ -17,17 +17,25 @@ class CateringMockDataSource {
     final mansaf = SampleCatalog.mealById('meal-1');
     final musakhan = SampleCatalog.mealById('meal-2');
 
-    final items = <CartItemEntity>[
-      CartItemEntity(
+    final items = <CartMealItemEntity>[
+      CartMealItemEntity(
         id: 'catering-item-1',
-        meal: mansaf,
-        sellingOption: mansaf.sellingOptions.first,
+        mealId: mansaf.id,
+        mealName: mansaf.name,
+        mealImageUrl: mansaf.imageUrl,
+        sellingOptionId: mansaf.sellingOptions.first.id,
+        sellingOptionLabel: mansaf.sellingOptions.first.label,
+        unitPrice: mansaf.sellingOptions.first.price,
         quantity: 15,
       ),
-      CartItemEntity(
+      CartMealItemEntity(
         id: 'catering-item-2',
-        meal: musakhan,
-        sellingOption: musakhan.sellingOptions.first,
+        mealId: musakhan.id,
+        mealName: musakhan.name,
+        mealImageUrl: musakhan.imageUrl,
+        sellingOptionId: musakhan.sellingOptions.first.id,
+        sellingOptionLabel: musakhan.sellingOptions.first.label,
+        unitPrice: musakhan.sellingOptions.first.price,
         quantity: 10,
       ),
     ];

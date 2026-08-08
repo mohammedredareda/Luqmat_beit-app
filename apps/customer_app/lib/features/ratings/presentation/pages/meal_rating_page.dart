@@ -109,10 +109,8 @@ class _RatingCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
-    final subOrders = state?.order.subOrders ?? const <SubOrderEntity>[];
-    final items =
-        subOrders.isEmpty ? const <OrderItemEntity>[] : subOrders.first.items;
-    final mealName = items.isEmpty ? null : items.first.mealName;
+    final mealItems = state?.order.mealItems ?? const <OrderMealItemEntity>[];
+    final mealName = mealItems.isEmpty ? null : mealItems.first.mealName;
 
     return Center(
       child: SingleChildScrollView(

@@ -39,9 +39,8 @@ class MealRatingCubit extends Cubit<MealRatingState> {
     if (current is! MealRatingLoaded || current.stars < 1) return;
 
     emit(current.copyWith(isSubmitting: true, submitError: null));
-    final subOrders = current.order.subOrders;
-    final items = subOrders.isNotEmpty ? subOrders.first.items : const [];
-    final mealId = items.isNotEmpty ? items.first.mealId : null;
+    final mealItems = current.order.mealItems;
+    final mealId = mealItems.isNotEmpty ? mealItems.first.mealId : null;
     final result = await _submitMealRating(
       orderId: current.order.id,
       stars: current.stars,

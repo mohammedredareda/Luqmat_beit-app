@@ -137,7 +137,7 @@ class _ChefProfileContent extends StatelessWidget {
                     child: ListView.separated(
                       scrollDirection: Axis.horizontal,
                       itemCount: tags.length + 1,
-                      separatorBuilder: (_, _) => const SizedBox(width: AppSpace.s),
+                      separatorBuilder: (context, index) => const SizedBox(width: AppSpace.s),
                       itemBuilder: (context, index) {
                         if (index == 0) {
                           return MenuFilterChip(
@@ -176,7 +176,7 @@ class _ChefProfileContent extends StatelessWidget {
             ),
             sliver: SliverList.separated(
               itemCount: filteredMeals.length,
-              separatorBuilder: (_, _) => const SizedBox(height: AppSpace.m),
+              separatorBuilder: (context, index) => const SizedBox(height: AppSpace.m),
               itemBuilder: (context, index) {
                 final meal = filteredMeals[index];
                 return ChefMealListTile(

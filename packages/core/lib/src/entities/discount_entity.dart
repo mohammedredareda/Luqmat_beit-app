@@ -1,34 +1,49 @@
 import 'package:equatable/equatable.dart';
 
-enum DiscountType { percentage, fixedAmount }
+enum DiscountStatus { active, deleted }
 
+/// A `Discount` always targets exactly one meal — there is no "applies to
+/// whole menu" restriction-mode concept in the backlog.
 class DiscountEntity extends Equatable {
   final String id;
   final String mealId;
-  final DiscountType type;
-  final double value;
-  final DateTime startDate;
-  final DateTime endDate;
+  final double discountPercentage;
+  final int discountDurationDays;
+  final int? usageNumberLimit;
+  final DateTime createdAt;
+  final DateTime expiryTime;
+  final int usageCount;
+  final DiscountStatus status;
 
   const DiscountEntity({
     required this.id,
     required this.mealId,
-    required this.type,
-    required this.value,
-    required this.startDate,
-    required this.endDate,
+    required this.discountPercentage,
+    required this.discountDurationDays,
+    required this.createdAt,
+    required this.expiryTime,
+    this.usageNumberLimit,
+    this.usageCount = 0,
+    this.status = DiscountStatus.active,
   });
 
-  bool get isActive {
-    final now = DateTime.now();
-    return now.isAfter(startDate) && now.isBefore(endDate);
-  }
+  bool get isActive =>
+      status == DiscountStatus.active &&
+      DateTime.now().isBefore(expiryTime) &&
+      (usageNumberLimit == null || usageCount < usageNumberLimit!);
 
-  double apply(double price) => switch (type) {
-        DiscountType.percentage => price - (price * value / 100),
-        DiscountType.fixedAmount => (price - value).clamp(0, price),
-      };
+  double apply(double price) => price - (price * discountPercentage / 100);
 
   @override
-  List<Object?> get props => [id, mealId, type, value, startDate, endDate];
+  List<Object?> get props => [
+        id,
+        mealId,
+        discountPercentage,
+        discountDurationDays,
+        usageNumberLimit,
+        createdAt,
+        expiryTime,
+        usageCount,
+        status,
+      ];
 }

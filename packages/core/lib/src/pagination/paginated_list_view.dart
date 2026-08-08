@@ -16,6 +16,7 @@ class PaginatedListView<T> extends StatefulWidget {
     required this.onLoadMore,
     this.padding,
     this.separatorBuilder,
+    this.endOfListBuilder,
   });
 
   final List<T> items;
@@ -25,6 +26,10 @@ class PaginatedListView<T> extends StatefulWidget {
   final VoidCallback onLoadMore;
   final EdgeInsetsGeometry? padding;
   final Widget Function(BuildContext context, int index)? separatorBuilder;
+
+  /// Rendered once, in place of the load-more spinner, when [hasMore] is
+  /// false and the list is non-empty — e.g. "You've reached the end."
+  final WidgetBuilder? endOfListBuilder;
 
   @override
   State<PaginatedListView<T>> createState() => _PaginatedListViewState<T>();
@@ -56,15 +61,20 @@ class _PaginatedListViewState<T> extends State<PaginatedListView<T>> {
 
   @override
   Widget build(BuildContext context) {
-    final itemCount = widget.items.length + (widget.hasMore ? 1 : 0);
+    final showEndOfList =
+        !widget.hasMore && widget.items.isNotEmpty && widget.endOfListBuilder != null;
+    final itemCount =
+        widget.items.length + (widget.hasMore || showEndOfList ? 1 : 0);
     final builder = widget.separatorBuilder;
 
     Widget buildAt(BuildContext context, int index) {
       if (index >= widget.items.length) {
-        return const Padding(
-          padding: EdgeInsets.symmetric(vertical: 16),
-          child: Center(child: CircularProgressIndicator()),
-        );
+        return showEndOfList
+            ? widget.endOfListBuilder!(context)
+            : const Padding(
+                padding: EdgeInsets.symmetric(vertical: 16),
+                child: Center(child: CircularProgressIndicator()),
+              );
       }
       return widget.itemBuilder(context, widget.items[index], index);
     }

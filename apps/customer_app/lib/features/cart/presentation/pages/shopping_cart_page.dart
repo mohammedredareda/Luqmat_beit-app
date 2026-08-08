@@ -70,8 +70,8 @@ class _ShoppingCartView extends StatelessWidget {
                   actionLabel: 'تصفح الأكلات',
                   onAction: () => context.go('/'),
                 ),
-              ShoppingCartLoaded(:final items, :final subtotal, :final deliveryFee) =>
-                _CartContent(items: items, subtotal: subtotal, deliveryFee: deliveryFee),
+              ShoppingCartLoaded(:final cart, :final deliveryFee) =>
+                _CartContent(cart: cart, deliveryFee: deliveryFee),
             };
           },
         ),
@@ -82,53 +82,72 @@ class _ShoppingCartView extends StatelessWidget {
 }
 
 class _CartContent extends StatelessWidget {
-  const _CartContent({
-    required this.items,
-    required this.subtotal,
-    required this.deliveryFee,
-  });
+  const _CartContent({required this.cart, required this.deliveryFee});
 
-  final List<CartItemEntity> items;
-  final double subtotal;
+  final CartEntity cart;
   final double deliveryFee;
 
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<ShoppingCartCubit>();
+    final textTheme = Theme.of(context).textTheme;
 
     return Column(
       children: [
         Expanded(
-          child: ListView.separated(
+          child: ListView(
             padding: const EdgeInsetsDirectional.all(AppSpace.l),
-            itemCount: items.length,
-            separatorBuilder: (_, _) => const Divider(height: AppSpace.xl),
-            itemBuilder: (context, index) {
-              final item = items[index];
-              return CartItemRow(
-                item: item,
-                onQuantityChanged: (quantity) => cubit.changeQuantity(item.id, quantity),
-                onSellingOptionChanged: (sellingOptionId) =>
-                    cubit.changeSellingOption(item.id, sellingOptionId),
-                onRemove: () async {
-                  final confirmed = await ConfirmationDialog.show(
-                    context,
-                    title: 'إزالة الصنف',
-                    message: 'هل تريد إزالة "${item.meal.name}" من السلة؟',
-                    confirmLabel: 'إزالة',
-                    isDestructive: true,
-                  );
-                  if (confirmed) {
-                    // ignore: use_build_context_synchronously
-                    cubit.removeItem(item.id);
-                  }
-                },
-              );
-            },
+            children: [
+              for (final item in cart.mealItems) ...[
+                CartItemRow(
+                  item: item,
+                  onQuantityChanged: (quantity) => cubit.changeQuantity(item.id, quantity),
+                  onRemove: () async {
+                    final confirmed = await ConfirmationDialog.show(
+                      context,
+                      title: 'إزالة الصنف',
+                      message: 'هل تريد إزالة "${item.mealName}" من السلة؟',
+                      confirmLabel: 'إزالة',
+                      isDestructive: true,
+                    );
+                    if (confirmed) {
+                      // ignore: use_build_context_synchronously
+                      cubit.removeItem(item.id);
+                    }
+                  },
+                ),
+                const Divider(height: AppSpace.xl),
+              ],
+              // CU-15: offer items and "من نصيبك" returned-meal items are
+              // grouped by type, not by chef — no quantity stepper on
+              // returned-meal lines beyond the limited stock claimed.
+              for (final item in cart.offerItems) ...[
+                _SimpleCartRow(
+                  title: item.offerName,
+                  subtitle: 'عرض ×${item.quantity}',
+                  value: item.subtotal,
+                  onRemove: () => cubit.removeItem(item.id),
+                ),
+                const Divider(height: AppSpace.xl),
+              ],
+              if (cart.returnedMealItems.isNotEmpty) ...[
+                Text('من نصيبك', style: textTheme.titleMedium),
+                const SizedBox(height: AppSpace.s),
+                for (final item in cart.returnedMealItems) ...[
+                  _SimpleCartRow(
+                    title: item.mealName,
+                    subtitle: 'كمية ×${item.quantity}',
+                    value: item.subtotal,
+                    onRemove: () => cubit.removeItem(item.id),
+                  ),
+                  const Divider(height: AppSpace.xl),
+                ],
+              ],
+            ],
           ),
         ),
         CartSummaryFooter(
-          subtotal: subtotal,
+          subtotal: cart.itemsTotal,
           deliveryFee: deliveryFee,
           onCheckout: () async {
             final orderId = await cubit.checkout();
@@ -136,6 +155,50 @@ class _CartContent extends StatelessWidget {
               context.push('/order-confirmation/$orderId');
             }
           },
+        ),
+      ],
+    );
+  }
+}
+
+class _SimpleCartRow extends StatelessWidget {
+  const _SimpleCartRow({
+    required this.title,
+    required this.subtitle,
+    required this.value,
+    required this.onRemove,
+  });
+
+  final String title;
+  final String subtitle;
+  final double value;
+  final VoidCallback onRemove;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
+
+    return Row(
+      children: [
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(title, style: textTheme.titleMedium),
+              const SizedBox(height: AppSpace.xs),
+              Text(subtitle, style: textTheme.bodySmall?.copyWith(color: scheme.onSurfaceVariant)),
+            ],
+          ),
+        ),
+        Text(
+          '${value.toStringAsFixed(2)} AED',
+          style: textTheme.titleMedium?.copyWith(color: scheme.primary),
+        ),
+        IconButton(
+          onPressed: onRemove,
+          icon: Icon(Icons.delete_outline, color: scheme.error),
+          tooltip: 'إزالة',
         ),
       ],
     );

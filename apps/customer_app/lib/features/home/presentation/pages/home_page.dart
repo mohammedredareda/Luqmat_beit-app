@@ -111,7 +111,7 @@ class _HomeContent extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               padding: const EdgeInsetsDirectional.symmetric(horizontal: AppSpace.l),
               itemCount: feed.categories.length,
-              separatorBuilder: (_, _) => const SizedBox(width: AppSpace.m),
+              separatorBuilder: (context, index) => const SizedBox(width: AppSpace.m),
               itemBuilder: (context, index) {
                 final category = feed.categories[index];
                 final isSelected = selectedCategoryId == null
@@ -134,7 +134,7 @@ class _HomeContent extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               padding: const EdgeInsetsDirectional.symmetric(horizontal: AppSpace.l),
               itemCount: feed.bestSellers.length,
-              separatorBuilder: (_, _) => const SizedBox(width: AppSpace.m),
+              separatorBuilder: (context, index) => const SizedBox(width: AppSpace.m),
               itemBuilder: (context, index) {
                 final meal = feed.bestSellers[index];
                 return SizedBox(
@@ -154,7 +154,7 @@ class _HomeContent extends StatelessWidget {
           padding: const EdgeInsetsDirectional.symmetric(horizontal: AppSpace.l),
           sliver: SliverList.separated(
             itemCount: feed.chefs.length,
-            separatorBuilder: (_, _) => const SizedBox(height: AppSpace.m),
+            separatorBuilder: (context, index) => const SizedBox(height: AppSpace.m),
             itemBuilder: (context, index) {
               final chef = feed.chefs[index];
               return ChefListTile(
@@ -172,7 +172,7 @@ class _HomeContent extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               padding: const EdgeInsetsDirectional.symmetric(horizontal: AppSpace.l),
               itemCount: feed.offers.length,
-              separatorBuilder: (_, _) => const SizedBox(width: AppSpace.m),
+              separatorBuilder: (context, index) => const SizedBox(width: AppSpace.m),
               itemBuilder: (context, index) {
                 final meal = feed.offers[index];
                 return _OfferCard(meal: meal, onTap: () => context.push('/meal/${meal.id}'));
@@ -474,7 +474,7 @@ class _DiscountCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(999),
                   ),
                   child: Text(
-                    '${discount!.value.toStringAsFixed(0)}%-',
+                    '${discount!.discountPercentage.toStringAsFixed(0)}%-',
                     style: const TextStyle(
                         color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold),
                   ),

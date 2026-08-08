@@ -19,6 +19,16 @@ class MealEntity extends Equatable {
   final List<SellingOptionEntity> sellingOptions;
   final List<String> tags;
 
+  /// CK-07: a meal has either a single direct price OR one-to-many
+  /// [sellingOptions] variations — never both. Null / ignored when
+  /// [sellingOptions] is non-empty.
+  final double? singlePrice;
+
+  /// Expected preparing duration, in minutes (CK-07).
+  final int preparingDurationMinutes;
+
+  final List<String> categoryIds;
+
   const MealEntity({
     required this.id,
     required this.cookId,
@@ -33,10 +43,15 @@ class MealEntity extends Equatable {
     this.isStopped = false,
     this.deletedAt,
     this.tags = const [],
+    this.singlePrice,
+    this.preparingDurationMinutes = 0,
+    this.categoryIds = const [],
   });
 
+  bool get hasVariations => sellingOptions.isNotEmpty;
+
   double get startingPrice => sellingOptions.isEmpty
-      ? 0
+      ? (singlePrice ?? 0)
       : sellingOptions.map((o) => o.price).reduce((a, b) => a < b ? a : b);
 
   /// See §7 of the architecture doc — cook availability window and
@@ -64,5 +79,8 @@ class MealEntity extends Equatable {
         deletedAt,
         sellingOptions,
         tags,
+        singlePrice,
+        preparingDurationMinutes,
+        categoryIds,
       ];
 }

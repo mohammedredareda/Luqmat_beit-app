@@ -23,11 +23,19 @@ class OrdersRepositoryImpl implements OrdersRepository {
   @override
   Future<Result<String>> confirmOrder({
     required String cookId,
-    required List<CartItemEntity> items,
+    required String deliveryAddress,
     required double deliveryFee,
+    List<CartMealItemEntity> mealItems = const [],
+    List<CartOfferItemEntity> offerItems = const [],
+    List<CartReturnedMealItemEntity> returnedMealItems = const [],
   }) {
-    return guard(
-      () => _dataSource.confirmOrder(cookId: cookId, items: items, deliveryFee: deliveryFee),
-    );
+    return guard(() => _dataSource.confirmOrder(
+          cookId: cookId,
+          deliveryAddress: deliveryAddress,
+          deliveryFee: deliveryFee,
+          mealItems: mealItems,
+          offerItems: offerItems,
+          returnedMealItems: returnedMealItems,
+        ));
   }
 }

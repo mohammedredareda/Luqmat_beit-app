@@ -1,5 +1,5 @@
-// GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,462 +9,1009 @@ part of 'meal_details_state.dart';
 // FreezedGenerator
 // **************************************************************************
 
-// dart format off
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+
 /// @nodoc
 mixin _$MealDetailsState {
-
-
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MealDetailsState);
-}
-
-
-@override
-int get hashCode => runtimeType.hashCode;
-
-@override
-String toString() {
-  return 'MealDetailsState()';
-}
-
-
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(MealEntity meal, String selectedSellingOptionId,
+            int quantity, String note, bool isFavorite)
+        loaded,
+    required TResult Function(MealEntity meal, String selectedSellingOptionId,
+            int quantity, String note, bool isFavorite)
+        addedToCart,
+    required TResult Function(AppException exception) failure,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(MealEntity meal, String selectedSellingOptionId,
+            int quantity, String note, bool isFavorite)?
+        loaded,
+    TResult? Function(MealEntity meal, String selectedSellingOptionId,
+            int quantity, String note, bool isFavorite)?
+        addedToCart,
+    TResult? Function(AppException exception)? failure,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(MealEntity meal, String selectedSellingOptionId,
+            int quantity, String note, bool isFavorite)?
+        loaded,
+    TResult Function(MealEntity meal, String selectedSellingOptionId,
+            int quantity, String note, bool isFavorite)?
+        addedToCart,
+    TResult Function(AppException exception)? failure,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(MealDetailsInitial value) initial,
+    required TResult Function(MealDetailsLoading value) loading,
+    required TResult Function(MealDetailsLoaded value) loaded,
+    required TResult Function(MealDetailsAddedToCart value) addedToCart,
+    required TResult Function(MealDetailsFailure value) failure,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(MealDetailsInitial value)? initial,
+    TResult? Function(MealDetailsLoading value)? loading,
+    TResult? Function(MealDetailsLoaded value)? loaded,
+    TResult? Function(MealDetailsAddedToCart value)? addedToCart,
+    TResult? Function(MealDetailsFailure value)? failure,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(MealDetailsInitial value)? initial,
+    TResult Function(MealDetailsLoading value)? loading,
+    TResult Function(MealDetailsLoaded value)? loaded,
+    TResult Function(MealDetailsAddedToCart value)? addedToCart,
+    TResult Function(MealDetailsFailure value)? failure,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-class $MealDetailsStateCopyWith<$Res>  {
-$MealDetailsStateCopyWith(MealDetailsState _, $Res Function(MealDetailsState) __);
+abstract class $MealDetailsStateCopyWith<$Res> {
+  factory $MealDetailsStateCopyWith(
+          MealDetailsState value, $Res Function(MealDetailsState) then) =
+      _$MealDetailsStateCopyWithImpl<$Res, MealDetailsState>;
 }
 
+/// @nodoc
+class _$MealDetailsStateCopyWithImpl<$Res, $Val extends MealDetailsState>
+    implements $MealDetailsStateCopyWith<$Res> {
+  _$MealDetailsStateCopyWithImpl(this._value, this._then);
 
-/// Adds pattern-matching-related methods to [MealDetailsState].
-extension MealDetailsStatePatterns on MealDetailsState {
-/// A variant of `map` that fallback to returning `orElse`.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case _:
-///     return orElse();
-/// }
-/// ```
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( MealDetailsInitial value)?  initial,TResult Function( MealDetailsLoading value)?  loading,TResult Function( MealDetailsLoaded value)?  loaded,TResult Function( MealDetailsAddedToCart value)?  addedToCart,TResult Function( MealDetailsFailure value)?  failure,required TResult orElse(),}){
-final _that = this;
-switch (_that) {
-case MealDetailsInitial() when initial != null:
-return initial(_that);case MealDetailsLoading() when loading != null:
-return loading(_that);case MealDetailsLoaded() when loaded != null:
-return loaded(_that);case MealDetailsAddedToCart() when addedToCart != null:
-return addedToCart(_that);case MealDetailsFailure() when failure != null:
-return failure(_that);case _:
-  return orElse();
-
-}
-}
-/// A `switch`-like method, using callbacks.
-///
-/// Callbacks receives the raw object, upcasted.
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case final Subclass2 value:
-///     return ...;
-/// }
-/// ```
-
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( MealDetailsInitial value)  initial,required TResult Function( MealDetailsLoading value)  loading,required TResult Function( MealDetailsLoaded value)  loaded,required TResult Function( MealDetailsAddedToCart value)  addedToCart,required TResult Function( MealDetailsFailure value)  failure,}){
-final _that = this;
-switch (_that) {
-case MealDetailsInitial():
-return initial(_that);case MealDetailsLoading():
-return loading(_that);case MealDetailsLoaded():
-return loaded(_that);case MealDetailsAddedToCart():
-return addedToCart(_that);case MealDetailsFailure():
-return failure(_that);}
-}
-/// A variant of `map` that fallback to returning `null`.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case _:
-///     return null;
-/// }
-/// ```
-
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( MealDetailsInitial value)?  initial,TResult? Function( MealDetailsLoading value)?  loading,TResult? Function( MealDetailsLoaded value)?  loaded,TResult? Function( MealDetailsAddedToCart value)?  addedToCart,TResult? Function( MealDetailsFailure value)?  failure,}){
-final _that = this;
-switch (_that) {
-case MealDetailsInitial() when initial != null:
-return initial(_that);case MealDetailsLoading() when loading != null:
-return loading(_that);case MealDetailsLoaded() when loaded != null:
-return loaded(_that);case MealDetailsAddedToCart() when addedToCart != null:
-return addedToCart(_that);case MealDetailsFailure() when failure != null:
-return failure(_that);case _:
-  return null;
-
-}
-}
-/// A variant of `when` that fallback to an `orElse` callback.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case Subclass(:final field):
-///     return ...;
-///   case _:
-///     return orElse();
-/// }
-/// ```
-
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( MealEntity meal,  String selectedSellingOptionId,  int quantity,  String note,  bool isFavorite)?  loaded,TResult Function( MealEntity meal,  String selectedSellingOptionId,  int quantity,  String note,  bool isFavorite)?  addedToCart,TResult Function( AppException exception)?  failure,required TResult orElse(),}) {final _that = this;
-switch (_that) {
-case MealDetailsInitial() when initial != null:
-return initial();case MealDetailsLoading() when loading != null:
-return loading();case MealDetailsLoaded() when loaded != null:
-return loaded(_that.meal,_that.selectedSellingOptionId,_that.quantity,_that.note,_that.isFavorite);case MealDetailsAddedToCart() when addedToCart != null:
-return addedToCart(_that.meal,_that.selectedSellingOptionId,_that.quantity,_that.note,_that.isFavorite);case MealDetailsFailure() when failure != null:
-return failure(_that.exception);case _:
-  return orElse();
-
-}
-}
-/// A `switch`-like method, using callbacks.
-///
-/// As opposed to `map`, this offers destructuring.
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case Subclass(:final field):
-///     return ...;
-///   case Subclass2(:final field2):
-///     return ...;
-/// }
-/// ```
-
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( MealEntity meal,  String selectedSellingOptionId,  int quantity,  String note,  bool isFavorite)  loaded,required TResult Function( MealEntity meal,  String selectedSellingOptionId,  int quantity,  String note,  bool isFavorite)  addedToCart,required TResult Function( AppException exception)  failure,}) {final _that = this;
-switch (_that) {
-case MealDetailsInitial():
-return initial();case MealDetailsLoading():
-return loading();case MealDetailsLoaded():
-return loaded(_that.meal,_that.selectedSellingOptionId,_that.quantity,_that.note,_that.isFavorite);case MealDetailsAddedToCart():
-return addedToCart(_that.meal,_that.selectedSellingOptionId,_that.quantity,_that.note,_that.isFavorite);case MealDetailsFailure():
-return failure(_that.exception);}
-}
-/// A variant of `when` that fallback to returning `null`
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case Subclass(:final field):
-///     return ...;
-///   case _:
-///     return null;
-/// }
-/// ```
-
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( MealEntity meal,  String selectedSellingOptionId,  int quantity,  String note,  bool isFavorite)?  loaded,TResult? Function( MealEntity meal,  String selectedSellingOptionId,  int quantity,  String note,  bool isFavorite)?  addedToCart,TResult? Function( AppException exception)?  failure,}) {final _that = this;
-switch (_that) {
-case MealDetailsInitial() when initial != null:
-return initial();case MealDetailsLoading() when loading != null:
-return loading();case MealDetailsLoaded() when loaded != null:
-return loaded(_that.meal,_that.selectedSellingOptionId,_that.quantity,_that.note,_that.isFavorite);case MealDetailsAddedToCart() when addedToCart != null:
-return addedToCart(_that.meal,_that.selectedSellingOptionId,_that.quantity,_that.note,_that.isFavorite);case MealDetailsFailure() when failure != null:
-return failure(_that.exception);case _:
-  return null;
-
-}
+  /// Create a copy of MealDetailsState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
+/// @nodoc
+abstract class _$$MealDetailsInitialImplCopyWith<$Res> {
+  factory _$$MealDetailsInitialImplCopyWith(_$MealDetailsInitialImpl value,
+          $Res Function(_$MealDetailsInitialImpl) then) =
+      __$$MealDetailsInitialImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$MealDetailsInitialImplCopyWithImpl<$Res>
+    extends _$MealDetailsStateCopyWithImpl<$Res, _$MealDetailsInitialImpl>
+    implements _$$MealDetailsInitialImplCopyWith<$Res> {
+  __$$MealDetailsInitialImplCopyWithImpl(_$MealDetailsInitialImpl _value,
+      $Res Function(_$MealDetailsInitialImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of MealDetailsState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
 
+class _$MealDetailsInitialImpl implements MealDetailsInitial {
+  const _$MealDetailsInitialImpl();
 
-class MealDetailsInitial implements MealDetailsState {
-  const MealDetailsInitial();
-  
+  @override
+  String toString() {
+    return 'MealDetailsState.initial()';
+  }
 
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$MealDetailsInitialImpl);
+  }
 
+  @override
+  int get hashCode => runtimeType.hashCode;
 
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(MealEntity meal, String selectedSellingOptionId,
+            int quantity, String note, bool isFavorite)
+        loaded,
+    required TResult Function(MealEntity meal, String selectedSellingOptionId,
+            int quantity, String note, bool isFavorite)
+        addedToCart,
+    required TResult Function(AppException exception) failure,
+  }) {
+    return initial();
+  }
 
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(MealEntity meal, String selectedSellingOptionId,
+            int quantity, String note, bool isFavorite)?
+        loaded,
+    TResult? Function(MealEntity meal, String selectedSellingOptionId,
+            int quantity, String note, bool isFavorite)?
+        addedToCart,
+    TResult? Function(AppException exception)? failure,
+  }) {
+    return initial?.call();
+  }
 
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(MealEntity meal, String selectedSellingOptionId,
+            int quantity, String note, bool isFavorite)?
+        loaded,
+    TResult Function(MealEntity meal, String selectedSellingOptionId,
+            int quantity, String note, bool isFavorite)?
+        addedToCart,
+    TResult Function(AppException exception)? failure,
+    required TResult orElse(),
+  }) {
+    if (initial != null) {
+      return initial();
+    }
+    return orElse();
+  }
 
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MealDetailsInitial);
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(MealDetailsInitial value) initial,
+    required TResult Function(MealDetailsLoading value) loading,
+    required TResult Function(MealDetailsLoaded value) loaded,
+    required TResult Function(MealDetailsAddedToCart value) addedToCart,
+    required TResult Function(MealDetailsFailure value) failure,
+  }) {
+    return initial(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(MealDetailsInitial value)? initial,
+    TResult? Function(MealDetailsLoading value)? loading,
+    TResult? Function(MealDetailsLoaded value)? loaded,
+    TResult? Function(MealDetailsAddedToCart value)? addedToCart,
+    TResult? Function(MealDetailsFailure value)? failure,
+  }) {
+    return initial?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(MealDetailsInitial value)? initial,
+    TResult Function(MealDetailsLoading value)? loading,
+    TResult Function(MealDetailsLoaded value)? loaded,
+    TResult Function(MealDetailsAddedToCart value)? addedToCart,
+    TResult Function(MealDetailsFailure value)? failure,
+    required TResult orElse(),
+  }) {
+    if (initial != null) {
+      return initial(this);
+    }
+    return orElse();
+  }
 }
 
-
-@override
-int get hashCode => runtimeType.hashCode;
-
-@override
-String toString() {
-  return 'MealDetailsState.initial()';
+abstract class MealDetailsInitial implements MealDetailsState {
+  const factory MealDetailsInitial() = _$MealDetailsInitialImpl;
 }
-
-
-}
-
-
-
 
 /// @nodoc
-
-
-class MealDetailsLoading implements MealDetailsState {
-  const MealDetailsLoading();
-  
-
-
-
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MealDetailsLoading);
-}
-
-
-@override
-int get hashCode => runtimeType.hashCode;
-
-@override
-String toString() {
-  return 'MealDetailsState.loading()';
-}
-
-
-}
-
-
-
-
-/// @nodoc
-
-
-class MealDetailsLoaded implements MealDetailsState {
-  const MealDetailsLoaded({required this.meal, required this.selectedSellingOptionId, this.quantity = 1, this.note = '', this.isFavorite = false});
-  
-
- final  MealEntity meal;
- final  String selectedSellingOptionId;
-@JsonKey() final  int quantity;
-@JsonKey() final  String note;
-@JsonKey() final  bool isFavorite;
-
-/// Create a copy of MealDetailsState
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$MealDetailsLoadedCopyWith<MealDetailsLoaded> get copyWith => _$MealDetailsLoadedCopyWithImpl<MealDetailsLoaded>(this, _$identity);
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MealDetailsLoaded&&(identical(other.meal, meal) || other.meal == meal)&&(identical(other.selectedSellingOptionId, selectedSellingOptionId) || other.selectedSellingOptionId == selectedSellingOptionId)&&(identical(other.quantity, quantity) || other.quantity == quantity)&&(identical(other.note, note) || other.note == note)&&(identical(other.isFavorite, isFavorite) || other.isFavorite == isFavorite));
-}
-
-
-@override
-int get hashCode => Object.hash(runtimeType,meal,selectedSellingOptionId,quantity,note,isFavorite);
-
-@override
-String toString() {
-  return 'MealDetailsState.loaded(meal: $meal, selectedSellingOptionId: $selectedSellingOptionId, quantity: $quantity, note: $note, isFavorite: $isFavorite)';
-}
-
-
+abstract class _$$MealDetailsLoadingImplCopyWith<$Res> {
+  factory _$$MealDetailsLoadingImplCopyWith(_$MealDetailsLoadingImpl value,
+          $Res Function(_$MealDetailsLoadingImpl) then) =
+      __$$MealDetailsLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-abstract mixin class $MealDetailsLoadedCopyWith<$Res> implements $MealDetailsStateCopyWith<$Res> {
-  factory $MealDetailsLoadedCopyWith(MealDetailsLoaded value, $Res Function(MealDetailsLoaded) _then) = _$MealDetailsLoadedCopyWithImpl;
-@useResult
-$Res call({
- MealEntity meal, String selectedSellingOptionId, int quantity, String note, bool isFavorite
-});
+class __$$MealDetailsLoadingImplCopyWithImpl<$Res>
+    extends _$MealDetailsStateCopyWithImpl<$Res, _$MealDetailsLoadingImpl>
+    implements _$$MealDetailsLoadingImplCopyWith<$Res> {
+  __$$MealDetailsLoadingImplCopyWithImpl(_$MealDetailsLoadingImpl _value,
+      $Res Function(_$MealDetailsLoadingImpl) _then)
+      : super(_value, _then);
 
-
-
-
-}
-/// @nodoc
-class _$MealDetailsLoadedCopyWithImpl<$Res>
-    implements $MealDetailsLoadedCopyWith<$Res> {
-  _$MealDetailsLoadedCopyWithImpl(this._self, this._then);
-
-  final MealDetailsLoaded _self;
-  final $Res Function(MealDetailsLoaded) _then;
-
-/// Create a copy of MealDetailsState
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? meal = null,Object? selectedSellingOptionId = null,Object? quantity = null,Object? note = null,Object? isFavorite = null,}) {
-  return _then(MealDetailsLoaded(
-meal: null == meal ? _self.meal : meal // ignore: cast_nullable_to_non_nullable
-as MealEntity,selectedSellingOptionId: null == selectedSellingOptionId ? _self.selectedSellingOptionId : selectedSellingOptionId // ignore: cast_nullable_to_non_nullable
-as String,quantity: null == quantity ? _self.quantity : quantity // ignore: cast_nullable_to_non_nullable
-as int,note: null == note ? _self.note : note // ignore: cast_nullable_to_non_nullable
-as String,isFavorite: null == isFavorite ? _self.isFavorite : isFavorite // ignore: cast_nullable_to_non_nullable
-as bool,
-  ));
-}
-
-
+  /// Create a copy of MealDetailsState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
 
+class _$MealDetailsLoadingImpl implements MealDetailsLoading {
+  const _$MealDetailsLoadingImpl();
 
-class MealDetailsAddedToCart implements MealDetailsState {
-  const MealDetailsAddedToCart({required this.meal, required this.selectedSellingOptionId, this.quantity = 1, this.note = '', this.isFavorite = false});
-  
+  @override
+  String toString() {
+    return 'MealDetailsState.loading()';
+  }
 
- final  MealEntity meal;
- final  String selectedSellingOptionId;
-@JsonKey() final  int quantity;
-@JsonKey() final  String note;
-@JsonKey() final  bool isFavorite;
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$MealDetailsLoadingImpl);
+  }
 
-/// Create a copy of MealDetailsState
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$MealDetailsAddedToCartCopyWith<MealDetailsAddedToCart> get copyWith => _$MealDetailsAddedToCartCopyWithImpl<MealDetailsAddedToCart>(this, _$identity);
+  @override
+  int get hashCode => runtimeType.hashCode;
 
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(MealEntity meal, String selectedSellingOptionId,
+            int quantity, String note, bool isFavorite)
+        loaded,
+    required TResult Function(MealEntity meal, String selectedSellingOptionId,
+            int quantity, String note, bool isFavorite)
+        addedToCart,
+    required TResult Function(AppException exception) failure,
+  }) {
+    return loading();
+  }
 
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(MealEntity meal, String selectedSellingOptionId,
+            int quantity, String note, bool isFavorite)?
+        loaded,
+    TResult? Function(MealEntity meal, String selectedSellingOptionId,
+            int quantity, String note, bool isFavorite)?
+        addedToCart,
+    TResult? Function(AppException exception)? failure,
+  }) {
+    return loading?.call();
+  }
 
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MealDetailsAddedToCart&&(identical(other.meal, meal) || other.meal == meal)&&(identical(other.selectedSellingOptionId, selectedSellingOptionId) || other.selectedSellingOptionId == selectedSellingOptionId)&&(identical(other.quantity, quantity) || other.quantity == quantity)&&(identical(other.note, note) || other.note == note)&&(identical(other.isFavorite, isFavorite) || other.isFavorite == isFavorite));
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(MealEntity meal, String selectedSellingOptionId,
+            int quantity, String note, bool isFavorite)?
+        loaded,
+    TResult Function(MealEntity meal, String selectedSellingOptionId,
+            int quantity, String note, bool isFavorite)?
+        addedToCart,
+    TResult Function(AppException exception)? failure,
+    required TResult orElse(),
+  }) {
+    if (loading != null) {
+      return loading();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(MealDetailsInitial value) initial,
+    required TResult Function(MealDetailsLoading value) loading,
+    required TResult Function(MealDetailsLoaded value) loaded,
+    required TResult Function(MealDetailsAddedToCart value) addedToCart,
+    required TResult Function(MealDetailsFailure value) failure,
+  }) {
+    return loading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(MealDetailsInitial value)? initial,
+    TResult? Function(MealDetailsLoading value)? loading,
+    TResult? Function(MealDetailsLoaded value)? loaded,
+    TResult? Function(MealDetailsAddedToCart value)? addedToCart,
+    TResult? Function(MealDetailsFailure value)? failure,
+  }) {
+    return loading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(MealDetailsInitial value)? initial,
+    TResult Function(MealDetailsLoading value)? loading,
+    TResult Function(MealDetailsLoaded value)? loaded,
+    TResult Function(MealDetailsAddedToCart value)? addedToCart,
+    TResult Function(MealDetailsFailure value)? failure,
+    required TResult orElse(),
+  }) {
+    if (loading != null) {
+      return loading(this);
+    }
+    return orElse();
+  }
 }
 
-
-@override
-int get hashCode => Object.hash(runtimeType,meal,selectedSellingOptionId,quantity,note,isFavorite);
-
-@override
-String toString() {
-  return 'MealDetailsState.addedToCart(meal: $meal, selectedSellingOptionId: $selectedSellingOptionId, quantity: $quantity, note: $note, isFavorite: $isFavorite)';
-}
-
-
+abstract class MealDetailsLoading implements MealDetailsState {
+  const factory MealDetailsLoading() = _$MealDetailsLoadingImpl;
 }
 
 /// @nodoc
-abstract mixin class $MealDetailsAddedToCartCopyWith<$Res> implements $MealDetailsStateCopyWith<$Res> {
-  factory $MealDetailsAddedToCartCopyWith(MealDetailsAddedToCart value, $Res Function(MealDetailsAddedToCart) _then) = _$MealDetailsAddedToCartCopyWithImpl;
-@useResult
-$Res call({
- MealEntity meal, String selectedSellingOptionId, int quantity, String note, bool isFavorite
-});
-
-
-
-
-}
-/// @nodoc
-class _$MealDetailsAddedToCartCopyWithImpl<$Res>
-    implements $MealDetailsAddedToCartCopyWith<$Res> {
-  _$MealDetailsAddedToCartCopyWithImpl(this._self, this._then);
-
-  final MealDetailsAddedToCart _self;
-  final $Res Function(MealDetailsAddedToCart) _then;
-
-/// Create a copy of MealDetailsState
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? meal = null,Object? selectedSellingOptionId = null,Object? quantity = null,Object? note = null,Object? isFavorite = null,}) {
-  return _then(MealDetailsAddedToCart(
-meal: null == meal ? _self.meal : meal // ignore: cast_nullable_to_non_nullable
-as MealEntity,selectedSellingOptionId: null == selectedSellingOptionId ? _self.selectedSellingOptionId : selectedSellingOptionId // ignore: cast_nullable_to_non_nullable
-as String,quantity: null == quantity ? _self.quantity : quantity // ignore: cast_nullable_to_non_nullable
-as int,note: null == note ? _self.note : note // ignore: cast_nullable_to_non_nullable
-as String,isFavorite: null == isFavorite ? _self.isFavorite : isFavorite // ignore: cast_nullable_to_non_nullable
-as bool,
-  ));
-}
-
-
+abstract class _$$MealDetailsLoadedImplCopyWith<$Res> {
+  factory _$$MealDetailsLoadedImplCopyWith(_$MealDetailsLoadedImpl value,
+          $Res Function(_$MealDetailsLoadedImpl) then) =
+      __$$MealDetailsLoadedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call(
+      {MealEntity meal,
+      String selectedSellingOptionId,
+      int quantity,
+      String note,
+      bool isFavorite});
 }
 
 /// @nodoc
+class __$$MealDetailsLoadedImplCopyWithImpl<$Res>
+    extends _$MealDetailsStateCopyWithImpl<$Res, _$MealDetailsLoadedImpl>
+    implements _$$MealDetailsLoadedImplCopyWith<$Res> {
+  __$$MealDetailsLoadedImplCopyWithImpl(_$MealDetailsLoadedImpl _value,
+      $Res Function(_$MealDetailsLoadedImpl) _then)
+      : super(_value, _then);
 
-
-class MealDetailsFailure implements MealDetailsState {
-  const MealDetailsFailure(this.exception);
-  
-
- final  AppException exception;
-
-/// Create a copy of MealDetailsState
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$MealDetailsFailureCopyWith<MealDetailsFailure> get copyWith => _$MealDetailsFailureCopyWithImpl<MealDetailsFailure>(this, _$identity);
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MealDetailsFailure&&(identical(other.exception, exception) || other.exception == exception));
-}
-
-
-@override
-int get hashCode => Object.hash(runtimeType,exception);
-
-@override
-String toString() {
-  return 'MealDetailsState.failure(exception: $exception)';
-}
-
-
+  /// Create a copy of MealDetailsState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? meal = null,
+    Object? selectedSellingOptionId = null,
+    Object? quantity = null,
+    Object? note = null,
+    Object? isFavorite = null,
+  }) {
+    return _then(_$MealDetailsLoadedImpl(
+      meal: null == meal
+          ? _value.meal
+          : meal // ignore: cast_nullable_to_non_nullable
+              as MealEntity,
+      selectedSellingOptionId: null == selectedSellingOptionId
+          ? _value.selectedSellingOptionId
+          : selectedSellingOptionId // ignore: cast_nullable_to_non_nullable
+              as String,
+      quantity: null == quantity
+          ? _value.quantity
+          : quantity // ignore: cast_nullable_to_non_nullable
+              as int,
+      note: null == note
+          ? _value.note
+          : note // ignore: cast_nullable_to_non_nullable
+              as String,
+      isFavorite: null == isFavorite
+          ? _value.isFavorite
+          : isFavorite // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
 }
 
 /// @nodoc
-abstract mixin class $MealDetailsFailureCopyWith<$Res> implements $MealDetailsStateCopyWith<$Res> {
-  factory $MealDetailsFailureCopyWith(MealDetailsFailure value, $Res Function(MealDetailsFailure) _then) = _$MealDetailsFailureCopyWithImpl;
-@useResult
-$Res call({
- AppException exception
-});
 
+class _$MealDetailsLoadedImpl implements MealDetailsLoaded {
+  const _$MealDetailsLoadedImpl(
+      {required this.meal,
+      required this.selectedSellingOptionId,
+      this.quantity = 1,
+      this.note = '',
+      this.isFavorite = false});
 
+  @override
+  final MealEntity meal;
+  @override
+  final String selectedSellingOptionId;
+  @override
+  @JsonKey()
+  final int quantity;
+  @override
+  @JsonKey()
+  final String note;
+  @override
+  @JsonKey()
+  final bool isFavorite;
 
+  @override
+  String toString() {
+    return 'MealDetailsState.loaded(meal: $meal, selectedSellingOptionId: $selectedSellingOptionId, quantity: $quantity, note: $note, isFavorite: $isFavorite)';
+  }
 
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$MealDetailsLoadedImpl &&
+            (identical(other.meal, meal) || other.meal == meal) &&
+            (identical(
+                    other.selectedSellingOptionId, selectedSellingOptionId) ||
+                other.selectedSellingOptionId == selectedSellingOptionId) &&
+            (identical(other.quantity, quantity) ||
+                other.quantity == quantity) &&
+            (identical(other.note, note) || other.note == note) &&
+            (identical(other.isFavorite, isFavorite) ||
+                other.isFavorite == isFavorite));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, meal, selectedSellingOptionId, quantity, note, isFavorite);
+
+  /// Create a copy of MealDetailsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$MealDetailsLoadedImplCopyWith<_$MealDetailsLoadedImpl> get copyWith =>
+      __$$MealDetailsLoadedImplCopyWithImpl<_$MealDetailsLoadedImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(MealEntity meal, String selectedSellingOptionId,
+            int quantity, String note, bool isFavorite)
+        loaded,
+    required TResult Function(MealEntity meal, String selectedSellingOptionId,
+            int quantity, String note, bool isFavorite)
+        addedToCart,
+    required TResult Function(AppException exception) failure,
+  }) {
+    return loaded(meal, selectedSellingOptionId, quantity, note, isFavorite);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(MealEntity meal, String selectedSellingOptionId,
+            int quantity, String note, bool isFavorite)?
+        loaded,
+    TResult? Function(MealEntity meal, String selectedSellingOptionId,
+            int quantity, String note, bool isFavorite)?
+        addedToCart,
+    TResult? Function(AppException exception)? failure,
+  }) {
+    return loaded?.call(
+        meal, selectedSellingOptionId, quantity, note, isFavorite);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(MealEntity meal, String selectedSellingOptionId,
+            int quantity, String note, bool isFavorite)?
+        loaded,
+    TResult Function(MealEntity meal, String selectedSellingOptionId,
+            int quantity, String note, bool isFavorite)?
+        addedToCart,
+    TResult Function(AppException exception)? failure,
+    required TResult orElse(),
+  }) {
+    if (loaded != null) {
+      return loaded(meal, selectedSellingOptionId, quantity, note, isFavorite);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(MealDetailsInitial value) initial,
+    required TResult Function(MealDetailsLoading value) loading,
+    required TResult Function(MealDetailsLoaded value) loaded,
+    required TResult Function(MealDetailsAddedToCart value) addedToCart,
+    required TResult Function(MealDetailsFailure value) failure,
+  }) {
+    return loaded(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(MealDetailsInitial value)? initial,
+    TResult? Function(MealDetailsLoading value)? loading,
+    TResult? Function(MealDetailsLoaded value)? loaded,
+    TResult? Function(MealDetailsAddedToCart value)? addedToCart,
+    TResult? Function(MealDetailsFailure value)? failure,
+  }) {
+    return loaded?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(MealDetailsInitial value)? initial,
+    TResult Function(MealDetailsLoading value)? loading,
+    TResult Function(MealDetailsLoaded value)? loaded,
+    TResult Function(MealDetailsAddedToCart value)? addedToCart,
+    TResult Function(MealDetailsFailure value)? failure,
+    required TResult orElse(),
+  }) {
+    if (loaded != null) {
+      return loaded(this);
+    }
+    return orElse();
+  }
 }
+
+abstract class MealDetailsLoaded implements MealDetailsState {
+  const factory MealDetailsLoaded(
+      {required final MealEntity meal,
+      required final String selectedSellingOptionId,
+      final int quantity,
+      final String note,
+      final bool isFavorite}) = _$MealDetailsLoadedImpl;
+
+  MealEntity get meal;
+  String get selectedSellingOptionId;
+  int get quantity;
+  String get note;
+  bool get isFavorite;
+
+  /// Create a copy of MealDetailsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$MealDetailsLoadedImplCopyWith<_$MealDetailsLoadedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
 /// @nodoc
-class _$MealDetailsFailureCopyWithImpl<$Res>
-    implements $MealDetailsFailureCopyWith<$Res> {
-  _$MealDetailsFailureCopyWithImpl(this._self, this._then);
-
-  final MealDetailsFailure _self;
-  final $Res Function(MealDetailsFailure) _then;
-
-/// Create a copy of MealDetailsState
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? exception = null,}) {
-  return _then(MealDetailsFailure(
-null == exception ? _self.exception : exception // ignore: cast_nullable_to_non_nullable
-as AppException,
-  ));
+abstract class _$$MealDetailsAddedToCartImplCopyWith<$Res> {
+  factory _$$MealDetailsAddedToCartImplCopyWith(
+          _$MealDetailsAddedToCartImpl value,
+          $Res Function(_$MealDetailsAddedToCartImpl) then) =
+      __$$MealDetailsAddedToCartImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call(
+      {MealEntity meal,
+      String selectedSellingOptionId,
+      int quantity,
+      String note,
+      bool isFavorite});
 }
 
+/// @nodoc
+class __$$MealDetailsAddedToCartImplCopyWithImpl<$Res>
+    extends _$MealDetailsStateCopyWithImpl<$Res, _$MealDetailsAddedToCartImpl>
+    implements _$$MealDetailsAddedToCartImplCopyWith<$Res> {
+  __$$MealDetailsAddedToCartImplCopyWithImpl(
+      _$MealDetailsAddedToCartImpl _value,
+      $Res Function(_$MealDetailsAddedToCartImpl) _then)
+      : super(_value, _then);
 
+  /// Create a copy of MealDetailsState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? meal = null,
+    Object? selectedSellingOptionId = null,
+    Object? quantity = null,
+    Object? note = null,
+    Object? isFavorite = null,
+  }) {
+    return _then(_$MealDetailsAddedToCartImpl(
+      meal: null == meal
+          ? _value.meal
+          : meal // ignore: cast_nullable_to_non_nullable
+              as MealEntity,
+      selectedSellingOptionId: null == selectedSellingOptionId
+          ? _value.selectedSellingOptionId
+          : selectedSellingOptionId // ignore: cast_nullable_to_non_nullable
+              as String,
+      quantity: null == quantity
+          ? _value.quantity
+          : quantity // ignore: cast_nullable_to_non_nullable
+              as int,
+      note: null == note
+          ? _value.note
+          : note // ignore: cast_nullable_to_non_nullable
+              as String,
+      isFavorite: null == isFavorite
+          ? _value.isFavorite
+          : isFavorite // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
 }
 
-// dart format on
+/// @nodoc
+
+class _$MealDetailsAddedToCartImpl implements MealDetailsAddedToCart {
+  const _$MealDetailsAddedToCartImpl(
+      {required this.meal,
+      required this.selectedSellingOptionId,
+      this.quantity = 1,
+      this.note = '',
+      this.isFavorite = false});
+
+  @override
+  final MealEntity meal;
+  @override
+  final String selectedSellingOptionId;
+  @override
+  @JsonKey()
+  final int quantity;
+  @override
+  @JsonKey()
+  final String note;
+  @override
+  @JsonKey()
+  final bool isFavorite;
+
+  @override
+  String toString() {
+    return 'MealDetailsState.addedToCart(meal: $meal, selectedSellingOptionId: $selectedSellingOptionId, quantity: $quantity, note: $note, isFavorite: $isFavorite)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$MealDetailsAddedToCartImpl &&
+            (identical(other.meal, meal) || other.meal == meal) &&
+            (identical(
+                    other.selectedSellingOptionId, selectedSellingOptionId) ||
+                other.selectedSellingOptionId == selectedSellingOptionId) &&
+            (identical(other.quantity, quantity) ||
+                other.quantity == quantity) &&
+            (identical(other.note, note) || other.note == note) &&
+            (identical(other.isFavorite, isFavorite) ||
+                other.isFavorite == isFavorite));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, meal, selectedSellingOptionId, quantity, note, isFavorite);
+
+  /// Create a copy of MealDetailsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$MealDetailsAddedToCartImplCopyWith<_$MealDetailsAddedToCartImpl>
+      get copyWith => __$$MealDetailsAddedToCartImplCopyWithImpl<
+          _$MealDetailsAddedToCartImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(MealEntity meal, String selectedSellingOptionId,
+            int quantity, String note, bool isFavorite)
+        loaded,
+    required TResult Function(MealEntity meal, String selectedSellingOptionId,
+            int quantity, String note, bool isFavorite)
+        addedToCart,
+    required TResult Function(AppException exception) failure,
+  }) {
+    return addedToCart(
+        meal, selectedSellingOptionId, quantity, note, isFavorite);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(MealEntity meal, String selectedSellingOptionId,
+            int quantity, String note, bool isFavorite)?
+        loaded,
+    TResult? Function(MealEntity meal, String selectedSellingOptionId,
+            int quantity, String note, bool isFavorite)?
+        addedToCart,
+    TResult? Function(AppException exception)? failure,
+  }) {
+    return addedToCart?.call(
+        meal, selectedSellingOptionId, quantity, note, isFavorite);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(MealEntity meal, String selectedSellingOptionId,
+            int quantity, String note, bool isFavorite)?
+        loaded,
+    TResult Function(MealEntity meal, String selectedSellingOptionId,
+            int quantity, String note, bool isFavorite)?
+        addedToCart,
+    TResult Function(AppException exception)? failure,
+    required TResult orElse(),
+  }) {
+    if (addedToCart != null) {
+      return addedToCart(
+          meal, selectedSellingOptionId, quantity, note, isFavorite);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(MealDetailsInitial value) initial,
+    required TResult Function(MealDetailsLoading value) loading,
+    required TResult Function(MealDetailsLoaded value) loaded,
+    required TResult Function(MealDetailsAddedToCart value) addedToCart,
+    required TResult Function(MealDetailsFailure value) failure,
+  }) {
+    return addedToCart(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(MealDetailsInitial value)? initial,
+    TResult? Function(MealDetailsLoading value)? loading,
+    TResult? Function(MealDetailsLoaded value)? loaded,
+    TResult? Function(MealDetailsAddedToCart value)? addedToCart,
+    TResult? Function(MealDetailsFailure value)? failure,
+  }) {
+    return addedToCart?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(MealDetailsInitial value)? initial,
+    TResult Function(MealDetailsLoading value)? loading,
+    TResult Function(MealDetailsLoaded value)? loaded,
+    TResult Function(MealDetailsAddedToCart value)? addedToCart,
+    TResult Function(MealDetailsFailure value)? failure,
+    required TResult orElse(),
+  }) {
+    if (addedToCart != null) {
+      return addedToCart(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class MealDetailsAddedToCart implements MealDetailsState {
+  const factory MealDetailsAddedToCart(
+      {required final MealEntity meal,
+      required final String selectedSellingOptionId,
+      final int quantity,
+      final String note,
+      final bool isFavorite}) = _$MealDetailsAddedToCartImpl;
+
+  MealEntity get meal;
+  String get selectedSellingOptionId;
+  int get quantity;
+  String get note;
+  bool get isFavorite;
+
+  /// Create a copy of MealDetailsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$MealDetailsAddedToCartImplCopyWith<_$MealDetailsAddedToCartImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$MealDetailsFailureImplCopyWith<$Res> {
+  factory _$$MealDetailsFailureImplCopyWith(_$MealDetailsFailureImpl value,
+          $Res Function(_$MealDetailsFailureImpl) then) =
+      __$$MealDetailsFailureImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({AppException exception});
+}
+
+/// @nodoc
+class __$$MealDetailsFailureImplCopyWithImpl<$Res>
+    extends _$MealDetailsStateCopyWithImpl<$Res, _$MealDetailsFailureImpl>
+    implements _$$MealDetailsFailureImplCopyWith<$Res> {
+  __$$MealDetailsFailureImplCopyWithImpl(_$MealDetailsFailureImpl _value,
+      $Res Function(_$MealDetailsFailureImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of MealDetailsState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? exception = null,
+  }) {
+    return _then(_$MealDetailsFailureImpl(
+      null == exception
+          ? _value.exception
+          : exception // ignore: cast_nullable_to_non_nullable
+              as AppException,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$MealDetailsFailureImpl implements MealDetailsFailure {
+  const _$MealDetailsFailureImpl(this.exception);
+
+  @override
+  final AppException exception;
+
+  @override
+  String toString() {
+    return 'MealDetailsState.failure(exception: $exception)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$MealDetailsFailureImpl &&
+            (identical(other.exception, exception) ||
+                other.exception == exception));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, exception);
+
+  /// Create a copy of MealDetailsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$MealDetailsFailureImplCopyWith<_$MealDetailsFailureImpl> get copyWith =>
+      __$$MealDetailsFailureImplCopyWithImpl<_$MealDetailsFailureImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(MealEntity meal, String selectedSellingOptionId,
+            int quantity, String note, bool isFavorite)
+        loaded,
+    required TResult Function(MealEntity meal, String selectedSellingOptionId,
+            int quantity, String note, bool isFavorite)
+        addedToCart,
+    required TResult Function(AppException exception) failure,
+  }) {
+    return failure(exception);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(MealEntity meal, String selectedSellingOptionId,
+            int quantity, String note, bool isFavorite)?
+        loaded,
+    TResult? Function(MealEntity meal, String selectedSellingOptionId,
+            int quantity, String note, bool isFavorite)?
+        addedToCart,
+    TResult? Function(AppException exception)? failure,
+  }) {
+    return failure?.call(exception);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(MealEntity meal, String selectedSellingOptionId,
+            int quantity, String note, bool isFavorite)?
+        loaded,
+    TResult Function(MealEntity meal, String selectedSellingOptionId,
+            int quantity, String note, bool isFavorite)?
+        addedToCart,
+    TResult Function(AppException exception)? failure,
+    required TResult orElse(),
+  }) {
+    if (failure != null) {
+      return failure(exception);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(MealDetailsInitial value) initial,
+    required TResult Function(MealDetailsLoading value) loading,
+    required TResult Function(MealDetailsLoaded value) loaded,
+    required TResult Function(MealDetailsAddedToCart value) addedToCart,
+    required TResult Function(MealDetailsFailure value) failure,
+  }) {
+    return failure(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(MealDetailsInitial value)? initial,
+    TResult? Function(MealDetailsLoading value)? loading,
+    TResult? Function(MealDetailsLoaded value)? loaded,
+    TResult? Function(MealDetailsAddedToCart value)? addedToCart,
+    TResult? Function(MealDetailsFailure value)? failure,
+  }) {
+    return failure?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(MealDetailsInitial value)? initial,
+    TResult Function(MealDetailsLoading value)? loading,
+    TResult Function(MealDetailsLoaded value)? loaded,
+    TResult Function(MealDetailsAddedToCart value)? addedToCart,
+    TResult Function(MealDetailsFailure value)? failure,
+    required TResult orElse(),
+  }) {
+    if (failure != null) {
+      return failure(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class MealDetailsFailure implements MealDetailsState {
+  const factory MealDetailsFailure(final AppException exception) =
+      _$MealDetailsFailureImpl;
+
+  AppException get exception;
+
+  /// Create a copy of MealDetailsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$MealDetailsFailureImplCopyWith<_$MealDetailsFailureImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}

@@ -7,5 +7,5 @@ class GetCartItems {
 
   final CartRepository _repository;
 
-  Future<Result<List<CartItemEntity>>> call() => _repository.getCartItems();
+  Future<Result<CartEntity>> call() => _repository.getCart();
 }

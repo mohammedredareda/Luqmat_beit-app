@@ -1,10 +1,11 @@
 import 'package:core/core.dart';
 import 'package:equatable/equatable.dart';
 
-/// A draft/submitted bulk (catering) order — CU-25. Reuses [CartItemEntity]
-/// for line items since a catering request is structurally a large-quantity
-/// cart: same meal + selling option + quantity shape, just headed for human
-/// review instead of the normal checkout flow.
+/// A draft/submitted bulk (catering) order — CU-25. Reuses
+/// [CartMealItemEntity] for line items since a catering request is
+/// structurally a large-quantity cart: same meal + selling option +
+/// quantity shape, just headed for human review instead of the normal
+/// checkout flow.
 class CateringRequestEntity extends Equatable {
   const CateringRequestEntity({
     required this.id,
@@ -17,7 +18,7 @@ class CateringRequestEntity extends Equatable {
   });
 
   final String id;
-  final List<CartItemEntity> items;
+  final List<CartMealItemEntity> items;
   final int guestCount;
   final DateTime eventDate;
   final String deliveryAddress;

@@ -96,7 +96,11 @@ class _ConfirmationContent extends StatelessWidget {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
-    final allItems = order.subOrders.expand((sub) => sub.items).toList();
+    final lineItemRows = [
+      ...order.mealItems.map((item) => OrderLineItemRow.meal(item)),
+      ...order.offerItems.map((item) => OrderLineItemRow.offer(item)),
+      ...order.returnedMealItems.map((item) => OrderLineItemRow.returnedMeal(item)),
+    ];
 
     return ListView(
       padding: const EdgeInsetsDirectional.all(AppSpace.l),
@@ -110,7 +114,7 @@ class _ConfirmationContent extends StatelessWidget {
                 child: Text('الفاتورة', style: textTheme.titleLarge),
               ),
               Divider(color: scheme.outlineVariant),
-              for (final item in allItems) OrderLineItemRow(item: item),
+              ...lineItemRows,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

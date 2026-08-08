@@ -11,8 +11,7 @@ sealed class ShoppingCartState with _$ShoppingCartState {
   const factory ShoppingCartState.initial() = ShoppingCartInitial;
   const factory ShoppingCartState.loading() = ShoppingCartLoading;
   const factory ShoppingCartState.loaded(
-    List<CartItemEntity> items, {
-    required double subtotal,
+    CartEntity cart, {
     required double deliveryFee,
   }) = ShoppingCartLoaded;
   const factory ShoppingCartState.empty() = ShoppingCartEmpty;

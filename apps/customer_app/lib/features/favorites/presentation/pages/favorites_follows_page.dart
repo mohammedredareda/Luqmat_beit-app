@@ -244,7 +244,7 @@ class _FollowedChefsList extends StatelessWidget {
     return ListView.separated(
       padding: const EdgeInsetsDirectional.all(AppSpace.l),
       itemCount: chefs.length,
-      separatorBuilder: (_, _) => const SizedBox(height: AppSpace.m),
+      separatorBuilder: (context, index) => const SizedBox(height: AppSpace.m),
       itemBuilder: (context, index) {
         final chef = chefs[index];
         return FollowedChefTile(
@@ -271,7 +271,7 @@ class _FavoritesLoadingSkeleton extends StatelessWidget {
         mainAxisSpacing: AppSpace.m,
         childAspectRatio: 0.62,
       ),
-      itemBuilder: (_, _) => const LoadingSkeleton(borderRadius: 16),
+      itemBuilder: (context, index) => const LoadingSkeleton(borderRadius: 16),
     );
   }
 }

@@ -1,7 +1,7 @@
 import 'package:core/core.dart';
 
 abstract class CartRepository {
-  Future<Result<List<CartItemEntity>>> getCartItems();
+  Future<Result<CartEntity>> getCart();
   Future<Result<void>> addItem({
     required MealEntity meal,
     required SellingOptionEntity sellingOption,

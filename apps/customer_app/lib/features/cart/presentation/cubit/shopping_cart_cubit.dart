@@ -35,7 +35,7 @@ class ShoppingCartCubit extends Cubit<ShoppingCartState> {
     emit(const ShoppingCartState.loading());
     final result = await _getCartItems();
     result.fold(
-      (items) => _emitItems(items),
+      (cart) => _emitCart(cart),
       (exception) => emit(ShoppingCartState.failure(exception)),
     );
   }
@@ -43,13 +43,7 @@ class ShoppingCartCubit extends Cubit<ShoppingCartState> {
   Future<void> changeQuantity(String cartItemId, int quantity) async {
     final result = await _updateCartItemQuantity(cartItemId, quantity);
     result.fold(
-      (_) async {
-        final refreshed = await _getCartItems();
-        refreshed.fold(
-          (items) => _emitItems(items),
-          (exception) => emit(ShoppingCartState.failure(exception)),
-        );
-      },
+      (_) => _reload(),
       (exception) => emit(ShoppingCartState.failure(exception)),
     );
   }
@@ -57,13 +51,7 @@ class ShoppingCartCubit extends Cubit<ShoppingCartState> {
   Future<void> removeItem(String cartItemId) async {
     final result = await _removeCartItem(cartItemId);
     result.fold(
-      (_) async {
-        final refreshed = await _getCartItems();
-        refreshed.fold(
-          (items) => _emitItems(items),
-          (exception) => emit(ShoppingCartState.failure(exception)),
-        );
-      },
+      (_) => _reload(),
       (exception) => emit(ShoppingCartState.failure(exception)),
     );
   }
@@ -71,29 +59,34 @@ class ShoppingCartCubit extends Cubit<ShoppingCartState> {
   Future<void> changeSellingOption(String cartItemId, String sellingOptionId) async {
     final result = await _repository.updateSellingOption(cartItemId, sellingOptionId);
     result.fold(
-      (_) async {
-        final refreshed = await _getCartItems();
-        refreshed.fold(
-          (items) => _emitItems(items),
-          (exception) => emit(ShoppingCartState.failure(exception)),
-        );
-      },
+      (_) => _reload(),
+      (exception) => emit(ShoppingCartState.failure(exception)),
+    );
+  }
+
+  Future<void> _reload() async {
+    final refreshed = await _getCartItems();
+    refreshed.fold(
+      (cart) => _emitCart(cart),
       (exception) => emit(ShoppingCartState.failure(exception)),
     );
   }
 
   /// Places the order for the current cart (single-cook — the backend's
-  /// `/order/confirm` takes one `cook_id`, matching this app's current
-  /// single-cook cart model) and returns the new order id, or `null` on
+  /// `/order/confirm` takes one `cook_id`, matching this app's
+  /// single-cook-cart model) and returns the new order id, or `null` on
   /// failure (a failure state is emitted in that case).
   Future<String?> checkout() async {
     final current = state;
-    if (current is! ShoppingCartLoaded || current.items.isEmpty) return null;
+    if (current is! ShoppingCartLoaded || current.cart.isEmpty) return null;
 
     final result = await _confirmOrder(
-      cookId: current.items.first.meal.cookId,
-      items: current.items,
+      cookId: current.cart.cookId ?? '',
+      deliveryAddress: '',
       deliveryFee: current.deliveryFee,
+      mealItems: current.cart.mealItems,
+      offerItems: current.cart.offerItems,
+      returnedMealItems: current.cart.returnedMealItems,
     );
     return result.fold(
       (orderId) => orderId,
@@ -104,12 +97,11 @@ class ShoppingCartCubit extends Cubit<ShoppingCartState> {
     );
   }
 
-  void _emitItems(List<CartItemEntity> items) {
-    if (items.isEmpty) {
+  void _emitCart(CartEntity cart) {
+    if (cart.isEmpty) {
       emit(const ShoppingCartState.empty());
       return;
     }
-    final subtotal = items.fold<double>(0, (sum, item) => sum + item.subtotal);
-    emit(ShoppingCartState.loaded(items, subtotal: subtotal, deliveryFee: _flatDeliveryFee));
+    emit(ShoppingCartState.loaded(cart, deliveryFee: _flatDeliveryFee));
   }
 }

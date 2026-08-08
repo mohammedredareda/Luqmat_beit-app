@@ -11,8 +11,8 @@ class CartRepositoryImpl implements CartRepository {
   final CartDataSource _dataSource;
 
   @override
-  Future<Result<List<CartItemEntity>>> getCartItems() {
-    return guard(() => _dataSource.getCartItems());
+  Future<Result<CartEntity>> getCart() {
+    return guard(() => _dataSource.getCart());
   }
 
   @override

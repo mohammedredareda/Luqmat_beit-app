@@ -32,7 +32,7 @@ class DeviceLocationDataSource {
     String formattedAddress = '${position.latitude.toStringAsFixed(5)}, '
         '${position.longitude.toStringAsFixed(5)}';
     try {
-      final placemarks = await Geocoding().placemarkFromCoordinates(
+      final placemarks = await placemarkFromCoordinates(
         position.latitude,
         position.longitude,
       );

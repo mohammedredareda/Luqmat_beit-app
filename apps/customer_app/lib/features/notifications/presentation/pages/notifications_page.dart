@@ -120,7 +120,7 @@ class _NotificationsContent extends StatelessWidget {
                     vertical: AppSpace.l,
                   ),
                   itemCount: filtered.length,
-                  separatorBuilder: (_, _) =>
+                  separatorBuilder: (context, index) =>
                       const SizedBox(height: AppSpace.l),
                   itemBuilder: (context, index) {
                     final notification = filtered[index];

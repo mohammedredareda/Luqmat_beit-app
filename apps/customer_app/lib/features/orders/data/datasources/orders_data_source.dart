@@ -7,7 +7,10 @@ abstract class OrdersDataSource {
 
   Future<String> confirmOrder({
     required String cookId,
-    required List<CartItemEntity> items,
+    required String deliveryAddress,
     required double deliveryFee,
+    List<CartMealItemEntity> mealItems = const [],
+    List<CartOfferItemEntity> offerItems = const [],
+    List<CartReturnedMealItemEntity> returnedMealItems = const [],
   });
 }

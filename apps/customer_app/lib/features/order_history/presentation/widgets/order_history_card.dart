@@ -1,8 +1,6 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 
-import 'order_status_badge.dart';
-
 /// One past-order row: meal thumbnail, date, status badge and a visual
 /// "reorder" affordance (per the order_history mockup) — matches
 /// design_rules.html card styling (4:3 image, R-25) reused at 96x72.
@@ -22,10 +20,20 @@ class OrderHistoryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
-    final firstItem = order.subOrders.first.items.first;
-    final status = order.subOrders.first.status;
-    final extraItemsCount =
-        order.subOrders.fold<int>(0, (sum, sub) => sum + sub.items.length) - 1;
+    final allItemsCount =
+        order.mealItems.length + order.offerItems.length + order.returnedMealItems.length;
+    final firstItemName = order.mealItems.isNotEmpty
+        ? order.mealItems.first.mealName
+        : order.offerItems.isNotEmpty
+            ? order.offerItems.first.offerName
+            : order.returnedMealItems.first.mealName;
+    final firstItemImageUrl = order.mealItems.isNotEmpty
+        ? order.mealItems.first.mealImageUrl
+        : order.offerItems.isNotEmpty
+            ? ''
+            : order.returnedMealItems.first.mealImageUrl;
+    final status = order.status;
+    final extraItemsCount = allItemsCount - 1;
 
     return GestureDetector(
       onTap: onTap,
@@ -50,7 +58,7 @@ class OrderHistoryCard extends StatelessWidget {
                 width: 96,
                 child: AspectRatio(
                   aspectRatio: 4 / 3,
-                  child: Image.network(firstItem.mealImageUrl, fit: BoxFit.cover),
+                  child: Image.network(firstItemImageUrl, fit: BoxFit.cover),
                 ),
               ),
             ),
@@ -61,8 +69,8 @@ class OrderHistoryCard extends StatelessWidget {
                 children: [
                   Text(
                     extraItemsCount > 0
-                        ? '${firstItem.mealName} +$extraItemsCount'
-                        : firstItem.mealName,
+                        ? '$firstItemName +$extraItemsCount'
+                        : firstItemName,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.titleMedium,

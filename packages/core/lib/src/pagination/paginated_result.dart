@@ -11,4 +11,11 @@ class PaginatedResult<T> {
   final List<T> items;
   final bool hasMore;
   final String? nextCursor;
+
+  /// Transforms every item while preserving [hasMore]/[nextCursor].
+  PaginatedResult<R> map<R>(R Function(T) transform) => PaginatedResult<R>(
+        items: items.map(transform).toList(),
+        hasMore: hasMore,
+        nextCursor: nextCursor,
+      );
 }

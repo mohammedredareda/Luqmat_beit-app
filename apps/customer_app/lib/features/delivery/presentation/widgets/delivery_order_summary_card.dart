@@ -11,7 +11,11 @@ class DeliveryOrderSummaryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
-    final items = order.subOrders.expand((sub) => sub.items).toList();
+    final items = <(String name, int quantity, double subtotal)>[
+      for (final item in order.mealItems) (item.mealName, item.quantity, item.subtotal),
+      for (final item in order.offerItems) (item.offerName, item.quantity, item.subtotal),
+      for (final item in order.returnedMealItems) (item.mealName, item.quantity, item.subtotal),
+    ];
 
     return Container(
       padding: const EdgeInsetsDirectional.all(AppSpace.m),
@@ -40,10 +44,10 @@ class DeliveryOrderSummaryCard extends StatelessWidget {
             child: Text('تفاصيل العشاء', style: textTheme.headlineSmall),
           ),
           const SizedBox(height: AppSpace.m),
-          for (final item in items) ...[
+          for (final (name, quantity, subtotal) in items) ...[
             _SummaryRow(
-              label: '${item.quantity}x ${item.mealName}',
-              value: '${item.subtotal.toStringAsFixed(2)} JOD',
+              label: '${quantity}x $name',
+              value: '${subtotal.toStringAsFixed(2)} JOD',
             ),
             const SizedBox(height: AppSpace.s),
           ],

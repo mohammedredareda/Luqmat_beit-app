@@ -90,10 +90,10 @@ class HomeRemoteDataSource implements HomeDataSource {
     return DiscountEntity(
       id: json['discount_id'].toString(),
       mealId: meal['meal_id'].toString(),
-      type: DiscountType.percentage,
-      value: double.tryParse(json['discount_percentage']?.toString() ?? '') ?? 0,
-      startDate: DateTime.now(),
-      endDate: end,
+      discountPercentage: double.tryParse(json['discount_percentage']?.toString() ?? '') ?? 0,
+      discountDurationDays: durationDays ?? 0,
+      createdAt: DateTime.now(),
+      expiryTime: end,
     );
   }
 }

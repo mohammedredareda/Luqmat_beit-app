@@ -1,5 +1,5 @@
-// GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,374 +9,623 @@ part of 'invoice_state.dart';
 // FreezedGenerator
 // **************************************************************************
 
-// dart format off
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+
 /// @nodoc
 mixin _$InvoiceState {
-
-
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is InvoiceState);
-}
-
-
-@override
-int get hashCode => runtimeType.hashCode;
-
-@override
-String toString() {
-  return 'InvoiceState()';
-}
-
-
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(OrderEntity order) loaded,
+    required TResult Function(AppException exception) failure,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(OrderEntity order)? loaded,
+    TResult? Function(AppException exception)? failure,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(OrderEntity order)? loaded,
+    TResult Function(AppException exception)? failure,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(InvoiceInitial value) initial,
+    required TResult Function(InvoiceLoading value) loading,
+    required TResult Function(InvoiceLoaded value) loaded,
+    required TResult Function(InvoiceFailure value) failure,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(InvoiceInitial value)? initial,
+    TResult? Function(InvoiceLoading value)? loading,
+    TResult? Function(InvoiceLoaded value)? loaded,
+    TResult? Function(InvoiceFailure value)? failure,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(InvoiceInitial value)? initial,
+    TResult Function(InvoiceLoading value)? loading,
+    TResult Function(InvoiceLoaded value)? loaded,
+    TResult Function(InvoiceFailure value)? failure,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-class $InvoiceStateCopyWith<$Res>  {
-$InvoiceStateCopyWith(InvoiceState _, $Res Function(InvoiceState) __);
+abstract class $InvoiceStateCopyWith<$Res> {
+  factory $InvoiceStateCopyWith(
+          InvoiceState value, $Res Function(InvoiceState) then) =
+      _$InvoiceStateCopyWithImpl<$Res, InvoiceState>;
 }
 
+/// @nodoc
+class _$InvoiceStateCopyWithImpl<$Res, $Val extends InvoiceState>
+    implements $InvoiceStateCopyWith<$Res> {
+  _$InvoiceStateCopyWithImpl(this._value, this._then);
 
-/// Adds pattern-matching-related methods to [InvoiceState].
-extension InvoiceStatePatterns on InvoiceState {
-/// A variant of `map` that fallback to returning `orElse`.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case _:
-///     return orElse();
-/// }
-/// ```
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( InvoiceInitial value)?  initial,TResult Function( InvoiceLoading value)?  loading,TResult Function( InvoiceLoaded value)?  loaded,TResult Function( InvoiceFailure value)?  failure,required TResult orElse(),}){
-final _that = this;
-switch (_that) {
-case InvoiceInitial() when initial != null:
-return initial(_that);case InvoiceLoading() when loading != null:
-return loading(_that);case InvoiceLoaded() when loaded != null:
-return loaded(_that);case InvoiceFailure() when failure != null:
-return failure(_that);case _:
-  return orElse();
-
-}
-}
-/// A `switch`-like method, using callbacks.
-///
-/// Callbacks receives the raw object, upcasted.
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case final Subclass2 value:
-///     return ...;
-/// }
-/// ```
-
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( InvoiceInitial value)  initial,required TResult Function( InvoiceLoading value)  loading,required TResult Function( InvoiceLoaded value)  loaded,required TResult Function( InvoiceFailure value)  failure,}){
-final _that = this;
-switch (_that) {
-case InvoiceInitial():
-return initial(_that);case InvoiceLoading():
-return loading(_that);case InvoiceLoaded():
-return loaded(_that);case InvoiceFailure():
-return failure(_that);}
-}
-/// A variant of `map` that fallback to returning `null`.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case _:
-///     return null;
-/// }
-/// ```
-
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( InvoiceInitial value)?  initial,TResult? Function( InvoiceLoading value)?  loading,TResult? Function( InvoiceLoaded value)?  loaded,TResult? Function( InvoiceFailure value)?  failure,}){
-final _that = this;
-switch (_that) {
-case InvoiceInitial() when initial != null:
-return initial(_that);case InvoiceLoading() when loading != null:
-return loading(_that);case InvoiceLoaded() when loaded != null:
-return loaded(_that);case InvoiceFailure() when failure != null:
-return failure(_that);case _:
-  return null;
-
-}
-}
-/// A variant of `when` that fallback to an `orElse` callback.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case Subclass(:final field):
-///     return ...;
-///   case _:
-///     return orElse();
-/// }
-/// ```
-
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( OrderEntity order)?  loaded,TResult Function( AppException exception)?  failure,required TResult orElse(),}) {final _that = this;
-switch (_that) {
-case InvoiceInitial() when initial != null:
-return initial();case InvoiceLoading() when loading != null:
-return loading();case InvoiceLoaded() when loaded != null:
-return loaded(_that.order);case InvoiceFailure() when failure != null:
-return failure(_that.exception);case _:
-  return orElse();
-
-}
-}
-/// A `switch`-like method, using callbacks.
-///
-/// As opposed to `map`, this offers destructuring.
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case Subclass(:final field):
-///     return ...;
-///   case Subclass2(:final field2):
-///     return ...;
-/// }
-/// ```
-
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( OrderEntity order)  loaded,required TResult Function( AppException exception)  failure,}) {final _that = this;
-switch (_that) {
-case InvoiceInitial():
-return initial();case InvoiceLoading():
-return loading();case InvoiceLoaded():
-return loaded(_that.order);case InvoiceFailure():
-return failure(_that.exception);}
-}
-/// A variant of `when` that fallback to returning `null`
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case Subclass(:final field):
-///     return ...;
-///   case _:
-///     return null;
-/// }
-/// ```
-
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( OrderEntity order)?  loaded,TResult? Function( AppException exception)?  failure,}) {final _that = this;
-switch (_that) {
-case InvoiceInitial() when initial != null:
-return initial();case InvoiceLoading() when loading != null:
-return loading();case InvoiceLoaded() when loaded != null:
-return loaded(_that.order);case InvoiceFailure() when failure != null:
-return failure(_that.exception);case _:
-  return null;
-
-}
+  /// Create a copy of InvoiceState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
+/// @nodoc
+abstract class _$$InvoiceInitialImplCopyWith<$Res> {
+  factory _$$InvoiceInitialImplCopyWith(_$InvoiceInitialImpl value,
+          $Res Function(_$InvoiceInitialImpl) then) =
+      __$$InvoiceInitialImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$InvoiceInitialImplCopyWithImpl<$Res>
+    extends _$InvoiceStateCopyWithImpl<$Res, _$InvoiceInitialImpl>
+    implements _$$InvoiceInitialImplCopyWith<$Res> {
+  __$$InvoiceInitialImplCopyWithImpl(
+      _$InvoiceInitialImpl _value, $Res Function(_$InvoiceInitialImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of InvoiceState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
 
+class _$InvoiceInitialImpl implements InvoiceInitial {
+  const _$InvoiceInitialImpl();
 
-class InvoiceInitial implements InvoiceState {
-  const InvoiceInitial();
-  
+  @override
+  String toString() {
+    return 'InvoiceState.initial()';
+  }
 
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$InvoiceInitialImpl);
+  }
 
+  @override
+  int get hashCode => runtimeType.hashCode;
 
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(OrderEntity order) loaded,
+    required TResult Function(AppException exception) failure,
+  }) {
+    return initial();
+  }
 
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(OrderEntity order)? loaded,
+    TResult? Function(AppException exception)? failure,
+  }) {
+    return initial?.call();
+  }
 
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(OrderEntity order)? loaded,
+    TResult Function(AppException exception)? failure,
+    required TResult orElse(),
+  }) {
+    if (initial != null) {
+      return initial();
+    }
+    return orElse();
+  }
 
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is InvoiceInitial);
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(InvoiceInitial value) initial,
+    required TResult Function(InvoiceLoading value) loading,
+    required TResult Function(InvoiceLoaded value) loaded,
+    required TResult Function(InvoiceFailure value) failure,
+  }) {
+    return initial(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(InvoiceInitial value)? initial,
+    TResult? Function(InvoiceLoading value)? loading,
+    TResult? Function(InvoiceLoaded value)? loaded,
+    TResult? Function(InvoiceFailure value)? failure,
+  }) {
+    return initial?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(InvoiceInitial value)? initial,
+    TResult Function(InvoiceLoading value)? loading,
+    TResult Function(InvoiceLoaded value)? loaded,
+    TResult Function(InvoiceFailure value)? failure,
+    required TResult orElse(),
+  }) {
+    if (initial != null) {
+      return initial(this);
+    }
+    return orElse();
+  }
 }
 
-
-@override
-int get hashCode => runtimeType.hashCode;
-
-@override
-String toString() {
-  return 'InvoiceState.initial()';
+abstract class InvoiceInitial implements InvoiceState {
+  const factory InvoiceInitial() = _$InvoiceInitialImpl;
 }
-
-
-}
-
-
-
 
 /// @nodoc
-
-
-class InvoiceLoading implements InvoiceState {
-  const InvoiceLoading();
-  
-
-
-
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is InvoiceLoading);
-}
-
-
-@override
-int get hashCode => runtimeType.hashCode;
-
-@override
-String toString() {
-  return 'InvoiceState.loading()';
-}
-
-
-}
-
-
-
-
-/// @nodoc
-
-
-class InvoiceLoaded implements InvoiceState {
-  const InvoiceLoaded(this.order);
-  
-
- final  OrderEntity order;
-
-/// Create a copy of InvoiceState
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$InvoiceLoadedCopyWith<InvoiceLoaded> get copyWith => _$InvoiceLoadedCopyWithImpl<InvoiceLoaded>(this, _$identity);
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is InvoiceLoaded&&(identical(other.order, order) || other.order == order));
-}
-
-
-@override
-int get hashCode => Object.hash(runtimeType,order);
-
-@override
-String toString() {
-  return 'InvoiceState.loaded(order: $order)';
-}
-
-
+abstract class _$$InvoiceLoadingImplCopyWith<$Res> {
+  factory _$$InvoiceLoadingImplCopyWith(_$InvoiceLoadingImpl value,
+          $Res Function(_$InvoiceLoadingImpl) then) =
+      __$$InvoiceLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-abstract mixin class $InvoiceLoadedCopyWith<$Res> implements $InvoiceStateCopyWith<$Res> {
-  factory $InvoiceLoadedCopyWith(InvoiceLoaded value, $Res Function(InvoiceLoaded) _then) = _$InvoiceLoadedCopyWithImpl;
-@useResult
-$Res call({
- OrderEntity order
-});
+class __$$InvoiceLoadingImplCopyWithImpl<$Res>
+    extends _$InvoiceStateCopyWithImpl<$Res, _$InvoiceLoadingImpl>
+    implements _$$InvoiceLoadingImplCopyWith<$Res> {
+  __$$InvoiceLoadingImplCopyWithImpl(
+      _$InvoiceLoadingImpl _value, $Res Function(_$InvoiceLoadingImpl) _then)
+      : super(_value, _then);
 
-
-
-
-}
-/// @nodoc
-class _$InvoiceLoadedCopyWithImpl<$Res>
-    implements $InvoiceLoadedCopyWith<$Res> {
-  _$InvoiceLoadedCopyWithImpl(this._self, this._then);
-
-  final InvoiceLoaded _self;
-  final $Res Function(InvoiceLoaded) _then;
-
-/// Create a copy of InvoiceState
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? order = null,}) {
-  return _then(InvoiceLoaded(
-null == order ? _self.order : order // ignore: cast_nullable_to_non_nullable
-as OrderEntity,
-  ));
-}
-
-
+  /// Create a copy of InvoiceState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
 
+class _$InvoiceLoadingImpl implements InvoiceLoading {
+  const _$InvoiceLoadingImpl();
 
-class InvoiceFailure implements InvoiceState {
-  const InvoiceFailure(this.exception);
-  
+  @override
+  String toString() {
+    return 'InvoiceState.loading()';
+  }
 
- final  AppException exception;
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$InvoiceLoadingImpl);
+  }
 
-/// Create a copy of InvoiceState
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$InvoiceFailureCopyWith<InvoiceFailure> get copyWith => _$InvoiceFailureCopyWithImpl<InvoiceFailure>(this, _$identity);
+  @override
+  int get hashCode => runtimeType.hashCode;
 
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(OrderEntity order) loaded,
+    required TResult Function(AppException exception) failure,
+  }) {
+    return loading();
+  }
 
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(OrderEntity order)? loaded,
+    TResult? Function(AppException exception)? failure,
+  }) {
+    return loading?.call();
+  }
 
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is InvoiceFailure&&(identical(other.exception, exception) || other.exception == exception));
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(OrderEntity order)? loaded,
+    TResult Function(AppException exception)? failure,
+    required TResult orElse(),
+  }) {
+    if (loading != null) {
+      return loading();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(InvoiceInitial value) initial,
+    required TResult Function(InvoiceLoading value) loading,
+    required TResult Function(InvoiceLoaded value) loaded,
+    required TResult Function(InvoiceFailure value) failure,
+  }) {
+    return loading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(InvoiceInitial value)? initial,
+    TResult? Function(InvoiceLoading value)? loading,
+    TResult? Function(InvoiceLoaded value)? loaded,
+    TResult? Function(InvoiceFailure value)? failure,
+  }) {
+    return loading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(InvoiceInitial value)? initial,
+    TResult Function(InvoiceLoading value)? loading,
+    TResult Function(InvoiceLoaded value)? loaded,
+    TResult Function(InvoiceFailure value)? failure,
+    required TResult orElse(),
+  }) {
+    if (loading != null) {
+      return loading(this);
+    }
+    return orElse();
+  }
 }
 
-
-@override
-int get hashCode => Object.hash(runtimeType,exception);
-
-@override
-String toString() {
-  return 'InvoiceState.failure(exception: $exception)';
-}
-
-
+abstract class InvoiceLoading implements InvoiceState {
+  const factory InvoiceLoading() = _$InvoiceLoadingImpl;
 }
 
 /// @nodoc
-abstract mixin class $InvoiceFailureCopyWith<$Res> implements $InvoiceStateCopyWith<$Res> {
-  factory $InvoiceFailureCopyWith(InvoiceFailure value, $Res Function(InvoiceFailure) _then) = _$InvoiceFailureCopyWithImpl;
-@useResult
-$Res call({
- AppException exception
-});
-
-
-
-
+abstract class _$$InvoiceLoadedImplCopyWith<$Res> {
+  factory _$$InvoiceLoadedImplCopyWith(
+          _$InvoiceLoadedImpl value, $Res Function(_$InvoiceLoadedImpl) then) =
+      __$$InvoiceLoadedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({OrderEntity order});
 }
+
 /// @nodoc
-class _$InvoiceFailureCopyWithImpl<$Res>
-    implements $InvoiceFailureCopyWith<$Res> {
-  _$InvoiceFailureCopyWithImpl(this._self, this._then);
+class __$$InvoiceLoadedImplCopyWithImpl<$Res>
+    extends _$InvoiceStateCopyWithImpl<$Res, _$InvoiceLoadedImpl>
+    implements _$$InvoiceLoadedImplCopyWith<$Res> {
+  __$$InvoiceLoadedImplCopyWithImpl(
+      _$InvoiceLoadedImpl _value, $Res Function(_$InvoiceLoadedImpl) _then)
+      : super(_value, _then);
 
-  final InvoiceFailure _self;
-  final $Res Function(InvoiceFailure) _then;
-
-/// Create a copy of InvoiceState
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? exception = null,}) {
-  return _then(InvoiceFailure(
-null == exception ? _self.exception : exception // ignore: cast_nullable_to_non_nullable
-as AppException,
-  ));
+  /// Create a copy of InvoiceState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? order = null,
+  }) {
+    return _then(_$InvoiceLoadedImpl(
+      null == order
+          ? _value.order
+          : order // ignore: cast_nullable_to_non_nullable
+              as OrderEntity,
+    ));
+  }
 }
 
+/// @nodoc
 
+class _$InvoiceLoadedImpl implements InvoiceLoaded {
+  const _$InvoiceLoadedImpl(this.order);
+
+  @override
+  final OrderEntity order;
+
+  @override
+  String toString() {
+    return 'InvoiceState.loaded(order: $order)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$InvoiceLoadedImpl &&
+            (identical(other.order, order) || other.order == order));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, order);
+
+  /// Create a copy of InvoiceState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$InvoiceLoadedImplCopyWith<_$InvoiceLoadedImpl> get copyWith =>
+      __$$InvoiceLoadedImplCopyWithImpl<_$InvoiceLoadedImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(OrderEntity order) loaded,
+    required TResult Function(AppException exception) failure,
+  }) {
+    return loaded(order);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(OrderEntity order)? loaded,
+    TResult? Function(AppException exception)? failure,
+  }) {
+    return loaded?.call(order);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(OrderEntity order)? loaded,
+    TResult Function(AppException exception)? failure,
+    required TResult orElse(),
+  }) {
+    if (loaded != null) {
+      return loaded(order);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(InvoiceInitial value) initial,
+    required TResult Function(InvoiceLoading value) loading,
+    required TResult Function(InvoiceLoaded value) loaded,
+    required TResult Function(InvoiceFailure value) failure,
+  }) {
+    return loaded(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(InvoiceInitial value)? initial,
+    TResult? Function(InvoiceLoading value)? loading,
+    TResult? Function(InvoiceLoaded value)? loaded,
+    TResult? Function(InvoiceFailure value)? failure,
+  }) {
+    return loaded?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(InvoiceInitial value)? initial,
+    TResult Function(InvoiceLoading value)? loading,
+    TResult Function(InvoiceLoaded value)? loaded,
+    TResult Function(InvoiceFailure value)? failure,
+    required TResult orElse(),
+  }) {
+    if (loaded != null) {
+      return loaded(this);
+    }
+    return orElse();
+  }
 }
 
-// dart format on
+abstract class InvoiceLoaded implements InvoiceState {
+  const factory InvoiceLoaded(final OrderEntity order) = _$InvoiceLoadedImpl;
+
+  OrderEntity get order;
+
+  /// Create a copy of InvoiceState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$InvoiceLoadedImplCopyWith<_$InvoiceLoadedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$InvoiceFailureImplCopyWith<$Res> {
+  factory _$$InvoiceFailureImplCopyWith(_$InvoiceFailureImpl value,
+          $Res Function(_$InvoiceFailureImpl) then) =
+      __$$InvoiceFailureImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({AppException exception});
+}
+
+/// @nodoc
+class __$$InvoiceFailureImplCopyWithImpl<$Res>
+    extends _$InvoiceStateCopyWithImpl<$Res, _$InvoiceFailureImpl>
+    implements _$$InvoiceFailureImplCopyWith<$Res> {
+  __$$InvoiceFailureImplCopyWithImpl(
+      _$InvoiceFailureImpl _value, $Res Function(_$InvoiceFailureImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of InvoiceState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? exception = null,
+  }) {
+    return _then(_$InvoiceFailureImpl(
+      null == exception
+          ? _value.exception
+          : exception // ignore: cast_nullable_to_non_nullable
+              as AppException,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$InvoiceFailureImpl implements InvoiceFailure {
+  const _$InvoiceFailureImpl(this.exception);
+
+  @override
+  final AppException exception;
+
+  @override
+  String toString() {
+    return 'InvoiceState.failure(exception: $exception)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$InvoiceFailureImpl &&
+            (identical(other.exception, exception) ||
+                other.exception == exception));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, exception);
+
+  /// Create a copy of InvoiceState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$InvoiceFailureImplCopyWith<_$InvoiceFailureImpl> get copyWith =>
+      __$$InvoiceFailureImplCopyWithImpl<_$InvoiceFailureImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(OrderEntity order) loaded,
+    required TResult Function(AppException exception) failure,
+  }) {
+    return failure(exception);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(OrderEntity order)? loaded,
+    TResult? Function(AppException exception)? failure,
+  }) {
+    return failure?.call(exception);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(OrderEntity order)? loaded,
+    TResult Function(AppException exception)? failure,
+    required TResult orElse(),
+  }) {
+    if (failure != null) {
+      return failure(exception);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(InvoiceInitial value) initial,
+    required TResult Function(InvoiceLoading value) loading,
+    required TResult Function(InvoiceLoaded value) loaded,
+    required TResult Function(InvoiceFailure value) failure,
+  }) {
+    return failure(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(InvoiceInitial value)? initial,
+    TResult? Function(InvoiceLoading value)? loading,
+    TResult? Function(InvoiceLoaded value)? loaded,
+    TResult? Function(InvoiceFailure value)? failure,
+  }) {
+    return failure?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(InvoiceInitial value)? initial,
+    TResult Function(InvoiceLoading value)? loading,
+    TResult Function(InvoiceLoaded value)? loaded,
+    TResult Function(InvoiceFailure value)? failure,
+    required TResult orElse(),
+  }) {
+    if (failure != null) {
+      return failure(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class InvoiceFailure implements InvoiceState {
+  const factory InvoiceFailure(final AppException exception) =
+      _$InvoiceFailureImpl;
+
+  AppException get exception;
+
+  /// Create a copy of InvoiceState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$InvoiceFailureImplCopyWith<_$InvoiceFailureImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}

@@ -13,26 +13,23 @@ class RatingsMockDataSource implements RatingsDataSource {
     final option = meal.sellingOptions.first;
     return OrderEntity(
       id: orderId,
+      cookId: meal.cookId,
+      cookName: meal.cookName,
+      cookAvatarUrl: meal.cookAvatarUrl,
+      customerId: 'customer-1',
       createdAt: DateTime.now().subtract(const Duration(hours: 2)),
+      status: OrderStatus.delivered,
       deliveryAddress: 'رام الله - شارع الإرسال',
-      subOrders: [
-        SubOrderEntity(
-          id: '$orderId-sub-1',
-          cookId: meal.cookId,
-          cookName: meal.cookName,
-          cookAvatarUrl: meal.cookAvatarUrl,
-          status: OrderStatus.delivered,
-          items: [
-            OrderItemEntity(
-              id: '$orderId-item-1',
-              mealId: meal.id,
-              mealName: meal.name,
-              mealImageUrl: meal.imageUrl,
-              sellingOptionLabel: option.label,
-              priceAtPurchase: option.price,
-              quantity: 1,
-            ),
-          ],
+      totalExpectedTimeMinutes: 40,
+      mealItems: [
+        OrderMealItemEntity(
+          id: '$orderId-item-1',
+          mealId: meal.id,
+          mealName: meal.name,
+          mealImageUrl: meal.imageUrl,
+          sellingOptionLabel: option.label,
+          priceAtPurchase: option.price,
+          quantity: 1,
         ),
       ],
     );
