@@ -21,6 +21,12 @@ import '../models/promotion_summary_model.dart';
 /// omit it entirely for the unfiltered feed. This replaced the old
 /// client-side `expiryTime` filtering in `ViewOffersRepositoryImpl` now
 /// that the server accepts it.
+///
+/// Confirmed live (2026-08): each row also carries an `image` URL, and
+/// discounts additionally carry a nullable `usageRemaining` — a discount is
+/// limited either by time (`expireTime`) or by usage count, never
+/// necessarily both, so `expireTime` can be `null` when usage-limited. The
+/// envelope itself (`data`/`meta.hasNextPage`) is unchanged.
 class PromotionsRemoteDataSource {
   PromotionsRemoteDataSource(this._apiClient);
 

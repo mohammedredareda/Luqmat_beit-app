@@ -51,6 +51,7 @@ import '../features/shorts/domain/repositories/shorts_repository.dart';
 // shared singletons so every feature reading/writing through it sees the
 // same data). ────────────────────────────────────────────────────────────
 import '../features/meal_management/data/datasources/meal_remote_data_source.dart';
+import '../features/shorts_management/shared/data/datasources/fake_shorts_remote_data_source.dart';
 import '../features/offers_management/shared/data/datasources/discounts_remote_data_source.dart';
 import '../features/offers_management/shared/data/datasources/offers_remote_data_source.dart';
 import '../features/offers_management/shared/data/datasources/promotions_remote_data_source.dart';
@@ -88,6 +89,12 @@ import '../features/order_management/order_details/domain/repositories/order_det
 import '../features/order_management/order_details/data/repositories/order_details_repository_impl.dart';
 import '../features/order_management/view_orders/domain/repositories/view_orders_repository.dart';
 import '../features/order_management/view_orders/data/repositories/view_orders_repository_impl.dart';
+import '../features/shorts_management/create_short/domain/repositories/create_short_repository.dart';
+import '../features/shorts_management/create_short/data/repositories/create_short_repository_impl.dart';
+import '../features/shorts_management/delete_short/domain/repositories/delete_short_repository.dart';
+import '../features/shorts_management/delete_short/data/repositories/delete_short_repository_impl.dart';
+import '../features/shorts_management/view_shorts/domain/repositories/view_shorts_repository.dart';
+import '../features/shorts_management/view_shorts/data/repositories/view_shorts_repository_impl.dart';
 import '../features/cook_profile/change_password/domain/repositories/change_password_repository.dart';
 import '../features/cook_profile/change_password/data/repositories/change_password_repository_impl.dart';
 import '../features/cook_profile/change_phone_number/domain/repositories/change_phone_number_repository.dart';
@@ -123,6 +130,9 @@ import '../features/order_management/order_details/domain/usecases/complete_orde
 import '../features/order_management/order_details/domain/usecases/get_order.dart';
 import '../features/order_management/order_details/domain/usecases/reject_order.dart';
 import '../features/order_management/view_orders/domain/usecases/get_orders.dart';
+import '../features/shorts_management/create_short/domain/usecases/create_short.dart';
+import '../features/shorts_management/delete_short/domain/usecases/delete_short.dart';
+import '../features/shorts_management/view_shorts/domain/usecases/get_my_shorts.dart';
 import '../features/cook_profile/change_password/domain/usecases/change_password.dart';
 import '../features/cook_profile/change_phone_number/domain/usecases/request_phone_change.dart';
 import '../features/cook_profile/change_phone_number/domain/usecases/resend_phone_change_code.dart';
@@ -152,6 +162,9 @@ import '../features/offers_management/shared/presentation/bloc/select_meal_cubit
 import '../features/offers_management/view_offers/presentation/bloc/view_offers_cubit.dart';
 import '../features/order_management/order_details/presentation/bloc/order_details_bloc.dart';
 import '../features/order_management/view_orders/presentation/bloc/view_orders_cubit.dart';
+import '../features/shorts_management/create_short/presentation/bloc/create_short_bloc.dart';
+import '../features/shorts_management/delete_short/presentation/bloc/delete_short_cubit.dart';
+import '../features/shorts_management/view_shorts/presentation/bloc/view_shorts_cubit.dart';
 import '../features/cook_profile/change_password/presentation/bloc/change_password_cubit.dart';
 import '../features/cook_profile/change_phone_number/presentation/bloc/change_phone_number_bloc.dart';
 import '../features/cook_profile/edit_profile/presentation/bloc/edit_profile_bloc.dart';
@@ -272,6 +285,9 @@ Future<void> configureDependencies() async {
   getIt.registerLazySingleton(() => CookProfileRemoteDataSource(getIt<ApiClient>()));
   getIt.registerLazySingleton(() => PasswordRemoteDataSource(getIt<ApiClient>()));
   getIt.registerLazySingleton(() => PhoneChangeRemoteDataSource(getIt<ApiClient>()));
+  // TODO(backend): no shorts endpoint — stays mocked (see
+  // FakeShortsRemoteDataSource's doc comment).
+  getIt.registerLazySingleton(() => FakeShortsRemoteDataSource());
 
   // ══ Cook-side repositories ═════════════════════════════════════════
   getIt.registerLazySingleton<CreateMealRepository>(
@@ -299,7 +315,7 @@ Future<void> configureDependencies() async {
     () => DeleteOfferRepositoryImpl(getIt()),
   );
   getIt.registerLazySingleton<EditDiscountRepository>(
-    () => EditDiscountRepositoryImpl(getIt()),
+    () => EditDiscountRepositoryImpl(getIt(), getIt()),
   );
   getIt.registerLazySingleton<EditOfferRepository>(
     () => EditOfferRepositoryImpl(getIt()),
@@ -327,6 +343,15 @@ Future<void> configureDependencies() async {
   );
   getIt.registerLazySingleton<ViewProfileRepository>(
     () => ViewProfileRepositoryImpl(getIt()),
+  );
+  getIt.registerLazySingleton<CreateShortRepository>(
+    () => CreateShortRepositoryImpl(getIt()),
+  );
+  getIt.registerLazySingleton<DeleteShortRepository>(
+    () => DeleteShortRepositoryImpl(getIt()),
+  );
+  getIt.registerLazySingleton<ViewShortsRepository>(
+    () => ViewShortsRepositoryImpl(getIt()),
   );
 
   // ══ Cook-side use cases resolved directly by a widget ═════════════════
@@ -403,5 +428,14 @@ Future<void> configureDependencies() async {
   );
   getIt.registerFactory(
     () => ProfileCubit(view_profile_uc.GetCookProfile(getIt())),
+  );
+  getIt.registerFactory(
+    () => CreateShortBloc(CreateShort(getIt())),
+  );
+  getIt.registerFactory(
+    () => DeleteShortCubit(DeleteShort(getIt())),
+  );
+  getIt.registerFactory(
+    () => ViewShortsCubit(GetMyShorts(getIt())),
   );
 }

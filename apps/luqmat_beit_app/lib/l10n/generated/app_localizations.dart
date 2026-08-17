@@ -206,6 +206,12 @@ abstract class AppLocalizations {
   /// **'العروض'**
   String get navOffers;
 
+  /// No description provided for @navShorts.
+  ///
+  /// In ar, this message translates to:
+  /// **'الشورتس'**
+  String get navShorts;
+
   /// No description provided for @navAccount.
   ///
   /// In ar, this message translates to:
@@ -487,6 +493,18 @@ abstract class AppLocalizations {
   /// In ar, this message translates to:
   /// **'منتهي'**
   String get offerExpiredLabel;
+
+  /// No description provided for @discountUsesRemainingLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'متبقي {count} استخدام'**
+  String discountUsesRemainingLabel(int count);
+
+  /// No description provided for @offerNoLimitLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'بدون حد'**
+  String get offerNoLimitLabel;
 
   /// No description provided for @offerBadgeLabel.
   ///
@@ -1843,6 +1861,120 @@ abstract class AppLocalizations {
   /// In ar, this message translates to:
   /// **'تخطي'**
   String get onboardingSkip;
+
+  /// No description provided for @myShortsTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'الشورتس'**
+  String get myShortsTitle;
+
+  /// No description provided for @myShortsBannerTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'معرض شورتاتي'**
+  String get myShortsBannerTitle;
+
+  /// No description provided for @myShortsBannerBody.
+  ///
+  /// In ar, this message translates to:
+  /// **'شاركي مقاطع فيديو قصيرة لوصفاتك، طرق التحضير، أو لقطات شهية من مطبخك لجذب المزيد من الزبائن.'**
+  String get myShortsBannerBody;
+
+  /// No description provided for @emptyShortsHeading.
+  ///
+  /// In ar, this message translates to:
+  /// **'لا توجد مقاطع بعد'**
+  String get emptyShortsHeading;
+
+  /// No description provided for @emptyShortsBody.
+  ///
+  /// In ar, this message translates to:
+  /// **'ابدأ بمشاركة أول مقطع فيديو قصير لجذب المزيد من الزبائن.'**
+  String get emptyShortsBody;
+
+  /// No description provided for @createShortTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'إنشاء مقطع جديد'**
+  String get createShortTitle;
+
+  /// No description provided for @videoPickerHint.
+  ///
+  /// In ar, this message translates to:
+  /// **'اضغطي هنا لاختيار أو تسجيل فيديو'**
+  String get videoPickerHint;
+
+  /// No description provided for @videoMaxDurationHint.
+  ///
+  /// In ar, this message translates to:
+  /// **'الحد الأقصى 60 ثانية'**
+  String get videoMaxDurationHint;
+
+  /// No description provided for @videoSelectedLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'تم اختيار الفيديو'**
+  String get videoSelectedLabel;
+
+  /// No description provided for @shortDescriptionLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'الوصف'**
+  String get shortDescriptionLabel;
+
+  /// No description provided for @shortDescriptionHint.
+  ///
+  /// In ar, this message translates to:
+  /// **'اكتبي وصفاً جذاباً لمقطعك... يشجع الزبائن على تذوق وجبتك'**
+  String get shortDescriptionHint;
+
+  /// No description provided for @linkedMealSectionTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'الوجبة المرتبطة'**
+  String get linkedMealSectionTitle;
+
+  /// No description provided for @linkedMealOptionalHint.
+  ///
+  /// In ar, this message translates to:
+  /// **'اختياري - يمكنك ربط مقطعك بوجبة من قائمتك'**
+  String get linkedMealOptionalHint;
+
+  /// No description provided for @chooseMealCta.
+  ///
+  /// In ar, this message translates to:
+  /// **'اختر وجبة'**
+  String get chooseMealCta;
+
+  /// No description provided for @publishShortCta.
+  ///
+  /// In ar, this message translates to:
+  /// **'نشر المقطع'**
+  String get publishShortCta;
+
+  /// No description provided for @deleteShortConfirmTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'هل أنتِ متأكدة من حذف هذا المقطع؟'**
+  String get deleteShortConfirmTitle;
+
+  /// No description provided for @deleteShortConfirmBody.
+  ///
+  /// In ar, this message translates to:
+  /// **'لا يمكن التراجع عن هذا الإجراء'**
+  String get deleteShortConfirmBody;
+
+  /// No description provided for @validationVideoRequired.
+  ///
+  /// In ar, this message translates to:
+  /// **'يرجى اختيار فيديو'**
+  String get validationVideoRequired;
+
+  /// No description provided for @validationDescriptionTooLong.
+  ///
+  /// In ar, this message translates to:
+  /// **'الوصف يتجاوز الحد الأقصى المسموح به'**
+  String get validationDescriptionTooLong;
 }
 
 class _AppLocalizationsDelegate

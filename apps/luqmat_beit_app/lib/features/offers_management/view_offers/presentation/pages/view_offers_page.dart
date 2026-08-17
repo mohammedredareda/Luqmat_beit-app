@@ -188,11 +188,15 @@ class _LoadedBody extends StatelessWidget {
                 :final title,
                 :final description,
                 :final expiryTime,
+                :final image,
+                :final usageRemaining,
               ) =>
                 DiscountCard(
                   title: title,
                   description: description,
                   expiryTime: expiryTime,
+                  imageUrl: image,
+                  usageRemaining: usageRemaining,
                   onEdit: () => context.push('/cook/discounts/$rawId/edit').then((changed) {
                     if (changed == true && context.mounted) {
                       context.read<ViewOffersCubit>().load();
@@ -210,11 +214,13 @@ class _LoadedBody extends StatelessWidget {
                 :final title,
                 :final description,
                 :final expiryTime,
+                :final image,
               ) =>
                 OfferCard(
                   title: title,
                   description: description,
                   expiryTime: expiryTime,
+                  imageUrl: image,
                   onEdit: () => context.push('/cook/offers/$rawId/edit').then((changed) {
                     if (changed == true && context.mounted) {
                       context.read<ViewOffersCubit>().load();

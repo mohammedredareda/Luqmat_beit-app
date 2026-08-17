@@ -115,15 +115,21 @@ class DiscountModel {
       );
 
   /// Real-shape request body for `POST /user/cook/menu/discounts/create`.
-  /// `usage_limit` is omitted entirely when unset — no documented request
-  /// example (create or edit) ever shows this key, and this backend is
-  /// confirmed elsewhere to 400 on any undocumented property, so a literal
-  /// `null` isn't safe to send either.
+  /// Duration and usage-count are mutually exclusive server-side — confirmed
+  /// live, sending both as non-null 400s with `"لا يمكن الجمع بين مدة الخصم
+  /// وحد الاستخدام. يرجى إرسال أحدهما فقط وتمرير الآخر كـ null."` ("cannot
+  /// combine them, send only one and pass the other as null"). So both keys
+  /// are always sent, with [discountDurationDays] nulled out whenever
+  /// [usageNumberLimit] is set rather than the reverse — [usageNumberLimit]
+  /// being non-null is the one reliable signal that usage-count mode was
+  /// actually chosen ([discountDurationDays] itself always holds a
+  /// placeholder value in that mode, see `DiscountFormSubmission`'s doc
+  /// comment).
   Map<String, dynamic> toApiRequestFields() => {
         'meal_id': int.tryParse(mealId) ?? mealId,
         'discount_percentage': discountPercentage,
-        'discount_duration': discountDurationDays,
-        if (usageNumberLimit != null) 'usage_limit': usageNumberLimit,
+        'discount_duration': usageNumberLimit != null ? null : discountDurationDays,
+        'usage_limit': usageNumberLimit,
       };
 
   DiscountModel copyWith({

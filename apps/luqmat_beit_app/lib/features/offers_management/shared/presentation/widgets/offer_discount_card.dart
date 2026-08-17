@@ -3,18 +3,20 @@ import 'package:flutter/material.dart';
 
 import 'package:luqmat_beit_app/l10n/generated/app_localizations.dart';
 
-/// A discount on a single meal. The real `my-promotions` endpoint only
-/// returns a pre-rendered [title]/[description] pair (the percentage is
-/// already baked into the Arabic title text, e.g. "خصم 16.12% على شاورما
-/// دجاج") and no meal image/price — this card is deliberately simpler than
-/// the original mockup's photo-and-price layout for that reason (see
-/// `OfferFeedItemEntity`'s doc comment).
+/// A discount on a single meal. The real `my-promotions` endpoint returns a
+/// pre-rendered [title]/[description] pair (the percentage is already baked
+/// into the Arabic title text, e.g. "خصم 16.12% على شاورما دجاج") plus an
+/// [imageUrl] — but still no separate meal/price detail (see
+/// `OfferFeedItemEntity`'s doc comment). A discount is limited either by
+/// time ([expiryTime]) or by [usageRemaining], never necessarily both.
 class DiscountCard extends StatelessWidget {
   const DiscountCard({
     super.key,
     required this.title,
     required this.description,
     required this.expiryTime,
+    this.imageUrl,
+    this.usageRemaining,
     this.onTap,
     this.onEdit,
     this.onDelete,
@@ -22,7 +24,9 @@ class DiscountCard extends StatelessWidget {
 
   final String title;
   final String description;
-  final DateTime expiryTime;
+  final DateTime? expiryTime;
+  final String? imageUrl;
+  final int? usageRemaining;
   final VoidCallback? onTap;
   final VoidCallback? onEdit;
   final VoidCallback? onDelete;
@@ -31,12 +35,24 @@ class DiscountCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final scheme = Theme.of(context).colorScheme;
-    final remainingDays = expiryTime.difference(DateTime.now()).inDays;
-    final expired = remainingDays <= 0;
+
+    final String chip;
+    final usageRemaining = this.usageRemaining;
+    final expiryTime = this.expiryTime;
+    if (usageRemaining != null) {
+      chip = usageRemaining <= 0
+          ? l10n.offerExpiredLabel
+          : l10n.discountUsesRemainingLabel(usageRemaining);
+    } else if (expiryTime != null) {
+      final remainingDays = expiryTime.difference(DateTime.now()).inDays;
+      chip = remainingDays <= 0 ? l10n.offerExpiredLabel : l10n.offerExpiresInLabel(remainingDays);
+    } else {
+      chip = l10n.offerNoLimitLabel;
+    }
 
     return _OfferDiscountCardShell(
       onTap: onTap,
-      header: const _PlaceholderHeader(icon: Icons.percent),
+      header: _PlaceholderHeader(icon: Icons.percent, imageUrl: imageUrl),
       badge: _Badge(
         icon: Icons.percent,
         label: l10n.discountBadgeGenericLabel,
@@ -44,7 +60,7 @@ class DiscountCard extends StatelessWidget {
         foregroundColor: scheme.onError,
       ),
       title: title,
-      chip: expired ? l10n.offerExpiredLabel : l10n.offerExpiresInLabel(remainingDays),
+      chip: chip,
       description: description,
       onEdit: onEdit,
       onDelete: onDelete,
@@ -52,14 +68,15 @@ class DiscountCard extends StatelessWidget {
   }
 }
 
-/// A bundle/package offer. Same data limitation as [DiscountCard] — no
-/// photo or price is available from the real feed endpoint.
+/// A bundle/package offer. Same data shape as [DiscountCard] minus
+/// [usageRemaining] — offers are never usage-limited.
 class OfferCard extends StatelessWidget {
   const OfferCard({
     super.key,
     required this.title,
     required this.description,
     required this.expiryTime,
+    this.imageUrl,
     this.onTap,
     this.onEdit,
     this.onDelete,
@@ -67,7 +84,8 @@ class OfferCard extends StatelessWidget {
 
   final String title;
   final String description;
-  final DateTime expiryTime;
+  final DateTime? expiryTime;
+  final String? imageUrl;
   final VoidCallback? onTap;
   final VoidCallback? onEdit;
   final VoidCallback? onDelete;
@@ -76,12 +94,18 @@ class OfferCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final scheme = Theme.of(context).colorScheme;
-    final remainingDays = expiryTime.difference(DateTime.now()).inDays;
-    final expired = remainingDays <= 0;
+    final expiryTime = this.expiryTime;
+    final String chip;
+    if (expiryTime != null) {
+      final remainingDays = expiryTime.difference(DateTime.now()).inDays;
+      chip = remainingDays <= 0 ? l10n.offerExpiredLabel : l10n.offerExpiresInLabel(remainingDays);
+    } else {
+      chip = l10n.offerNoLimitLabel;
+    }
 
     return _OfferDiscountCardShell(
       onTap: onTap,
-      header: const _PlaceholderHeader(icon: Icons.restaurant),
+      header: _PlaceholderHeader(icon: Icons.restaurant, imageUrl: imageUrl),
       badge: _Badge(
         icon: Icons.sell,
         label: l10n.offerBadgeLabel,
@@ -89,7 +113,7 @@ class OfferCard extends StatelessWidget {
         foregroundColor: scheme.onSecondary,
       ),
       title: title,
-      chip: expired ? l10n.offerExpiredLabel : l10n.offerExpiresInLabel(remainingDays),
+      chip: chip,
       description: description,
       onEdit: onEdit,
       onDelete: onDelete,
@@ -137,19 +161,32 @@ class _Badge extends StatelessWidget {
   }
 }
 
-/// TODO(backend): swap for a real photo header if/when a per-item detail
-/// endpoint returns one — `my-promotions` has no image field for either
-/// offers or discounts today.
+/// Shows the real photo when [imageUrl] is available, falling back to a
+/// gradient+icon placeholder when it's missing or fails to load.
 class _PlaceholderHeader extends StatelessWidget {
-  const _PlaceholderHeader({required this.icon});
+  const _PlaceholderHeader({required this.icon, this.imageUrl});
 
   final IconData icon;
+  final String? imageUrl;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    final imageUrl = this.imageUrl;
+    return SizedBox(
       height: 96,
       width: double.infinity,
+      child: imageUrl == null
+          ? _placeholder()
+          : Image.network(
+              imageUrl,
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) => _placeholder(),
+            ),
+    );
+  }
+
+  Widget _placeholder() {
+    return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,

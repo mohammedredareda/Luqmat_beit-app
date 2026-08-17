@@ -178,16 +178,6 @@ class _FormBody extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(width: AppSpace.m),
-              Container(
-                width: 32,
-                height: 32,
-                decoration: BoxDecoration(
-                  color: scheme.surfaceContainerHighest,
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(Icons.edit_outlined, size: 18, color: scheme.onSurfaceVariant),
-              ),
             ],
           ),
         ),

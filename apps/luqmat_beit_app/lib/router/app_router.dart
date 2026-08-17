@@ -40,6 +40,8 @@ import '../features/ratings/presentation/pages/meal_rating_page.dart';
 import '../features/search/presentation/pages/search_filters_page.dart';
 import '../features/settings/presentation/pages/settings_page.dart';
 import '../features/shorts/presentation/pages/shorts_feed_page.dart';
+import '../features/shorts_management/create_short/presentation/pages/create_short_page.dart';
+import '../features/shorts_management/view_shorts/presentation/pages/my_shorts_page.dart';
 import '../features/splash/presentation/pages/splash_page.dart';
 import '../l10n/generated/app_localizations.dart';
 import 'placeholder_page.dart';
@@ -164,6 +166,9 @@ final appRouter = GoRouter(
           GoRoute(path: '/cook/offers', builder: (context, state) => const ViewOffersPage()),
         ]),
         StatefulShellBranch(routes: [
+          GoRoute(path: '/cook/shorts', builder: (context, state) => const MyShortsPage()),
+        ]),
+        StatefulShellBranch(routes: [
           GoRoute(path: '/cook/account', builder: (context, state) => const cook.ProfilePage()),
         ]),
       ],
@@ -190,6 +195,7 @@ final appRouter = GoRouter(
       path: '/cook/discounts/:id/edit',
       builder: (context, state) => EditDiscountPage(discountId: state.pathParameters['id']!),
     ),
+    GoRoute(path: '/cook/shorts/create', builder: (context, state) => const CreateShortPage()),
     GoRoute(path: '/cook/account/edit', builder: (context, state) => const EditProfilePage()),
     GoRoute(
       path: '/cook/account/settings',
@@ -253,6 +259,7 @@ class _CookAppScaffold extends StatelessWidget {
           NavigationDestination(icon: const Icon(Icons.restaurant_menu), label: l10n.navMenu),
           NavigationDestination(icon: const Icon(Icons.receipt_long), label: l10n.navOrders),
           NavigationDestination(icon: const Icon(Icons.local_offer), label: l10n.navOffers),
+          NavigationDestination(icon: const Icon(Icons.play_circle_outline), label: l10n.navShorts),
           NavigationDestination(icon: const Icon(Icons.person), label: l10n.navAccount),
         ],
       ),

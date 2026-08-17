@@ -47,6 +47,7 @@ class ViewOffersRepositoryImpl implements ViewOffersRepository {
             description: model.description,
             createdAt: model.createdAt,
             expiryTime: model.expiryTime,
+            image: model.image,
           ),
         PromotionItemType.discount => OfferFeedDiscountItem(
             rawId: model.id,
@@ -54,6 +55,8 @@ class ViewOffersRepositoryImpl implements ViewOffersRepository {
             description: model.description,
             createdAt: model.createdAt,
             expiryTime: model.expiryTime,
+            image: model.image,
+            usageRemaining: model.usageRemaining,
           ),
       };
 }

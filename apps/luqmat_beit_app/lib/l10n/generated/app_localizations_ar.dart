@@ -65,6 +65,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get navOffers => 'العروض';
 
   @override
+  String get navShorts => 'الشورتس';
+
+  @override
   String get navAccount => 'حسابي';
 
   @override
@@ -208,6 +211,14 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get offerExpiredLabel => 'منتهي';
+
+  @override
+  String discountUsesRemainingLabel(int count) {
+    return 'متبقي $count استخدام';
+  }
+
+  @override
+  String get offerNoLimitLabel => 'بدون حد';
 
   @override
   String get offerBadgeLabel => 'عرض باقة';
@@ -941,4 +952,66 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get onboardingSkip => 'تخطي';
+
+  @override
+  String get myShortsTitle => 'الشورتس';
+
+  @override
+  String get myShortsBannerTitle => 'معرض شورتاتي';
+
+  @override
+  String get myShortsBannerBody =>
+      'شاركي مقاطع فيديو قصيرة لوصفاتك، طرق التحضير، أو لقطات شهية من مطبخك لجذب المزيد من الزبائن.';
+
+  @override
+  String get emptyShortsHeading => 'لا توجد مقاطع بعد';
+
+  @override
+  String get emptyShortsBody =>
+      'ابدأ بمشاركة أول مقطع فيديو قصير لجذب المزيد من الزبائن.';
+
+  @override
+  String get createShortTitle => 'إنشاء مقطع جديد';
+
+  @override
+  String get videoPickerHint => 'اضغطي هنا لاختيار أو تسجيل فيديو';
+
+  @override
+  String get videoMaxDurationHint => 'الحد الأقصى 60 ثانية';
+
+  @override
+  String get videoSelectedLabel => 'تم اختيار الفيديو';
+
+  @override
+  String get shortDescriptionLabel => 'الوصف';
+
+  @override
+  String get shortDescriptionHint =>
+      'اكتبي وصفاً جذاباً لمقطعك... يشجع الزبائن على تذوق وجبتك';
+
+  @override
+  String get linkedMealSectionTitle => 'الوجبة المرتبطة';
+
+  @override
+  String get linkedMealOptionalHint =>
+      'اختياري - يمكنك ربط مقطعك بوجبة من قائمتك';
+
+  @override
+  String get chooseMealCta => 'اختر وجبة';
+
+  @override
+  String get publishShortCta => 'نشر المقطع';
+
+  @override
+  String get deleteShortConfirmTitle => 'هل أنتِ متأكدة من حذف هذا المقطع؟';
+
+  @override
+  String get deleteShortConfirmBody => 'لا يمكن التراجع عن هذا الإجراء';
+
+  @override
+  String get validationVideoRequired => 'يرجى اختيار فيديو';
+
+  @override
+  String get validationDescriptionTooLong =>
+      'الوصف يتجاوز الحد الأقصى المسموح به';
 }
