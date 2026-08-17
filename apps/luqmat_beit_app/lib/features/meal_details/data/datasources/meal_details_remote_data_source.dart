@@ -25,6 +25,7 @@ class MealDetailsRemoteDataSource implements MealDetailsDataSource {
       imageUrl: json['image'] as String? ?? '',
       rating: (json['rate'] as num?)?.toDouble() ?? 0,
       isStopped: json['is_active'] == false,
+      isFavorite: json['is_favorite'] as bool? ?? false,
       sellingOptions: sellingOptionsJson.map((so) {
         final option = so as Map;
         final type = option['type'] as String? ?? '';

@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 
+import 'selling_option_entity.dart';
+
 /// One `CART_MEAL_ITEM` row.
 class CartMealItemEntity extends Equatable {
   final String id;
@@ -12,6 +14,24 @@ class CartMealItemEntity extends Equatable {
   final int quantity;
   final String? note;
 
+  /// Pre-discount unit price and the discount percentage applied to reach
+  /// [unitPrice] (which is the backend's `final_price`, already
+  /// discounted). `/order/confirm` validates the order by recomputing
+  /// `originalPrice * (1 - discountPercentage / 100)` server-side and
+  /// comparing it against the resubmitted `final_price` — sending
+  /// [unitPrice] back as both `price` and `final_price` with a 0% discount
+  /// fails that check (rejected as "prices have changed") whenever the meal
+  /// actually has a discount, so both have to be carried through from the
+  /// cart response rather than reconstructed.
+  final double originalPrice;
+  final double discountPercentage;
+
+  /// Every selling option the meal offers (not just the one currently
+  /// chosen) — lets the cart screen offer the same "صغير/وسط/كبير"-style
+  /// chip picker CU-10 (meal details) has, instead of only showing the
+  /// selected option as static text.
+  final List<SellingOptionEntity> availableSellingOptions;
+
   const CartMealItemEntity({
     required this.id,
     required this.mealId,
@@ -22,7 +42,10 @@ class CartMealItemEntity extends Equatable {
     this.sellingOptionId,
     this.sellingOptionLabel,
     this.note,
-  });
+    double? originalPrice,
+    this.discountPercentage = 0,
+    this.availableSellingOptions = const [],
+  }) : originalPrice = originalPrice ?? unitPrice;
 
   double get subtotal => unitPrice * quantity;
 
@@ -37,6 +60,9 @@ class CartMealItemEntity extends Equatable {
         unitPrice: unitPrice,
         quantity: quantity ?? this.quantity,
         note: note ?? this.note,
+        originalPrice: originalPrice,
+        discountPercentage: discountPercentage,
+        availableSellingOptions: availableSellingOptions,
       );
 
   @override
@@ -50,5 +76,8 @@ class CartMealItemEntity extends Equatable {
         unitPrice,
         quantity,
         note,
+        originalPrice,
+        discountPercentage,
+        availableSellingOptions,
       ];
 }

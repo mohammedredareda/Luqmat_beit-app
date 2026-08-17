@@ -12,6 +12,7 @@ class OrderConfirmationCubit extends Cubit<OrderConfirmationState> {
   Future<void> loadOrder(String orderId) async {
     emit(const OrderConfirmationState.loading());
     final result = await _getOrderById(orderId);
+    if (isClosed) return;
     result.fold(
       (order) => emit(OrderConfirmationState.loaded(order)),
       (exception) => emit(OrderConfirmationState.failure(exception)),

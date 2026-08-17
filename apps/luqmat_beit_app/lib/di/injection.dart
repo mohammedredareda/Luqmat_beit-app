@@ -19,6 +19,7 @@ import '../features/chef_profile/data/repositories/chef_repository_impl.dart';
 import '../features/chef_profile/domain/repositories/chef_repository.dart';
 import '../features/delivery/data/repositories/delivery_repository_impl.dart';
 import '../features/delivery/domain/repositories/delivery_repository.dart';
+import '../features/favorites/data/datasources/favorites_local_data_source.dart';
 import '../features/favorites/data/repositories/favorites_repository_impl.dart';
 import '../features/favorites/domain/repositories/favorites_repository.dart';
 import '../features/home/data/datasources/home_remote_data_source.dart';
@@ -196,6 +197,7 @@ Future<void> configureDependencies() async {
     () => AuthRepositoryImpl(
       apiClient: getIt<ApiClient>(),
       session: getIt<AuthSessionRepository>(),
+      profileCache: getIt<UserProfileCache>(),
     ),
   );
 
@@ -205,6 +207,7 @@ Future<void> configureDependencies() async {
   final existingToken = await getIt<SecureTokenStorage>().readAccessToken();
   getIt.registerLazySingleton<SessionCubit>(
     () => SessionCubit(
+      getIt(),
       getIt(),
       initialState: SessionCubit.resolveInitialState(existingToken),
     ),
@@ -225,8 +228,14 @@ Future<void> configureDependencies() async {
   getIt.registerLazySingleton<ChefRepository>(
     () => ChefRepositoryImpl(dataSource: ChefRemoteDataSource(getIt<ApiClient>())),
   );
-  // TODO(backend): no GET endpoint to list favorites/follows — stays mocked.
-  getIt.registerLazySingleton<FavoritesRepository>(() => FavoritesRepositoryImpl());
+  // No GET endpoint to list favorites/follows — FavoritesLocalDataSource
+  // reads a local mirror kept in sync by meal_details/chef_profile's own
+  // favorite/follow toggles (see FavoritesCache).
+  getIt.registerLazySingleton<FavoritesRepository>(
+    () => FavoritesRepositoryImpl(
+      dataSource: FavoritesLocalDataSource(getIt<ApiClient>(), getIt<FavoritesCache>()),
+    ),
+  );
   getIt.registerLazySingleton<CartRepository>(
     () => CartRepositoryImpl(dataSource: CartRemoteDataSource(getIt<ApiClient>())),
   );
@@ -240,11 +249,17 @@ Future<void> configureDependencies() async {
   );
   getIt.registerLazySingleton<ProfileRepository>(
     () => ProfileRepositoryImpl(
-      dataSource: ProfileRemoteDataSource(getIt<ApiClient>(), getIt<SecureTokenStorage>()),
+      dataSource: ProfileRemoteDataSource(
+        getIt<ApiClient>(),
+        getIt<SecureTokenStorage>(),
+        getIt<UserProfileCache>(),
+      ),
     ),
   );
   getIt.registerLazySingleton<OrdersRepository>(
-    () => OrdersRepositoryImpl(dataSource: OrdersRemoteDataSource(getIt<ApiClient>())),
+    () => OrdersRepositoryImpl(
+      dataSource: OrdersRemoteDataSource(getIt<ApiClient>(), getIt<UserProfileCache>()),
+    ),
   );
   getIt.registerLazySingleton<OrderHistoryRepository>(
     () => OrderHistoryRepositoryImpl(
@@ -258,8 +273,6 @@ Future<void> configureDependencies() async {
   );
   // TODO(backend): no notification push/sync endpoint — stays local-cache-only.
   getIt.registerLazySingleton<NotificationsRepository>(() => NotificationsRepositoryImpl());
-  // TODO(backend): no catering endpoint — stays mocked.
-  getIt.registerLazySingleton<CateringRepository>(() => CateringRepositoryImpl());
   // TODO(backend): no shorts endpoint — stays mocked.
   getIt.registerLazySingleton<ShortsRepository>(() => ShortsRepositoryImpl());
 

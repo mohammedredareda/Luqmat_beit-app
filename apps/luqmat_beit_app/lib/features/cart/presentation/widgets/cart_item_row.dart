@@ -1,20 +1,49 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 
-/// A single cart line: meal image, name, price, a quantity stepper, and an
-/// optional note. Remove is reached via [onRemove] (confirmed by the
-/// caller with [ConfirmationDialog] before calling this).
+/// A single cart line: meal image, name, a selling-option chip picker (same
+/// "صغير/وسط/كبير" style as Meal Details, so the customer can change it
+/// without leaving the cart), a quantity stepper, and a note button.
 class CartItemRow extends StatelessWidget {
   const CartItemRow({
     super.key,
     required this.item,
     required this.onQuantityChanged,
-    required this.onRemove,
+    required this.onSellingOptionChanged,
+    required this.onNoteChanged,
   });
 
   final CartMealItemEntity item;
   final ValueChanged<int> onQuantityChanged;
-  final VoidCallback onRemove;
+  final ValueChanged<String> onSellingOptionChanged;
+  final ValueChanged<String> onNoteChanged;
+
+  Future<void> _editNote(BuildContext context) async {
+    final controller = TextEditingController(text: item.note ?? '');
+    final result = await showDialog<String>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('ملاحظة'),
+        content: TextField(
+          controller: controller,
+          autofocus: true,
+          maxLines: 3,
+          decoration: const InputDecoration(hintText: 'مثال: بدون بصل'),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(dialogContext).pop(),
+            child: const Text('إلغاء'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(dialogContext).pop(controller.text.trim()),
+            child: const Text('حفظ'),
+          ),
+        ],
+      ),
+    );
+    if (result != null) onNoteChanged(result);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,25 +76,36 @@ class CartItemRow extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Expanded(
-                          child: Text(
-                            item.mealName,
-                            style: textTheme.titleMedium,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
                         Text(
                           '${item.subtotal.toStringAsFixed(2)} AED',
                           style: textTheme.titleMedium?.copyWith(color: scheme.primary),
                         ),
+                        Expanded(
+                          child: Text(
+                            item.mealName,
+                            style: textTheme.titleMedium,
+                            textAlign: TextAlign.end,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
                       ],
                     ),
-                    if (item.sellingOptionLabel != null) ...[
+                    if (item.availableSellingOptions.isNotEmpty) ...[
                       const SizedBox(height: AppSpace.s),
-                      Text(
-                        item.sellingOptionLabel!,
-                        style: textTheme.bodySmall?.copyWith(color: scheme.onSurfaceVariant),
+                      Wrap(
+                        alignment: WrapAlignment.end,
+                        spacing: AppSpace.xs,
+                        runSpacing: AppSpace.xs,
+                        children: [
+                          for (final option in item.availableSellingOptions)
+                            _SellingOptionChip(
+                              label: option.label,
+                              isSelected: option.id == item.sellingOptionId,
+                              onTap: () => onSellingOptionChanged(option.id),
+                              scheme: scheme,
+                            ),
+                        ],
                       ),
                     ],
                   ],
@@ -105,35 +145,56 @@ class CartItemRow extends StatelessWidget {
                   ],
                 ),
               ),
-              if (item.note != null && item.note!.isNotEmpty)
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsetsDirectional.only(start: AppSpace.m),
-                    child: Row(
-                      children: [
-                        Icon(Icons.notes, size: 18, color: scheme.onSurfaceVariant),
-                        const SizedBox(width: AppSpace.xs),
-                        Expanded(
-                          child: Text(
-                            item.note!,
-                            style: textTheme.bodySmall
-                                ?.copyWith(color: scheme.onSurfaceVariant),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+              TextButton.icon(
+                onPressed: () => _editNote(context),
+                icon: Icon(Icons.edit_note, color: scheme.onSurfaceVariant),
+                label: Text(
+                  item.note != null && item.note!.isNotEmpty ? item.note! : 'إضافة ملاحظة',
+                  style: textTheme.bodySmall?.copyWith(color: scheme.onSurfaceVariant),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
-              IconButton(
-                onPressed: onRemove,
-                icon: Icon(Icons.delete_outline, color: scheme.error),
-                tooltip: 'إزالة',
               ),
             ],
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _SellingOptionChip extends StatelessWidget {
+  const _SellingOptionChip({
+    required this.label,
+    required this.isSelected,
+    required this.onTap,
+    required this.scheme,
+  });
+
+  final String label;
+  final bool isSelected;
+  final VoidCallback onTap;
+  final ColorScheme scheme;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 150),
+        padding: const EdgeInsetsDirectional.symmetric(horizontal: AppSpace.m, vertical: AppSpace.xs),
+        decoration: BoxDecoration(
+          color: isSelected ? scheme.primary : Colors.transparent,
+          borderRadius: BorderRadius.circular(AppRadius.pill),
+          border: Border.all(color: isSelected ? scheme.primary : scheme.outline),
+        ),
+        child: Text(
+          label,
+          style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                color: isSelected ? Colors.white : scheme.onSurface,
+                fontWeight: FontWeight.bold,
+              ),
+        ),
       ),
     );
   }

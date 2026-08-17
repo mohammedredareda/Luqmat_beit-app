@@ -5,7 +5,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:luqmat_beit_app/di/injection.dart';
 import 'package:luqmat_beit_app/features/auth/domain/repositories/auth_repository.dart';
 import 'package:luqmat_beit_app/features/cart/domain/repositories/cart_repository.dart';
-import 'package:luqmat_beit_app/features/catering/domain/repositories/catering_repository.dart';
 import 'package:luqmat_beit_app/features/chef_profile/domain/repositories/chef_repository.dart';
 import 'package:luqmat_beit_app/features/cook_profile/change_password/domain/repositories/change_password_repository.dart';
 import 'package:luqmat_beit_app/features/cook_profile/change_phone_number/domain/repositories/change_phone_number_repository.dart';
@@ -77,7 +76,6 @@ void main() {
     expect(getIt<DeliveryRepository>(), isNotNull);
     expect(getIt<RatingsRepository>(), isNotNull);
     expect(getIt<NotificationsRepository>(), isNotNull);
-    expect(getIt<CateringRepository>(), isNotNull);
     expect(getIt<ShortsRepository>(), isNotNull);
   });
 

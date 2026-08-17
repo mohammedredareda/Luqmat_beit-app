@@ -14,6 +14,8 @@ export 'src/network/jwt_payload.dart';
 // Storage
 export 'src/storage/secure_token_storage.dart';
 export 'src/storage/local_cache_box.dart';
+export 'src/storage/user_profile_cache.dart';
+export 'src/storage/favorites_cache.dart';
 export 'src/storage/onboarding_status_store.dart';
 
 // DI
@@ -67,6 +69,7 @@ export 'src/entities/order_meal_item_entity.dart';
 export 'src/entities/order_offer_item_entity.dart';
 export 'src/entities/order_returned_meal_item_entity.dart';
 export 'src/entities/cart_entity.dart';
+export 'src/entities/cart_cook_group_entity.dart';
 export 'src/entities/cart_meal_item_entity.dart';
 export 'src/entities/cart_offer_item_entity.dart';
 export 'src/entities/cart_returned_meal_item_entity.dart';

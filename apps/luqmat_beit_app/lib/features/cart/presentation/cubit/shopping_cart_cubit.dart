@@ -8,9 +8,9 @@ import '../../domain/usecases/remove_cart_item.dart';
 import '../../domain/usecases/update_cart_item_quantity.dart';
 import 'shopping_cart_state.dart';
 
-/// Flat delivery fee applied whenever the cart is non-empty. There is no
-/// delivery-quote backend yet, so this stands in until CU-17/checkout
-/// wires a real quote.
+/// Flat delivery fee applied per cook whenever that cook's section is
+/// non-empty. There is no delivery-quote backend yet, so this stands in
+/// until CU-17/checkout wires a real quote.
 const double _flatDeliveryFee = 10;
 
 class ShoppingCartCubit extends Cubit<ShoppingCartState> {
@@ -20,6 +20,7 @@ class ShoppingCartCubit extends Cubit<ShoppingCartState> {
     this._removeCartItem,
     this._repository,
     this._confirmOrder,
+    this._profileCache,
   ) : super(const ShoppingCartState.initial());
 
   final GetCartItems _getCartItems;
@@ -30,10 +31,12 @@ class ShoppingCartCubit extends Cubit<ShoppingCartState> {
   // directly rather than adding a fourth single-method usecase class.
   final CartRepository _repository;
   final ConfirmOrder _confirmOrder;
+  final UserProfileCache _profileCache;
 
   Future<void> loadCart() async {
     emit(const ShoppingCartState.loading());
     final result = await _getCartItems();
+    if (isClosed) return;
     result.fold(
       (cart) => _emitCart(cart),
       (exception) => emit(ShoppingCartState.failure(exception)),
@@ -42,6 +45,7 @@ class ShoppingCartCubit extends Cubit<ShoppingCartState> {
 
   Future<void> changeQuantity(String cartItemId, int quantity) async {
     final result = await _updateCartItemQuantity(cartItemId, quantity);
+    if (isClosed) return;
     result.fold(
       (_) => _reload(),
       (exception) => emit(ShoppingCartState.failure(exception)),
@@ -50,6 +54,7 @@ class ShoppingCartCubit extends Cubit<ShoppingCartState> {
 
   Future<void> removeItem(String cartItemId) async {
     final result = await _removeCartItem(cartItemId);
+    if (isClosed) return;
     result.fold(
       (_) => _reload(),
       (exception) => emit(ShoppingCartState.failure(exception)),
@@ -58,6 +63,16 @@ class ShoppingCartCubit extends Cubit<ShoppingCartState> {
 
   Future<void> changeSellingOption(String cartItemId, String sellingOptionId) async {
     final result = await _repository.updateSellingOption(cartItemId, sellingOptionId);
+    if (isClosed) return;
+    result.fold(
+      (_) => _reload(),
+      (exception) => emit(ShoppingCartState.failure(exception)),
+    );
+  }
+
+  Future<void> changeNote(String cartItemId, String note) async {
+    final result = await _repository.updateNote(cartItemId, note);
+    if (isClosed) return;
     result.fold(
       (_) => _reload(),
       (exception) => emit(ShoppingCartState.failure(exception)),
@@ -66,35 +81,59 @@ class ShoppingCartCubit extends Cubit<ShoppingCartState> {
 
   Future<void> _reload() async {
     final refreshed = await _getCartItems();
+    if (isClosed) return;
     refreshed.fold(
       (cart) => _emitCart(cart),
       (exception) => emit(ShoppingCartState.failure(exception)),
     );
   }
 
-  /// Places the order for the current cart (single-cook — the backend's
-  /// `/order/confirm` takes one `cook_id`, matching this app's
-  /// single-cook-cart model) and returns the new order id, or `null` on
-  /// failure (a failure state is emitted in that case).
-  Future<String?> checkout() async {
+  /// Places one order per non-empty cook section (the mockup's fixed
+  /// "تأكيد الكل" button) — the backend only ever confirms one cook per
+  /// call, so "confirm all" runs every group's confirm in sequence,
+  /// stopping at the first failure. Returns every order id confirmed
+  /// before that, plus the exception that stopped it (if any) — a failed
+  /// checkout (e.g. "this cook is currently closed", stale prices) is a
+  /// business-rule rejection, not a reason to blow away the cart the
+  /// customer is still looking at, so this reports the error via the
+  /// return value instead of routing it through [ShoppingCartState.failure]
+  /// (which the page would render as a full-screen "couldn't load the
+  /// cart" error). [locationByCookId] carries each section's own
+  /// "تحديد الموقع" pick (address text + coordinates); a cook with no entry
+  /// falls back to the cached registration-time address/location.
+  Future<({List<String> orderIds, AppException? error})> checkoutAll({
+    Map<String, ({String address, double? latitude, double? longitude})> locationByCookId =
+        const {},
+  }) async {
     final current = state;
-    if (current is! ShoppingCartLoaded || current.cart.isEmpty) return null;
+    if (current is! ShoppingCartLoaded) return (orderIds: <String>[], error: null);
 
-    final result = await _confirmOrder(
-      cookId: current.cart.cookId ?? '',
-      deliveryAddress: '',
-      deliveryFee: current.deliveryFee,
-      mealItems: current.cart.mealItems,
-      offerItems: current.cart.offerItems,
-      returnedMealItems: current.cart.returnedMealItems,
-    );
-    return result.fold(
-      (orderId) => orderId,
-      (exception) {
-        emit(ShoppingCartState.failure(exception));
-        return null;
-      },
-    );
+    final confirmedOrderIds = <String>[];
+    for (final group in current.cart.cookGroups) {
+      if (group.isEmpty) continue;
+      final location = locationByCookId[group.cookId];
+      final result = await _confirmOrder(
+        cookId: group.cookId,
+        deliveryAddress: location?.address ?? _profileCache.read().address ?? '',
+        deliveryFee: _flatDeliveryFee,
+        mealItems: group.mealItems,
+        offerItems: group.offerItems,
+        latitude: location?.latitude,
+        longitude: location?.longitude,
+      );
+      if (isClosed) break;
+      AppException? error;
+      final orderId = result.fold(
+        (id) => id,
+        (exception) {
+          error = exception;
+          return null;
+        },
+      );
+      if (orderId == null) return (orderIds: confirmedOrderIds, error: error);
+      confirmedOrderIds.add(orderId);
+    }
+    return (orderIds: confirmedOrderIds, error: null);
   }
 
   void _emitCart(CartEntity cart) {

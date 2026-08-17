@@ -18,4 +18,6 @@ abstract class CartDataSource {
   Future<void> removeItem(String cartItemId);
 
   Future<void> updateSellingOption(String cartItemId, String sellingOptionId);
+
+  Future<void> updateNote(String cartItemId, String note);
 }

@@ -12,6 +12,7 @@ class MyOrdersCubit extends Cubit<MyOrdersState> {
   Future<void> loadOrders() async {
     emit(const MyOrdersState.loading());
     final result = await _getInProgressOrders();
+    if (isClosed) return;
     result.fold(
       (orders) => emit(MyOrdersState.loaded(orders)),
       (exception) => emit(MyOrdersState.failure(exception)),

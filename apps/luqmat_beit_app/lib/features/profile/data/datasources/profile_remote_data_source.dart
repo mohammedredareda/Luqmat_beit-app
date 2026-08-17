@@ -2,26 +2,32 @@ import 'package:core/core.dart';
 
 import '../../domain/entities/customer_profile_entity.dart';
 import 'profile_data_source.dart';
-import 'profile_mock_data_source.dart';
 
-/// Real implementation of `updateProfile` only, backed by `PUT /user/{id}`
-/// (the same endpoint the Auth folder calls "edit profile"). There is no
-/// `GET` profile endpoint in the backend at all, so `getProfile` keeps
-/// delegating to the mock. The user id comes from decoding the stored JWT
-/// (see `AuthRemoteDataSource` for the same best-effort approach — the
-/// login response carries no user object either). The edit-profile request
-/// has no saved example response, so the returned entity is assembled
-/// locally from the request + whatever `getProfile` last had, rather than
-/// parsed from a guessed response shape.
+/// Real implementation. There is no `GET` "my profile" endpoint in the
+/// backend at all — only `POST /auth/register` and `PUT /user/{id}` (edit
+/// profile) ever hand back a user object — so `getProfile` is assembled
+/// from [UserProfileCache] (whatever name/phone/address registration or a
+/// previous edit left behind) rather than fetched. `completedOrdersCount`/
+/// `favoritesCount`/`avatarUrl` have no backend source at all yet and stay
+/// at 0/null.
 class ProfileRemoteDataSource implements ProfileDataSource {
-  ProfileRemoteDataSource(this._apiClient, this._tokenStorage);
+  ProfileRemoteDataSource(this._apiClient, this._tokenStorage, this._profileCache);
 
   final ApiClient _apiClient;
   final SecureTokenStorage _tokenStorage;
-  final ProfileMockDataSource _fallback = ProfileMockDataSource();
+  final UserProfileCache _profileCache;
 
   @override
-  Future<CustomerProfileEntity> getProfile() => _fallback.getProfile();
+  Future<CustomerProfileEntity> getProfile() async {
+    final cached = _profileCache.read();
+    return CustomerProfileEntity(
+      name: cached.name ?? '',
+      phone: cached.phone ?? '',
+      address: cached.address ?? '',
+      completedOrdersCount: 0,
+      favoritesCount: 0,
+    );
+  }
 
   @override
   Future<CustomerProfileEntity> updateProfile({
@@ -37,7 +43,7 @@ class ProfileRemoteDataSource implements ProfileDataSource {
       'addresses': address,
     });
 
-    final current = await _fallback.getProfile();
-    return current.copyWith(name: name, address: address);
+    await _profileCache.save(name: name, address: address);
+    return getProfile();
   }
 }

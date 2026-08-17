@@ -22,6 +22,7 @@ class CartMockDataSource implements CartDataSource {
       sellingOptionLabel: _meal1.sellingOptions.first.label,
       unitPrice: _meal1.sellingOptions.first.price,
       quantity: 2,
+      availableSellingOptions: _meal1.sellingOptions,
     ),
     CartMealItemEntity(
       id: 'cart-2',
@@ -33,6 +34,7 @@ class CartMockDataSource implements CartDataSource {
       unitPrice: _meal2.sellingOptions[1].price,
       quantity: 1,
       note: 'بدون بصل',
+      availableSellingOptions: _meal2.sellingOptions,
     ),
     CartMealItemEntity(
       id: 'cart-3',
@@ -43,6 +45,7 @@ class CartMockDataSource implements CartDataSource {
       sellingOptionLabel: _meal3.sellingOptions.first.label,
       unitPrice: _meal3.sellingOptions.first.price,
       quantity: 1,
+      availableSellingOptions: _meal3.sellingOptions,
     ),
   ];
 
@@ -56,9 +59,17 @@ class CartMockDataSource implements CartDataSource {
     await Future.delayed(const Duration(milliseconds: 300));
     return CartEntity(
       customerId: 'customer-1',
-      cookId: _mealItems.isEmpty && _offerItems.isEmpty ? null : _cookId,
-      mealItems: List.unmodifiable(_mealItems),
-      offerItems: List.unmodifiable(_offerItems),
+      cookGroups: _mealItems.isEmpty && _offerItems.isEmpty
+          ? const []
+          : [
+              CartCookGroupEntity(
+                cookId: _cookId,
+                cookName: _meal1.cookName,
+                cookAvatarUrl: _meal1.cookAvatarUrl,
+                mealItems: List.unmodifiable(_mealItems),
+                offerItems: List.unmodifiable(_offerItems),
+              ),
+            ],
       returnedMealItems: List.unmodifiable(_returnedMealItems),
     );
   }
@@ -95,6 +106,7 @@ class CartMockDataSource implements CartDataSource {
       unitPrice: sellingOption.price,
       quantity: quantity,
       note: note,
+      availableSellingOptions: meal.sellingOptions,
     ));
   }
 
@@ -149,6 +161,15 @@ class CartMockDataSource implements CartDataSource {
       unitPrice: option.price,
       quantity: current.quantity,
       note: current.note,
+      availableSellingOptions: current.availableSellingOptions,
     );
+  }
+
+  @override
+  Future<void> updateNote(String cartItemId, String note) async {
+    await Future.delayed(const Duration(milliseconds: 150));
+    final index = _mealItems.indexWhere((item) => item.id == cartItemId);
+    if (index == -1) return;
+    _mealItems[index] = _mealItems[index].copyWith(note: note);
   }
 }

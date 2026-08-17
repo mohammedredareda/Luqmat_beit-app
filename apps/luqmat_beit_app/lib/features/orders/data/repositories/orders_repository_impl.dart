@@ -28,6 +28,8 @@ class OrdersRepositoryImpl implements OrdersRepository {
     List<CartMealItemEntity> mealItems = const [],
     List<CartOfferItemEntity> offerItems = const [],
     List<CartReturnedMealItemEntity> returnedMealItems = const [],
+    double? latitude,
+    double? longitude,
   }) {
     return guard(() => _dataSource.confirmOrder(
           cookId: cookId,
@@ -36,6 +38,8 @@ class OrdersRepositoryImpl implements OrdersRepository {
           mealItems: mealItems,
           offerItems: offerItems,
           returnedMealItems: returnedMealItems,
+          latitude: latitude,
+          longitude: longitude,
         ));
   }
 }

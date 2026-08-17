@@ -17,6 +17,7 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
     }
     emit(const ForgotPasswordState.submitting());
     final result = await _requestOtp(phone.trim(), purpose: OtpPurpose.passwordReset);
+    if (isClosed) return;
     result.fold(
       (_) => emit(ForgotPasswordState.sent(phone.trim())),
       (exception) => emit(ForgotPasswordState.failure(exception)),

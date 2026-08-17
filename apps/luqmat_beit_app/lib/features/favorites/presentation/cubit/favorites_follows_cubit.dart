@@ -24,6 +24,7 @@ class FavoritesFollowsCubit extends Cubit<FavoritesFollowsState> {
 
     final mealsResult = await _getFavoriteMeals();
     final chefsResult = await _getFollowedChefs();
+    if (isClosed) return;
 
     mealsResult.fold(
       (meals) => chefsResult.fold(
@@ -46,6 +47,7 @@ class FavoritesFollowsCubit extends Cubit<FavoritesFollowsState> {
     if (current is! FavoritesFollowsLoaded) return;
 
     final result = await _unfavoriteMeal(mealId);
+    if (isClosed) return;
     result.fold(
       (_) => emit(
         FavoritesFollowsState.loaded(
@@ -63,6 +65,7 @@ class FavoritesFollowsCubit extends Cubit<FavoritesFollowsState> {
     if (current is! FavoritesFollowsLoaded) return;
 
     final result = await _unfollowChef(chefId);
+    if (isClosed) return;
     result.fold(
       (_) => emit(
         FavoritesFollowsState.loaded(

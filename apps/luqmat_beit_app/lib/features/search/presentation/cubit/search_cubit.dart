@@ -53,6 +53,7 @@ class SearchCubit extends Cubit<SearchState> with PaginationStateMixin<MealEntit
       cursor: cursor,
       pageSize: PaginationConstants.defaultPageSize,
     );
+    if (isClosed) return;
     result.fold(
       (page) {
         items = [...items, ...page.items];
@@ -78,6 +79,7 @@ class SearchCubit extends Cubit<SearchState> with PaginationStateMixin<MealEntit
       cursor: null,
       pageSize: PaginationConstants.defaultPageSize,
     );
+    if (isClosed) return;
     result.fold(
       (page) {
         items = page.items;

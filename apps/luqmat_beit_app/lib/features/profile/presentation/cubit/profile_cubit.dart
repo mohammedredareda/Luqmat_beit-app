@@ -13,6 +13,7 @@ class ProfileCubit extends Cubit<ProfileState> {
   Future<void> load() async {
     emit(const ProfileState.loading());
     final result = await _getProfile();
+    if (isClosed) return;
     result.fold(
       (profile) => emit(ProfileState.loaded(profile)),
       (exception) => emit(ProfileState.failure(exception)),
@@ -39,6 +40,7 @@ class ProfileCubit extends Cubit<ProfileState> {
 
     emit(ProfileState.loaded(current.profile, isEditing: true, isSaving: true));
     final result = await _updateProfile(name: name, address: address);
+    if (isClosed) return;
     result.fold(
       (profile) => emit(ProfileState.loaded(profile)),
       (exception) => emit(ProfileState.loaded(current.profile, isEditing: true)),

@@ -27,6 +27,7 @@ class RegistrationCubit extends Cubit<RegistrationState> {
   Future<void> detectLocation() async {
     emit(state.copyWith(isDetectingLocation: true, locationError: null));
     final result = await _detectCurrentLocation();
+    if (isClosed) return;
     result.fold(
       (location) => emit(state.copyWith(
         isDetectingLocation: false,
@@ -83,6 +84,7 @@ class RegistrationCubit extends Cubit<RegistrationState> {
       latitude: state.detectedLocation?.latitude,
       longitude: state.detectedLocation?.longitude,
     );
+    if (isClosed) return;
     result.fold(
       (_) => emit(state.copyWith(isSubmitting: false, success: true)),
       (exception) => emit(state.copyWith(isSubmitting: false, submitError: exception.message)),

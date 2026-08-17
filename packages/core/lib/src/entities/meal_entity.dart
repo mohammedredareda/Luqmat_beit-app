@@ -29,6 +29,12 @@ class MealEntity extends Equatable {
 
   final List<String> categoryIds;
 
+  /// Whether the logged-in customer has favorited this meal — read from
+  /// `GET /user/customer/meal/:id`'s `is_favorite` field. Defaults to
+  /// `false` for every other place a [MealEntity] is built (home feed,
+  /// search, chef profile), since those endpoints don't return it.
+  final bool isFavorite;
+
   const MealEntity({
     required this.id,
     required this.cookId,
@@ -46,6 +52,7 @@ class MealEntity extends Equatable {
     this.singlePrice,
     this.preparingDurationMinutes = 0,
     this.categoryIds = const [],
+    this.isFavorite = false,
   });
 
   bool get hasVariations => sellingOptions.isNotEmpty;
@@ -82,5 +89,6 @@ class MealEntity extends Equatable {
         singlePrice,
         preparingDurationMinutes,
         categoryIds,
+        isFavorite,
       ];
 }

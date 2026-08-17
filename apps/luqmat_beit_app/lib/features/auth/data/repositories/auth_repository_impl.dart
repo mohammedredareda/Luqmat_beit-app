@@ -6,12 +6,17 @@ import '../../domain/repositories/auth_repository.dart';
 /// shared `AuthSessionRepository` (identical API calls for both roles).
 /// `register` stays local since the request body shape differs by role.
 class AuthRepositoryImpl implements AuthRepository {
-  AuthRepositoryImpl({required ApiClient apiClient, required AuthSessionRepository session})
-      : _apiClient = apiClient,
-        _session = session;
+  AuthRepositoryImpl({
+    required ApiClient apiClient,
+    required AuthSessionRepository session,
+    required UserProfileCache profileCache,
+  })  : _apiClient = apiClient,
+        _session = session,
+        _profileCache = profileCache;
 
   final ApiClient _apiClient;
   final AuthSessionRepository _session;
+  final UserProfileCache _profileCache;
 
   @override
   Future<Result<void>> register({
@@ -46,6 +51,17 @@ class AuthRepositoryImpl implements AuthRepository {
           if (availabilityDays != null) 'availability_days': availabilityDays,
         },
       });
+      // No `GET` "my profile" endpoint exists — cache what we just
+      // registered with so the profile screen shows real data instead of
+      // a placeholder, and so checkout has delivery coordinates to send
+      // (see [UserProfileCache]'s doc comment).
+      await _profileCache.save(
+        name: name,
+        phone: phone,
+        address: address,
+        latitude: latitude,
+        longitude: longitude,
+      );
     });
   }
 

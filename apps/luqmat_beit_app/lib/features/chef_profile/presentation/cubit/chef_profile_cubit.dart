@@ -1,3 +1,4 @@
+import 'package:core/core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../domain/usecases/get_chef_profile.dart';
@@ -5,15 +6,17 @@ import '../../domain/usecases/toggle_follow_chef.dart';
 import 'chef_profile_state.dart';
 
 class ChefProfileCubit extends Cubit<ChefProfileState> {
-  ChefProfileCubit(this._getChefProfile, this._toggleFollowChef)
+  ChefProfileCubit(this._getChefProfile, this._toggleFollowChef, this._favoritesCache)
       : super(const ChefProfileState.initial());
 
   final GetChefProfile _getChefProfile;
   final ToggleFollowChef _toggleFollowChef;
+  final FavoritesCache _favoritesCache;
 
   Future<void> loadProfile(String chefId) async {
     emit(const ChefProfileState.loading());
     final result = await _getChefProfile(chefId);
+    if (isClosed) return;
     result.fold(
       (profile) => emit(ChefProfileState.loaded(profile)),
       (exception) => emit(ChefProfileState.failure(exception)),
@@ -43,8 +46,24 @@ class ChefProfileCubit extends Cubit<ChefProfileState> {
     emit(current.copyWith(profile: original.copyWith(isFollowing: !original.isFollowing)));
 
     final result = await _toggleFollowChef(original.id, wasFollowing: original.isFollowing);
+    if (isClosed) return;
     result.fold(
-      (_) {},
+      (_) {
+        // No backend endpoint lists followed cooks — the favorites screen
+        // reads this local mirror instead, kept in sync with every toggle.
+        if (!original.isFollowing) {
+          _favoritesCache.addFollowedChef({
+            'id': original.id,
+            'name': original.name,
+            'avatarUrl': original.avatarUrl,
+            'rating': original.rating,
+            'ratingCount': original.ratingCount,
+            'distanceKm': original.distanceKm,
+          });
+        } else {
+          _favoritesCache.removeFollowedChef(original.id);
+        }
+      },
       (exception) {
         final stillLoaded = state;
         if (stillLoaded is ChefProfileLoaded) {
