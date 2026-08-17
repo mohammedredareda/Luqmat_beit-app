@@ -1,6 +1,6 @@
 import 'package:core/core.dart';
 
-import '../../../data/datasources/fake_meal_remote_data_source.dart';
+import '../../../data/datasources/meal_remote_data_source.dart';
 import '../../../data/models/selling_option_model.dart';
 import '../../../domain/meal_form_submission.dart';
 import '../../domain/repositories/edit_meal_repository.dart';
@@ -8,7 +8,7 @@ import '../../domain/repositories/edit_meal_repository.dart';
 class EditMealRepositoryImpl implements EditMealRepository {
   EditMealRepositoryImpl(this._dataSource);
 
-  final FakeMealRemoteDataSource _dataSource;
+  final MealRemoteDataSource _dataSource;
 
   @override
   Future<Result<MealEntity>> getMeal(String mealId) {
@@ -48,7 +48,16 @@ class EditMealRepositoryImpl implements EditMealRepository {
         isStopped: isStopped,
       );
 
-      final saved = await _dataSource.updateMeal(updated);
+      var saved = await _dataSource.updateMeal(updated);
+
+      // `PUT .../meals/{id}` has no active/stopped field — a status change
+      // is a separate call to the per-meal toggle endpoint, only made when
+      // the requested state actually differs from what the server has now.
+      if (saved.isStopped != isStopped) {
+        final isActive = await _dataSource.toggleMealStatus(mealId);
+        saved = saved.copyWith(isStopped: !isActive);
+      }
+
       return saved.toEntity();
     });
   }

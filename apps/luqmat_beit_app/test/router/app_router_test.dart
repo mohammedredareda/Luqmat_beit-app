@@ -6,10 +6,10 @@ void main() {
   group('resolveRedirect — unauthenticated', () {
     const session = SessionState.unauthenticated;
 
-    test('any non-auth route redirects to /register', () {
-      expect(resolveRedirect(session, '/'), '/register');
-      expect(resolveRedirect(session, '/cook/menu'), '/register');
-      expect(resolveRedirect(session, '/meal/42'), '/register');
+    test('any non-auth route redirects to /login', () {
+      expect(resolveRedirect(session, '/'), '/login');
+      expect(resolveRedirect(session, '/cook/menu'), '/login');
+      expect(resolveRedirect(session, '/meal/42'), '/login');
     });
 
     test('auth routes stay put', () {
@@ -62,5 +62,18 @@ void main() {
       expect(resolveRedirect(session, '/cook/menu'), isNull);
       expect(resolveRedirect(session, '/cook/orders/1'), isNull);
     });
+  });
+
+  group('resolveRedirect — pre-session routes', () {
+    for (final session in [
+      SessionState.unauthenticated,
+      const SessionState(isAuthenticated: true, role: UserRole.customer),
+      const SessionState(isAuthenticated: true, role: UserRole.cook),
+    ]) {
+      test('/splash and /onboarding are never redirected away from (session: $session)', () {
+        expect(resolveRedirect(session, '/splash'), isNull);
+        expect(resolveRedirect(session, '/onboarding'), isNull);
+      });
+    }
   });
 }

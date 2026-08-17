@@ -78,17 +78,12 @@ class OrderDetailsBloc extends Bloc<OrderDetailsEvent, OrderDetailsState> {
     }
   }
 
-  Future<void> _reject(String reason, Emitter<OrderDetailsState> emit) async {
+  Future<void> _reject(String? reason, Emitter<OrderDetailsState> emit) async {
     final loaded = _currentlyLoaded();
     if (loaded == null) return;
 
-    if (reason.trim().isEmpty) {
-      emit(loaded.copyWith(actionStatus: const OrderActionStatus.rejectionReasonRequired()));
-      return;
-    }
-
     emit(loaded.copyWith(actionStatus: const OrderActionStatus.submitting()));
-    final result = await _rejectOrder(orderId: loaded.order.id, reason: reason.trim());
+    final result = await _rejectOrder(orderId: loaded.order.id, reason: reason);
     result.fold(
       (order) => emit(OrderDetailsState.loaded(
         order: order,

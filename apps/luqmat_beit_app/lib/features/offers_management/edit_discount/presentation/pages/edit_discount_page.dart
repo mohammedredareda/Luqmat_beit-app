@@ -5,11 +5,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:luqmat_beit_app/di/injection.dart';
 import 'package:luqmat_beit_app/l10n/generated/app_localizations.dart';
 
+import '../../../shared/domain/discount_restriction_type.dart';
 import '../../../shared/presentation/bloc/discount_submit_status.dart';
 import '../../../shared/presentation/widgets/discount_price_after_row.dart';
+import '../../../shared/presentation/widgets/discount_restriction_type_toggle.dart';
 import '../bloc/edit_discount_bloc.dart';
 import '../bloc/edit_discount_event.dart';
 import '../bloc/edit_discount_state.dart';
+import '../widgets/edit_discount_skeleton.dart';
 
 String? _fieldError(AppLocalizations l10n, Map<String, List<String>> fieldErrors, String field) {
   final tokens = fieldErrors[field];
@@ -67,7 +70,7 @@ class _EditDiscountView extends StatelessWidget {
         builder: (context, state) => Scaffold(
           appBar: AppBar(title: Text(l10n.editDiscountTitle)),
           body: state.when(
-            loading: () => const Center(child: CircularProgressIndicator()),
+            loading: () => const EditDiscountSkeleton(),
             loadError: (exception) => _LoadErrorBody(message: exception.message),
             form: (data) => _FormBody(data: data),
           ),
@@ -233,53 +236,61 @@ class _FormBody extends StatelessWidget {
         const SizedBox(height: AppSpace.xl),
         Text(l10n.validityTypeLabel, style: textTheme.labelLarge),
         const SizedBox(height: AppSpace.m),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (data.remainingDaysDisplay != null)
-              Expanded(
-                child: _RemainingChip(
-                  icon: Icons.timer_outlined,
-                  label: l10n.remainingDaysLabel,
-                  value: l10n.remainingDaysValue(data.remainingDaysDisplay!),
-                ),
-              ),
-            if (data.remainingDaysDisplay != null) const SizedBox(width: AppSpace.m),
-            Expanded(
-              child: _UpdateField(
-                label: l10n.updateDurationLabel,
-                initialValue: data.durationDaysInput,
-                suffixText: l10n.daysUnitSuffix,
-                errorText: _fieldError(l10n, fieldErrors, 'duration'),
-                onChanged: (value) => bloc.add(EditDiscountEvent.durationDaysChanged(value)),
-              ),
-            ),
-          ],
+        DiscountRestrictionTypeToggle(
+          value: data.restrictionType,
+          durationLabel: l10n.restrictionByDurationLabel,
+          usageLabel: l10n.restrictionByUsageLabel,
+          onChanged: (type) => bloc.add(EditDiscountEvent.restrictionTypeChanged(type)),
         ),
         const SizedBox(height: AppSpace.m),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (data.remainingUsageDisplay != null)
+        if (data.restrictionType == DiscountRestrictionType.duration)
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (data.remainingDaysDisplay != null)
+                Expanded(
+                  child: _RemainingChip(
+                    icon: Icons.timer_outlined,
+                    label: l10n.remainingDaysLabel,
+                    value: l10n.remainingDaysValue(data.remainingDaysDisplay!),
+                  ),
+                ),
+              if (data.remainingDaysDisplay != null) const SizedBox(width: AppSpace.m),
               Expanded(
-                child: _RemainingChip(
-                  icon: Icons.confirmation_number_outlined,
-                  label: l10n.remainingUsageLabel,
-                  value: l10n.remainingUsageValue(data.remainingUsageDisplay!),
+                child: _UpdateField(
+                  label: l10n.updateDurationLabel,
+                  initialValue: data.durationDaysInput,
+                  suffixText: l10n.daysUnitSuffix,
+                  errorText: _fieldError(l10n, fieldErrors, 'duration'),
+                  onChanged: (value) => bloc.add(EditDiscountEvent.durationDaysChanged(value)),
                 ),
               ),
-            if (data.remainingUsageDisplay != null) const SizedBox(width: AppSpace.m),
-            Expanded(
-              child: _UpdateField(
-                label: l10n.updateUsageLimitLabel,
-                initialValue: data.usageLimitInput,
-                suffixText: l10n.usesUnitSuffix,
-                errorText: _fieldError(l10n, fieldErrors, 'usageLimit'),
-                onChanged: (value) => bloc.add(EditDiscountEvent.usageLimitChanged(value)),
+            ],
+          )
+        else
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (data.remainingUsageDisplay != null)
+                Expanded(
+                  child: _RemainingChip(
+                    icon: Icons.confirmation_number_outlined,
+                    label: l10n.remainingUsageLabel,
+                    value: l10n.remainingUsageValue(data.remainingUsageDisplay!),
+                  ),
+                ),
+              if (data.remainingUsageDisplay != null) const SizedBox(width: AppSpace.m),
+              Expanded(
+                child: _UpdateField(
+                  label: l10n.updateUsageLimitLabel,
+                  initialValue: data.usageLimitInput,
+                  suffixText: l10n.usesUnitSuffix,
+                  errorText: _fieldError(l10n, fieldErrors, 'usageLimit'),
+                  onChanged: (value) => bloc.add(EditDiscountEvent.usageLimitChanged(value)),
+                ),
               ),
-            ),
-          ],
-        ),
+            ],
+          ),
       ],
     );
   }
@@ -404,7 +415,13 @@ class _BottomBar extends StatelessWidget {
                 onPressed: isSubmitting
                     ? null
                     : () => bloc.add(const EditDiscountEvent.submitPressed()),
-                child: Text(l10n.saveDiscountChangesCta),
+                child: isSubmitting
+                    ? const SizedBox(
+                        width: 20,
+                        height: 20,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      )
+                    : Text(l10n.saveDiscountChangesCta),
               ),
             ),
           ],

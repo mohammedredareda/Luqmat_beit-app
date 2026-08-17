@@ -3,14 +3,16 @@ import 'package:flutter/material.dart';
 
 /// Mirrors the real My Menu layout (sale-status card + horizontal 96x96
 /// meal rows) rather than the mismatched vertical/4:3-image skeleton
-/// mockup, so loading and loaded states share one visual shape (R-29).
+/// mockup, so loading and loaded states share one visual shape (R-29). No
+/// top padding — sits below `ViewMenuPage`'s persistent "My List" header,
+/// which supplies its own bottom gap, so this is body-only chrome.
 class ViewMenuSkeleton extends StatelessWidget {
   const ViewMenuSkeleton({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ListView(
-      padding: const EdgeInsets.all(AppSpace.l),
+      padding: const EdgeInsets.fromLTRB(AppSpace.l, 0, AppSpace.l, AppSpace.l),
       children: const [
         _StatusCardSkeleton(),
         SizedBox(height: AppSpace.xl),

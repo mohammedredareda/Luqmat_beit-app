@@ -12,4 +12,5 @@ Future<void> initHiveForTest() async {
   await Hive.openBox(LocalCacheBoxNames.notifications);
   await Hive.openBox(LocalCacheBoxNames.cartSnapshot);
   await Hive.openBox(LocalCacheBoxNames.localePreference);
+  await Hive.openBox(LocalCacheBoxNames.onboarding);
 }

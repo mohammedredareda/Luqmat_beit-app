@@ -1,24 +1,27 @@
 import 'package:luqmat_beit_app/features/offers_management/shared/domain/discount_form_validator.dart';
+import 'package:luqmat_beit_app/features/offers_management/shared/domain/discount_restriction_type.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  test('a fully valid submission with only duration has no errors', () {
+  test('a fully valid duration-mode submission has no errors', () {
     final errors = validateDiscountForm(
       mealId: 'meal-1',
       percentageInput: '20',
       durationDaysInput: '5',
       usageLimitInput: '',
+      restrictionType: DiscountRestrictionType.duration,
     );
 
     expect(errors, isEmpty);
   });
 
-  test('a fully valid submission with duration and a usage limit has no errors', () {
+  test('a fully valid usage-count-mode submission has no errors', () {
     final errors = validateDiscountForm(
       mealId: 'meal-1',
       percentageInput: '20',
-      durationDaysInput: '5',
+      durationDaysInput: '',
       usageLimitInput: '20',
+      restrictionType: DiscountRestrictionType.usageCount,
     );
 
     expect(errors, isEmpty);
@@ -30,6 +33,7 @@ void main() {
       percentageInput: '0',
       durationDaysInput: '5',
       usageLimitInput: '',
+      restrictionType: DiscountRestrictionType.duration,
     );
 
     expect(errors['percentage'], contains('outOfRange'));
@@ -41,6 +45,7 @@ void main() {
       percentageInput: '101',
       durationDaysInput: '5',
       usageLimitInput: '',
+      restrictionType: DiscountRestrictionType.duration,
     );
 
     expect(errors['percentage'], contains('outOfRange'));
@@ -52,30 +57,57 @@ void main() {
       percentageInput: '20',
       durationDaysInput: '5',
       usageLimitInput: '',
+      restrictionType: DiscountRestrictionType.duration,
     );
 
     expect(errors['meal'], contains('required'));
   });
 
-  test('duration is required even when a usage limit is provided', () {
+  test('duration is required in duration mode', () {
     final errors = validateDiscountForm(
       mealId: 'meal-1',
       percentageInput: '20',
       durationDaysInput: '',
-      usageLimitInput: '20',
+      usageLimitInput: '',
+      restrictionType: DiscountRestrictionType.duration,
     );
 
     expect(errors['duration'], contains('required'));
   });
 
-  test('a non-positive usage limit is invalid', () {
+  test('usage limit is required in usage-count mode', () {
+    final errors = validateDiscountForm(
+      mealId: 'meal-1',
+      percentageInput: '20',
+      durationDaysInput: '',
+      usageLimitInput: '0',
+      restrictionType: DiscountRestrictionType.usageCount,
+    );
+
+    expect(errors['usageLimit'], contains('required'));
+  });
+
+  test('duration mode ignores a leftover invalid usage-limit value', () {
     final errors = validateDiscountForm(
       mealId: 'meal-1',
       percentageInput: '20',
       durationDaysInput: '5',
-      usageLimitInput: '0',
+      usageLimitInput: '-3',
+      restrictionType: DiscountRestrictionType.duration,
     );
 
-    expect(errors['usageLimit'], contains('invalid'));
+    expect(errors, isEmpty);
+  });
+
+  test('usage-count mode ignores a leftover empty duration value', () {
+    final errors = validateDiscountForm(
+      mealId: 'meal-1',
+      percentageInput: '20',
+      durationDaysInput: '',
+      usageLimitInput: '20',
+      restrictionType: DiscountRestrictionType.usageCount,
+    );
+
+    expect(errors, isEmpty);
   });
 }

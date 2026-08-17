@@ -1,50 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+
+/// `Weekday`/`WeekdayLabel`/`weekdayRangeToIsoDays` moved to
+/// `package:core` (`cook_profile`'s Edit Profile screen needs them too,
+/// and they're pure Dart with no Flutter dependency) — re-exported here so
+/// every existing import of this file keeps working unchanged.
+export 'package:core/core.dart' show Weekday, WeekdayLabel, weekdayRangeToIsoDays;
 
 /// CK-01's registration screen captures availability as a day-range +
-/// time-range (richer UX than a single free-text box), but the backend's
-/// `avalability_duration` field only has room for one string with no
-/// structured day column — so the day-range is embedded as text in the
-/// same string. The field is read/displayed verbatim by the backend, never
-/// parsed, so this is safe.
-enum Weekday { sat, sun, mon, tue, wed, thu, fri }
-
-extension WeekdayLabel on Weekday {
-  String get arabicLabel => switch (this) {
-        Weekday.sat => 'السبت',
-        Weekday.sun => 'الأحد',
-        Weekday.mon => 'الإثنين',
-        Weekday.tue => 'الثلاثاء',
-        Weekday.wed => 'الأربعاء',
-        Weekday.thu => 'الخميس',
-        Weekday.fri => 'الجمعة',
-      };
-
-  String get englishAbbreviation => switch (this) {
-        Weekday.sat => 'Sat',
-        Weekday.sun => 'Sun',
-        Weekday.mon => 'Mon',
-        Weekday.tue => 'Tue',
-        Weekday.wed => 'Wed',
-        Weekday.thu => 'Thu',
-        Weekday.fri => 'Fri',
-      };
-}
-
-String _formatTime(TimeOfDay time) {
-  final asDateTime = DateTime(2024, 1, 1, time.hour, time.minute);
-  return DateFormat('hh:mm a').format(asDateTime);
-}
-
-/// Joins a day-range + time-range into the single string the backend's
-/// `avalability_duration` field expects, e.g. `"Sat-Thu, 10:00 AM - 08:00 PM"`
-/// — matches the confirmed API example's time formatting exactly.
-String formatAvailabilityDuration({
-  required Weekday startDay,
-  required Weekday endDay,
-  required TimeOfDay startTime,
-  required TimeOfDay endTime,
-}) {
-  return '${startDay.englishAbbreviation}-${endDay.englishAbbreviation}, '
-      '${_formatTime(startTime)} - ${_formatTime(endTime)}';
+/// time-range. The real `POST /auth/register` request wants
+/// `startAvailabilityTime`/`endAvailabilityTime` as full ISO datetimes —
+/// only the time-of-day is meaningful here, so [time] is anchored to a
+/// fixed, arbitrary UTC date. Callers send this on with
+/// `.toIso8601String()`.
+DateTime timeOfDayToDateTime(TimeOfDay time) {
+  return DateTime.utc(2024, 1, 1, time.hour, time.minute);
 }

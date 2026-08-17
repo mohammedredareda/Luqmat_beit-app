@@ -1,6 +1,7 @@
 import 'package:core/core.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../../shared/domain/discount_restriction_type.dart';
 import '../../../shared/presentation/bloc/discount_submit_status.dart';
 
 part 'edit_discount_state.freezed.dart';
@@ -22,6 +23,7 @@ class EditDiscountFormData with _$EditDiscountFormData {
     required double mealBasePrice,
     @Default(<SellingOptionEntity>[]) List<SellingOptionEntity> mealSellingOptions,
     @Default('') String percentageInput,
+    @Default(DiscountRestrictionType.duration) DiscountRestrictionType restrictionType,
     @Default('') String durationDaysInput,
     @Default('') String usageLimitInput,
     int? remainingDaysDisplay,

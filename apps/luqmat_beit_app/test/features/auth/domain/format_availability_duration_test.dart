@@ -3,36 +3,28 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:luqmat_beit_app/features/auth/domain/format_availability_duration.dart';
 
 void main() {
-  test('joins day-range and time-range into the backend\'s single string format', () {
-    final result = formatAvailabilityDuration(
-      startDay: Weekday.sat,
-      endDay: Weekday.thu,
-      startTime: const TimeOfDay(hour: 10, minute: 0),
-      endTime: const TimeOfDay(hour: 20, minute: 0),
-    );
+  group('weekdayRangeToIsoDays', () {
+    test('a Sat-Thu range wraps through the week and maps to ISO weekday numbers', () {
+      final result = weekdayRangeToIsoDays(startDay: Weekday.sat, endDay: Weekday.thu);
+      expect(result, [6, 7, 1, 2, 3, 4]);
+    });
 
-    expect(result, 'Sat-Thu, 10:00 AM - 08:00 PM');
+    test('a Mon-Fri range matches the confirmed API example [1, 2, 3, 4, 5]', () {
+      final result = weekdayRangeToIsoDays(startDay: Weekday.mon, endDay: Weekday.fri);
+      expect(result, [1, 2, 3, 4, 5]);
+    });
+
+    test('a single-day range returns just that day', () {
+      final result = weekdayRangeToIsoDays(startDay: Weekday.mon, endDay: Weekday.mon);
+      expect(result, [1]);
+    });
   });
 
-  test('formats single-digit hours with a leading zero, matching the API example', () {
-    final result = formatAvailabilityDuration(
-      startDay: Weekday.sun,
-      endDay: Weekday.fri,
-      startTime: const TimeOfDay(hour: 9, minute: 5),
-      endTime: const TimeOfDay(hour: 17, minute: 30),
-    );
-
-    expect(result, 'Sun-Fri, 09:05 AM - 05:30 PM');
-  });
-
-  test('midnight and noon format as 12, not 00', () {
-    final result = formatAvailabilityDuration(
-      startDay: Weekday.mon,
-      endDay: Weekday.mon,
-      startTime: const TimeOfDay(hour: 0, minute: 0),
-      endTime: const TimeOfDay(hour: 12, minute: 0),
-    );
-
-    expect(result, 'Mon-Mon, 12:00 AM - 12:00 PM');
+  group('timeOfDayToDateTime', () {
+    test('anchors the time-of-day to a fixed UTC date', () {
+      final result = timeOfDayToDateTime(const TimeOfDay(hour: 10, minute: 30));
+      expect(result, DateTime.utc(2024, 1, 1, 10, 30));
+      expect(result.isUtc, isTrue);
+    });
   });
 }

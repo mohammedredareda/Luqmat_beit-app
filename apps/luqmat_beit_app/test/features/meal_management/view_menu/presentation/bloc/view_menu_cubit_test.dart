@@ -147,4 +147,97 @@ void main() {
       ),
     ],
   );
+
+  // Optimistic updates: the Edit/Delete Meal screens already hand back the
+  // updated MealEntity (or id), so the dashboard reflects it immediately —
+  // neither should trigger another repository call. Creation has no
+  // equivalent (see ViewMenuCubit's doc comment on replaceMeal): the
+  // backend's create response has no meal data to add optimistically, so
+  // that path still goes through a real loadMenu() refetch.
+  final updatedActiveMeal = const MealEntity(
+    id: 'meal-1',
+    cookId: currentCookId,
+    cookName: 'مطبخ أم أحمد',
+    name: 'كبسة دجاج محدثة',
+    description: 'أرز بسمتي مع دجاج متبل',
+    sellingOptions: [],
+    singlePrice: 50,
+    imageUrl: 'https://example.com/kabsa.png',
+  );
+
+  blocTest<ViewMenuCubit, ViewMenuState>(
+    'replaceMeal swaps in the updated meal by id without refetching',
+    setUp: () {
+      when(() => getMyMeals(currentCookId)).thenAnswer(
+        (_) async => Result.success((
+          page: PaginatedResult(items: [activeMeal, secondMeal], hasMore: false),
+          isSellingPaused: false,
+        )),
+      );
+    },
+    build: () => ViewMenuCubit(getMyMeals),
+    act: (cubit) async {
+      await cubit.loadMenu();
+      cubit.replaceMeal(updatedActiveMeal);
+    },
+    expect: () => [
+      const ViewMenuState.loading(),
+      ViewMenuState.loaded(
+        meals: [activeMeal, secondMeal],
+        isSellingPaused: false,
+        hasMore: false,
+        isLoadingMore: false,
+      ),
+      ViewMenuState.loaded(
+        meals: [updatedActiveMeal, secondMeal],
+        isSellingPaused: false,
+        hasMore: false,
+        isLoadingMore: false,
+      ),
+    ],
+    verify: (_) => verify(() => getMyMeals(currentCookId)).called(1),
+  );
+
+  blocTest<ViewMenuCubit, ViewMenuState>(
+    'removeMeal drops the meal by id without refetching',
+    setUp: () {
+      when(() => getMyMeals(currentCookId)).thenAnswer(
+        (_) async => Result.success((
+          page: PaginatedResult(items: [activeMeal, secondMeal], hasMore: false),
+          isSellingPaused: false,
+        )),
+      );
+    },
+    build: () => ViewMenuCubit(getMyMeals),
+    act: (cubit) async {
+      await cubit.loadMenu();
+      cubit.removeMeal(activeMeal.id);
+    },
+    expect: () => [
+      const ViewMenuState.loading(),
+      ViewMenuState.loaded(
+        meals: [activeMeal, secondMeal],
+        isSellingPaused: false,
+        hasMore: false,
+        isLoadingMore: false,
+      ),
+      ViewMenuState.loaded(
+        meals: [secondMeal],
+        isSellingPaused: false,
+        hasMore: false,
+        isLoadingMore: false,
+      ),
+    ],
+    verify: (_) => verify(() => getMyMeals(currentCookId)).called(1),
+  );
+
+  blocTest<ViewMenuCubit, ViewMenuState>(
+    'replaceMeal/removeMeal before any load are no-ops',
+    build: () => ViewMenuCubit(getMyMeals),
+    act: (cubit) {
+      cubit.replaceMeal(activeMeal);
+      cubit.removeMeal(activeMeal.id);
+    },
+    expect: () => const <ViewMenuState>[],
+  );
 }

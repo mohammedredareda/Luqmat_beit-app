@@ -68,4 +68,35 @@ class ViewMenuCubit extends Cubit<ViewMenuState> with PaginationStateMixin<MealE
       },
     );
   }
+
+  /// The Edit/Delete Meal screens return the updated [MealEntity] (or the
+  /// deleted meal's id) straight from their `Result`, so the dashboard can
+  /// reflect the change immediately — a `loadMenu()` refetch would be
+  /// redundant round-trip latency for data this screen already has in
+  /// hand. Creation deliberately has no equivalent `addMeal`: the backend's
+  /// create response carries no meal data at all (see
+  /// `MealRemoteDataSource.createMeal`'s comment) — no server id, no
+  /// hosted image URL — so there's nothing accurate to add optimistically;
+  /// `view_menu_page.dart` still calls `loadMenu()` after a create.
+  void replaceMeal(MealEntity meal) {
+    if (state is! ViewMenuLoaded) return;
+    items = [for (final m in items) if (m.id == meal.id) meal else m];
+    emit(ViewMenuState.loaded(
+      meals: items,
+      isSellingPaused: _isSellingPaused,
+      hasMore: hasMore,
+      isLoadingMore: isLoadingMore,
+    ));
+  }
+
+  void removeMeal(String mealId) {
+    if (state is! ViewMenuLoaded) return;
+    items = items.where((m) => m.id != mealId).toList();
+    emit(ViewMenuState.loaded(
+      meals: items,
+      isSellingPaused: _isSellingPaused,
+      hasMore: hasMore,
+      isLoadingMore: isLoadingMore,
+    ));
+  }
 }

@@ -9,6 +9,11 @@ import '../features/auth/domain/repositories/auth_repository.dart';
 import '../features/cart/data/datasources/cart_remote_data_source.dart';
 import '../features/cart/data/repositories/cart_repository_impl.dart';
 import '../features/cart/domain/repositories/cart_repository.dart';
+import '../features/catering/data/repositories/catering_repository_impl.dart';
+import '../features/catering/domain/repositories/catering_repository.dart';
+import '../features/categories/data/datasources/categories_remote_data_source.dart';
+import '../features/categories/data/repositories/categories_repository_impl.dart';
+import '../features/categories/domain/repositories/categories_repository.dart';
 import '../features/chef_profile/data/datasources/chef_remote_data_source.dart';
 import '../features/chef_profile/data/repositories/chef_repository_impl.dart';
 import '../features/chef_profile/domain/repositories/chef_repository.dart';
@@ -46,13 +51,14 @@ import '../features/shorts/domain/repositories/shorts_repository.dart';
 // ── Cook feature data sources (each holds an in-memory "backend" — must be
 // shared singletons so every feature reading/writing through it sees the
 // same data). ────────────────────────────────────────────────────────────
-import '../features/meal_management/data/datasources/fake_meal_remote_data_source.dart';
-import '../features/offers_management/shared/data/datasources/fake_discounts_remote_data_source.dart';
-import '../features/offers_management/shared/data/datasources/fake_offers_remote_data_source.dart';
-import '../features/order_management/data/datasources/fake_order_remote_data_source.dart';
-import '../features/cook_profile/data/datasources/fake_cook_profile_remote_data_source.dart';
-import '../features/cook_profile/change_password/data/datasources/fake_password_remote_data_source.dart';
-import '../features/cook_profile/change_phone_number/data/datasources/fake_phone_change_remote_data_source.dart';
+import '../features/meal_management/data/datasources/meal_remote_data_source.dart';
+import '../features/offers_management/shared/data/datasources/discounts_remote_data_source.dart';
+import '../features/offers_management/shared/data/datasources/offers_remote_data_source.dart';
+import '../features/offers_management/shared/data/datasources/promotions_remote_data_source.dart';
+import '../features/order_management/data/datasources/order_remote_data_source.dart';
+import '../features/cook_profile/data/datasources/cook_profile_remote_data_source.dart';
+import '../features/cook_profile/change_password/data/datasources/password_remote_data_source.dart';
+import '../features/cook_profile/change_phone_number/data/datasources/phone_change_remote_data_source.dart';
 
 // ── Cook feature repositories ──────────────────────────────────────────────
 import '../features/meal_management/create_meal/domain/repositories/create_meal_repository.dart';
@@ -196,7 +202,7 @@ Future<void> configureDependencies() async {
   );
 
   // Read once, synchronously ahead of runApp(), so the router's very first
-  // redirect decision (which role's shell, or /register) never races an
+  // redirect decision (which role's shell, or /login) never races an
   // async storage read.
   final existingToken = await getIt<SecureTokenStorage>().readAccessToken();
   getIt.registerLazySingleton<SessionCubit>(
@@ -205,6 +211,11 @@ Future<void> configureDependencies() async {
       getIt(),
       initialState: SessionCubit.resolveInitialState(existingToken),
     ),
+  );
+
+  // ══ Shared infra (used by both roles) ══════════════════════════════════
+  getIt.registerLazySingleton<CategoriesRepository>(
+    () => CategoriesRepositoryImpl(CategoriesRemoteDataSource(getIt<ApiClient>())),
   );
 
   // ══ Customer-side repositories ═══════════════════════════════════════
@@ -266,13 +277,14 @@ Future<void> configureDependencies() async {
   getIt.registerLazySingleton<ShortsRepository>(() => ShortsRepositoryImpl());
 
   // ══ Cook-side data sources (shared in-memory "backend" state) ═════════
-  getIt.registerLazySingleton(() => FakeMealRemoteDataSource());
-  getIt.registerLazySingleton(() => FakeDiscountsRemoteDataSource());
-  getIt.registerLazySingleton(() => FakeOffersRemoteDataSource());
-  getIt.registerLazySingleton(() => FakeOrderRemoteDataSource());
-  getIt.registerLazySingleton(() => FakeCookProfileRemoteDataSource());
-  getIt.registerLazySingleton(() => FakePasswordRemoteDataSource());
-  getIt.registerLazySingleton(() => FakePhoneChangeRemoteDataSource(getIt()));
+  getIt.registerLazySingleton(() => MealRemoteDataSource(getIt<ApiClient>()));
+  getIt.registerLazySingleton(() => OffersRemoteDataSource(getIt<ApiClient>()));
+  getIt.registerLazySingleton(() => DiscountsRemoteDataSource(getIt<ApiClient>()));
+  getIt.registerLazySingleton(() => PromotionsRemoteDataSource(getIt<ApiClient>()));
+  getIt.registerLazySingleton(() => OrderRemoteDataSource(getIt<ApiClient>()));
+  getIt.registerLazySingleton(() => CookProfileRemoteDataSource(getIt<ApiClient>()));
+  getIt.registerLazySingleton(() => PasswordRemoteDataSource(getIt<ApiClient>()));
+  getIt.registerLazySingleton(() => PhoneChangeRemoteDataSource(getIt<ApiClient>()));
 
   // ══ Cook-side repositories ═════════════════════════════════════════
   getIt.registerLazySingleton<CreateMealRepository>(
@@ -300,7 +312,7 @@ Future<void> configureDependencies() async {
     () => DeleteOfferRepositoryImpl(getIt()),
   );
   getIt.registerLazySingleton<EditDiscountRepository>(
-    () => EditDiscountRepositoryImpl(getIt(), getIt()),
+    () => EditDiscountRepositoryImpl(getIt()),
   );
   getIt.registerLazySingleton<EditOfferRepository>(
     () => EditOfferRepositoryImpl(getIt()),
@@ -309,7 +321,7 @@ Future<void> configureDependencies() async {
     () => SelectableMealsRepositoryImpl(getIt()),
   );
   getIt.registerLazySingleton<ViewOffersRepository>(
-    () => ViewOffersRepositoryImpl(getIt(), getIt()),
+    () => ViewOffersRepositoryImpl(getIt()),
   );
   getIt.registerLazySingleton<OrderDetailsRepository>(
     () => OrderDetailsRepositoryImpl(getIt()),
@@ -399,6 +411,7 @@ Future<void> configureDependencies() async {
     () => EditProfileBloc(
       edit_profile_uc.GetCookProfile(getIt()),
       UpdateCookProfile(getIt()),
+      DetectCurrentLocation(getIt()),
     ),
   );
   getIt.registerFactory(

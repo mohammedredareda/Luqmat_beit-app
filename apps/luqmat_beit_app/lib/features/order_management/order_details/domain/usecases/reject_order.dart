@@ -7,7 +7,7 @@ class RejectOrder {
 
   final OrderDetailsRepository _repository;
 
-  Future<Result<OrderEntity>> call({required String orderId, required String reason}) {
+  Future<Result<OrderEntity>> call({required String orderId, String? reason}) {
     return _repository.rejectOrder(orderId: orderId, reason: reason);
   }
 }

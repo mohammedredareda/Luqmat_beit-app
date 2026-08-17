@@ -1,5 +1,7 @@
 import 'package:core/core.dart';
 
+import 'package:luqmat_beit_app/shared/current_cook_id.dart';
+
 /// [deletedAt] is data-layer-only (CK-15 soft delete), mirroring
 /// `OfferModel`/`MealModel`'s convention. `mealName`/`mealImageUrl`/
 /// `mealBasePrice` are denormalized display fields — not part of the
@@ -72,6 +74,34 @@ class DiscountModel {
         'deletedAt': deletedAt?.toIso8601String(),
       };
 
+  /// Real-shape response parsing from `GET /user/cook/menu/discounts/{id}`
+  /// — `discountDuration`/`usageLimit` (not `discountDurationDays`/
+  /// `usageNumberLimit`), `discountPercentage` as a numeric string,
+  /// `status` as a bool, meal display info nested under `meal`. No
+  /// `cookId` in the response — [DiscountEntity] doesn't carry one either,
+  /// so the placeholder here is never actually read. No meal price/selling
+  /// options either — [mealBasePrice] defaults to 0 (see
+  /// `EditDiscountRepositoryImpl`, which surfaces this as an unavailable
+  /// "current price" preview rather than a fabricated number).
+  factory DiscountModel.fromApiJson(Map<String, dynamic> json) {
+    final meal = json['meal'] as Map?;
+    return DiscountModel(
+      id: json['id'].toString(),
+      cookId: currentCookId,
+      mealId: json['mealId']?.toString() ?? '',
+      mealName: meal?['name'] as String? ?? '',
+      mealImageUrl: meal?['image'] as String? ?? '',
+      mealBasePrice: 0,
+      discountPercentage: double.tryParse(json['discountPercentage']?.toString() ?? '') ?? 0,
+      discountDurationDays: json['discountDuration'] as int? ?? 0,
+      usageNumberLimit: json['usageLimit'] as int?,
+      usageCount: json['usageCount'] as int? ?? 0,
+      createdAt: DateTime.tryParse(json['createdAt']?.toString() ?? '') ?? DateTime.now(),
+      expiryTime: DateTime.tryParse(json['expireTime']?.toString() ?? '') ?? DateTime.now(),
+      status: json['status'] == false ? DiscountStatus.deleted : DiscountStatus.active,
+    );
+  }
+
   DiscountEntity toEntity() => DiscountEntity(
         id: id,
         mealId: mealId,
@@ -83,6 +113,18 @@ class DiscountModel {
         expiryTime: expiryTime,
         status: status,
       );
+
+  /// Real-shape request body for `POST /user/cook/menu/discounts/create`.
+  /// `usage_limit` is omitted entirely when unset — no documented request
+  /// example (create or edit) ever shows this key, and this backend is
+  /// confirmed elsewhere to 400 on any undocumented property, so a literal
+  /// `null` isn't safe to send either.
+  Map<String, dynamic> toApiRequestFields() => {
+        'meal_id': int.tryParse(mealId) ?? mealId,
+        'discount_percentage': discountPercentage,
+        'discount_duration': discountDurationDays,
+        if (usageNumberLimit != null) 'usage_limit': usageNumberLimit,
+      };
 
   DiscountModel copyWith({
     String? mealName,

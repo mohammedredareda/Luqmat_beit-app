@@ -20,7 +20,7 @@ mixin _$OrderDetailsEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(String orderId) loadRequested,
     required TResult Function() acceptPressed,
-    required TResult Function(String reason) rejectPressed,
+    required TResult Function(String? reason) rejectPressed,
     required TResult Function() completePressed,
   }) =>
       throw _privateConstructorUsedError;
@@ -28,7 +28,7 @@ mixin _$OrderDetailsEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String orderId)? loadRequested,
     TResult? Function()? acceptPressed,
-    TResult? Function(String reason)? rejectPressed,
+    TResult? Function(String? reason)? rejectPressed,
     TResult? Function()? completePressed,
   }) =>
       throw _privateConstructorUsedError;
@@ -36,7 +36,7 @@ mixin _$OrderDetailsEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String orderId)? loadRequested,
     TResult Function()? acceptPressed,
-    TResult Function(String reason)? rejectPressed,
+    TResult Function(String? reason)? rejectPressed,
     TResult Function()? completePressed,
     required TResult orElse(),
   }) =>
@@ -159,7 +159,7 @@ class _$LoadRequestedImpl implements _LoadRequested {
   TResult when<TResult extends Object?>({
     required TResult Function(String orderId) loadRequested,
     required TResult Function() acceptPressed,
-    required TResult Function(String reason) rejectPressed,
+    required TResult Function(String? reason) rejectPressed,
     required TResult Function() completePressed,
   }) {
     return loadRequested(orderId);
@@ -170,7 +170,7 @@ class _$LoadRequestedImpl implements _LoadRequested {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String orderId)? loadRequested,
     TResult? Function()? acceptPressed,
-    TResult? Function(String reason)? rejectPressed,
+    TResult? Function(String? reason)? rejectPressed,
     TResult? Function()? completePressed,
   }) {
     return loadRequested?.call(orderId);
@@ -181,7 +181,7 @@ class _$LoadRequestedImpl implements _LoadRequested {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String orderId)? loadRequested,
     TResult Function()? acceptPressed,
-    TResult Function(String reason)? rejectPressed,
+    TResult Function(String? reason)? rejectPressed,
     TResult Function()? completePressed,
     required TResult orElse(),
   }) {
@@ -284,7 +284,7 @@ class _$AcceptPressedImpl implements _AcceptPressed {
   TResult when<TResult extends Object?>({
     required TResult Function(String orderId) loadRequested,
     required TResult Function() acceptPressed,
-    required TResult Function(String reason) rejectPressed,
+    required TResult Function(String? reason) rejectPressed,
     required TResult Function() completePressed,
   }) {
     return acceptPressed();
@@ -295,7 +295,7 @@ class _$AcceptPressedImpl implements _AcceptPressed {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String orderId)? loadRequested,
     TResult? Function()? acceptPressed,
-    TResult? Function(String reason)? rejectPressed,
+    TResult? Function(String? reason)? rejectPressed,
     TResult? Function()? completePressed,
   }) {
     return acceptPressed?.call();
@@ -306,7 +306,7 @@ class _$AcceptPressedImpl implements _AcceptPressed {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String orderId)? loadRequested,
     TResult Function()? acceptPressed,
-    TResult Function(String reason)? rejectPressed,
+    TResult Function(String? reason)? rejectPressed,
     TResult Function()? completePressed,
     required TResult orElse(),
   }) {
@@ -364,7 +364,7 @@ abstract class _$$RejectPressedImplCopyWith<$Res> {
           _$RejectPressedImpl value, $Res Function(_$RejectPressedImpl) then) =
       __$$RejectPressedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String reason});
+  $Res call({String? reason});
 }
 
 /// @nodoc
@@ -380,13 +380,13 @@ class __$$RejectPressedImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? reason = null,
+    Object? reason = freezed,
   }) {
     return _then(_$RejectPressedImpl(
-      null == reason
+      freezed == reason
           ? _value.reason
           : reason // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -394,10 +394,10 @@ class __$$RejectPressedImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$RejectPressedImpl implements _RejectPressed {
-  const _$RejectPressedImpl(this.reason);
+  const _$RejectPressedImpl([this.reason]);
 
   @override
-  final String reason;
+  final String? reason;
 
   @override
   String toString() {
@@ -428,7 +428,7 @@ class _$RejectPressedImpl implements _RejectPressed {
   TResult when<TResult extends Object?>({
     required TResult Function(String orderId) loadRequested,
     required TResult Function() acceptPressed,
-    required TResult Function(String reason) rejectPressed,
+    required TResult Function(String? reason) rejectPressed,
     required TResult Function() completePressed,
   }) {
     return rejectPressed(reason);
@@ -439,7 +439,7 @@ class _$RejectPressedImpl implements _RejectPressed {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String orderId)? loadRequested,
     TResult? Function()? acceptPressed,
-    TResult? Function(String reason)? rejectPressed,
+    TResult? Function(String? reason)? rejectPressed,
     TResult? Function()? completePressed,
   }) {
     return rejectPressed?.call(reason);
@@ -450,7 +450,7 @@ class _$RejectPressedImpl implements _RejectPressed {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String orderId)? loadRequested,
     TResult Function()? acceptPressed,
-    TResult Function(String reason)? rejectPressed,
+    TResult Function(String? reason)? rejectPressed,
     TResult Function()? completePressed,
     required TResult orElse(),
   }) {
@@ -499,9 +499,9 @@ class _$RejectPressedImpl implements _RejectPressed {
 }
 
 abstract class _RejectPressed implements OrderDetailsEvent {
-  const factory _RejectPressed(final String reason) = _$RejectPressedImpl;
+  const factory _RejectPressed([final String? reason]) = _$RejectPressedImpl;
 
-  String get reason;
+  String? get reason;
 
   /// Create a copy of OrderDetailsEvent
   /// with the given fields replaced by the non-null parameter values.
@@ -553,7 +553,7 @@ class _$CompletePressedImpl implements _CompletePressed {
   TResult when<TResult extends Object?>({
     required TResult Function(String orderId) loadRequested,
     required TResult Function() acceptPressed,
-    required TResult Function(String reason) rejectPressed,
+    required TResult Function(String? reason) rejectPressed,
     required TResult Function() completePressed,
   }) {
     return completePressed();
@@ -564,7 +564,7 @@ class _$CompletePressedImpl implements _CompletePressed {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String orderId)? loadRequested,
     TResult? Function()? acceptPressed,
-    TResult? Function(String reason)? rejectPressed,
+    TResult? Function(String? reason)? rejectPressed,
     TResult? Function()? completePressed,
   }) {
     return completePressed?.call();
@@ -575,7 +575,7 @@ class _$CompletePressedImpl implements _CompletePressed {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String orderId)? loadRequested,
     TResult Function()? acceptPressed,
-    TResult Function(String reason)? rejectPressed,
+    TResult Function(String? reason)? rejectPressed,
     TResult Function()? completePressed,
     required TResult orElse(),
   }) {

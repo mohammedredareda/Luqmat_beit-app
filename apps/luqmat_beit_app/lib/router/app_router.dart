@@ -27,6 +27,7 @@ import '../features/offers_management/create_offer/presentation/pages/create_off
 import '../features/offers_management/edit_discount/presentation/pages/edit_discount_page.dart';
 import '../features/offers_management/edit_offer/presentation/pages/edit_offer_page.dart';
 import '../features/offers_management/view_offers/presentation/pages/view_offers_page.dart';
+import '../features/onboarding/presentation/pages/onboarding_page.dart';
 import '../features/order_history/presentation/pages/order_history_page.dart';
 import '../features/order_management/order_details/presentation/pages/order_details_page.dart';
 import '../features/order_management/view_orders/presentation/pages/orders_list_page.dart';
@@ -40,11 +41,12 @@ import '../features/ratings/presentation/pages/meal_rating_page.dart';
 import '../features/search/presentation/pages/search_filters_page.dart';
 import '../features/settings/presentation/pages/settings_page.dart';
 import '../features/shorts/presentation/pages/shorts_feed_page.dart';
+import '../features/splash/presentation/pages/splash_page.dart';
 import '../l10n/generated/app_localizations.dart';
 import 'placeholder_page.dart';
 
 /// Routes reachable with no active session — everything else redirects to
-/// `/register` when unauthenticated, or to the appropriate role's shell
+/// `/login` when unauthenticated, or to the appropriate role's shell
 /// when authenticated (see `redirect` below). Shared by both roles — role
 /// is chosen inside the registration form itself, not by the route.
 const _authRoutes = {
@@ -55,24 +57,34 @@ const _authRoutes = {
   '/reset-password',
 };
 
+/// Splash makes its own one-shot navigation decision (onboarding vs
+/// falling through to the normal session flow) and onboarding decides for
+/// itself when it's done — neither should ever be redirected away from by
+/// session/role logic, unlike every other route.
+const _preSessionRoutes = {'/splash', '/onboarding'};
+
 const _cookRoutePrefix = '/cook';
 
 /// Pure decision function behind `appRouter`'s `redirect` — kept separate
 /// from the `GoRouter` wiring (which needs a live `BuildContext`/`GoRouterState`
 /// and reads [SessionCubit] from [getIt]) so the three-way branching itself
 /// is unit-testable without a widget tree:
-/// - Unauthenticated + not on an auth route → `/register`.
+/// - `/splash` and `/onboarding` → never redirected away from.
+/// - Unauthenticated + not on an auth route → `/login` (registration is one
+///   tap away via the "Create new account" link on that screen).
 /// - Authenticated as a customer + on an auth route or any `/cook/...`
 ///   route → `/` (customer home).
 /// - Authenticated as a cook + on an auth route or any non-`/cook/...`
 ///   route → `/cook/menu`.
 /// - Otherwise → `null` (stay on the requested route).
 String? resolveRedirect(SessionState session, String matchedLocation) {
+  if (_preSessionRoutes.contains(matchedLocation)) return null;
+
   final isGoingToAuthRoute = _authRoutes.contains(matchedLocation);
   final isGoingToCookRoute = matchedLocation.startsWith(_cookRoutePrefix);
 
   if (!session.isAuthenticated) {
-    return isGoingToAuthRoute ? null : '/register';
+    return isGoingToAuthRoute ? null : '/login';
   }
   if (session.role == UserRole.cook) {
     return (isGoingToAuthRoute || !isGoingToCookRoute) ? '/cook/menu' : null;
@@ -91,11 +103,15 @@ String? resolveRedirect(SessionState session, String matchedLocation) {
 /// in the correct shell with no manual navigation call anywhere in the auth
 /// flow itself.
 final appRouter = GoRouter(
-  initialLocation: '/',
+  initialLocation: '/splash',
   refreshListenable: GoRouterRefreshStream(getIt<SessionCubit>().stream),
   redirect: (context, state) =>
       resolveRedirect(getIt<SessionCubit>().state, state.matchedLocation),
   routes: [
+    // ── Pre-session (splash decides where to send the user next) ──────
+    GoRoute(path: '/splash', builder: (context, state) => const SplashPage()),
+    GoRoute(path: '/onboarding', builder: (context, state) => const OnboardingPage()),
+
     // ── Customer routes (unprefixed) ──────────────────────────────────
     GoRoute(path: '/', builder: (context, state) => const HomePage()),
     GoRoute(path: '/search', builder: (context, state) => const SearchFiltersPage()),

@@ -61,7 +61,16 @@ AppException _mapStatusCode(int? statusCode, String? message, [dynamic responseD
         statusCode: statusCode,
       );
     case 404:
-      return NotFoundException(message ?? 'غير موجود.', statusCode: statusCode);
+      // NestJS's default "no matching route" 404 (`"Cannot GET /a/b/c"`) is
+      // an internal routing string, not a user-facing message — showing it
+      // verbatim reads like a raw programming error. Fall back to the
+      // generic message instead of surfacing it.
+      final isRouteNotFoundStub =
+          message != null && RegExp(r'^Cannot [A-Z]+ ').hasMatch(message);
+      return NotFoundException(
+        isRouteNotFoundStub ? 'غير موجود.' : (message ?? 'غير موجود.'),
+        statusCode: statusCode,
+      );
     case 409:
       return ConflictException(fallback, statusCode: statusCode);
     case 422:

@@ -35,6 +35,20 @@ class OrderOfferItemModel {
         'mealNames': mealNames,
       };
 
+  /// TODO(backend): the live docs' order-detail example always shows an
+  /// empty `offerItems` array — this shape is a best-effort guess mirroring
+  /// `mealItems`, unconfirmed against a real non-empty response.
+  factory OrderOfferItemModel.fromApiJson(Map<String, dynamic> json) {
+    final offer = json['offer'] as Map?;
+    return OrderOfferItemModel(
+      id: json['id']?.toString() ?? '',
+      offerId: json['offerId']?.toString() ?? '',
+      offerName: json['offerName'] as String? ?? offer?['name'] as String? ?? '',
+      quantity: json['quantity'] as int? ?? 1,
+      priceAtPurchase: double.tryParse(json['priceAtPurchase']?.toString() ?? '') ?? 0,
+    );
+  }
+
   OrderOfferItemEntity toEntity() => OrderOfferItemEntity(
         id: id,
         offerId: offerId,

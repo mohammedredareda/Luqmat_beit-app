@@ -1,6 +1,6 @@
 import 'package:core/core.dart';
 
-import '../../../data/datasources/fake_cook_profile_remote_data_source.dart';
+import '../../../data/datasources/cook_profile_remote_data_source.dart';
 import '../../../domain/cook_profile_details.dart';
 import '../../../domain/profile_form_submission.dart';
 import '../../domain/repositories/edit_profile_repository.dart';
@@ -8,7 +8,7 @@ import '../../domain/repositories/edit_profile_repository.dart';
 class EditProfileRepositoryImpl implements EditProfileRepository {
   EditProfileRepositoryImpl(this._dataSource);
 
-  final FakeCookProfileRemoteDataSource _dataSource;
+  final CookProfileRemoteDataSource _dataSource;
 
   @override
   Future<Result<CookProfileDetails>> getProfile(String cookId) {
@@ -33,6 +33,9 @@ class EditProfileRepositoryImpl implements EditProfileRepository {
         address: submission.address,
         availabilityTime:
             '${submission.availabilityStartTime}-${submission.availabilityEndTime}',
+        availabilityDays: submission.availabilityDays,
+        latitude: submission.latitude,
+        longitude: submission.longitude,
         avatarUrl: submission.avatarPath,
       );
 

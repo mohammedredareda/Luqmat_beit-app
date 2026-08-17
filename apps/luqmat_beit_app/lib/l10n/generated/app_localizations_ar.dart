@@ -218,6 +218,9 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
+  String get discountBadgeGenericLabel => 'خصم';
+
+  @override
   String get selectOfferTypeSheetTitle => 'اختيار نوع العرض';
 
   @override
@@ -309,7 +312,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get offerStatusHelperText => 'تفعيل العرض ليظهر للعملاء فوراً';
 
   @override
-  String get saveOfferCta => 'حفظ العرض';
+  String get createOfferCta => 'إنشاء';
 
   @override
   String get saveOfferChangesCta => 'حفظ التغييرات';
@@ -511,6 +514,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get addressHint => 'أدخل عنوانك بالتفصيل';
 
   @override
+  String get detectLocationCta => 'تحديد';
+
+  @override
+  String get detectedLocationHint => 'سيتم تحديد الموقع تلقائياً';
+
+  @override
   String get availabilityDaysFieldLabel => 'أيام التوفر';
 
   @override
@@ -601,6 +610,11 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
+  String estimatedPrepTimeLabel(int minutes) {
+    return 'الوقت المتوقع: $minutes دقيقة';
+  }
+
+  @override
   String moreItemsLabel(int count) {
     return '+ $count عنصر إضافي';
   }
@@ -670,7 +684,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get rejectOrderConfirmCta => 'رفض الطلب';
 
   @override
-  String get rejectionReasonLabel => 'سبب الرفض';
+  String get rejectionReasonLabel => 'سبب الرفض (اختياري)';
 
   @override
   String get rejectionReasonHint => 'اكتب سبب رفض هذا الطلب...';
@@ -897,4 +911,34 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get otpIncorrectError => 'الرمز غير صحيح، يرجى المحاولة مرة أخرى';
+
+  @override
+  String get onboardingSlide1Title => 'أشهى الأطباق البيتية';
+
+  @override
+  String get onboardingSlide1Body =>
+      'تذوق طعم البيت في كل وجبة، محضرة بعناية وحب من طهاة محليين شغوفين.';
+
+  @override
+  String get onboardingSlide2Title => 'توصيل دافئ وسريع';
+
+  @override
+  String get onboardingSlide2Body =>
+      'تصلك وجباتك طازجة ودافئة، وكأنها خرجت للتو من فرن مطبخك الخاص.';
+
+  @override
+  String get onboardingSlide3Title => 'شارك متعة الطعم';
+
+  @override
+  String get onboardingSlide3Body =>
+      'اكتشف نكهات جديدة وشارك التجربة مع عائلتك وأصدقائك في كل مناسبة.';
+
+  @override
+  String get onboardingNext => 'التالي';
+
+  @override
+  String get onboardingStart => 'ابدأ الآن';
+
+  @override
+  String get onboardingSkip => 'تخطي';
 }

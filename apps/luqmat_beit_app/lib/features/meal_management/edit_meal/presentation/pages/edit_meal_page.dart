@@ -6,11 +6,10 @@ import 'package:luqmat_beit_app/di/injection.dart';
 import 'package:luqmat_beit_app/l10n/generated/app_localizations.dart';
 import 'package:luqmat_beit_app/shared/presentation/widgets/image_picker_field.dart';
 
-import '../../../domain/meal_category.dart';
 import '../../../shared/presentation/bloc/meal_submit_status.dart';
 import '../../../shared/presentation/widgets/delete_meal_confirmation.dart';
 import '../../../shared/presentation/widgets/meal_basic_info_section.dart';
-import '../../../shared/presentation/widgets/meal_category_chips_section.dart';
+import '../../../shared/presentation/widgets/meal_category_picker.dart';
 import '../../../shared/presentation/widgets/meal_preorder_time_field.dart';
 import '../../../shared/presentation/widgets/meal_pricing_section.dart';
 import '../bloc/edit_meal_bloc.dart';
@@ -35,14 +34,6 @@ class EditMealPage extends StatelessWidget {
 class _EditMealView extends StatelessWidget {
   const _EditMealView();
 
-  String _categoryLabel(AppLocalizations l10n, MealCategory category) => switch (category) {
-        MealCategory.mainDishes => l10n.categoryMainDishes,
-        MealCategory.pastries => l10n.categoryPastries,
-        MealCategory.desserts => l10n.categoryDesserts,
-        MealCategory.appetizers => l10n.categoryAppetizers,
-        MealCategory.beverages => l10n.categoryBeverages,
-      };
-
   String? _fieldError(AppLocalizations l10n, Map<String, List<String>> fieldErrors, String field) {
     final tokens = fieldErrors[field];
     if (tokens == null || tokens.isEmpty) return null;
@@ -63,7 +54,7 @@ class _EditMealView extends StatelessWidget {
       listener: (context, state) {
         if (state is EditMealForm) {
           state.data.submitStatus.whenOrNull(
-            success: (_) => Navigator.of(context).pop(true),
+            success: (meal) => Navigator.of(context).pop(meal),
             failure: (exception) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text(exception.message)),
@@ -80,7 +71,6 @@ class _EditMealView extends StatelessWidget {
             loadError: (exception) => _LoadErrorBody(message: exception.message),
             form: (data) => _FormBody(
               data: data,
-              categoryLabel: (category) => _categoryLabel(l10n, category),
               fieldError: (field) => _fieldError(
                 l10n,
                 data.submitStatus.maybeWhen(
@@ -131,12 +121,10 @@ class _LoadErrorBody extends StatelessWidget {
 class _FormBody extends StatelessWidget {
   const _FormBody({
     required this.data,
-    required this.categoryLabel,
     required this.fieldError,
   });
 
   final EditMealFormData data;
-  final String Function(MealCategory) categoryLabel;
   final String? Function(String field) fieldError;
 
   @override
@@ -171,11 +159,12 @@ class _FormBody extends StatelessWidget {
           onDescriptionChanged: (value) => bloc.add(EditMealEvent.descriptionChanged(value)),
         ),
         const SizedBox(height: AppSpace.xl),
-        MealCategoryChipsSection(
+        MealCategoryPicker(
           sectionTitle: l10n.categorySectionTitle,
           selectedCategoryIds: data.categoryIds,
           onToggle: (id) => bloc.add(EditMealEvent.categoryToggled(id)),
-          labelBuilder: categoryLabel,
+          errorLabel: l10n.genericErrorMessage,
+          retryLabel: l10n.retryLabel,
         ),
         const SizedBox(height: AppSpace.xl),
         MealPreorderTimeField(
@@ -228,7 +217,13 @@ class _FormBody extends StatelessWidget {
         const SizedBox(height: AppSpace.xl),
         ElevatedButton(
           onPressed: isSubmitting ? null : () => bloc.add(const EditMealEvent.submitPressed()),
-          child: Text(l10n.saveMealChangesCta),
+          child: isSubmitting
+              ? const SizedBox(
+                  width: 18,
+                  height: 18,
+                  child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                )
+              : Text(l10n.saveMealChangesCta),
         ),
         const SizedBox(height: AppSpace.m),
         OutlinedButton(
@@ -240,7 +235,7 @@ class _FormBody extends StatelessWidget {
             context,
             mealId: data.mealId,
             onDeleted: () {
-              if (context.mounted) Navigator.of(context).pop(true);
+              if (context.mounted) Navigator.of(context).pop(MealDeleted(data.mealId));
             },
           ),
           child: Text(l10n.deleteMealTitle),

@@ -500,6 +500,12 @@ abstract class AppLocalizations {
   /// **'خصم {percentage}٪'**
   String discountBadgeLabel(String percentage);
 
+  /// No description provided for @discountBadgeGenericLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'خصم'**
+  String get discountBadgeGenericLabel;
+
   /// No description provided for @selectOfferTypeSheetTitle.
   ///
   /// In ar, this message translates to:
@@ -674,11 +680,11 @@ abstract class AppLocalizations {
   /// **'تفعيل العرض ليظهر للعملاء فوراً'**
   String get offerStatusHelperText;
 
-  /// No description provided for @saveOfferCta.
+  /// No description provided for @createOfferCta.
   ///
   /// In ar, this message translates to:
-  /// **'حفظ العرض'**
-  String get saveOfferCta;
+  /// **'إنشاء'**
+  String get createOfferCta;
 
   /// No description provided for @saveOfferChangesCta.
   ///
@@ -1052,6 +1058,18 @@ abstract class AppLocalizations {
   /// **'أدخل عنوانك بالتفصيل'**
   String get addressHint;
 
+  /// No description provided for @detectLocationCta.
+  ///
+  /// In ar, this message translates to:
+  /// **'تحديد'**
+  String get detectLocationCta;
+
+  /// No description provided for @detectedLocationHint.
+  ///
+  /// In ar, this message translates to:
+  /// **'سيتم تحديد الموقع تلقائياً'**
+  String get detectedLocationHint;
+
   /// No description provided for @availabilityDaysFieldLabel.
   ///
   /// In ar, this message translates to:
@@ -1226,6 +1244,12 @@ abstract class AppLocalizations {
   /// **'طلب #{id}'**
   String orderNumberLabel(String id);
 
+  /// No description provided for @estimatedPrepTimeLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'الوقت المتوقع: {minutes} دقيقة'**
+  String estimatedPrepTimeLabel(int minutes);
+
   /// No description provided for @moreItemsLabel.
   ///
   /// In ar, this message translates to:
@@ -1349,7 +1373,7 @@ abstract class AppLocalizations {
   /// No description provided for @rejectionReasonLabel.
   ///
   /// In ar, this message translates to:
-  /// **'سبب الرفض'**
+  /// **'سبب الرفض (اختياري)'**
   String get rejectionReasonLabel;
 
   /// No description provided for @rejectionReasonHint.
@@ -1765,6 +1789,60 @@ abstract class AppLocalizations {
   /// In ar, this message translates to:
   /// **'الرمز غير صحيح، يرجى المحاولة مرة أخرى'**
   String get otpIncorrectError;
+
+  /// No description provided for @onboardingSlide1Title.
+  ///
+  /// In ar, this message translates to:
+  /// **'أشهى الأطباق البيتية'**
+  String get onboardingSlide1Title;
+
+  /// No description provided for @onboardingSlide1Body.
+  ///
+  /// In ar, this message translates to:
+  /// **'تذوق طعم البيت في كل وجبة، محضرة بعناية وحب من طهاة محليين شغوفين.'**
+  String get onboardingSlide1Body;
+
+  /// No description provided for @onboardingSlide2Title.
+  ///
+  /// In ar, this message translates to:
+  /// **'توصيل دافئ وسريع'**
+  String get onboardingSlide2Title;
+
+  /// No description provided for @onboardingSlide2Body.
+  ///
+  /// In ar, this message translates to:
+  /// **'تصلك وجباتك طازجة ودافئة، وكأنها خرجت للتو من فرن مطبخك الخاص.'**
+  String get onboardingSlide2Body;
+
+  /// No description provided for @onboardingSlide3Title.
+  ///
+  /// In ar, this message translates to:
+  /// **'شارك متعة الطعم'**
+  String get onboardingSlide3Title;
+
+  /// No description provided for @onboardingSlide3Body.
+  ///
+  /// In ar, this message translates to:
+  /// **'اكتشف نكهات جديدة وشارك التجربة مع عائلتك وأصدقائك في كل مناسبة.'**
+  String get onboardingSlide3Body;
+
+  /// No description provided for @onboardingNext.
+  ///
+  /// In ar, this message translates to:
+  /// **'التالي'**
+  String get onboardingNext;
+
+  /// No description provided for @onboardingStart.
+  ///
+  /// In ar, this message translates to:
+  /// **'ابدأ الآن'**
+  String get onboardingStart;
+
+  /// No description provided for @onboardingSkip.
+  ///
+  /// In ar, this message translates to:
+  /// **'تخطي'**
+  String get onboardingSkip;
 }
 
 class _AppLocalizationsDelegate

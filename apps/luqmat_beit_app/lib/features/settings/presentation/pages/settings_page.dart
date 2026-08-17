@@ -25,7 +25,7 @@ class _SettingsPageState extends State<SettingsPage> {
   late String? _phoneNumber = widget.initialPhoneNumber;
 
   Future<void> _openChangePhoneNumber(BuildContext context) async {
-    final result = await context.push<String>('/account/settings/change-phone');
+    final result = await context.push<String>('/cook/account/settings/change-phone');
     if (result != null && mounted) {
       setState(() => _phoneNumber = result);
     }
@@ -66,7 +66,7 @@ class _SettingsPageState extends State<SettingsPage> {
       isDestructive: true,
     );
     if (confirmed == true) {
-      // The router's `refreshListenable` redirects to /register the moment
+      // The router's `refreshListenable` redirects to /login the moment
       // the session flips to unauthenticated — no manual navigation needed.
       await getIt<SessionCubit>().logOut();
     }
@@ -103,7 +103,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 SettingsListTile(
                   icon: Icons.lock_outline,
                   title: l10n.changePasswordRowTitle,
-                  onTap: () => context.push('/account/settings/change-password'),
+                  onTap: () => context.push('/cook/account/settings/change-password'),
                 ),
               ],
             ),

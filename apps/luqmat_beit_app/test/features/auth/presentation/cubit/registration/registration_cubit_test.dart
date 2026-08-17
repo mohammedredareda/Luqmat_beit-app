@@ -1,5 +1,7 @@
 import 'package:core/core.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:luqmat_beit_app/features/auth/domain/format_availability_duration.dart';
 import 'package:luqmat_beit_app/features/auth/domain/usecases/register.dart';
 import 'package:luqmat_beit_app/features/auth/presentation/cubit/registration/registration_cubit.dart';
 import 'package:luqmat_beit_app/features/auth/presentation/cubit/registration/registration_state.dart';
@@ -14,6 +16,12 @@ class _MockDetectCurrentLocation extends Mock implements DetectCurrentLocation {
 void main() {
   late _MockRegister register;
   late _MockDetectCurrentLocation detectCurrentLocation;
+
+  // RegistrationState's defaults (see registration_state.dart).
+  final defaultStartAvailability = timeOfDayToDateTime(const TimeOfDay(hour: 10, minute: 0));
+  final defaultEndAvailability = timeOfDayToDateTime(const TimeOfDay(hour: 20, minute: 0));
+  final defaultAvailabilityDays =
+      weekdayRangeToIsoDays(startDay: Weekday.sat, endDay: Weekday.thu);
 
   setUpAll(() {
     // mocktail needs a fallback value for any type used with `any(named:)`
@@ -37,7 +45,9 @@ void main() {
           password: any(named: 'password'),
           address: any(named: 'address'),
           description: any(named: 'description'),
-          availabilityDuration: any(named: 'availabilityDuration'),
+          startAvailabilityTime: any(named: 'startAvailabilityTime'),
+          endAvailabilityTime: any(named: 'endAvailabilityTime'),
+          availabilityDays: any(named: 'availabilityDays'),
           latitude: any(named: 'latitude'),
           longitude: any(named: 'longitude'),
         )).thenAnswer((_) async => const Result.success(null));
@@ -63,7 +73,9 @@ void main() {
               password: any(named: 'password'),
               address: any(named: 'address'),
               description: any(named: 'description'),
-              availabilityDuration: any(named: 'availabilityDuration'),
+              startAvailabilityTime: any(named: 'startAvailabilityTime'),
+              endAvailabilityTime: any(named: 'endAvailabilityTime'),
+              availabilityDays: any(named: 'availabilityDays'),
               latitude: any(named: 'latitude'),
               longitude: any(named: 'longitude'),
             ));
@@ -91,7 +103,9 @@ void main() {
               password: 'Password123!',
               address: 'حلب، حي الشهباء',
               description: null,
-              availabilityDuration: null,
+              startAvailabilityTime: null,
+              endAvailabilityTime: null,
+              availabilityDays: null,
               latitude: null,
               longitude: null,
             )).called(1);
@@ -118,7 +132,7 @@ void main() {
     );
 
     blocTest<RegistrationCubit, RegistrationState>(
-      'a fully valid cook submission calls the usecase with role cook and the formatted availability string',
+      'a fully valid cook submission calls the usecase with role cook and the structured availability fields',
       setUp: stubRegisterSuccess,
       build: buildCubit,
       act: (cubit) {
@@ -140,7 +154,9 @@ void main() {
               password: 'Password123!',
               address: 'حلب، حي الشهباء',
               description: 'طباخ محترف',
-              availabilityDuration: 'Sat-Thu, 10:00 AM - 08:00 PM',
+              startAvailabilityTime: defaultStartAvailability,
+              endAvailabilityTime: defaultEndAvailability,
+              availabilityDays: defaultAvailabilityDays,
               latitude: null,
               longitude: null,
             )).called(1);
@@ -169,7 +185,9 @@ void main() {
               password: 'Password123!',
               address: 'حلب، حي الشهباء',
               description: null,
-              availabilityDuration: null,
+              startAvailabilityTime: null,
+              endAvailabilityTime: null,
+              availabilityDays: null,
               latitude: null,
               longitude: null,
             )).called(1);

@@ -36,6 +36,21 @@ class OrderReturnedMealItemModel {
         'priceAtPurchase': priceAtPurchase,
       };
 
+  /// TODO(backend): the live docs' order-detail example always shows an
+  /// empty `returnedMealItems` array — this shape is a best-effort guess
+  /// mirroring `mealItems`, unconfirmed against a real non-empty response.
+  factory OrderReturnedMealItemModel.fromApiJson(Map<String, dynamic> json) {
+    final meal = json['meal'] as Map?;
+    return OrderReturnedMealItemModel(
+      id: json['id']?.toString() ?? '',
+      returnedMealId: json['returnedMealId']?.toString() ?? '',
+      mealName: json['mealName'] as String? ?? meal?['name'] as String? ?? '',
+      mealImageUrl: json['mealImageUrl'] as String? ?? meal?['image'] as String? ?? '',
+      quantity: json['quantity'] as int? ?? 1,
+      priceAtPurchase: double.tryParse(json['priceAtPurchase']?.toString() ?? '') ?? 0,
+    );
+  }
+
   OrderReturnedMealItemEntity toEntity() => OrderReturnedMealItemEntity(
         id: id,
         returnedMealId: returnedMealId,

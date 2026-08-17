@@ -231,7 +231,13 @@ class _CreateOfferView extends StatelessWidget {
                 ElevatedButton(
                   onPressed:
                       isSubmitting ? null : () => bloc.add(const CreateOfferEvent.submitPressed()),
-                  child: Text(l10n.saveOfferCta),
+                  child: isSubmitting
+                      ? const SizedBox(
+                          width: 20,
+                          height: 20,
+                          child: CircularProgressIndicator(strokeWidth: 2),
+                        )
+                      : Text(l10n.createOfferCta),
                 ),
               ],
             );

@@ -48,7 +48,7 @@ class ChangePhoneNumberBloc extends Bloc<ChangePhoneNumberEvent, ChangePhoneNumb
     emit(current.copyWith(isSubmitting: true, errorMessage: null));
     final result = await _requestPhoneChange(
       cookId: currentCookId,
-      newPhoneNumber: formatLocalPhoneNumber(current.phoneNumber),
+      newPhoneNumber: toApiPhoneNumber(current.phoneNumber),
     );
     result.fold(
       (_) => emit(ChangePhoneNumberState.enteringOtp(phoneNumber: current.phoneNumber)),
@@ -68,7 +68,10 @@ class ChangePhoneNumberBloc extends Bloc<ChangePhoneNumberEvent, ChangePhoneNumb
     if (current is! ChangePhoneNumberEnteringOtp) return;
 
     emit(current.copyWith(isResending: true, errorMessage: null));
-    final result = await _resendPhoneChangeCode(cookId: currentCookId);
+    final result = await _resendPhoneChangeCode(
+      cookId: currentCookId,
+      newPhoneNumber: toApiPhoneNumber(current.phoneNumber),
+    );
     result.fold(
       (_) => emit(current.copyWith(isResending: false)),
       (exception) => emit(current.copyWith(isResending: false, errorMessage: exception.message)),
@@ -80,9 +83,13 @@ class ChangePhoneNumberBloc extends Bloc<ChangePhoneNumberEvent, ChangePhoneNumb
     if (current is! ChangePhoneNumberEnteringOtp) return;
 
     emit(current.copyWith(isVerifying: true, errorMessage: null));
-    final result = await _verifyPhoneChangeOtp(cookId: currentCookId, code: current.otp);
+    final result = await _verifyPhoneChangeOtp(
+      cookId: currentCookId,
+      newPhoneNumber: toApiPhoneNumber(current.phoneNumber),
+      code: current.otp,
+    );
     result.fold(
-      (profile) => emit(ChangePhoneNumberState.success(profile.phoneNumber)),
+      (confirmedPhoneNumber) => emit(ChangePhoneNumberState.success(confirmedPhoneNumber)),
       (exception) => emit(current.copyWith(
         isVerifying: false,
         errorMessage: exception is ValidationException && exception.fieldErrors.containsKey('otp')

@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../shared/domain/discount_form_submission.dart';
 import '../../../shared/domain/discount_form_validator.dart';
+import '../../../shared/domain/discount_restriction_type.dart';
 import '../../../shared/presentation/bloc/discount_submit_status.dart';
 import '../../domain/usecases/get_discount.dart';
 import '../../domain/usecases/update_discount.dart';
@@ -20,6 +21,8 @@ class EditDiscountBloc extends Bloc<EditDiscountEvent, EditDiscountState> {
           },
           percentageChanged: (value) async =>
               _updateForm(emit, (data) => data.copyWith(percentageInput: value)),
+          restrictionTypeChanged: (type) async =>
+              _updateForm(emit, (data) => data.copyWith(restrictionType: type)),
           durationDaysChanged: (value) async =>
               _updateForm(emit, (data) => data.copyWith(durationDaysInput: value)),
           usageLimitChanged: (value) async =>
@@ -31,6 +34,10 @@ class EditDiscountBloc extends Bloc<EditDiscountEvent, EditDiscountState> {
   final GetDiscount _getDiscount;
   final UpdateDiscount _updateDiscount;
   String? _lastDiscountId;
+
+  /// The wire contract requires a duration on every request even when the
+  /// cook picked usage-count mode — mirrors `CreateDiscountBloc`'s fallback.
+  static const _usageOnlyDurationDaysFallback = 365;
 
   void _updateForm(
     Emitter<EditDiscountState> emit,
@@ -59,6 +66,13 @@ class EditDiscountBloc extends Bloc<EditDiscountEvent, EditDiscountState> {
           mealBasePrice: bundle.mealPrice,
           mealSellingOptions: bundle.mealSellingOptions,
           percentageInput: discount.discountPercentage.toString(),
+          // An existing discount predates the duration/usage-count toggle
+          // being mutually exclusive, so infer which one is actually
+          // constraining it: usage-count if it has a limit set, else
+          // duration (every discount always carries a duration).
+          restrictionType: discount.usageNumberLimit != null
+              ? DiscountRestrictionType.usageCount
+              : DiscountRestrictionType.duration,
           durationDaysInput: discount.discountDurationDays.toString(),
           usageLimitInput: discount.usageNumberLimit?.toString() ?? '',
           remainingDaysDisplay: remainingDays,
@@ -79,6 +93,7 @@ class EditDiscountBloc extends Bloc<EditDiscountEvent, EditDiscountState> {
       percentageInput: data.percentageInput,
       durationDaysInput: data.durationDaysInput,
       usageLimitInput: data.usageLimitInput,
+      restrictionType: data.restrictionType,
     );
 
     if (errors.isNotEmpty) {
@@ -90,11 +105,12 @@ class EditDiscountBloc extends Bloc<EditDiscountEvent, EditDiscountState> {
 
     emit(EditDiscountState.form(data.copyWith(submitStatus: const DiscountSubmitStatus.submitting())));
 
+    final isUsageCountMode = data.restrictionType == DiscountRestrictionType.usageCount;
     final input = DiscountUpdateInput(
       discountPercentage: double.parse(data.percentageInput),
-      discountDurationDays: int.parse(data.durationDaysInput),
-      usageNumberLimit:
-          data.usageLimitInput.trim().isEmpty ? null : int.parse(data.usageLimitInput),
+      discountDurationDays:
+          isUsageCountMode ? _usageOnlyDurationDaysFallback : int.parse(data.durationDaysInput),
+      usageNumberLimit: isUsageCountMode ? int.parse(data.usageLimitInput) : null,
     );
 
     final result = await _updateDiscount(data.discountId, input);

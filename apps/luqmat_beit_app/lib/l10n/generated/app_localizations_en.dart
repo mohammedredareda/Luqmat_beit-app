@@ -223,6 +223,9 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get discountBadgeGenericLabel => 'Discount';
+
+  @override
   String get selectOfferTypeSheetTitle => 'Choose offer type';
 
   @override
@@ -317,7 +320,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'Activate the offer to show it to customers immediately';
 
   @override
-  String get saveOfferCta => 'Save Offer';
+  String get createOfferCta => 'Create';
 
   @override
   String get saveOfferChangesCta => 'Save Changes';
@@ -521,6 +524,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get addressHint => 'Enter your address in detail';
 
   @override
+  String get detectLocationCta => 'Detect';
+
+  @override
+  String get detectedLocationHint => 'Location will be detected automatically';
+
+  @override
   String get availabilityDaysFieldLabel => 'Availability Days';
 
   @override
@@ -612,6 +621,11 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String estimatedPrepTimeLabel(int minutes) {
+    return 'Estimated time: $minutes min';
+  }
+
+  @override
   String moreItemsLabel(int count) {
     return '+ $count more items';
   }
@@ -681,7 +695,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get rejectOrderConfirmCta => 'Reject Order';
 
   @override
-  String get rejectionReasonLabel => 'Rejection reason';
+  String get rejectionReasonLabel => 'Rejection reason (optional)';
 
   @override
   String get rejectionReasonHint =>
@@ -912,4 +926,34 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get otpIncorrectError => 'The code is incorrect, please try again';
+
+  @override
+  String get onboardingSlide1Title => 'The Best Home Cooking';
+
+  @override
+  String get onboardingSlide1Body =>
+      'Taste the flavor of home in every meal, prepared with care and love by passionate local cooks.';
+
+  @override
+  String get onboardingSlide2Title => 'Warm & Fast Delivery';
+
+  @override
+  String get onboardingSlide2Body =>
+      'Your meals arrive fresh and warm, as if straight out of your own kitchen\'s oven.';
+
+  @override
+  String get onboardingSlide3Title => 'Share the Joy of Food';
+
+  @override
+  String get onboardingSlide3Body =>
+      'Discover new flavors and share the experience with family and friends on every occasion.';
+
+  @override
+  String get onboardingNext => 'Next';
+
+  @override
+  String get onboardingStart => 'Get Started';
+
+  @override
+  String get onboardingSkip => 'Skip';
 }

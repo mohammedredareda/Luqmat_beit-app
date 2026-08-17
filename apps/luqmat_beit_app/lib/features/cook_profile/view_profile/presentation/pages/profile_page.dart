@@ -45,7 +45,7 @@ class _ProfileView extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            onPressed: () => context.push('/notifications'),
+            onPressed: () => context.push('/cook/notifications'),
             icon: const Icon(Icons.notifications_outlined),
             tooltip: l10n.notificationsTitle,
           ),
@@ -53,7 +53,7 @@ class _ProfileView extends StatelessWidget {
             onPressed: () {
               final state = context.read<ProfileCubit>().state;
               final phoneNumber = state is ProfileLoaded ? state.profile.phoneNumber : null;
-              context.push('/account/settings', extra: phoneNumber);
+              context.push('/cook/account/settings', extra: phoneNumber);
             },
             icon: const Icon(Icons.settings_outlined),
             tooltip: l10n.settingsTitle,
@@ -96,6 +96,7 @@ class _LoadedBody extends StatelessWidget {
         ProfileDetailsCard(
           bio: profile.profile.description,
           availabilityTime: profile.profile.availabilityTime,
+          availabilityDays: profile.availabilityDays,
           address: profile.address,
         ),
         const SizedBox(height: AppSpace.xl),
@@ -103,7 +104,7 @@ class _LoadedBody extends StatelessWidget {
           width: double.infinity,
           height: 48,
           child: ElevatedButton.icon(
-            onPressed: () => context.push('/account/edit').then((_) {
+            onPressed: () => context.push('/cook/account/edit').then((_) {
               if (context.mounted) context.read<ProfileCubit>().loadProfile();
             }),
             icon: const Icon(Icons.edit_outlined),

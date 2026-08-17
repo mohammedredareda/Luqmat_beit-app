@@ -1,6 +1,6 @@
 import 'package:core/core.dart';
 
-import '../../../data/datasources/fake_meal_remote_data_source.dart';
+import '../../../data/datasources/meal_remote_data_source.dart';
 import '../../../data/models/meal_model.dart';
 import '../../../data/models/selling_option_model.dart';
 import 'package:luqmat_beit_app/shared/current_cook_id.dart';
@@ -10,7 +10,7 @@ import '../../domain/repositories/create_meal_repository.dart';
 class CreateMealRepositoryImpl implements CreateMealRepository {
   CreateMealRepositoryImpl(this._dataSource);
 
-  final FakeMealRemoteDataSource _dataSource;
+  final MealRemoteDataSource _dataSource;
 
   @override
   Future<Result<MealEntity>> createMeal(MealFormSubmission submission) {

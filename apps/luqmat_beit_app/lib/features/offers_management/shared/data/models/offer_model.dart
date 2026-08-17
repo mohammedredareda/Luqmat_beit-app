@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:core/core.dart';
 
 import 'offer_meal_model.dart';
@@ -67,6 +69,29 @@ class OfferModel {
         'deletedAt': deletedAt?.toIso8601String(),
       };
 
+  /// Real-shape response parsing from `GET /user/cook/menu/offers/{id}` —
+  /// `image` (not `imageUrl`), `duration`/`expireTime` (not
+  /// `durationDays`/`expiryTime`), `totalPrice` as a numeric string,
+  /// `status` as a bool, and meals nested under `offerMeals`.
+  factory OfferModel.fromApiJson(Map<String, dynamic> json) {
+    final mealsJson = json['offerMeals'] as List<dynamic>? ?? const [];
+    return OfferModel(
+      id: json['id'].toString(),
+      cookId: json['cookId']?.toString() ?? '',
+      name: json['name'] as String? ?? '',
+      description: json['description'] as String? ?? '',
+      totalPrice: double.tryParse(json['totalPrice']?.toString() ?? '') ?? 0,
+      durationDays: json['duration'] as int? ?? 0,
+      createdAt: DateTime.tryParse(json['createdAt']?.toString() ?? '') ?? DateTime.now(),
+      expiryTime: DateTime.tryParse(json['expireTime']?.toString() ?? '') ?? DateTime.now(),
+      imageUrl: json['image'] as String?,
+      includedMeals: mealsJson
+          .map((m) => OfferMealModel.fromApiJson((m as Map).cast<String, dynamic>()))
+          .toList(),
+      status: json['status'] == false ? OfferStatus.deleted : OfferStatus.active,
+    );
+  }
+
   OfferEntity toEntity() => OfferEntity(
         id: id,
         cookId: cookId,
@@ -79,6 +104,17 @@ class OfferModel {
         status: status,
         meals: includedMeals.map((m) => m.toEntity()).toList(),
       );
+
+  /// Real-shape multipart request fields for `POST/PUT .../offers/...`
+  /// (everything but `image`, which the data source attaches separately as
+  /// a `MultipartFile`).
+  Map<String, dynamic> toApiRequestFields() => {
+        'name': name,
+        'description': description,
+        'total_price': totalPrice.toString(),
+        'duration': durationDays.toString(),
+        'meals': jsonEncode(includedMeals.map((m) => m.toApiJson()).toList()),
+      };
 
   OfferModel copyWith({
     String? name,

@@ -1,12 +1,12 @@
 import 'package:core/core.dart';
 
-import '../../../data/datasources/fake_order_remote_data_source.dart';
+import '../../../data/datasources/order_remote_data_source.dart';
 import '../../domain/repositories/view_orders_repository.dart';
 
 class ViewOrdersRepositoryImpl implements ViewOrdersRepository {
   ViewOrdersRepositoryImpl(this._dataSource);
 
-  final FakeOrderRemoteDataSource _dataSource;
+  final OrderRemoteDataSource _dataSource;
 
   @override
   Future<Result<PaginatedResult<OrderEntity>>> getOrders({

@@ -5,8 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:luqmat_beit_app/di/injection.dart';
 import 'package:luqmat_beit_app/l10n/generated/app_localizations.dart';
 
+import '../../../shared/domain/discount_restriction_type.dart';
 import '../../../shared/presentation/bloc/discount_submit_status.dart';
 import '../../../shared/presentation/widgets/discount_price_after_row.dart';
+import '../../../shared/presentation/widgets/discount_restriction_type_toggle.dart';
 import '../../../shared/presentation/widgets/required_field_label.dart';
 import '../../../shared/presentation/widgets/select_meal_popup.dart';
 import '../bloc/create_discount_bloc.dart';
@@ -168,33 +170,42 @@ class _FormBody extends StatelessWidget {
               const SizedBox(height: AppSpace.xl),
               Text(l10n.restrictionTypeLabel, style: textTheme.titleMedium),
               const SizedBox(height: AppSpace.l),
-              RequiredFieldLabel(l10n.offerDurationDaysLabel),
-              const SizedBox(height: AppSpace.s),
-              TextFormField(
-                initialValue: state.durationDaysInput,
-                onChanged: (value) => bloc.add(CreateDiscountEvent.durationDaysChanged(value)),
-                keyboardType: TextInputType.number,
-                textDirection: TextDirection.ltr,
-                textAlign: TextAlign.left,
-                decoration: InputDecoration(
-                  hintText: '7',
-                  errorText: _fieldError(l10n, fieldErrors, 'duration'),
-                ),
+              DiscountRestrictionTypeToggle(
+                value: state.restrictionType,
+                durationLabel: l10n.createRestrictionByDurationLabel,
+                usageLabel: l10n.createRestrictionByUsageLabel,
+                onChanged: (type) => bloc.add(CreateDiscountEvent.restrictionTypeChanged(type)),
               ),
               const SizedBox(height: AppSpace.l),
-              Text(l10n.usageLimitFieldLabel, style: textTheme.labelLarge),
-              const SizedBox(height: AppSpace.s),
-              TextFormField(
-                initialValue: state.usageLimitInput,
-                onChanged: (value) => bloc.add(CreateDiscountEvent.usageLimitChanged(value)),
-                keyboardType: TextInputType.number,
-                textDirection: TextDirection.ltr,
-                textAlign: TextAlign.left,
-                decoration: InputDecoration(
-                  hintText: l10n.usageLimitHint,
-                  errorText: _fieldError(l10n, fieldErrors, 'usageLimit'),
+              if (state.restrictionType == DiscountRestrictionType.duration) ...[
+                RequiredFieldLabel(l10n.offerDurationDaysLabel),
+                const SizedBox(height: AppSpace.s),
+                TextFormField(
+                  initialValue: state.durationDaysInput,
+                  onChanged: (value) => bloc.add(CreateDiscountEvent.durationDaysChanged(value)),
+                  keyboardType: TextInputType.number,
+                  textDirection: TextDirection.ltr,
+                  textAlign: TextAlign.left,
+                  decoration: InputDecoration(
+                    hintText: '7',
+                    errorText: _fieldError(l10n, fieldErrors, 'duration'),
+                  ),
                 ),
-              ),
+              ] else ...[
+                RequiredFieldLabel(l10n.usageLimitFieldLabel),
+                const SizedBox(height: AppSpace.s),
+                TextFormField(
+                  initialValue: state.usageLimitInput,
+                  onChanged: (value) => bloc.add(CreateDiscountEvent.usageLimitChanged(value)),
+                  keyboardType: TextInputType.number,
+                  textDirection: TextDirection.ltr,
+                  textAlign: TextAlign.left,
+                  decoration: InputDecoration(
+                    hintText: l10n.usageLimitHint,
+                    errorText: _fieldError(l10n, fieldErrors, 'usageLimit'),
+                  ),
+                ),
+              ],
             ],
           ),
         ),
@@ -202,7 +213,13 @@ class _FormBody extends StatelessWidget {
         ElevatedButton(
           onPressed:
               isSubmitting ? null : () => bloc.add(const CreateDiscountEvent.submitPressed()),
-          child: Text(l10n.saveDiscountCta),
+          child: isSubmitting
+              ? const SizedBox(
+                  width: 20,
+                  height: 20,
+                  child: CircularProgressIndicator(strokeWidth: 2),
+                )
+              : Text(l10n.saveDiscountCta),
         ),
         const SizedBox(height: AppSpace.s),
         Center(

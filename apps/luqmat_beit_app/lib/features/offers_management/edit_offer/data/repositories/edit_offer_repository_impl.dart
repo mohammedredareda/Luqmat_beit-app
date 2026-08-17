@@ -1,6 +1,6 @@
 import 'package:core/core.dart';
 
-import '../../../shared/data/datasources/fake_offers_remote_data_source.dart';
+import '../../../shared/data/datasources/offers_remote_data_source.dart';
 import '../../../shared/data/models/offer_meal_model.dart';
 import '../../../shared/domain/offer_form_submission.dart';
 import '../../domain/repositories/edit_offer_repository.dart';
@@ -8,7 +8,7 @@ import '../../domain/repositories/edit_offer_repository.dart';
 class EditOfferRepositoryImpl implements EditOfferRepository {
   EditOfferRepositoryImpl(this._dataSource);
 
-  final FakeOffersRemoteDataSource _dataSource;
+  final OffersRemoteDataSource _dataSource;
 
   @override
   Future<

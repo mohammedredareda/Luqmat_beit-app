@@ -6,10 +6,11 @@ export 'package:core/core.dart' show OtpPurpose;
 /// recovery. `login`/`requestOtp`/`verifyOtp`/`resetPassword` are
 /// role-agnostic, delegating to core's shared `AuthSessionRepository`.
 /// `register` is the one method both roles share the *shape* of but not
-/// the full field set — [description] and [availabilityDuration] only
-/// apply when [role] is `UserRole.cook` (enforced by `RegistrationCubit`,
-/// which is also the only place that decides whether they're required,
-/// since one shared form toggles between roles at runtime).
+/// the full field set — [description], [startAvailabilityTime],
+/// [endAvailabilityTime], and [availabilityDays] only apply when [role] is
+/// `UserRole.cook` (enforced by `RegistrationCubit`, which is also the
+/// only place that decides whether they're required, since one shared
+/// form toggles between roles at runtime).
 abstract class AuthRepository {
   Future<Result<void>> register({
     required UserRole role,
@@ -18,7 +19,9 @@ abstract class AuthRepository {
     required String password,
     required String address,
     String? description,
-    String? availabilityDuration,
+    DateTime? startAvailabilityTime,
+    DateTime? endAvailabilityTime,
+    List<int>? availabilityDays,
     double? latitude,
     double? longitude,
   });
