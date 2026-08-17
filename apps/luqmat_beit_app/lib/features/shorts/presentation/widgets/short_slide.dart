@@ -3,15 +3,16 @@ import 'package:flutter/material.dart';
 import '../../domain/entities/short_entity.dart';
 import 'short_action_column.dart';
 import 'short_caption_bar.dart';
+import 'short_video_player.dart';
 
-/// One full-bleed slide of the vertical feed — a still image standing in
-/// for video playback (see `ShortsMockDataSource` doc comment), with the
-/// like/comment/share/order overlay from `shorts_feed_u17/code.html`
-/// layered on top via a vignette gradient.
+/// One full-bleed slide of the vertical feed — real video playback via
+/// [ShortVideoPlayer], with the like/comment/share/order overlay from
+/// `shorts_feed_u17/code.html` layered on top via a vignette gradient.
 class ShortSlide extends StatelessWidget {
   const ShortSlide({
     super.key,
     required this.short,
+    required this.isActive,
     required this.onLike,
     required this.onComment,
     required this.onShare,
@@ -19,6 +20,7 @@ class ShortSlide extends StatelessWidget {
   });
 
   final ShortEntity short;
+  final bool isActive;
   final VoidCallback onLike;
   final VoidCallback onComment;
   final VoidCallback onShare;
@@ -29,7 +31,7 @@ class ShortSlide extends StatelessWidget {
     return Stack(
       fit: StackFit.expand,
       children: [
-        Image.network(short.thumbnailUrl, fit: BoxFit.cover),
+        ShortVideoPlayer(url: short.videoUrl, isActive: isActive),
         // Vignette overlay, matching `.vignette-overlay` in the mockup.
         DecoratedBox(
           decoration: const BoxDecoration(

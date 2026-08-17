@@ -1,33 +1,66 @@
+import 'package:core/core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../domain/entities/short_entity.dart';
 import '../../domain/usecases/get_shorts.dart';
+import '../../domain/usecases/mark_short_viewed.dart';
 import '../../domain/usecases/toggle_short_like.dart';
 import 'shorts_feed_state.dart';
 
-class ShortsFeedCubit extends Cubit<ShortsFeedState> {
-  ShortsFeedCubit(this._getShorts, this._toggleShortLike)
+class ShortsFeedCubit extends Cubit<ShortsFeedState> with PaginationStateMixin<ShortEntity> {
+  ShortsFeedCubit(this._getShorts, this._toggleShortLike, this._markShortViewed)
       : super(const ShortsFeedState.initial());
 
   final GetShorts _getShorts;
   final ToggleShortLike _toggleShortLike;
+  final MarkShortViewed _markShortViewed;
 
   Future<void> loadShorts() async {
+    resetPagination();
     emit(const ShortsFeedState.loading());
     final result = await _getShorts();
     if (isClosed) return;
     result.fold(
-      (shorts) => emit(ShortsFeedState.loaded(shorts)),
+      (page) {
+        items = page.items;
+        cursor = page.nextCursor;
+        hasMore = page.hasMore;
+        emit(ShortsFeedState.loaded(items));
+      },
       (exception) => emit(ShortsFeedState.failure(exception)),
     );
   }
+
+  Future<void> loadMore() async {
+    if (!hasMore || isLoadingMore || state is! ShortsFeedLoaded) return;
+    isLoadingMore = true;
+
+    final result = await _getShorts(cursor: cursor);
+    if (isClosed) return;
+    result.fold(
+      (page) {
+        appendPage(page);
+        emit(ShortsFeedState.loaded(items));
+      },
+      (exception) {
+        // A failed load-more shouldn't blow away the feed the customer is
+        // mid-scroll through — just stop trying for this session.
+        isLoadingMore = false;
+        hasMore = false;
+      },
+    );
+  }
+
+  /// Fire-and-forget: a view is a passive analytics signal, not worth
+  /// blocking the swipe over.
+  void markViewed(String shortId) => _markShortViewed(shortId);
 
   Future<void> toggleLike(String shortId) async {
     final current = state;
     if (current is! ShortsFeedLoaded) return;
 
-    // Optimistic update — mirrors what a real like button needs regardless
-    // of backend latency.
-    final updated = [
+    // Optimistic update — reverted below if the call fails.
+    final optimistic = [
       for (final short in current.shorts)
         if (short.id == shortId)
           short.copyWith(
@@ -37,19 +70,43 @@ class ShortsFeedCubit extends Cubit<ShortsFeedState> {
         else
           short,
     ];
-    emit(ShortsFeedState.loaded(updated));
+    items = optimistic;
+    emit(ShortsFeedState.loaded(optimistic));
 
     final result = await _toggleShortLike(shortId);
     if (isClosed) return;
     result.fold(
-      (_) {},
+      (reacted) {
+        // Reconcile with the server-confirmed state rather than trusting
+        // the optimistic flip — a stale double-tap could otherwise land
+        // the UI out of sync with what the backend actually recorded.
+        final reconciled = [
+          for (final short in items)
+            if (short.id == shortId) short.copyWith(isLiked: reacted) else short,
+        ];
+        items = reconciled;
+        if (!isClosed) emit(ShortsFeedState.loaded(reconciled));
+      },
       (exception) {
-        // Revert on failure.
-        final reverted = state;
-        if (reverted is ShortsFeedLoaded) {
-          emit(ShortsFeedState.loaded(current.shorts));
-        }
+        items = current.shorts;
+        emit(ShortsFeedState.loaded(current.shorts));
       },
     );
+  }
+
+  /// Called after a comment is posted from the comments sheet, so the
+  /// visible count on the slide updates without a full feed reload.
+  void incrementCommentCount(String shortId) {
+    final current = state;
+    if (current is! ShortsFeedLoaded) return;
+    final updated = [
+      for (final short in current.shorts)
+        if (short.id == shortId)
+          short.copyWith(commentCount: short.commentCount + 1)
+        else
+          short,
+    ];
+    items = updated;
+    emit(ShortsFeedState.loaded(updated));
   }
 }

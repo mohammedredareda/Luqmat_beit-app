@@ -9,8 +9,6 @@ import '../features/auth/domain/repositories/auth_repository.dart';
 import '../features/cart/data/datasources/cart_remote_data_source.dart';
 import '../features/cart/data/repositories/cart_repository_impl.dart';
 import '../features/cart/domain/repositories/cart_repository.dart';
-import '../features/catering/data/repositories/catering_repository_impl.dart';
-import '../features/catering/domain/repositories/catering_repository.dart';
 import '../features/categories/data/datasources/categories_remote_data_source.dart';
 import '../features/categories/data/repositories/categories_repository_impl.dart';
 import '../features/categories/domain/repositories/categories_repository.dart';
@@ -45,6 +43,7 @@ import '../features/ratings/domain/repositories/ratings_repository.dart';
 import '../features/search/data/datasources/search_remote_data_source.dart';
 import '../features/search/data/repositories/search_repository_impl.dart';
 import '../features/search/domain/repositories/search_repository.dart';
+import '../features/shorts/data/datasources/shorts_remote_data_source.dart';
 import '../features/shorts/data/repositories/shorts_repository_impl.dart';
 import '../features/shorts/domain/repositories/shorts_repository.dart';
 
@@ -286,8 +285,9 @@ Future<void> configureDependencies() async {
   );
   // TODO(backend): no notification push/sync endpoint — stays local-cache-only.
   getIt.registerLazySingleton<NotificationsRepository>(() => NotificationsRepositoryImpl());
-  // TODO(backend): no shorts endpoint — stays mocked.
-  getIt.registerLazySingleton<ShortsRepository>(() => ShortsRepositoryImpl());
+  getIt.registerLazySingleton<ShortsRepository>(
+    () => ShortsRepositoryImpl(dataSource: ShortsRemoteDataSource(getIt<ApiClient>())),
+  );
 
   // ══ Cook-side data sources (shared in-memory "backend" state) ═════════
   getIt.registerLazySingleton(() => MealRemoteDataSource(getIt<ApiClient>()));

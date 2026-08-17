@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../di/injection.dart';
 import '../../domain/usecases/confirm_order.dart';
+import '../../domain/usecases/get_delivery_price.dart';
 
 /// Shown when the customer taps "تأكيد طلب `<cook>`" in the cart — a review
 /// of that one cook's order (items, total, expected time, a delivery
@@ -34,6 +35,7 @@ class CheckoutReviewPage extends StatefulWidget {
 
 class _CheckoutReviewPageState extends State<CheckoutReviewPage> {
   late final ConfirmOrder _confirmOrder = ConfirmOrder(getIt());
+  late final GetDeliveryPrice _getDeliveryPrice = GetDeliveryPrice(getIt());
   bool _submitting = false;
 
   // Cosmetic only — the backend's `/order/confirm` has no field for a
@@ -43,6 +45,43 @@ class _CheckoutReviewPageState extends State<CheckoutReviewPage> {
   // it through needs the backend to actually accept it first.
   DateTime _selectedDate = DateTime.now();
   TimeOfDay _selectedTime = TimeOfDay.now();
+
+  // `/order/confirm` always recomputes the real charge server-side from
+  // the same cook/location inputs — this is purely a "show the real price
+  // before committing" preview, so a failed fetch just falls back to
+  // [widget.deliveryFee] (the cart's flat placeholder) rather than
+  // blocking checkout over a display-only number.
+  bool _loadingDeliveryPrice = false;
+  double? _realDeliveryFee;
+  int? _expectedTimeMinutes;
+
+  double get _deliveryFee => _realDeliveryFee ?? widget.deliveryFee;
+
+  @override
+  void initState() {
+    super.initState();
+    if (_hasLocation) _loadDeliveryPrice();
+  }
+
+  Future<void> _loadDeliveryPrice() async {
+    setState(() => _loadingDeliveryPrice = true);
+    final result = await _getDeliveryPrice(
+      cookId: widget.group.cookId,
+      latitude: widget.latitude!,
+      longitude: widget.longitude!,
+    );
+    if (!mounted) return;
+    setState(() {
+      _loadingDeliveryPrice = false;
+      result.fold(
+        (quote) {
+          _realDeliveryFee = quote.price;
+          _expectedTimeMinutes = quote.expectedTimeMinutes;
+        },
+        (_) {}, // Keep the flat placeholder — see the field doc above.
+      );
+    });
+  }
 
   double get _itemsTotal =>
       widget.group.mealItems.fold(0.0, (sum, i) => sum + i.subtotal) +
@@ -75,7 +114,7 @@ class _CheckoutReviewPageState extends State<CheckoutReviewPage> {
     final result = await _confirmOrder(
       cookId: widget.group.cookId,
       deliveryAddress: widget.deliveryAddress ?? '',
-      deliveryFee: widget.deliveryFee,
+      deliveryFee: _deliveryFee,
       mealItems: widget.group.mealItems,
       offerItems: widget.group.offerItems,
       latitude: widget.latitude,
@@ -162,7 +201,13 @@ class _CheckoutReviewPageState extends State<CheckoutReviewPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text('أجرة التوصيل', style: textTheme.bodyLarge),
-                      Text(widget.deliveryFee.toStringAsFixed(0), style: textTheme.bodyLarge),
+                      _loadingDeliveryPrice
+                          ? const SizedBox(
+                              width: 14,
+                              height: 14,
+                              child: CircularProgressIndicator(strokeWidth: 2),
+                            )
+                          : Text(_deliveryFee.toStringAsFixed(0), style: textTheme.bodyLarge),
                     ],
                   ),
                   const Divider(),
@@ -174,7 +219,7 @@ class _CheckoutReviewPageState extends State<CheckoutReviewPage> {
                         style: textTheme.titleMedium?.copyWith(color: scheme.primary),
                       ),
                       Text(
-                        '${(_itemsTotal + widget.deliveryFee).toStringAsFixed(0)} ₪',
+                        '${(_itemsTotal + _deliveryFee).toStringAsFixed(0)} ₪',
                         style: textTheme.titleMedium?.copyWith(color: scheme.primary),
                       ),
                     ],
@@ -204,7 +249,9 @@ class _CheckoutReviewPageState extends State<CheckoutReviewPage> {
                       borderRadius: BorderRadius.circular(AppRadius.pill),
                     ),
                     child: Text(
-                      '60 — 75 دقيقة',
+                      _expectedTimeMinutes != null
+                          ? '~ $_expectedTimeMinutes دقيقة'
+                          : '60 — 75 دقيقة',
                       style: TextStyle(
                         color: scheme.onSecondaryContainer,
                         fontWeight: FontWeight.bold,
