@@ -25,6 +25,16 @@ class OrdersMockDataSource implements OrdersDataSource {
   }
 
   @override
+  Future<({double price, int expectedTimeMinutes})> getDeliveryPrice({
+    required String cookId,
+    required double latitude,
+    required double longitude,
+  }) async {
+    await Future.delayed(const Duration(milliseconds: 200));
+    return (price: 10.0, expectedTimeMinutes: 45);
+  }
+
+  @override
   Future<String> confirmOrder({
     required String cookId,
     required String deliveryAddress,
