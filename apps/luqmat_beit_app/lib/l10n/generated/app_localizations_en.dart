@@ -67,6 +67,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get navOffers => 'Offers';
 
   @override
+  String get navShorts => 'Shorts';
+
+  @override
   String get navAccount => 'Account';
 
   @override
@@ -213,6 +216,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get offerExpiredLabel => 'Expired';
+
+  @override
+  String discountUsesRemainingLabel(int count) {
+    return '$count uses left';
+  }
+
+  @override
+  String get offerNoLimitLabel => 'No limit';
 
   @override
   String get offerBadgeLabel => 'Bundle offer';
@@ -956,4 +967,66 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get onboardingSkip => 'Skip';
+
+  @override
+  String get myShortsTitle => 'Shorts';
+
+  @override
+  String get myShortsBannerTitle => 'My Shorts Gallery';
+
+  @override
+  String get myShortsBannerBody =>
+      'Share short videos of your recipes, prep methods, or tasty shots from your kitchen to attract more customers.';
+
+  @override
+  String get emptyShortsHeading => 'No clips yet';
+
+  @override
+  String get emptyShortsBody =>
+      'Start by sharing your first short video to attract more customers.';
+
+  @override
+  String get createShortTitle => 'Create New Clip';
+
+  @override
+  String get videoPickerHint => 'Tap here to select or record a video';
+
+  @override
+  String get videoMaxDurationHint => '60 seconds maximum';
+
+  @override
+  String get videoSelectedLabel => 'Video selected';
+
+  @override
+  String get shortDescriptionLabel => 'Description';
+
+  @override
+  String get shortDescriptionHint =>
+      'Write an appealing description for your clip... it encourages customers to try your meal';
+
+  @override
+  String get linkedMealSectionTitle => 'Linked meal';
+
+  @override
+  String get linkedMealOptionalHint =>
+      'Optional - you can link your clip to a meal from your menu';
+
+  @override
+  String get chooseMealCta => 'Choose a meal';
+
+  @override
+  String get publishShortCta => 'Publish clip';
+
+  @override
+  String get deleteShortConfirmTitle => 'Delete this clip?';
+
+  @override
+  String get deleteShortConfirmBody => 'This action cannot be undone';
+
+  @override
+  String get validationVideoRequired => 'Please select a video';
+
+  @override
+  String get validationDescriptionTooLong =>
+      'Description exceeds the maximum allowed length';
 }

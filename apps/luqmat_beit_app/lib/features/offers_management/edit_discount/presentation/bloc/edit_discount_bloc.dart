@@ -35,8 +35,9 @@ class EditDiscountBloc extends Bloc<EditDiscountEvent, EditDiscountState> {
   final UpdateDiscount _updateDiscount;
   String? _lastDiscountId;
 
-  /// The wire contract requires a duration on every request even when the
-  /// cook picked usage-count mode — mirrors `CreateDiscountBloc`'s fallback.
+  /// Placeholder value only — mirrors `CreateDiscountBloc`'s fallback and
+  /// never reaches the API as a real duration (see
+  /// `DiscountFormSubmission.discountDurationDays`'s doc comment).
   static const _usageOnlyDurationDaysFallback = 365;
 
   void _updateForm(

@@ -24,9 +24,11 @@ class CreateDiscountBloc extends Bloc<CreateDiscountEvent, CreateDiscountState> 
 
   final CreateDiscount _createDiscount;
 
-  /// The wire contract requires a duration on every request even when the
-  /// cook picked usage-count mode — a ~1-year fallback stands in so the
-  /// usage-count limit is effectively the only constraint that binds first.
+  /// `DiscountFormSubmission.discountDurationDays` is non-nullable, so a
+  /// ~1-year placeholder stands in when the cook picked usage-count mode
+  /// instead of leaving it unset — this value never reaches the API as a
+  /// real duration (see that field's doc comment: duration and usage-count
+  /// are mutually exclusive on the wire, confirmed live).
   static const _usageOnlyDurationDaysFallback = 365;
 
   Future<void> _submit(Emitter<CreateDiscountState> emit) async {

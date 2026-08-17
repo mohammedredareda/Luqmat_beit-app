@@ -1,0 +1,103 @@
+<html dir="rtl" lang="ar"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;700;800&amp;family=Tajawal:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;background-color:#FBF7F1;}body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}.material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;}.active .material-symbols-outlined{font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"primary-fixed-dim":"#ffb4a9","on-secondary":"#ffffff","on-primary":"#ffffff","error-container":"#ffdad6","on-primary-fixed":"#410000","tahini-bg":"#FBF7F1","sumac-primary":"#A83226","zaatar-secondary":"#5A7233","on-error":"#ffffff","sumac-container":"#FADDD7","on-background":"#221a13","outline":"#D9CEC1","surface-bright":"#fff8f5","primary":"#871a11","inverse-on-surface":"#ffeee2","surface-dim":"#e8d7cc","surface":"#FFFFFF","primary-fixed":"#ffdad5","secondary":"#4e6628","on-primary-fixed-variant":"#8a1c13","on-tertiary":"#ffffff","tertiary-container":"#825100","surface-tint":"#ab3428","tertiary-fixed":"#ffddb8","secondary-fixed-dim":"#b4d086","on-error-container":"#93000a","on-surface":"#221a13","on-surface-variant":"#58413e","error":"#ba1a1a","surface-container-low":"#fff1e8","tertiary":"#623c00","on-secondary-fixed":"#121f00","on-primary-container":"#ffc9c0","muted-spice":"#71655B","primary-container":"#a83226","background":"#fff8f5","on-tertiary-container":"#ffcc91","zaatar-container":"#E4EDD3","honey-container":"#F7E7CC","surface-container-lowest":"#ffffff","surface-container":"#fcebdf","outline-variant":"#e0bfba","honey-tertiary":"#B97A1E","inverse-primary":"#ffb4a9","surface-variant":"#f0dfd4","surface-container-high":"#f6e5da","on-secondary-fixed-variant":"#374d12","ink-text":"#2A211A","surface-container-highest":"#f0dfd4","secondary-container":"#d0eda0","secondary-fixed":"#d0eda0","on-tertiary-fixed-variant":"#653e00","on-tertiary-fixed":"#2a1700","tertiary-fixed-dim":"#ffb95f","on-secondary-container":"#546c2e","inverse-surface":"#382e27"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"card-padding":"14px","xxl":"32px","base":"4px","md":"12px","lg":"16px","sm":"8px","xl":"24px","xs":"4px","gutter":"16px"},"fontFamily":{"title-lg":["Alexandria"],"price-display":["Tajawal"],"headline-md":["Alexandria"],"headline-sm":["Alexandria"],"body-sm":["Tajawal"],"body-lg":["Tajawal"],"display-lg":["Alexandria"],"label-lg":["Tajawal"],"body-md":["Tajawal"]},"fontSize":{"title-lg":["17px",{"lineHeight":"22px","fontWeight":"700"}],"price-display":["16px",{"lineHeight":"20px","fontWeight":"800"}],"headline-md":["22px",{"lineHeight":"28px","fontWeight":"700"}],"headline-sm":["18px",{"lineHeight":"24px","fontWeight":"700"}],"body-sm":["12.5px",{"lineHeight":"18px","fontWeight":"400"}],"body-lg":["15.5px",{"lineHeight":"26px","fontWeight":"500"}],"display-lg":["40px",{"lineHeight":"48px","fontWeight":"800"}],"label-lg":["14px",{"lineHeight":"20px","fontWeight":"700"}],"body-md":["14px",{"lineHeight":"24px","fontWeight":"400"}]}}}}</script></head><body class="bg-tahini-bg font-body-md text-on-surface flex flex-col min-h-screen"><header class="fixed top-0 inset-x-0 z-50 bg-tahini-bg/80 backdrop-blur-xl pt-safe shadow-[0_1px_8px_rgba(43,33,26,0.04)]"><div class="h-16 px-gutter flex items-center justify-between"><div class="flex items-center gap-md"><h1 class="text-headline-sm font-headline-sm text-ink-text">Cook Shorts</h1></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shadow-sm"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="flex-1 relative w-full pt-16 pb-24 bg-tahini-bg"><div class="flex flex-col w-full h-full relative" id="select-meal-sheet">
+<div class="fixed inset-0 bg-on-background/40 z-40 backdrop-blur-sm transition-opacity" id="sheet-backdrop"></div>
+<div class="fixed bottom-0 inset-x-0 bg-surface rounded-t-3xl shadow-[0_-8px_32px_rgba(43,33,26,0.1)] z-50 flex flex-col h-[85vh] transition-transform duration-300 transform translate-y-0" id="sheet-content">
+<div class="flex-shrink-0 pt-lg px-gutter pb-md flex items-center justify-between sticky top-0 bg-surface/95 backdrop-blur-md z-10 rounded-t-3xl shadow-[0_1px_4px_rgba(43,33,26,0.02)]">
+<h2 class="text-headline-sm font-headline-sm text-ink-text">اختر وجبة للربط</h2>
+<button class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-low text-muted-spice active:bg-surface-container transition-colors" id="close-sheet">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<div class="flex-shrink-0 px-gutter pb-lg bg-surface z-10">
+<div class="relative w-full h-12 bg-surface-container-low rounded-full flex items-center px-lg focus-within:bg-surface focus-within:shadow-[0_2px_8px_rgba(43,33,26,0.08)] transition-all">
+<span class="material-symbols-outlined text-muted-spice text-[20px]">search</span>
+<input class="w-full h-full bg-transparent border-none outline-none px-sm text-body-lg font-body-lg text-ink-text placeholder:text-muted-spice placeholder:opacity-70" placeholder="ابحث عن وجبة..." type="text"/>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto px-gutter pb-32 overscroll-contain">
+<div class="grid grid-cols-2 gap-md pt-xs pb-xl">
+<button class="flex flex-col bg-surface rounded-xl overflow-hidden shadow-[0_2px_8px_rgba(43,33,26,0.04)] relative group text-right transition-transform active:scale-[0.98]">
+<div class="w-full aspect-[4/3] bg-surface-container-low relative overflow-hidden">
+<img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBlOGE7G3IUQ01Z5HP5jUMsNRYiiYWbBstVWmtI1cqu790c8NDU6UXEDnVHZ7RhjsVWbzPZKyEuJvXYFq7VH30fbLLfnnIyxfCMzB_jiZ9TQX0iV6AqkKuUQ-neQDoeiM6pjobc-l_HOklEPK2rmki4KUR32y-PO-ALPM778CJWUTf0P7h9PHKWuKMF8jcN_rze3q5IZB3UvATMvf9gwWbpNGlAuJpRbYbtgdpHcv_TMS2_6A6XGAYR"/>
+</div>
+<div class="p-md flex flex-col gap-xs flex-1 justify-between">
+<h3 class="text-body-lg font-title-lg text-ink-text line-clamp-2">كبسة دجاج مع المكسرات</h3>
+<span class="text-body-md font-price-display text-sumac-primary mt-sm">45.00 ر.س</span>
+</div>
+</button>
+<button class="flex flex-col bg-sumac-container/20 rounded-xl overflow-hidden shadow-[0_4px_16px_rgba(168,50,38,0.12)] relative group text-right transition-transform active:scale-[0.98] outline outline-2 outline-sumac-primary outline-offset-[-2px]">
+<div class="w-full aspect-[4/3] bg-surface-container-low relative overflow-hidden">
+<img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTcg5LhxJSFWyd9xxDn4HDSZ1zh3dMWIEruVttPaRhbZ6DrzSQUwEMIOPGuqTffRTKPYXK3LYTN2pmcJ1wkzHpKBud1PTY0eEyj15kBbSKL9IPtzC-ZUIUaGmsai8dwe9vDb60y1Z3KqBy929KtieKyyUget0Xka-z1eDIR5adAehF3QmZz4gwz1lwgyVRQ1qIO1Az-6vrT16y3SNGlMcqb7GKYkmR2-0w8AD-yUVRtExUFlYuivre"/>
+<div class="absolute top-sm right-sm w-8 h-8 rounded-full bg-sumac-primary text-on-primary flex items-center justify-center shadow-md">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+</div>
+<div class="p-md flex flex-col gap-xs flex-1 justify-between">
+<h3 class="text-body-lg font-title-lg text-ink-text line-clamp-2">منسف أردني تقليدي</h3>
+<span class="text-body-md font-price-display text-sumac-primary mt-sm">85.00 ر.س</span>
+</div>
+</button>
+<button class="flex flex-col bg-surface rounded-xl overflow-hidden shadow-[0_2px_8px_rgba(43,33,26,0.04)] relative group text-right transition-transform active:scale-[0.98]">
+<div class="w-full aspect-[4/3] bg-surface-container-low relative overflow-hidden">
+<img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCG2OaraJGombZm0koBe6mPjMRokwgNF_sZmZQTM7VkiBKjh5TXiYg1pFTFqrDL8dxpvlE9zQIPtBxtlGA6qEU977CDL_HozmsLaQgLrpQNQhc8EDR5J6CkUfEwr5Z2qGDeAE5-G8n73eFAIAQqvtWf9vqW0kWrFsjJlbqu2LZ9n5G95epkXoCuS72YAhSbgwMogLSZnB_oJ13NKrskQvQvB1ImCN8Njbye41DtsJISXbEgbtCSxr4Q"/>
+</div>
+<div class="p-md flex flex-col gap-xs flex-1 justify-between">
+<h3 class="text-body-lg font-title-lg text-ink-text line-clamp-2">كنافة بالمكسرات</h3>
+<span class="text-body-md font-price-display text-sumac-primary mt-sm">30.00 ر.س</span>
+</div>
+</button>
+<button class="flex flex-col bg-surface rounded-xl overflow-hidden shadow-[0_2px_8px_rgba(43,33,26,0.04)] relative group text-right transition-transform active:scale-[0.98]">
+<div class="w-full aspect-[4/3] bg-surface-container-low relative overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Appetizing close up food photography of Hummus plate with olive oil and pine nuts, warm lighting, high resolution." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsCsagM_A0tW4Z77APN6w66B5JIyWkvBKH80OUQ7tKtCyfH3CHWJw__GvxMgHxw6_Szr41oruR31BeojgWjsXG9TALwYNakRbiz4DP7nQVOC3wm4q_LUYY66VrRqNgmbAeuLfMWWdGT7s4tK_Rx2EuD_n8_if1OIqP4asheFZfnocb59HcCxzIkFDViESk4X0s0hqb9cISDL3Q56zkKi-TgtQEMwMVG05fN0iVd-aGnW8p9DHSf6RD"/>
+</div>
+<div class="p-md flex flex-col gap-xs flex-1 justify-between">
+<h3 class="text-body-lg font-title-lg text-ink-text line-clamp-2">حمص بالصنوبر</h3>
+<span class="text-body-md font-price-display text-sumac-primary mt-sm">22.00 ر.س</span>
+</div>
+</button>
+<button class="flex flex-col bg-surface rounded-xl overflow-hidden shadow-[0_2px_8px_rgba(43,33,26,0.04)] relative group text-right transition-transform active:scale-[0.98]">
+<div class="w-full aspect-[4/3] bg-surface-container-low relative overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Appetizing close up food photography of fresh Tabbouleh salad with pomegranate seeds, high resolution." src="https://lh3.googleusercontent.com/aida-public/AB6AXuATgef9JbmCtiuuXRIVielzbz5O7p85q_-7cHYHBUJsSP9l1JjCEg8UH1uByGGHd9xbK_WjNj3UNMFsP63UVN1IuPZO67VlnjZ4w30ioI23vvK8x68c_7KWgbrJKwBVzgFoh-XXAnB-3wDVy9X4nZZL_U9LYgU2NhhR66iK0L5t22uSeR5WS7VpX6lXkFIy-92dlRrwyU1eL55QY0f6ZByn4Xt3djmyA3U2aXG1-MbWyAkUKu_AsOiA"/>
+</div>
+<div class="p-md flex flex-col gap-xs flex-1 justify-between">
+<h3 class="text-body-lg font-title-lg text-ink-text line-clamp-2">تبولة بالرمان</h3>
+<span class="text-body-md font-price-display text-sumac-primary mt-sm">18.00 ر.س</span>
+</div>
+</button>
+<button class="flex flex-col bg-surface rounded-xl overflow-hidden shadow-[0_2px_8px_rgba(43,33,26,0.04)] relative group text-right transition-transform active:scale-[0.98]">
+<div class="w-full aspect-[4/3] bg-surface-container-low relative overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Appetizing close up food photography of grilled Shish Tawook skewers, warm lighting, high resolution." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCaJfQEBidi-QPXxzW8nsflkQnZKbccauapxlJEhfTXKwueBLemzI0aZw82QlF-MXENehLpcUMip4c4UM94oBVvEUtppc82DSVIjr0oejn7fS9TxHtxwVFLQJSbgySTTNMRsuYcKdVXpVXb8ORdJpAZphEp12bOmx2YmF5JG6AYzlRn0YlqskPg1w5MJANzBx3YqTslKXkFllAKBQpCiHPK5fq5DXYBZRTjVom7Z3_AkOvBRCSgOvmd"/>
+</div>
+<div class="p-md flex flex-col gap-xs flex-1 justify-between">
+<h3 class="text-body-lg font-title-lg text-ink-text line-clamp-2">شيش طاووق</h3>
+<span class="text-body-md font-price-display text-sumac-primary mt-sm">42.00 ر.س</span>
+</div>
+</button>
+</div>
+</div>
+<div class="absolute bottom-0 inset-x-0 p-gutter bg-surface/90 backdrop-blur-md pb-[calc(env(safe-area-inset-bottom,0px)+16px)] pt-md z-20 shadow-[0_-4px_24px_rgba(43,33,26,0.06)]">
+<button class="w-full h-14 bg-sumac-primary text-on-primary rounded-xl flex items-center justify-center gap-sm text-body-lg font-label-lg active:opacity-90 transition-opacity shadow-[0_4px_12px_rgba(168,50,38,0.3)]">
+        تأكيد الاختيار
+        <span class="material-symbols-outlined text-[20px]">check_circle</span>
+</button>
+</div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const sheetContent = document.getElementById('sheet-content');
+      const backdrop = document.getElementById('sheet-backdrop');
+      const closeBtn = document.getElementById('close-sheet');
+
+      const closeSheet = () => {
+        sheetContent.style.transform = 'translateY(100%)';
+        backdrop.style.opacity = '0';
+        setTimeout(() => {
+          document.getElementById('select-meal-sheet').style.display = 'none';
+        }, 300);
+      };
+
+      closeBtn.addEventListener('click', closeSheet);
+      backdrop.addEventListener('click', closeSheet);
+    });
+  </script>
+</div></main><nav class="fixed bottom-0 inset-x-0 z-50 pb-safe bg-surface/90 backdrop-blur-xl shadow-[0_-1px_12px_rgba(43,33,26,0.06)]" data-active-classes="text-sumac-primary active"><div class="flex justify-around items-center h-16 px-2"><a class="flex flex-col items-center justify-center gap-1 min-w-[64px] h-full text-muted-spice transition-colors" data-path="menu" href="#"><span class="material-symbols-outlined text-[24px]">restaurant_menu</span><span class="text-body-sm font-label-lg">القائمة</span></a><a class="flex flex-col items-center justify-center gap-1 min-w-[64px] h-full text-muted-spice transition-colors" data-path="orders" href="#"><span class="material-symbols-outlined text-[24px]">receipt_long</span><span class="text-body-sm font-label-lg">الطلبات</span></a><a class="flex flex-col items-center justify-center gap-1 min-w-[64px] h-full text-muted-spice transition-colors" data-path="shorts" href="#"><span class="material-symbols-outlined text-[24px]">play_circle</span><span class="text-body-sm font-label-lg">الشورتس</span></a><a class="flex flex-col items-center justify-center gap-1 min-w-[64px] h-full text-muted-spice transition-colors" data-path="profile" href="#"><span class="material-symbols-outlined text-[24px]">account_circle</span><span class="text-body-sm font-label-lg">حسابي</span></a></div></nav></body></html>

@@ -28,18 +28,21 @@ class DiscountsRemoteDataSource {
   }
 
   /// `PUT /user/cook/menu/discounts/{id}` — `{discount_percentage,
-  /// discount_duration}`, plus `usage_limit` when set (see
-  /// `DiscountModel.toApiRequestFields`'s doc comment on why it's omitted
-  /// rather than sent as a literal `null`). Its `200` response's `data` is
-  /// the same shape `getDiscountById` parses (minus the nested `meal`),
-  /// so the response is used directly rather than re-fetching.
+  /// discount_duration, usage_limit}`, with exactly one of
+  /// `discount_duration`/`usage_limit` sent as `null` (see
+  /// `DiscountModel.toApiRequestFields`'s doc comment — same mutual-
+  /// exclusivity rule, confirmed live on this endpoint too). Its `200`
+  /// response's `data` is the same shape `getDiscountById` parses (minus
+  /// the nested `meal`), so the response is used directly rather than
+  /// re-fetching.
   Future<DiscountModel> updateDiscount(DiscountModel discount) async {
     final response = await _apiClient.put(
       '/user/cook/menu/discounts/${discount.id}',
       data: {
         'discount_percentage': discount.discountPercentage,
-        'discount_duration': discount.discountDurationDays,
-        if (discount.usageNumberLimit != null) 'usage_limit': discount.usageNumberLimit,
+        'discount_duration':
+            discount.usageNumberLimit != null ? null : discount.discountDurationDays,
+        'usage_limit': discount.usageNumberLimit,
       },
     ) as Map;
     final data = response['data'];
