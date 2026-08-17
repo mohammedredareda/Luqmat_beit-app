@@ -14,6 +14,8 @@ class ConfirmOrder {
     List<CartMealItemEntity> mealItems = const [],
     List<CartOfferItemEntity> offerItems = const [],
     List<CartReturnedMealItemEntity> returnedMealItems = const [],
+    double? latitude,
+    double? longitude,
   }) {
     return _repository.confirmOrder(
       cookId: cookId,
@@ -22,6 +24,8 @@ class ConfirmOrder {
       mealItems: mealItems,
       offerItems: offerItems,
       returnedMealItems: returnedMealItems,
+      latitude: latitude,
+      longitude: longitude,
     );
   }
 }

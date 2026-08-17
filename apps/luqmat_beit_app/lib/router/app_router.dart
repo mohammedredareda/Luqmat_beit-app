@@ -9,7 +9,6 @@ import '../features/auth/presentation/pages/otp_verification_page.dart';
 import '../features/auth/presentation/pages/registration_page.dart';
 import '../features/auth/presentation/pages/reset_password_page.dart';
 import '../features/cart/presentation/pages/shopping_cart_page.dart';
-import '../features/catering/presentation/pages/catering_review_page.dart';
 import '../features/chef_profile/presentation/pages/chef_profile_page.dart';
 import '../features/cook_profile/change_password/presentation/pages/change_password_page.dart';
 import '../features/cook_profile/change_phone_number/presentation/pages/change_phone_number_page.dart';
@@ -31,9 +30,11 @@ import '../features/offers_management/view_offers/presentation/pages/view_offers
 import '../features/order_history/presentation/pages/order_history_page.dart';
 import '../features/order_management/order_details/presentation/pages/order_details_page.dart';
 import '../features/order_management/view_orders/presentation/pages/orders_list_page.dart';
+import '../features/orders/presentation/pages/checkout_review_page.dart';
 import '../features/orders/presentation/pages/invoice_page.dart';
 import '../features/orders/presentation/pages/my_orders_page.dart';
 import '../features/orders/presentation/pages/order_confirmation_page.dart';
+import '../features/orders/presentation/pages/receipt_page.dart';
 import '../features/profile/presentation/pages/profile_page.dart';
 import '../features/ratings/presentation/pages/meal_rating_page.dart';
 import '../features/search/presentation/pages/search_filters_page.dart';
@@ -108,6 +109,29 @@ final appRouter = GoRouter(
     ),
     GoRoute(path: '/cart', builder: (context, state) => const ShoppingCartPage()),
     GoRoute(
+      path: '/checkout-review',
+      builder: (context, state) {
+        final extra = state.extra as ({
+          CartCookGroupEntity group,
+          double deliveryFee,
+          String? deliveryAddress,
+          double? latitude,
+          double? longitude,
+        });
+        return CheckoutReviewPage(
+          group: extra.group,
+          deliveryFee: extra.deliveryFee,
+          deliveryAddress: extra.deliveryAddress,
+          latitude: extra.latitude,
+          longitude: extra.longitude,
+        );
+      },
+    ),
+    GoRoute(
+      path: '/receipt/:orderId',
+      builder: (context, state) => ReceiptPage(orderId: state.pathParameters['orderId']!),
+    ),
+    GoRoute(
       path: '/order-confirmation/:orderId',
       builder: (context, state) =>
           OrderConfirmationPage(orderId: state.pathParameters['orderId']!),
@@ -129,7 +153,6 @@ final appRouter = GoRouter(
     ),
     GoRoute(path: '/notifications', builder: (context, state) => const NotificationsPage()),
     GoRoute(path: '/favorites', builder: (context, state) => const FavoritesFollowsPage()),
-    GoRoute(path: '/catering-review', builder: (context, state) => const CateringReviewPage()),
     GoRoute(path: '/shorts', builder: (context, state) => const ShortsFeedPage()),
     GoRoute(path: '/profile', builder: (context, state) => const ProfilePage()),
 

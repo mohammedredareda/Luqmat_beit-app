@@ -30,6 +30,16 @@ class _HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('لُقمة بيت'),
+        actions: [
+          IconButton(
+            onPressed: () => context.push('/cart'),
+            icon: const Icon(Icons.shopping_cart),
+            tooltip: 'السلة',
+          ),
+        ],
+      ),
       body: SafeArea(
         child: BlocBuilder<HomeCubit, HomeState>(
           builder: (context, state) {

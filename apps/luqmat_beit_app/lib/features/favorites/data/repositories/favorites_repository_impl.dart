@@ -2,13 +2,13 @@ import 'package:core/core.dart';
 
 import '../../../home/domain/entities/home_feed_entity.dart';
 import '../../domain/repositories/favorites_repository.dart';
-import '../datasources/favorites_mock_data_source.dart';
+import '../datasources/favorites_local_data_source.dart';
 
 class FavoritesRepositoryImpl implements FavoritesRepository {
-  FavoritesRepositoryImpl({FavoritesMockDataSource? dataSource})
-      : _dataSource = dataSource ?? FavoritesMockDataSource();
+  FavoritesRepositoryImpl({required FavoritesLocalDataSource dataSource})
+      : _dataSource = dataSource;
 
-  final FavoritesMockDataSource _dataSource;
+  final FavoritesLocalDataSource _dataSource;
 
   @override
   Future<Result<List<MealEntity>>> getFavoriteMeals() {

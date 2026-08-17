@@ -11,6 +11,8 @@ import '../network/api_client.dart';
 import '../network/dio_client.dart';
 import '../network/interceptors/auth_interceptor.dart';
 import '../storage/secure_token_storage.dart';
+import '../storage/user_profile_cache.dart';
+import '../storage/favorites_cache.dart';
 import '../blocs/auth/session_cubit.dart';
 import '../blocs/connectivity/connectivity_cubit.dart';
 
@@ -27,8 +29,8 @@ import '../blocs/connectivity/connectivity_cubit.dart';
 Future<void> registerCoreDependencies(
   GetIt getIt, {
   required String baseUrl,
-  Duration connectTimeout = const Duration(seconds: 15),
-  Duration receiveTimeout = const Duration(seconds: 15),
+  Duration connectTimeout = const Duration(seconds: 60),
+  Duration receiveTimeout = const Duration(seconds: 60),
 }) async {
   getIt.registerLazySingleton<FlutterSecureStorage>(
     () => const FlutterSecureStorage(),
@@ -37,6 +39,9 @@ Future<void> registerCoreDependencies(
   getIt.registerLazySingleton<SecureTokenStorage>(
     () => SecureTokenStorage(getIt()),
   );
+
+  getIt.registerLazySingleton<UserProfileCache>(() => UserProfileCache());
+  getIt.registerLazySingleton<FavoritesCache>(() => FavoritesCache());
 
   getIt.registerLazySingleton<ApiClient>(
     () => DioClient(
@@ -66,7 +71,11 @@ Future<void> registerCoreDependencies(
   // neither app reimplements the same API calls. Registration stays
   // per-app (each app's own AuthRepository) since its fields differ.
   getIt.registerLazySingleton<AuthSessionRepository>(
-    () => AuthSessionRepositoryImpl(getIt<ApiClient>(), getIt<SecureTokenStorage>()),
+    () => AuthSessionRepositoryImpl(
+      getIt<ApiClient>(),
+      getIt<SecureTokenStorage>(),
+      getIt<UserProfileCache>(),
+    ),
   );
 
   getIt.registerLazySingleton<LocationRepository>(() => LocationRepositoryImpl());

@@ -3,6 +3,7 @@ import '../network/api_client.dart';
 import '../network/jwt_payload.dart';
 import '../network/result.dart';
 import '../storage/secure_token_storage.dart';
+import '../storage/user_profile_cache.dart';
 import 'auth_session_repository.dart';
 import 'otp_purpose.dart';
 
@@ -22,10 +23,11 @@ import 'otp_purpose.dart';
 ///   held in memory here between `verifyOtp` and `resetPassword` rather
 ///   than written to [SecureTokenStorage].
 class AuthSessionRepositoryImpl implements AuthSessionRepository {
-  AuthSessionRepositoryImpl(this._apiClient, this._tokenStorage);
+  AuthSessionRepositoryImpl(this._apiClient, this._tokenStorage, this._profileCache);
 
   final ApiClient _apiClient;
   final SecureTokenStorage _tokenStorage;
+  final UserProfileCache _profileCache;
 
   String? _pendingResetToken;
 
@@ -43,9 +45,16 @@ class AuthSessionRepositoryImpl implements AuthSessionRepository {
       await _tokenStorage.saveTokens(accessToken: token);
 
       final claims = decodeJwtPayload(token);
+      final name = (claims['name'] ?? claims['full_name'] ?? '').toString();
+      // The backend has no "get my profile" endpoint — this is the only
+      // place a returning user's phone (and, if the JWT ever carries one, a
+      // name) gets persisted for the profile screen to read back. See
+      // [UserProfileCache]'s doc comment for the gap this doesn't close.
+      await _profileCache.save(phone: phone, name: name.isEmpty ? null : name);
+
       return UserEntity(
         id: (claims['sub'] ?? claims['id'] ?? phone).toString(),
-        name: (claims['name'] ?? claims['full_name'] ?? '').toString(),
+        name: name,
         phone: phone,
         role: (claims['role'] ?? '').toString().toUpperCase() == 'COOK'
             ? UserRole.cook

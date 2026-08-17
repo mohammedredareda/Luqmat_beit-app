@@ -1,3 +1,4 @@
+import 'package:core/core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../domain/usecases/add_meal_to_cart.dart';
@@ -6,12 +7,17 @@ import '../../domain/usecases/toggle_meal_favorite.dart';
 import 'meal_details_state.dart';
 
 class MealDetailsCubit extends Cubit<MealDetailsState> {
-  MealDetailsCubit(this._getMealDetails, this._addMealToCart, this._toggleMealFavorite)
-      : super(const MealDetailsState.initial());
+  MealDetailsCubit(
+    this._getMealDetails,
+    this._addMealToCart,
+    this._toggleMealFavorite,
+    this._favoritesCache,
+  ) : super(const MealDetailsState.initial());
 
   final GetMealDetails _getMealDetails;
   final AddMealToCart _addMealToCart;
   final ToggleMealFavorite _toggleMealFavorite;
+  final FavoritesCache _favoritesCache;
 
   String? _mealId;
 
@@ -19,12 +25,14 @@ class MealDetailsCubit extends Cubit<MealDetailsState> {
     _mealId = mealId;
     emit(const MealDetailsState.loading());
     final result = await _getMealDetails(mealId);
+    if (isClosed) return;
     result.fold(
       (meal) => emit(MealDetailsState.loaded(
         meal: meal,
         selectedSellingOptionId: meal.sellingOptions.isNotEmpty
             ? meal.sellingOptions.first.id
             : '',
+        isFavorite: meal.isFavorite,
       )),
       (exception) => emit(MealDetailsState.failure(exception)),
     );
@@ -72,6 +80,14 @@ class MealDetailsCubit extends Cubit<MealDetailsState> {
       // local state above; a failure here isn't worth blocking or
       // reverting the UI over.
       _toggleMealFavorite(current.meal.id, newValue);
+      // There's no backend endpoint to list favorited meals, so the
+      // favorites screen reads this local mirror instead — keep it in sync
+      // with every toggle, not just the ones made from that screen.
+      if (newValue) {
+        _favoritesCache.addFavoriteMeal(current.meal);
+      } else {
+        _favoritesCache.removeFavoriteMeal(current.meal.id);
+      }
     }
   }
 
@@ -101,6 +117,7 @@ class MealDetailsCubit extends Cubit<MealDetailsState> {
       quantity: current.quantity,
       note: current.note.isEmpty ? null : current.note,
     );
+    if (isClosed) return;
     result.fold(
       (_) => emit(MealDetailsState.addedToCart(
         meal: current.meal,

@@ -15,8 +15,8 @@ class DioClient implements ApiClient {
     required String baseUrl,
     List<Interceptor> interceptors = const [],
     this.extractErrorMessage = defaultExtractErrorMessage,
-    Duration connectTimeout = const Duration(seconds: 15),
-    Duration receiveTimeout = const Duration(seconds: 15),
+    Duration connectTimeout = const Duration(seconds: 60),
+    Duration receiveTimeout = const Duration(seconds: 60),
   }) {
     dio.options.baseUrl = baseUrl;
     dio.options.connectTimeout = connectTimeout;

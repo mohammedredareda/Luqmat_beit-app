@@ -11,6 +11,7 @@ class OrderHistoryCubit extends Cubit<OrderHistoryState> {
   Future<void> loadOrderHistory() async {
     emit(const OrderHistoryState.loading());
     final result = await _getOrderHistory();
+    if (isClosed) return;
     result.fold(
       (orders) => emit(OrderHistoryState.loaded(orders)),
       (exception) => emit(OrderHistoryState.failure(exception)),

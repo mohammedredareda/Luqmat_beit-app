@@ -44,4 +44,9 @@ class CartRepositoryImpl implements CartRepository {
   Future<Result<void>> updateSellingOption(String cartItemId, String sellingOptionId) {
     return guard(() => _dataSource.updateSellingOption(cartItemId, sellingOptionId));
   }
+
+  @override
+  Future<Result<void>> updateNote(String cartItemId, String note) {
+    return guard(() => _dataSource.updateNote(cartItemId, note));
+  }
 }

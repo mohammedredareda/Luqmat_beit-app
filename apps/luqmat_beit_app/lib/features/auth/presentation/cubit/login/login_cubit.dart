@@ -11,6 +11,7 @@ class LoginCubit extends Cubit<LoginState> {
   Future<void> submit({required String phone, required String password}) async {
     emit(const LoginState.submitting());
     final result = await _loginCustomer(phone: phone, password: password);
+    if (isClosed) return;
     result.fold(
       (user) => emit(LoginState.success(user)),
       (exception) => emit(LoginState.failure(exception)),

@@ -14,6 +14,7 @@ class MealRatingCubit extends Cubit<MealRatingState> {
   Future<void> loadOrder(String orderId) async {
     emit(const MealRatingState.loading());
     final result = await _getOrderToRate(orderId);
+    if (isClosed) return;
     result.fold(
       (order) => emit(MealRatingState.loaded(order: order)),
       (exception) => emit(MealRatingState.failure(exception)),
@@ -47,6 +48,7 @@ class MealRatingCubit extends Cubit<MealRatingState> {
       review: current.review.trim().isEmpty ? null : current.review.trim(),
       mealId: mealId,
     );
+    if (isClosed) return;
     result.fold(
       (_) => emit(const MealRatingState.submitted()),
       (exception) =>

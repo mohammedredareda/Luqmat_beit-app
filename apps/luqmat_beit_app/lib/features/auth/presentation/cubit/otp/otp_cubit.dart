@@ -23,6 +23,7 @@ class OtpCubit extends Cubit<OtpState> {
   Future<void> resend() async {
     emit(state.copyWith(isResending: true));
     await _requestOtp(phone, purpose: purpose);
+    if (isClosed) return;
     emit(state.copyWith(isResending: false));
   }
 
@@ -33,6 +34,7 @@ class OtpCubit extends Cubit<OtpState> {
     }
     emit(state.copyWith(isVerifying: true, errorMessage: null));
     final result = await _verifyOtp(phone: phone, code: state.code, purpose: purpose);
+    if (isClosed) return;
     result.fold(
       (_) => emit(state.copyWith(isVerifying: false, verified: true)),
       (exception) => emit(state.copyWith(isVerifying: false, errorMessage: exception.message)),

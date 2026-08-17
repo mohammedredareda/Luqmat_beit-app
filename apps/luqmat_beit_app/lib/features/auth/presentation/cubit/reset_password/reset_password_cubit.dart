@@ -17,6 +17,7 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
     }
     emit(const ResetPasswordState.submitting());
     final result = await _resetPassword(phone: phone, newPassword: newPassword);
+    if (isClosed) return;
     result.fold(
       (_) => emit(const ResetPasswordState.success()),
       (exception) => emit(ResetPasswordState.failure(exception)),

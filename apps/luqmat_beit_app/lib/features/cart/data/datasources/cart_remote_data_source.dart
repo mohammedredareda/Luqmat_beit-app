@@ -3,12 +3,16 @@ import 'package:core/core.dart';
 import 'cart_data_source.dart';
 
 /// Real implementation, backed by the `Customer > Cart` folder of
-/// `AI_INSTRUCTIONS/Loqmet Beit.postman_collection.json`.
+/// `AI_INSTRUCTIONS/Loqmet Beit.postman_collection.json`, response shape
+/// confirmed against the live deployment.
 ///
-/// The backend's `GET /user/customer/cart` groups items by cook and also
-/// returns `offers`/`returned_meals` arrays alongside `meals` — all three
-/// are now surfaced, matching the updated backlog's `CART_MEAL_ITEM` /
-/// `CART_OFFER_ITEM` / `CART_RETURNED_MEAL_ITEM` split.
+/// The backend's `GET /user/customer/cart` groups `meals`/`offers` per cook
+/// under `cooks[]`, but `returned_meals` is a **top-level sibling of
+/// `cooks`**, not nested per cook (confirmed live — the Postman collection
+/// doesn't show this). Each meal item carries its own `selling_options[]`
+/// list (`{selling_option_id, type, variation, price}`) rather than a flat
+/// label — `sellingOptionLabel` is built by matching `selling_option_id`
+/// against that list.
 ///
 /// `PUT .../cart/meals/:id` requires the full `{quantity, selling_option_id,
 /// notes}` triple on every call, but [CartRepository.updateQuantity] and
@@ -25,47 +29,68 @@ class CartRemoteDataSource implements CartDataSource {
   Future<CartEntity> getCart() async {
     final json = await _apiClient.get('/user/customer/cart') as Map;
     final cooksJson = json['cooks'] as List? ?? const [];
+    final returnedJson = json['returned_meals'] as List? ?? const [];
 
-    final mealItems = <CartMealItemEntity>[];
-    final offerItems = <CartOfferItemEntity>[];
-    final returnedMealItems = <CartReturnedMealItemEntity>[];
-    String? cookId;
+    final groups = cooksJson.map((c) => _cookGroupFromJson(c as Map)).toList();
 
-    for (final cookEntry in cooksJson) {
-      final cook = cookEntry as Map;
-      cookId ??= cook['cook_id']?.toString();
-      final mealsJson = cook['meals'] as List? ?? const [];
-      final offersJson = cook['offers'] as List? ?? const [];
-      final returnedJson = cook['returned_meals'] as List? ?? const [];
-
-      mealItems.addAll(mealsJson.map((m) => _mealItemFromJson(m as Map)));
-      offerItems.addAll(offersJson.map((o) => _offerItemFromJson(o as Map)));
-      returnedMealItems
-          .addAll(returnedJson.map((r) => _returnedMealItemFromJson(r as Map)));
-    }
-
-    _mealSnapshot = mealItems;
+    _mealSnapshot = groups.expand((g) => g.mealItems).toList();
     return CartEntity(
       customerId: json['customer_id']?.toString() ?? '',
-      cookId: cookId,
-      mealItems: mealItems,
-      offerItems: offerItems,
-      returnedMealItems: returnedMealItems,
+      cookGroups: groups,
+      returnedMealItems: returnedJson.map((r) => _returnedMealItemFromJson(r as Map)).toList(),
     );
   }
 
-  CartMealItemEntity _mealItemFromJson(Map json) => CartMealItemEntity(
-        id: json['cart_item_id'].toString(),
-        mealId: json['meal_id'].toString(),
-        mealName: json['name'] as String? ?? '',
-        mealImageUrl: json['image'] as String? ?? '',
-        sellingOptionId: json['selling_option_id']?.toString(),
-        sellingOptionLabel: json['selling_option_label'] as String?,
-        unitPrice:
-            (json['final_price'] as num?)?.toDouble() ?? (json['price'] as num?)?.toDouble() ?? 0,
-        quantity: (json['quantity'] as num?)?.toInt() ?? 1,
-        note: json['notes'] as String?,
+  CartCookGroupEntity _cookGroupFromJson(Map json) {
+    final mealsJson = json['meals'] as List? ?? const [];
+    final offersJson = json['offers'] as List? ?? const [];
+    return CartCookGroupEntity(
+      cookId: json['cook_id'].toString(),
+      cookName: json['cook_name'] as String? ?? '',
+      mealItems: mealsJson.map((m) => _mealItemFromJson(m as Map)).toList(),
+      offerItems: offersJson.map((o) => _offerItemFromJson(o as Map)).toList(),
+    );
+  }
+
+  CartMealItemEntity _mealItemFromJson(Map json) {
+    final sellingOptionsJson = json['selling_options'] as List? ?? const [];
+    final sellingOptionId = json['selling_option_id']?.toString();
+
+    final availableOptions = sellingOptionsJson.map((so) {
+      final option = so as Map;
+      final type = option['type'] as String? ?? '';
+      final variation = option['variation'] as String? ?? '';
+      return SellingOptionEntity(
+        id: option['selling_option_id'].toString(),
+        label: [type, variation].where((s) => s.isNotEmpty).join(' - '),
+        price: double.tryParse(option['price']?.toString() ?? '') ?? 0,
       );
+    }).toList();
+
+    String? label;
+    for (final option in availableOptions) {
+      if (option.id == sellingOptionId) {
+        label = option.label;
+        break;
+      }
+    }
+
+    return CartMealItemEntity(
+      id: json['cart_item_id'].toString(),
+      mealId: json['meal_id'].toString(),
+      mealName: json['name'] as String? ?? '',
+      mealImageUrl: json['image'] as String? ?? '',
+      sellingOptionId: sellingOptionId,
+      sellingOptionLabel: (label == null || label.isEmpty) ? null : label,
+      unitPrice:
+          (json['final_price'] as num?)?.toDouble() ?? (json['price'] as num?)?.toDouble() ?? 0,
+      quantity: (json['quantity'] as num?)?.toInt() ?? 1,
+      note: json['notes'] as String?,
+      originalPrice: (json['price'] as num?)?.toDouble(),
+      discountPercentage: (json['discount_percentage'] as num?)?.toDouble() ?? 0,
+      availableSellingOptions: availableOptions,
+    );
+  }
 
   CartOfferItemEntity _offerItemFromJson(Map json) => CartOfferItemEntity(
         id: json['cart_item_id'].toString(),
@@ -131,6 +156,17 @@ class CartRemoteDataSource implements CartDataSource {
       'quantity': current?.quantity ?? 1,
       'selling_option_id': int.tryParse(sellingOptionId) ?? sellingOptionId,
       'notes': current?.note ?? '',
+    });
+  }
+
+  @override
+  Future<void> updateNote(String cartItemId, String note) async {
+    final current = _find(cartItemId);
+    await _apiClient.put('/user/customer/cart/meals/$cartItemId', data: {
+      'quantity': current?.quantity ?? 1,
+      'selling_option_id':
+          int.tryParse(current?.sellingOptionId ?? '') ?? current?.sellingOptionId,
+      'notes': note,
     });
   }
 }

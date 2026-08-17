@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../entities/user_entity.dart';
 import '../../network/jwt_payload.dart';
 import '../../storage/secure_token_storage.dart';
+import '../../storage/user_profile_cache.dart';
 import 'session_state.dart';
 
 /// The single source of truth the app's router redirect gates entire route
@@ -14,9 +15,11 @@ import 'session_state.dart';
 /// awaiting a storage read, same as before this carried a role — so the
 /// router's very first redirect decision never races an async lookup.
 class SessionCubit extends Cubit<SessionState> {
-  SessionCubit(this._storage, {required SessionState initialState}) : super(initialState);
+  SessionCubit(this._storage, this._profileCache, {required SessionState initialState})
+      : super(initialState);
 
   final SecureTokenStorage _storage;
+  final UserProfileCache _profileCache;
 
   /// Flips the session to authenticated. The token itself is expected to
   /// already be persisted by whichever datasource made the login/verify
@@ -37,6 +40,7 @@ class SessionCubit extends Cubit<SessionState> {
 
   Future<void> logOut() async {
     await _storage.clear();
+    await _profileCache.clear();
     emit(SessionState.unauthenticated);
   }
 

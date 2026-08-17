@@ -39,13 +39,15 @@ class AppLocalizationsAr extends AppLocalizations {
   String get stopSellingDialogTitle => 'إيقاف البيع؟';
 
   @override
-  String get stopSellingDialogBody => 'لن يتمكن الزبائن من طلب أي وجبة من قائمتك حتى تُعيد تفعيل البيع يدويًا.';
+  String get stopSellingDialogBody =>
+      'لن يتمكن الزبائن من طلب أي وجبة من قائمتك حتى تُعيد تفعيل البيع يدويًا.';
 
   @override
   String get resumeSellingDialogTitle => 'تفعيل البيع؟';
 
   @override
-  String get resumeSellingDialogBody => 'سيتمكن الزبائن من طلب وجباتك المتاحة مجددًا.';
+  String get resumeSellingDialogBody =>
+      'سيتمكن الزبائن من طلب وجباتك المتاحة مجددًا.';
 
   @override
   String get confirmLabel => 'تأكيد';
@@ -105,7 +107,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get descriptionLabel => 'الوصف';
 
   @override
-  String get descriptionHint => 'اكتب وصفاً شهياً لمكونات الوجبة وطريقة التحضير...';
+  String get descriptionHint =>
+      'اكتب وصفاً شهياً لمكونات الوجبة وطريقة التحضير...';
 
   @override
   String get categorySectionTitle => 'التصنيف';
@@ -174,7 +177,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get deleteMealConfirmTitle => 'حذف الوجبة؟';
 
   @override
-  String get deleteMealConfirmBody => 'هذا الإجراء سيقوم بإخفاء الوجبة من قائمتك. لن تظهر للعملاء الجدد، وسيتم إشعار العملاء الذين لديهم طلبات مسبقة لهذه الوجبة.';
+  String get deleteMealConfirmBody =>
+      'هذا الإجراء سيقوم بإخفاء الوجبة من قائمتك. لن تظهر للعملاء الجدد، وسيتم إشعار العملاء الذين لديهم طلبات مسبقة لهذه الوجبة.';
 
   @override
   String get confirmDeleteCta => 'تأكيد الحذف';
@@ -220,13 +224,15 @@ class AppLocalizationsAr extends AppLocalizations {
   String get createOfferOptionTitle => 'إنشاء عرض';
 
   @override
-  String get createOfferOptionBody => 'إنشاء عروض ترويجية لمجموعة مختارة من الوجبات.';
+  String get createOfferOptionBody =>
+      'إنشاء عروض ترويجية لمجموعة مختارة من الوجبات.';
 
   @override
   String get createDiscountOptionTitle => 'إنشاء خصم';
 
   @override
-  String get createDiscountOptionBody => 'إنشاء خصومات بنسبة مئوية أو قيمة ثابتة.';
+  String get createDiscountOptionBody =>
+      'إنشاء خصومات بنسبة مئوية أو قيمة ثابتة.';
 
   @override
   String get selectMealPopupTitle => 'اختيار الوجبة';
@@ -347,7 +353,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get discountPriceAfterLabel => 'السعر بعد الخصم';
 
   @override
-  String get discountPricesAfterPerOptionLabel => 'الأسعار بعد الخصم (حسب خيارات البيع)';
+  String get discountPricesAfterPerOptionLabel =>
+      'الأسعار بعد الخصم (حسب خيارات البيع)';
 
   @override
   String get restrictionTypeLabel => 'تحديد نوع القيد';
@@ -391,19 +398,22 @@ class AppLocalizationsAr extends AppLocalizations {
   String get validationMealRequired => 'يرجى اختيار وجبة';
 
   @override
-  String get validationRestrictionRequired => 'يرجى تحديد المدة أو عدد الاستخدامات';
+  String get validationRestrictionRequired =>
+      'يرجى تحديد المدة أو عدد الاستخدامات';
 
   @override
   String get deleteOfferConfirmTitle => 'حذف العرض؟';
 
   @override
-  String get deleteOfferConfirmBody => 'سيتم حذف هذا العرض نهائياً ولن يظهر للعملاء بعد الآن';
+  String get deleteOfferConfirmBody =>
+      'سيتم حذف هذا العرض نهائياً ولن يظهر للعملاء بعد الآن';
 
   @override
   String get deleteDiscountConfirmTitle => 'حذف الخصم؟';
 
   @override
-  String get deleteDiscountConfirmBody => 'سيتم حذف هذا الخصم نهائياً ولن يُطبق على الوجبة بعد الآن';
+  String get deleteDiscountConfirmBody =>
+      'سيتم حذف هذا الخصم نهائياً ولن يُطبق على الوجبة بعد الآن';
 
   @override
   String get filterAllLabel => 'الكل';
@@ -479,7 +489,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get cropAvatarTitle => 'قص الصورة';
 
   @override
-  String get cropAvatarHint => 'اسحب للتحريك وقرّب/بعّد لتحديد الجزء الذي سيظهر داخل الإطار';
+  String get cropAvatarHint =>
+      'اسحب للتحريك وقرّب/بعّد لتحديد الجزء الذي سيظهر داخل الإطار';
 
   @override
   String get fullNameLabel => 'الاسم الكامل';
@@ -545,7 +556,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get validationZeroAvailabilityDays => 'اختر يوماً واحداً على الأقل';
 
   @override
-  String get validationInvalidAvailabilityRange => 'وقت الانتهاء يجب أن يكون بعد وقت البدء';
+  String get validationInvalidAvailabilityRange =>
+      'وقت الانتهاء يجب أن يكون بعد وقت البدء';
 
   @override
   String get myOrdersTitle => 'طلباتي';
@@ -646,7 +658,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get markPreparedCta => 'تم التحضير';
 
   @override
-  String get preparingDoneBannerBody => 'بالضغط على «تم التحضير»، سيتم إرسال إشعار للعميل للقدوم لاستلام الطلب.';
+  String get preparingDoneBannerBody =>
+      'بالضغط على «تم التحضير»، سيتم إرسال إشعار للعميل للقدوم لاستلام الطلب.';
 
   @override
   String rejectOrderDialogTitle(String id) {
@@ -666,10 +679,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get rejectionReasonRequiredError => 'يرجى كتابة سبب الرفض';
 
   @override
-  String get orderExpiredOnAcceptMessage => 'عذراً، لقد انتهت مهلة الطلب وتم إلغاؤه تلقائياً.';
+  String get orderExpiredOnAcceptMessage =>
+      'عذراً، لقد انتهت مهلة الطلب وتم إلغاؤه تلقائياً.';
 
   @override
-  String get orderCancelledAutomaticallyBanner => 'تم إلغاء هذا الطلب تلقائياً بسبب انتهاء مهلة الاستجابة.';
+  String get orderCancelledAutomaticallyBanner =>
+      'تم إلغاء هذا الطلب تلقائياً بسبب انتهاء مهلة الاستجابة.';
 
   @override
   String get orderAcceptedSuccessMessage => 'تم قبول الطلب بنجاح';
@@ -687,13 +702,15 @@ class AppLocalizationsAr extends AppLocalizations {
   String get emptyOrdersPendingHeading => 'لا توجد طلبات جديدة';
 
   @override
-  String get emptyOrdersPendingBody => 'ستظهر الطلبات الجديدة هنا بمجرد وصولها.';
+  String get emptyOrdersPendingBody =>
+      'ستظهر الطلبات الجديدة هنا بمجرد وصولها.';
 
   @override
   String get emptyOrdersPreparingHeading => 'لا توجد طلبات قيد التحضير';
 
   @override
-  String get emptyOrdersPreparingBody => 'الطلبات التي تقبلها ستظهر هنا أثناء تحضيرها.';
+  String get emptyOrdersPreparingBody =>
+      'الطلبات التي تقبلها ستظهر هنا أثناء تحضيرها.';
 
   @override
   String get emptyOrdersDoneHeading => 'لا توجد طلبات منجزة بعد';
@@ -776,7 +793,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get logoutConfirmTitle => 'تسجيل الخروج؟';
 
   @override
-  String get logoutConfirmBody => 'سيتم تسجيل خروجك من التطبيق. يمكنك تسجيل الدخول مرة أخرى في أي وقت.';
+  String get logoutConfirmBody =>
+      'سيتم تسجيل خروجك من التطبيق. يمكنك تسجيل الدخول مرة أخرى في أي وقت.';
 
   @override
   String get logoutCta => 'تسجيل الخروج';
@@ -791,7 +809,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get changePasswordHeading => 'تحديث بيانات الأمان';
 
   @override
-  String get changePasswordDescription => 'يرجى إدخال كلمة المرور الحالية ثم تعيين كلمة مرور جديدة قوية.';
+  String get changePasswordDescription =>
+      'يرجى إدخال كلمة المرور الحالية ثم تعيين كلمة مرور جديدة قوية.';
 
   @override
   String get currentPasswordLabel => 'كلمة المرور الحالية';
@@ -809,7 +828,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get passwordMismatchError => 'كلمات المرور غير متطابقة';
 
   @override
-  String get passwordComplexityError => 'يجب أن تحتوي على 8 أحرف على الأقل مع حرف كبير وصغير ورقم ورمز';
+  String get passwordComplexityError =>
+      'يجب أن تحتوي على 8 أحرف على الأقل مع حرف كبير وصغير ورقم ورمز';
 
   @override
   String get updatePasswordCta => 'تحديث كلمة المرور';
@@ -839,19 +859,22 @@ class AppLocalizationsAr extends AppLocalizations {
   String get changePhoneNumberHeading => 'تحديث رقم الهاتف';
 
   @override
-  String get changePhoneNumberDescription => 'يرجى إدخال رقم الهاتف الجديد، سنرسل لك رمز تحقق للتأكيد.';
+  String get changePhoneNumberDescription =>
+      'يرجى إدخال رقم الهاتف الجديد، سنرسل لك رمز تحقق للتأكيد.';
 
   @override
   String get newPhoneNumberLabel => 'رقم الهاتف الجديد';
 
   @override
-  String get newPhoneNumberHelper => 'تأكد من إدخال الرقم بشكل صحيح لتلقي الرمز';
+  String get newPhoneNumberHelper =>
+      'تأكد من إدخال الرقم بشكل صحيح لتلقي الرمز';
 
   @override
   String get sendVerificationCodeCta => 'إرسال رمز التحقق';
 
   @override
-  String get phoneNumberInvalidError => 'يرجى إدخال رقم هاتف صحيح مكون من 9 أرقام';
+  String get phoneNumberInvalidError =>
+      'يرجى إدخال رقم هاتف صحيح مكون من 9 أرقام';
 
   @override
   String get otpVerificationTitle => 'رمز التحقق';
@@ -860,7 +883,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get otpSentHeading => 'تم إرسال رمز التحقق';
 
   @override
-  String get otpSentDescription => 'لقد قمنا بإرسال رمز مكون من 4 أرقام إلى رقم هاتفك الجديد';
+  String get otpSentDescription =>
+      'لقد قمنا بإرسال رمز مكون من 4 أرقام إلى رقم هاتفك الجديد';
 
   @override
   String get resendCodePrompt => 'لم تستلم الرمز؟';

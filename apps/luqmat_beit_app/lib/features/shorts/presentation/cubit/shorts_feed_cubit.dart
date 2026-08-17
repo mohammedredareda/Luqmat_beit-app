@@ -14,6 +14,7 @@ class ShortsFeedCubit extends Cubit<ShortsFeedState> {
   Future<void> loadShorts() async {
     emit(const ShortsFeedState.loading());
     final result = await _getShorts();
+    if (isClosed) return;
     result.fold(
       (shorts) => emit(ShortsFeedState.loaded(shorts)),
       (exception) => emit(ShortsFeedState.failure(exception)),
@@ -39,6 +40,7 @@ class ShortsFeedCubit extends Cubit<ShortsFeedState> {
     emit(ShortsFeedState.loaded(updated));
 
     final result = await _toggleShortLike(shortId);
+    if (isClosed) return;
     result.fold(
       (_) {},
       (exception) {

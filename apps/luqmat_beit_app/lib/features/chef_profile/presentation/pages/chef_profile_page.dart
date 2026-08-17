@@ -25,6 +25,7 @@ class ChefProfilePage extends StatelessWidget {
       create: (_) => ChefProfileCubit(
         GetChefProfile(getIt<ChefRepository>()),
         ToggleFollowChef(getIt<ChefRepository>()),
+        getIt<FavoritesCache>(),
       )..loadProfile(chefId),
       child: _ChefProfileView(chefId: chefId),
     );

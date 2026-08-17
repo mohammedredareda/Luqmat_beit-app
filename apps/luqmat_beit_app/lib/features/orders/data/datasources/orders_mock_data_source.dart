@@ -32,6 +32,8 @@ class OrdersMockDataSource implements OrdersDataSource {
     List<CartMealItemEntity> mealItems = const [],
     List<CartOfferItemEntity> offerItems = const [],
     List<CartReturnedMealItemEntity> returnedMealItems = const [],
+    double? latitude,
+    double? longitude,
   }) async {
     await Future.delayed(const Duration(milliseconds: 300));
     final id = 'ORD-${DateTime.now().millisecondsSinceEpoch}';

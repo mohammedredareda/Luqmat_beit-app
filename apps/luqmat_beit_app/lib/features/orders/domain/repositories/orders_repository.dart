@@ -17,5 +17,7 @@ abstract class OrdersRepository {
     List<CartMealItemEntity> mealItems = const [],
     List<CartOfferItemEntity> offerItems = const [],
     List<CartReturnedMealItemEntity> returnedMealItems = const [],
+    double? latitude,
+    double? longitude,
   });
 }

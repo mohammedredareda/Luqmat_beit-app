@@ -27,6 +27,7 @@ class MealDetailsPage extends StatelessWidget {
         GetMealDetails(getIt()),
         AddMealToCart(getIt()),
         ToggleMealFavorite(getIt()),
+        getIt<FavoritesCache>(),
       )..loadMeal(mealId),
       child: const _MealDetailsView(),
     );

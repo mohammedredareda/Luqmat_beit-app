@@ -11,6 +11,7 @@ class InvoiceCubit extends Cubit<InvoiceState> {
   Future<void> loadOrder(String orderId) async {
     emit(const InvoiceState.loading());
     final result = await _getOrderById(orderId);
+    if (isClosed) return;
     result.fold(
       (order) => emit(InvoiceState.loaded(order)),
       (exception) => emit(InvoiceState.failure(exception)),
