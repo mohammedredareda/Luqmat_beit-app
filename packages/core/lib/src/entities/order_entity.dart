@@ -72,6 +72,11 @@ class OrderEntity extends Equatable {
 
   double get grandTotal => itemsTotal + deliveryFee - discountAmount;
 
+  /// The cook's own share of [grandTotal] — the delivery fee is passed
+  /// through to delivery, not earned by the cook, so cook-facing order
+  /// previews must never show it blended into a single "total" figure.
+  double get cookTotal => grandTotal - deliveryFee;
+
   bool get isPendingExpired =>
       status == OrderStatus.pending &&
       pendingExpiresAt != null &&

@@ -515,6 +515,8 @@ mixin _$EditDiscountFormData {
   List<SellingOptionEntity> get mealSellingOptions =>
       throw _privateConstructorUsedError;
   String get percentageInput => throw _privateConstructorUsedError;
+  DiscountRestrictionType get restrictionType =>
+      throw _privateConstructorUsedError;
   String get durationDaysInput => throw _privateConstructorUsedError;
   String get usageLimitInput => throw _privateConstructorUsedError;
   int? get remainingDaysDisplay => throw _privateConstructorUsedError;
@@ -542,6 +544,7 @@ abstract class $EditDiscountFormDataCopyWith<$Res> {
       double mealBasePrice,
       List<SellingOptionEntity> mealSellingOptions,
       String percentageInput,
+      DiscountRestrictionType restrictionType,
       String durationDaysInput,
       String usageLimitInput,
       int? remainingDaysDisplay,
@@ -574,6 +577,7 @@ class _$EditDiscountFormDataCopyWithImpl<$Res,
     Object? mealBasePrice = null,
     Object? mealSellingOptions = null,
     Object? percentageInput = null,
+    Object? restrictionType = null,
     Object? durationDaysInput = null,
     Object? usageLimitInput = null,
     Object? remainingDaysDisplay = freezed,
@@ -609,6 +613,10 @@ class _$EditDiscountFormDataCopyWithImpl<$Res,
           ? _value.percentageInput
           : percentageInput // ignore: cast_nullable_to_non_nullable
               as String,
+      restrictionType: null == restrictionType
+          ? _value.restrictionType
+          : restrictionType // ignore: cast_nullable_to_non_nullable
+              as DiscountRestrictionType,
       durationDaysInput: null == durationDaysInput
           ? _value.durationDaysInput
           : durationDaysInput // ignore: cast_nullable_to_non_nullable
@@ -659,6 +667,7 @@ abstract class _$$EditDiscountFormDataImplCopyWith<$Res>
       double mealBasePrice,
       List<SellingOptionEntity> mealSellingOptions,
       String percentageInput,
+      DiscountRestrictionType restrictionType,
       String durationDaysInput,
       String usageLimitInput,
       int? remainingDaysDisplay,
@@ -689,6 +698,7 @@ class __$$EditDiscountFormDataImplCopyWithImpl<$Res>
     Object? mealBasePrice = null,
     Object? mealSellingOptions = null,
     Object? percentageInput = null,
+    Object? restrictionType = null,
     Object? durationDaysInput = null,
     Object? usageLimitInput = null,
     Object? remainingDaysDisplay = freezed,
@@ -724,6 +734,10 @@ class __$$EditDiscountFormDataImplCopyWithImpl<$Res>
           ? _value.percentageInput
           : percentageInput // ignore: cast_nullable_to_non_nullable
               as String,
+      restrictionType: null == restrictionType
+          ? _value.restrictionType
+          : restrictionType // ignore: cast_nullable_to_non_nullable
+              as DiscountRestrictionType,
       durationDaysInput: null == durationDaysInput
           ? _value.durationDaysInput
           : durationDaysInput // ignore: cast_nullable_to_non_nullable
@@ -760,6 +774,7 @@ class _$EditDiscountFormDataImpl implements _EditDiscountFormData {
       final List<SellingOptionEntity> mealSellingOptions =
           const <SellingOptionEntity>[],
       this.percentageInput = '',
+      this.restrictionType = DiscountRestrictionType.duration,
       this.durationDaysInput = '',
       this.usageLimitInput = '',
       this.remainingDaysDisplay,
@@ -792,6 +807,9 @@ class _$EditDiscountFormDataImpl implements _EditDiscountFormData {
   final String percentageInput;
   @override
   @JsonKey()
+  final DiscountRestrictionType restrictionType;
+  @override
+  @JsonKey()
   final String durationDaysInput;
   @override
   @JsonKey()
@@ -806,7 +824,7 @@ class _$EditDiscountFormDataImpl implements _EditDiscountFormData {
 
   @override
   String toString() {
-    return 'EditDiscountFormData(discountId: $discountId, mealId: $mealId, mealName: $mealName, mealImageUrl: $mealImageUrl, mealBasePrice: $mealBasePrice, mealSellingOptions: $mealSellingOptions, percentageInput: $percentageInput, durationDaysInput: $durationDaysInput, usageLimitInput: $usageLimitInput, remainingDaysDisplay: $remainingDaysDisplay, remainingUsageDisplay: $remainingUsageDisplay, submitStatus: $submitStatus)';
+    return 'EditDiscountFormData(discountId: $discountId, mealId: $mealId, mealName: $mealName, mealImageUrl: $mealImageUrl, mealBasePrice: $mealBasePrice, mealSellingOptions: $mealSellingOptions, percentageInput: $percentageInput, restrictionType: $restrictionType, durationDaysInput: $durationDaysInput, usageLimitInput: $usageLimitInput, remainingDaysDisplay: $remainingDaysDisplay, remainingUsageDisplay: $remainingUsageDisplay, submitStatus: $submitStatus)';
   }
 
   @override
@@ -827,6 +845,8 @@ class _$EditDiscountFormDataImpl implements _EditDiscountFormData {
                 .equals(other._mealSellingOptions, _mealSellingOptions) &&
             (identical(other.percentageInput, percentageInput) ||
                 other.percentageInput == percentageInput) &&
+            (identical(other.restrictionType, restrictionType) ||
+                other.restrictionType == restrictionType) &&
             (identical(other.durationDaysInput, durationDaysInput) ||
                 other.durationDaysInput == durationDaysInput) &&
             (identical(other.usageLimitInput, usageLimitInput) ||
@@ -849,6 +869,7 @@ class _$EditDiscountFormDataImpl implements _EditDiscountFormData {
       mealBasePrice,
       const DeepCollectionEquality().hash(_mealSellingOptions),
       percentageInput,
+      restrictionType,
       durationDaysInput,
       usageLimitInput,
       remainingDaysDisplay,
@@ -875,6 +896,7 @@ abstract class _EditDiscountFormData implements EditDiscountFormData {
       required final double mealBasePrice,
       final List<SellingOptionEntity> mealSellingOptions,
       final String percentageInput,
+      final DiscountRestrictionType restrictionType,
       final String durationDaysInput,
       final String usageLimitInput,
       final int? remainingDaysDisplay,
@@ -895,6 +917,8 @@ abstract class _EditDiscountFormData implements EditDiscountFormData {
   List<SellingOptionEntity> get mealSellingOptions;
   @override
   String get percentageInput;
+  @override
+  DiscountRestrictionType get restrictionType;
   @override
   String get durationDaysInput;
   @override

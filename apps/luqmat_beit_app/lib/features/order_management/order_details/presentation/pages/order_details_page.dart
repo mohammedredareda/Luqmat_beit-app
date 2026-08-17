@@ -149,7 +149,7 @@ class _LoadedBody extends StatelessWidget {
           OrderStatus.rejected ||
           OrderStatus.cancelled ||
           OrderStatus.returned =>
-            _ReadOnlyBanner(order: order),
+            const SizedBox.shrink(),
         },
       ],
     );
@@ -190,6 +190,11 @@ class _OrderHeaderCard extends StatelessWidget {
                   '${createdAt.year} '
                   '${createdAt.hour.toString().padLeft(2, '0')}:'
                   '${createdAt.minute.toString().padLeft(2, '0')}',
+                  style: textTheme.bodySmall?.copyWith(color: scheme.onSurfaceVariant),
+                ),
+                const SizedBox(height: AppSpace.xs),
+                Text(
+                  l10n.estimatedPrepTimeLabel(order.totalExpectedTimeMinutes),
                   style: textTheme.bodySmall?.copyWith(color: scheme.onSurfaceVariant),
                 ),
                 if (order.status == OrderStatus.pending && order.pendingExpiresAt != null) ...[
@@ -387,7 +392,7 @@ class _SummaryCard extends StatelessWidget {
           if (order.discountAmount > 0)
             row(l10n.discountLabel, -order.discountAmount, isDiscount: true),
           const Divider(height: AppSpace.l),
-          row(l10n.totalLabel, order.grandTotal, isTotal: true),
+          row(l10n.totalLabel, order.cookTotal, isTotal: true),
         ],
       ),
     );
@@ -430,8 +435,7 @@ class _PendingDecisionActions extends StatelessWidget {
             onPressed: isSubmitting
                 ? null
                 : () async {
-                    final reason =
-                        await RejectOrderDialog.show(context, orderId: order.id);
+                    final reason = await RejectOrderDialog.show(context, orderId: order.id);
                     if (reason != null && context.mounted) {
                       context
                           .read<OrderDetailsBloc>()
@@ -506,53 +510,3 @@ class _PreparingTrackingActions extends StatelessWidget {
   }
 }
 
-class _ReadOnlyBanner extends StatelessWidget {
-  const _ReadOnlyBanner({required this.order});
-
-  final OrderEntity order;
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-    final scheme = Theme.of(context).colorScheme;
-
-    if (order.status == OrderStatus.rejected ||
-        order.status == OrderStatus.cancelled ||
-        order.status == OrderStatus.returned) {
-      // R-10: a rejected/cancelled status must never appear without a
-      // visible reason. Cook-rejected orders always carry a rejectionReason
-      // (CK-18); system-cancelled orders (CK-25) never do, so the banner
-      // text (and its label) differ by which of the two actually happened.
-      final reason = order.rejectionReason;
-      final label = reason != null ? l10n.rejectionReasonLabel : null;
-      return Container(
-        width: double.infinity,
-        padding: const EdgeInsets.all(AppSpace.m),
-        decoration: BoxDecoration(
-          color: scheme.errorContainer,
-          borderRadius: BorderRadius.circular(AppRadius.card),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if (label != null) ...[
-              Text(label,
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleSmall
-                      ?.copyWith(color: scheme.onErrorContainer)),
-              const SizedBox(height: AppSpace.xs),
-            ],
-            Text(
-              reason ?? l10n.orderCancelledAutomaticallyBanner,
-              style: TextStyle(color: scheme.onErrorContainer),
-            ),
-          ],
-        ),
-      );
-    }
-
-    return const SizedBox.shrink();
-  }
-}

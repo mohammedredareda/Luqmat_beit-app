@@ -89,6 +89,19 @@ class OrderCard extends StatelessWidget {
                             ),
                           ],
                         ),
+                        const SizedBox(height: AppSpace.xs),
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(Icons.timer_outlined, size: 14, color: scheme.onSurfaceVariant),
+                            const SizedBox(width: 4),
+                            Text(
+                              l10n.estimatedPrepTimeLabel(order.totalExpectedTimeMinutes),
+                              style: textTheme.bodySmall
+                                  ?.copyWith(color: scheme.onSurfaceVariant),
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                   ),
@@ -120,7 +133,7 @@ class OrderCard extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    '${order.grandTotal.toStringAsFixed(0)} $currencySuffix',
+                    '${order.cookTotal.toStringAsFixed(0)} $currencySuffix',
                     style: AppText.price(context),
                   ),
                   const Spacer(),

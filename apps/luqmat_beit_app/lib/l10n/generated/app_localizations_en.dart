@@ -12,7 +12,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get myMenuTitle => 'My Menu';
 
   @override
-  String get myMenuSubtitle => 'Manage your dishes and their availability to customers.';
+  String get myMenuSubtitle =>
+      'Manage your dishes and their availability to customers.';
 
   @override
   String get saleStatusLabel => 'Sale Status';
@@ -27,7 +28,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get emptyMenuHeading => 'Your menu is empty';
 
   @override
-  String get emptyMenuBody => 'Start by adding your kitchen\'s first meal so customers can see it.';
+  String get emptyMenuBody =>
+      'Start by adding your kitchen\'s first meal so customers can see it.';
 
   @override
   String get addMealCta => 'Add Meal';
@@ -39,13 +41,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get stopSellingDialogTitle => 'Stop selling?';
 
   @override
-  String get stopSellingDialogBody => 'Customers won\'t be able to order any meal from your menu until you turn selling back on manually.';
+  String get stopSellingDialogBody =>
+      'Customers won\'t be able to order any meal from your menu until you turn selling back on manually.';
 
   @override
   String get resumeSellingDialogTitle => 'Resume selling?';
 
   @override
-  String get resumeSellingDialogBody => 'Customers will be able to order your available meals again.';
+  String get resumeSellingDialogBody =>
+      'Customers will be able to order your available meals again.';
 
   @override
   String get confirmLabel => 'Confirm';
@@ -105,7 +109,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get descriptionLabel => 'Description';
 
   @override
-  String get descriptionHint => 'Write an appetizing description of the ingredients and how it\'s prepared...';
+  String get descriptionHint =>
+      'Write an appetizing description of the ingredients and how it\'s prepared...';
 
   @override
   String get categorySectionTitle => 'Category';
@@ -165,7 +170,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get availabilitySectionTitle => 'Available for order';
 
   @override
-  String get availabilityHelperText => 'Show this meal to customers in the menu';
+  String get availabilityHelperText =>
+      'Show this meal to customers in the menu';
 
   @override
   String get saveMealChangesCta => 'Save Changes';
@@ -174,7 +180,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get deleteMealConfirmTitle => 'Delete meal?';
 
   @override
-  String get deleteMealConfirmBody => 'This will hide the meal from your menu. It won\'t appear to new customers, and customers with pending orders for this meal will be notified.';
+  String get deleteMealConfirmBody =>
+      'This will hide the meal from your menu. It won\'t appear to new customers, and customers with pending orders for this meal will be notified.';
 
   @override
   String get confirmDeleteCta => 'Confirm Delete';
@@ -186,13 +193,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get offersTitle => 'Offers';
 
   @override
-  String get offersSubtitle => 'Manage discounts and bundles to attract more customers';
+  String get offersSubtitle =>
+      'Manage discounts and bundles to attract more customers';
 
   @override
   String get emptyOffersHeading => 'No offers or discounts yet';
 
   @override
-  String get emptyOffersBody => 'Create your first offer or discount to attract more customers';
+  String get emptyOffersBody =>
+      'Create your first offer or discount to attract more customers';
 
   @override
   String get addOfferOrDiscountCta => 'Add New Offer';
@@ -214,19 +223,24 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get discountBadgeGenericLabel => 'Discount';
+
+  @override
   String get selectOfferTypeSheetTitle => 'Choose offer type';
 
   @override
   String get createOfferOptionTitle => 'Create Offer';
 
   @override
-  String get createOfferOptionBody => 'Create promotional bundles for a selection of meals.';
+  String get createOfferOptionBody =>
+      'Create promotional bundles for a selection of meals.';
 
   @override
   String get createDiscountOptionTitle => 'Create Discount';
 
   @override
-  String get createDiscountOptionBody => 'Create percentage or fixed-amount discounts.';
+  String get createDiscountOptionBody =>
+      'Create percentage or fixed-amount discounts.';
 
   @override
   String get selectMealPopupTitle => 'Select Meal';
@@ -274,7 +288,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get offerDescriptionLabel => 'Offer description (optional)';
 
   @override
-  String get offerDescriptionHint => 'Write an appealing description of your offer...';
+  String get offerDescriptionHint =>
+      'Write an appealing description of your offer...';
 
   @override
   String get includedMealsSectionTitle => 'Included meals';
@@ -285,7 +300,8 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get includedMealsEmptyBody => 'You haven\'t added any meals to this offer yet';
+  String get includedMealsEmptyBody =>
+      'You haven\'t added any meals to this offer yet';
 
   @override
   String get addDishCta => 'Add Dish';
@@ -300,10 +316,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get offerStatusSectionTitle => 'Offer status';
 
   @override
-  String get offerStatusHelperText => 'Activate the offer to show it to customers immediately';
+  String get offerStatusHelperText =>
+      'Activate the offer to show it to customers immediately';
 
   @override
-  String get saveOfferCta => 'Save Offer';
+  String get createOfferCta => 'Create';
 
   @override
   String get saveOfferChangesCta => 'Save Changes';
@@ -347,7 +364,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get discountPriceAfterLabel => 'Price after discount';
 
   @override
-  String get discountPricesAfterPerOptionLabel => 'Prices after discount (by selling option)';
+  String get discountPricesAfterPerOptionLabel =>
+      'Prices after discount (by selling option)';
 
   @override
   String get restrictionTypeLabel => 'Restriction type';
@@ -385,25 +403,29 @@ class AppLocalizationsEn extends AppLocalizations {
   String get deleteDiscountTitle => 'Delete Discount';
 
   @override
-  String get validationPercentageOutOfRange => 'Percentage must be between 0 and 100';
+  String get validationPercentageOutOfRange =>
+      'Percentage must be between 0 and 100';
 
   @override
   String get validationMealRequired => 'Please select a meal';
 
   @override
-  String get validationRestrictionRequired => 'Please set the duration or usage count';
+  String get validationRestrictionRequired =>
+      'Please set the duration or usage count';
 
   @override
   String get deleteOfferConfirmTitle => 'Delete offer?';
 
   @override
-  String get deleteOfferConfirmBody => 'This offer will be permanently deleted and will no longer appear to customers';
+  String get deleteOfferConfirmBody =>
+      'This offer will be permanently deleted and will no longer appear to customers';
 
   @override
   String get deleteDiscountConfirmTitle => 'Delete discount?';
 
   @override
-  String get deleteDiscountConfirmBody => 'This discount will be permanently deleted and will no longer apply to the meal';
+  String get deleteDiscountConfirmBody =>
+      'This discount will be permanently deleted and will no longer apply to the meal';
 
   @override
   String get filterAllLabel => 'All';
@@ -479,7 +501,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get cropAvatarTitle => 'Crop Photo';
 
   @override
-  String get cropAvatarHint => 'Drag to move, pinch to zoom, and choose what appears inside the frame';
+  String get cropAvatarHint =>
+      'Drag to move, pinch to zoom, and choose what appears inside the frame';
 
   @override
   String get fullNameLabel => 'Full Name';
@@ -491,13 +514,20 @@ class AppLocalizationsEn extends AppLocalizations {
   String get bioLabel => 'About Me';
 
   @override
-  String get bioHint => 'Write a short bio about yourself and your cooking experience...';
+  String get bioHint =>
+      'Write a short bio about yourself and your cooking experience...';
 
   @override
   String get addressLabel => 'Address';
 
   @override
   String get addressHint => 'Enter your address in detail';
+
+  @override
+  String get detectLocationCta => 'Detect';
+
+  @override
+  String get detectedLocationHint => 'Location will be detected automatically';
 
   @override
   String get availabilityDaysFieldLabel => 'Availability Days';
@@ -545,13 +575,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get validationZeroAvailabilityDays => 'Select at least one day';
 
   @override
-  String get validationInvalidAvailabilityRange => 'End time must be after start time';
+  String get validationInvalidAvailabilityRange =>
+      'End time must be after start time';
 
   @override
   String get myOrdersTitle => 'My Orders';
 
   @override
-  String get myOrdersSubtitle => 'Manage and track the status of your current and past orders.';
+  String get myOrdersSubtitle =>
+      'Manage and track the status of your current and past orders.';
 
   @override
   String get orderDetailsTitle => 'Order Details';
@@ -586,6 +618,11 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String orderNumberLabel(String id) {
     return 'Order #$id';
+  }
+
+  @override
+  String estimatedPrepTimeLabel(int minutes) {
+    return 'Estimated time: $minutes min';
   }
 
   @override
@@ -646,7 +683,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get markPreparedCta => 'Mark as Prepared';
 
   @override
-  String get preparingDoneBannerBody => 'By tapping \"Mark as Prepared\", the customer will be notified to come pick up the order.';
+  String get preparingDoneBannerBody =>
+      'By tapping \"Mark as Prepared\", the customer will be notified to come pick up the order.';
 
   @override
   String rejectOrderDialogTitle(String id) {
@@ -657,19 +695,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get rejectOrderConfirmCta => 'Reject Order';
 
   @override
-  String get rejectionReasonLabel => 'Rejection reason';
+  String get rejectionReasonLabel => 'Rejection reason (optional)';
 
   @override
-  String get rejectionReasonHint => 'Write the reason for rejecting this order...';
+  String get rejectionReasonHint =>
+      'Write the reason for rejecting this order...';
 
   @override
   String get rejectionReasonRequiredError => 'Please enter a rejection reason';
 
   @override
-  String get orderExpiredOnAcceptMessage => 'Sorry, the order timeout has expired and the order was cancelled automatically.';
+  String get orderExpiredOnAcceptMessage =>
+      'Sorry, the order timeout has expired and the order was cancelled automatically.';
 
   @override
-  String get orderCancelledAutomaticallyBanner => 'This order was automatically cancelled because the response window expired.';
+  String get orderCancelledAutomaticallyBanner =>
+      'This order was automatically cancelled because the response window expired.';
 
   @override
   String get orderAcceptedSuccessMessage => 'Order accepted successfully';
@@ -678,7 +719,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get orderRejectedSuccessMessage => 'Order rejected';
 
   @override
-  String get orderCompletedSuccessMessage => 'Order marked as ready successfully';
+  String get orderCompletedSuccessMessage =>
+      'Order marked as ready successfully';
 
   @override
   String get okLabel => 'OK';
@@ -687,19 +729,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get emptyOrdersPendingHeading => 'No new orders';
 
   @override
-  String get emptyOrdersPendingBody => 'New orders will appear here once they arrive.';
+  String get emptyOrdersPendingBody =>
+      'New orders will appear here once they arrive.';
 
   @override
   String get emptyOrdersPreparingHeading => 'No orders in progress';
 
   @override
-  String get emptyOrdersPreparingBody => 'Orders you accept will appear here while you prepare them.';
+  String get emptyOrdersPreparingBody =>
+      'Orders you accept will appear here while you prepare them.';
 
   @override
   String get emptyOrdersDoneHeading => 'No completed orders yet';
 
   @override
-  String get emptyOrdersDoneBody => 'Orders you\'ve finished preparing will appear here.';
+  String get emptyOrdersDoneBody =>
+      'Orders you\'ve finished preparing will appear here.';
 
   @override
   String get emptyOrdersRejectedHeading => 'No rejected orders';
@@ -776,7 +821,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get logoutConfirmTitle => 'Log out?';
 
   @override
-  String get logoutConfirmBody => 'You\'ll be logged out of the app. You can log back in at any time.';
+  String get logoutConfirmBody =>
+      'You\'ll be logged out of the app. You can log back in at any time.';
 
   @override
   String get logoutCta => 'Log Out';
@@ -791,13 +837,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get changePasswordHeading => 'Update Security Info';
 
   @override
-  String get changePasswordDescription => 'Please enter your current password, then set a new strong password.';
+  String get changePasswordDescription =>
+      'Please enter your current password, then set a new strong password.';
 
   @override
   String get currentPasswordLabel => 'Current Password';
 
   @override
-  String get currentPasswordIncorrectError => 'The current password is incorrect';
+  String get currentPasswordIncorrectError =>
+      'The current password is incorrect';
 
   @override
   String get newPasswordLabel => 'New Password';
@@ -809,7 +857,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get passwordMismatchError => 'Passwords don\'t match';
 
   @override
-  String get passwordComplexityError => 'Must be at least 8 characters with an uppercase letter, a lowercase letter, a digit, and a symbol';
+  String get passwordComplexityError =>
+      'Must be at least 8 characters with an uppercase letter, a lowercase letter, a digit, and a symbol';
 
   @override
   String get updatePasswordCta => 'Update Password';
@@ -839,19 +888,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get changePhoneNumberHeading => 'Update Phone Number';
 
   @override
-  String get changePhoneNumberDescription => 'Please enter your new phone number, we\'ll send you a verification code to confirm.';
+  String get changePhoneNumberDescription =>
+      'Please enter your new phone number, we\'ll send you a verification code to confirm.';
 
   @override
   String get newPhoneNumberLabel => 'New Phone Number';
 
   @override
-  String get newPhoneNumberHelper => 'Make sure to enter the number correctly to receive the code';
+  String get newPhoneNumberHelper =>
+      'Make sure to enter the number correctly to receive the code';
 
   @override
   String get sendVerificationCodeCta => 'Send Verification Code';
 
   @override
-  String get phoneNumberInvalidError => 'Please enter a valid 9-digit phone number';
+  String get phoneNumberInvalidError =>
+      'Please enter a valid 9-digit phone number';
 
   @override
   String get otpVerificationTitle => 'Verification Code';
@@ -860,7 +912,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get otpSentHeading => 'Verification Code Sent';
 
   @override
-  String get otpSentDescription => 'We\'ve sent a 4-digit code to your new phone number';
+  String get otpSentDescription =>
+      'We\'ve sent a 4-digit code to your new phone number';
 
   @override
   String get resendCodePrompt => 'Didn\'t receive the code?';
@@ -873,4 +926,34 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get otpIncorrectError => 'The code is incorrect, please try again';
+
+  @override
+  String get onboardingSlide1Title => 'The Best Home Cooking';
+
+  @override
+  String get onboardingSlide1Body =>
+      'Taste the flavor of home in every meal, prepared with care and love by passionate local cooks.';
+
+  @override
+  String get onboardingSlide2Title => 'Warm & Fast Delivery';
+
+  @override
+  String get onboardingSlide2Body =>
+      'Your meals arrive fresh and warm, as if straight out of your own kitchen\'s oven.';
+
+  @override
+  String get onboardingSlide3Title => 'Share the Joy of Food';
+
+  @override
+  String get onboardingSlide3Body =>
+      'Discover new flavors and share the experience with family and friends on every occasion.';
+
+  @override
+  String get onboardingNext => 'Next';
+
+  @override
+  String get onboardingStart => 'Get Started';
+
+  @override
+  String get onboardingSkip => 'Skip';
 }

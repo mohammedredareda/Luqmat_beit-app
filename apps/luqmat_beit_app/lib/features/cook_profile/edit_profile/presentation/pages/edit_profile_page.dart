@@ -5,11 +5,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:luqmat_beit_app/di/injection.dart';
 import 'package:luqmat_beit_app/l10n/generated/app_localizations.dart';
 
+import '../../../presentation/weekday_label.dart';
 import '../bloc/edit_profile_bloc.dart';
 import '../bloc/edit_profile_event.dart';
 import '../bloc/edit_profile_state.dart';
 import '../bloc/profile_submit_status.dart';
 import '../widgets/availability_editor.dart';
+import '../widgets/edit_profile_skeleton.dart';
 import '../widgets/profile_avatar_picker.dart';
 
 /// CK-20 Edit Profile. No bottom nav — a task-focused sub-screen reached
@@ -61,7 +63,7 @@ class _EditProfileView extends StatelessWidget {
         appBar: AppBar(title: Text(l10n.editProfileTitle)),
         body: BlocBuilder<EditProfileBloc, EditProfileState>(
           builder: (context, state) => state.when(
-            loading: () => const Center(child: CircularProgressIndicator()),
+            loading: () => const EditProfileSkeleton(),
             loadError: (exception) => _LoadErrorBody(message: exception.message),
             form: (data) => _FormBody(
               data: data,
@@ -170,6 +172,13 @@ class _FormBody extends StatelessWidget {
             prefixIcon: const Icon(Icons.location_on_outlined),
           ),
         ),
+        const SizedBox(height: AppSpace.s),
+        _LocationDetector(data: data),
+        const SizedBox(height: AppSpace.l),
+        _AvailabilityDaysPicker(
+          selectedDays: data.selectedDays,
+          onDayToggled: (value) => bloc.add(EditProfileEvent.availabilityDayToggled(value)),
+        ),
         const SizedBox(height: AppSpace.l),
         AvailabilityEditor(
           startTime: data.availabilityStartTime,
@@ -202,6 +211,108 @@ class _FormBody extends StatelessWidget {
             child: Text(l10n.cancelLabel),
           ),
         ),
+      ],
+    );
+  }
+}
+
+/// A per-day toggle-chip row (any combination, not a contiguous range) —
+/// the cook picks exactly which individual weekdays they're open.
+class _AvailabilityDaysPicker extends StatelessWidget {
+  const _AvailabilityDaysPicker({required this.selectedDays, required this.onDayToggled});
+
+  final Set<Weekday> selectedDays;
+  final ValueChanged<Weekday> onDayToggled;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final scheme = Theme.of(context).colorScheme;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(l10n.availabilityDaysFieldLabel, style: Theme.of(context).textTheme.bodySmall),
+        const SizedBox(height: AppSpace.s),
+        Wrap(
+          spacing: AppSpace.s,
+          runSpacing: AppSpace.s,
+          children: [
+            for (final day in Weekday.values)
+              FilterChip(
+                label: Text(weekdayLabel(l10n, day)),
+                selected: selectedDays.contains(day),
+                onSelected: (_) => onDayToggled(day),
+                selectedColor: scheme.primaryContainer,
+                checkmarkColor: scheme.onPrimaryContainer,
+              ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+/// Mirrors the registration screen's location-detect block (read-only
+/// field + "تحديد" button) — never overwrites the independently-editable
+/// address field above it, unlike registration.
+class _LocationDetector extends StatelessWidget {
+  const _LocationDetector({required this.data});
+
+  final EditProfileFormData data;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final scheme = Theme.of(context).colorScheme;
+    final bloc = context.read<EditProfileBloc>();
+
+    final coordsText = data.latitude != null && data.longitude != null
+        ? '${data.latitude!.toStringAsFixed(5)}, ${data.longitude!.toStringAsFixed(5)}'
+        : '';
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: TextField(
+                readOnly: true,
+                controller: TextEditingController(text: coordsText),
+                decoration: InputDecoration(
+                  hintText: l10n.detectedLocationHint,
+                  prefixIcon: Icon(Icons.my_location, color: scheme.onSurfaceVariant),
+                ),
+              ),
+            ),
+            const SizedBox(width: AppSpace.s),
+            SizedBox(
+              height: 52,
+              child: ElevatedButton.icon(
+                onPressed: data.isDetectingLocation
+                    ? null
+                    : () => bloc.add(const EditProfileEvent.detectLocationPressed()),
+                icon: data.isDetectingLocation
+                    ? const SizedBox(
+                        width: 16,
+                        height: 16,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      )
+                    : const Icon(Icons.my_location, size: 20),
+                label: Text(l10n.detectLocationCta),
+              ),
+            ),
+          ],
+        ),
+        if (data.locationError != null) ...[
+          const SizedBox(height: AppSpace.xs),
+          Text(
+            data.locationError!,
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(color: scheme.error),
+          ),
+        ],
       ],
     );
   }

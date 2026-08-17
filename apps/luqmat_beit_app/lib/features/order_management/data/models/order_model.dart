@@ -1,5 +1,6 @@
 import 'package:core/core.dart';
 
+import 'package:luqmat_beit_app/shared/current_cook_id.dart';
 import 'order_meal_item_model.dart';
 import 'order_offer_item_model.dart';
 import 'order_returned_meal_item_model.dart';
@@ -86,6 +87,54 @@ class OrderModel {
         'deliveryFee': deliveryFee,
         'discountAmount': discountAmount,
       };
+
+  /// Real-shape response parsing from `GET /user/cook/orders` (list, thin
+  /// "preview" objects — shape undocumented beyond `{orders:[...]}`, so
+  /// this is written defensively to also work for `GET
+  /// /user/cook/orders/{id}`'s full detail shape) and the detail endpoint
+  /// itself: nested `customer.user.{name,phone}`, `mealItems[].{meal,
+  /// sellingOption}`, prices as numeric strings, `totalExpectedTime` (not
+  /// `totalExpectedTimeMinutes`) also as a numeric string.
+  factory OrderModel.fromApiJson(Map<String, dynamic> json) {
+    final customer = json['customer'] as Map?;
+    final customerUser = customer?['user'] as Map?;
+    final lat = json['deliveryLatitude'];
+    final lng = json['deliveryLongitude'];
+    return OrderModel(
+      id: json['id'].toString(),
+      cookId: json['cookId']?.toString() ?? currentCookId,
+      // TODO(backend): no order response carries the cook's own name —
+      // falls back to the same placeholder meal_management's real
+      // datasource would use if it needed one.
+      cookName: currentCookName,
+      customerId: (json['customerId'] ?? customer?['id'])?.toString() ?? '',
+      customerName: customerUser?['name'] as String?,
+      status: OrderStatus.values.byName((json['status'] as String? ?? 'PENDING').toLowerCase()),
+      createdAt: DateTime.tryParse(json['createdAt']?.toString() ?? '') ?? DateTime.now(),
+      totalExpectedTimeMinutes: int.tryParse(json['totalExpectedTime']?.toString() ?? '') ?? 0,
+      // TODO(backend): no human-readable delivery-address field — only raw
+      // lat/long coordinates. Falls back to formatting those until the
+      // backend adds a proper address string (or the app reverse-geocodes
+      // client-side, mirroring `LocationRepository`'s existing capability).
+      deliveryAddress: lat != null && lng != null ? '$lat, $lng' : '',
+      mealItems: (json['mealItems'] as List<dynamic>? ?? [])
+          .map((e) => OrderMealItemModel.fromApiJson((e as Map).cast<String, dynamic>()))
+          .toList(),
+      offerItems: (json['offerItems'] as List<dynamic>? ?? [])
+          .map((e) => OrderOfferItemModel.fromApiJson((e as Map).cast<String, dynamic>()))
+          .toList(),
+      returnedMealItems: (json['returnedMealItems'] as List<dynamic>? ?? [])
+          .map((e) => OrderReturnedMealItemModel.fromApiJson((e as Map).cast<String, dynamic>()))
+          .toList(),
+      rejectionReason: json['rejectionReason'] as String?,
+      chosenDeliveryTime: json['chosenDeliveryTime'] == null
+          ? null
+          : DateTime.tryParse(json['chosenDeliveryTime'].toString()),
+      deliveryFee: double.tryParse(json['deliveryPrice']?.toString() ?? '') ?? 0,
+      // TODO(backend): no discount field on the real order response.
+      discountAmount: 0,
+    );
+  }
 
   /// CK-25: the pending-order timeout deadline is always 25% of
   /// [totalExpectedTimeMinutes] past [createdAt] — computed fresh here

@@ -25,6 +25,8 @@ mixin _$EditProfileEvent {
     required TResult Function(String value) addressChanged,
     required TResult Function(String value) availabilityStartTimeChanged,
     required TResult Function(String value) availabilityEndTimeChanged,
+    required TResult Function(Weekday value) availabilityDayToggled,
+    required TResult Function() detectLocationPressed,
     required TResult Function(String path, int sizeBytes) avatarPicked,
     required TResult Function() submitPressed,
   }) =>
@@ -38,6 +40,8 @@ mixin _$EditProfileEvent {
     TResult? Function(String value)? addressChanged,
     TResult? Function(String value)? availabilityStartTimeChanged,
     TResult? Function(String value)? availabilityEndTimeChanged,
+    TResult? Function(Weekday value)? availabilityDayToggled,
+    TResult? Function()? detectLocationPressed,
     TResult? Function(String path, int sizeBytes)? avatarPicked,
     TResult? Function()? submitPressed,
   }) =>
@@ -51,6 +55,8 @@ mixin _$EditProfileEvent {
     TResult Function(String value)? addressChanged,
     TResult Function(String value)? availabilityStartTimeChanged,
     TResult Function(String value)? availabilityEndTimeChanged,
+    TResult Function(Weekday value)? availabilityDayToggled,
+    TResult Function()? detectLocationPressed,
     TResult Function(String path, int sizeBytes)? avatarPicked,
     TResult Function()? submitPressed,
     required TResult orElse(),
@@ -67,6 +73,10 @@ mixin _$EditProfileEvent {
         availabilityStartTimeChanged,
     required TResult Function(_AvailabilityEndTimeChanged value)
         availabilityEndTimeChanged,
+    required TResult Function(_AvailabilityDayToggled value)
+        availabilityDayToggled,
+    required TResult Function(_DetectLocationPressed value)
+        detectLocationPressed,
     required TResult Function(_AvatarPicked value) avatarPicked,
     required TResult Function(_SubmitPressed value) submitPressed,
   }) =>
@@ -82,6 +92,8 @@ mixin _$EditProfileEvent {
         availabilityStartTimeChanged,
     TResult? Function(_AvailabilityEndTimeChanged value)?
         availabilityEndTimeChanged,
+    TResult? Function(_AvailabilityDayToggled value)? availabilityDayToggled,
+    TResult? Function(_DetectLocationPressed value)? detectLocationPressed,
     TResult? Function(_AvatarPicked value)? avatarPicked,
     TResult? Function(_SubmitPressed value)? submitPressed,
   }) =>
@@ -97,6 +109,8 @@ mixin _$EditProfileEvent {
         availabilityStartTimeChanged,
     TResult Function(_AvailabilityEndTimeChanged value)?
         availabilityEndTimeChanged,
+    TResult Function(_AvailabilityDayToggled value)? availabilityDayToggled,
+    TResult Function(_DetectLocationPressed value)? detectLocationPressed,
     TResult Function(_AvatarPicked value)? avatarPicked,
     TResult Function(_SubmitPressed value)? submitPressed,
     required TResult orElse(),
@@ -173,6 +187,8 @@ class _$StartedImpl implements _Started {
     required TResult Function(String value) addressChanged,
     required TResult Function(String value) availabilityStartTimeChanged,
     required TResult Function(String value) availabilityEndTimeChanged,
+    required TResult Function(Weekday value) availabilityDayToggled,
+    required TResult Function() detectLocationPressed,
     required TResult Function(String path, int sizeBytes) avatarPicked,
     required TResult Function() submitPressed,
   }) {
@@ -189,6 +205,8 @@ class _$StartedImpl implements _Started {
     TResult? Function(String value)? addressChanged,
     TResult? Function(String value)? availabilityStartTimeChanged,
     TResult? Function(String value)? availabilityEndTimeChanged,
+    TResult? Function(Weekday value)? availabilityDayToggled,
+    TResult? Function()? detectLocationPressed,
     TResult? Function(String path, int sizeBytes)? avatarPicked,
     TResult? Function()? submitPressed,
   }) {
@@ -205,6 +223,8 @@ class _$StartedImpl implements _Started {
     TResult Function(String value)? addressChanged,
     TResult Function(String value)? availabilityStartTimeChanged,
     TResult Function(String value)? availabilityEndTimeChanged,
+    TResult Function(Weekday value)? availabilityDayToggled,
+    TResult Function()? detectLocationPressed,
     TResult Function(String path, int sizeBytes)? avatarPicked,
     TResult Function()? submitPressed,
     required TResult orElse(),
@@ -227,6 +247,10 @@ class _$StartedImpl implements _Started {
         availabilityStartTimeChanged,
     required TResult Function(_AvailabilityEndTimeChanged value)
         availabilityEndTimeChanged,
+    required TResult Function(_AvailabilityDayToggled value)
+        availabilityDayToggled,
+    required TResult Function(_DetectLocationPressed value)
+        detectLocationPressed,
     required TResult Function(_AvatarPicked value) avatarPicked,
     required TResult Function(_SubmitPressed value) submitPressed,
   }) {
@@ -245,6 +269,8 @@ class _$StartedImpl implements _Started {
         availabilityStartTimeChanged,
     TResult? Function(_AvailabilityEndTimeChanged value)?
         availabilityEndTimeChanged,
+    TResult? Function(_AvailabilityDayToggled value)? availabilityDayToggled,
+    TResult? Function(_DetectLocationPressed value)? detectLocationPressed,
     TResult? Function(_AvatarPicked value)? avatarPicked,
     TResult? Function(_SubmitPressed value)? submitPressed,
   }) {
@@ -263,6 +289,8 @@ class _$StartedImpl implements _Started {
         availabilityStartTimeChanged,
     TResult Function(_AvailabilityEndTimeChanged value)?
         availabilityEndTimeChanged,
+    TResult Function(_AvailabilityDayToggled value)? availabilityDayToggled,
+    TResult Function(_DetectLocationPressed value)? detectLocationPressed,
     TResult Function(_AvatarPicked value)? avatarPicked,
     TResult Function(_SubmitPressed value)? submitPressed,
     required TResult orElse(),
@@ -326,6 +354,8 @@ class _$RetryLoadPressedImpl implements _RetryLoadPressed {
     required TResult Function(String value) addressChanged,
     required TResult Function(String value) availabilityStartTimeChanged,
     required TResult Function(String value) availabilityEndTimeChanged,
+    required TResult Function(Weekday value) availabilityDayToggled,
+    required TResult Function() detectLocationPressed,
     required TResult Function(String path, int sizeBytes) avatarPicked,
     required TResult Function() submitPressed,
   }) {
@@ -342,6 +372,8 @@ class _$RetryLoadPressedImpl implements _RetryLoadPressed {
     TResult? Function(String value)? addressChanged,
     TResult? Function(String value)? availabilityStartTimeChanged,
     TResult? Function(String value)? availabilityEndTimeChanged,
+    TResult? Function(Weekday value)? availabilityDayToggled,
+    TResult? Function()? detectLocationPressed,
     TResult? Function(String path, int sizeBytes)? avatarPicked,
     TResult? Function()? submitPressed,
   }) {
@@ -358,6 +390,8 @@ class _$RetryLoadPressedImpl implements _RetryLoadPressed {
     TResult Function(String value)? addressChanged,
     TResult Function(String value)? availabilityStartTimeChanged,
     TResult Function(String value)? availabilityEndTimeChanged,
+    TResult Function(Weekday value)? availabilityDayToggled,
+    TResult Function()? detectLocationPressed,
     TResult Function(String path, int sizeBytes)? avatarPicked,
     TResult Function()? submitPressed,
     required TResult orElse(),
@@ -380,6 +414,10 @@ class _$RetryLoadPressedImpl implements _RetryLoadPressed {
         availabilityStartTimeChanged,
     required TResult Function(_AvailabilityEndTimeChanged value)
         availabilityEndTimeChanged,
+    required TResult Function(_AvailabilityDayToggled value)
+        availabilityDayToggled,
+    required TResult Function(_DetectLocationPressed value)
+        detectLocationPressed,
     required TResult Function(_AvatarPicked value) avatarPicked,
     required TResult Function(_SubmitPressed value) submitPressed,
   }) {
@@ -398,6 +436,8 @@ class _$RetryLoadPressedImpl implements _RetryLoadPressed {
         availabilityStartTimeChanged,
     TResult? Function(_AvailabilityEndTimeChanged value)?
         availabilityEndTimeChanged,
+    TResult? Function(_AvailabilityDayToggled value)? availabilityDayToggled,
+    TResult? Function(_DetectLocationPressed value)? detectLocationPressed,
     TResult? Function(_AvatarPicked value)? avatarPicked,
     TResult? Function(_SubmitPressed value)? submitPressed,
   }) {
@@ -416,6 +456,8 @@ class _$RetryLoadPressedImpl implements _RetryLoadPressed {
         availabilityStartTimeChanged,
     TResult Function(_AvailabilityEndTimeChanged value)?
         availabilityEndTimeChanged,
+    TResult Function(_AvailabilityDayToggled value)? availabilityDayToggled,
+    TResult Function(_DetectLocationPressed value)? detectLocationPressed,
     TResult Function(_AvatarPicked value)? avatarPicked,
     TResult Function(_SubmitPressed value)? submitPressed,
     required TResult orElse(),
@@ -507,6 +549,8 @@ class _$FullNameChangedImpl implements _FullNameChanged {
     required TResult Function(String value) addressChanged,
     required TResult Function(String value) availabilityStartTimeChanged,
     required TResult Function(String value) availabilityEndTimeChanged,
+    required TResult Function(Weekday value) availabilityDayToggled,
+    required TResult Function() detectLocationPressed,
     required TResult Function(String path, int sizeBytes) avatarPicked,
     required TResult Function() submitPressed,
   }) {
@@ -523,6 +567,8 @@ class _$FullNameChangedImpl implements _FullNameChanged {
     TResult? Function(String value)? addressChanged,
     TResult? Function(String value)? availabilityStartTimeChanged,
     TResult? Function(String value)? availabilityEndTimeChanged,
+    TResult? Function(Weekday value)? availabilityDayToggled,
+    TResult? Function()? detectLocationPressed,
     TResult? Function(String path, int sizeBytes)? avatarPicked,
     TResult? Function()? submitPressed,
   }) {
@@ -539,6 +585,8 @@ class _$FullNameChangedImpl implements _FullNameChanged {
     TResult Function(String value)? addressChanged,
     TResult Function(String value)? availabilityStartTimeChanged,
     TResult Function(String value)? availabilityEndTimeChanged,
+    TResult Function(Weekday value)? availabilityDayToggled,
+    TResult Function()? detectLocationPressed,
     TResult Function(String path, int sizeBytes)? avatarPicked,
     TResult Function()? submitPressed,
     required TResult orElse(),
@@ -561,6 +609,10 @@ class _$FullNameChangedImpl implements _FullNameChanged {
         availabilityStartTimeChanged,
     required TResult Function(_AvailabilityEndTimeChanged value)
         availabilityEndTimeChanged,
+    required TResult Function(_AvailabilityDayToggled value)
+        availabilityDayToggled,
+    required TResult Function(_DetectLocationPressed value)
+        detectLocationPressed,
     required TResult Function(_AvatarPicked value) avatarPicked,
     required TResult Function(_SubmitPressed value) submitPressed,
   }) {
@@ -579,6 +631,8 @@ class _$FullNameChangedImpl implements _FullNameChanged {
         availabilityStartTimeChanged,
     TResult? Function(_AvailabilityEndTimeChanged value)?
         availabilityEndTimeChanged,
+    TResult? Function(_AvailabilityDayToggled value)? availabilityDayToggled,
+    TResult? Function(_DetectLocationPressed value)? detectLocationPressed,
     TResult? Function(_AvatarPicked value)? avatarPicked,
     TResult? Function(_SubmitPressed value)? submitPressed,
   }) {
@@ -597,6 +651,8 @@ class _$FullNameChangedImpl implements _FullNameChanged {
         availabilityStartTimeChanged,
     TResult Function(_AvailabilityEndTimeChanged value)?
         availabilityEndTimeChanged,
+    TResult Function(_AvailabilityDayToggled value)? availabilityDayToggled,
+    TResult Function(_DetectLocationPressed value)? detectLocationPressed,
     TResult Function(_AvatarPicked value)? avatarPicked,
     TResult Function(_SubmitPressed value)? submitPressed,
     required TResult orElse(),
@@ -695,6 +751,8 @@ class _$BioChangedImpl implements _BioChanged {
     required TResult Function(String value) addressChanged,
     required TResult Function(String value) availabilityStartTimeChanged,
     required TResult Function(String value) availabilityEndTimeChanged,
+    required TResult Function(Weekday value) availabilityDayToggled,
+    required TResult Function() detectLocationPressed,
     required TResult Function(String path, int sizeBytes) avatarPicked,
     required TResult Function() submitPressed,
   }) {
@@ -711,6 +769,8 @@ class _$BioChangedImpl implements _BioChanged {
     TResult? Function(String value)? addressChanged,
     TResult? Function(String value)? availabilityStartTimeChanged,
     TResult? Function(String value)? availabilityEndTimeChanged,
+    TResult? Function(Weekday value)? availabilityDayToggled,
+    TResult? Function()? detectLocationPressed,
     TResult? Function(String path, int sizeBytes)? avatarPicked,
     TResult? Function()? submitPressed,
   }) {
@@ -727,6 +787,8 @@ class _$BioChangedImpl implements _BioChanged {
     TResult Function(String value)? addressChanged,
     TResult Function(String value)? availabilityStartTimeChanged,
     TResult Function(String value)? availabilityEndTimeChanged,
+    TResult Function(Weekday value)? availabilityDayToggled,
+    TResult Function()? detectLocationPressed,
     TResult Function(String path, int sizeBytes)? avatarPicked,
     TResult Function()? submitPressed,
     required TResult orElse(),
@@ -749,6 +811,10 @@ class _$BioChangedImpl implements _BioChanged {
         availabilityStartTimeChanged,
     required TResult Function(_AvailabilityEndTimeChanged value)
         availabilityEndTimeChanged,
+    required TResult Function(_AvailabilityDayToggled value)
+        availabilityDayToggled,
+    required TResult Function(_DetectLocationPressed value)
+        detectLocationPressed,
     required TResult Function(_AvatarPicked value) avatarPicked,
     required TResult Function(_SubmitPressed value) submitPressed,
   }) {
@@ -767,6 +833,8 @@ class _$BioChangedImpl implements _BioChanged {
         availabilityStartTimeChanged,
     TResult? Function(_AvailabilityEndTimeChanged value)?
         availabilityEndTimeChanged,
+    TResult? Function(_AvailabilityDayToggled value)? availabilityDayToggled,
+    TResult? Function(_DetectLocationPressed value)? detectLocationPressed,
     TResult? Function(_AvatarPicked value)? avatarPicked,
     TResult? Function(_SubmitPressed value)? submitPressed,
   }) {
@@ -785,6 +853,8 @@ class _$BioChangedImpl implements _BioChanged {
         availabilityStartTimeChanged,
     TResult Function(_AvailabilityEndTimeChanged value)?
         availabilityEndTimeChanged,
+    TResult Function(_AvailabilityDayToggled value)? availabilityDayToggled,
+    TResult Function(_DetectLocationPressed value)? detectLocationPressed,
     TResult Function(_AvatarPicked value)? avatarPicked,
     TResult Function(_SubmitPressed value)? submitPressed,
     required TResult orElse(),
@@ -884,6 +954,8 @@ class _$AddressChangedImpl implements _AddressChanged {
     required TResult Function(String value) addressChanged,
     required TResult Function(String value) availabilityStartTimeChanged,
     required TResult Function(String value) availabilityEndTimeChanged,
+    required TResult Function(Weekday value) availabilityDayToggled,
+    required TResult Function() detectLocationPressed,
     required TResult Function(String path, int sizeBytes) avatarPicked,
     required TResult Function() submitPressed,
   }) {
@@ -900,6 +972,8 @@ class _$AddressChangedImpl implements _AddressChanged {
     TResult? Function(String value)? addressChanged,
     TResult? Function(String value)? availabilityStartTimeChanged,
     TResult? Function(String value)? availabilityEndTimeChanged,
+    TResult? Function(Weekday value)? availabilityDayToggled,
+    TResult? Function()? detectLocationPressed,
     TResult? Function(String path, int sizeBytes)? avatarPicked,
     TResult? Function()? submitPressed,
   }) {
@@ -916,6 +990,8 @@ class _$AddressChangedImpl implements _AddressChanged {
     TResult Function(String value)? addressChanged,
     TResult Function(String value)? availabilityStartTimeChanged,
     TResult Function(String value)? availabilityEndTimeChanged,
+    TResult Function(Weekday value)? availabilityDayToggled,
+    TResult Function()? detectLocationPressed,
     TResult Function(String path, int sizeBytes)? avatarPicked,
     TResult Function()? submitPressed,
     required TResult orElse(),
@@ -938,6 +1014,10 @@ class _$AddressChangedImpl implements _AddressChanged {
         availabilityStartTimeChanged,
     required TResult Function(_AvailabilityEndTimeChanged value)
         availabilityEndTimeChanged,
+    required TResult Function(_AvailabilityDayToggled value)
+        availabilityDayToggled,
+    required TResult Function(_DetectLocationPressed value)
+        detectLocationPressed,
     required TResult Function(_AvatarPicked value) avatarPicked,
     required TResult Function(_SubmitPressed value) submitPressed,
   }) {
@@ -956,6 +1036,8 @@ class _$AddressChangedImpl implements _AddressChanged {
         availabilityStartTimeChanged,
     TResult? Function(_AvailabilityEndTimeChanged value)?
         availabilityEndTimeChanged,
+    TResult? Function(_AvailabilityDayToggled value)? availabilityDayToggled,
+    TResult? Function(_DetectLocationPressed value)? detectLocationPressed,
     TResult? Function(_AvatarPicked value)? avatarPicked,
     TResult? Function(_SubmitPressed value)? submitPressed,
   }) {
@@ -974,6 +1056,8 @@ class _$AddressChangedImpl implements _AddressChanged {
         availabilityStartTimeChanged,
     TResult Function(_AvailabilityEndTimeChanged value)?
         availabilityEndTimeChanged,
+    TResult Function(_AvailabilityDayToggled value)? availabilityDayToggled,
+    TResult Function(_DetectLocationPressed value)? detectLocationPressed,
     TResult Function(_AvatarPicked value)? avatarPicked,
     TResult Function(_SubmitPressed value)? submitPressed,
     required TResult orElse(),
@@ -1078,6 +1162,8 @@ class _$AvailabilityStartTimeChangedImpl
     required TResult Function(String value) addressChanged,
     required TResult Function(String value) availabilityStartTimeChanged,
     required TResult Function(String value) availabilityEndTimeChanged,
+    required TResult Function(Weekday value) availabilityDayToggled,
+    required TResult Function() detectLocationPressed,
     required TResult Function(String path, int sizeBytes) avatarPicked,
     required TResult Function() submitPressed,
   }) {
@@ -1094,6 +1180,8 @@ class _$AvailabilityStartTimeChangedImpl
     TResult? Function(String value)? addressChanged,
     TResult? Function(String value)? availabilityStartTimeChanged,
     TResult? Function(String value)? availabilityEndTimeChanged,
+    TResult? Function(Weekday value)? availabilityDayToggled,
+    TResult? Function()? detectLocationPressed,
     TResult? Function(String path, int sizeBytes)? avatarPicked,
     TResult? Function()? submitPressed,
   }) {
@@ -1110,6 +1198,8 @@ class _$AvailabilityStartTimeChangedImpl
     TResult Function(String value)? addressChanged,
     TResult Function(String value)? availabilityStartTimeChanged,
     TResult Function(String value)? availabilityEndTimeChanged,
+    TResult Function(Weekday value)? availabilityDayToggled,
+    TResult Function()? detectLocationPressed,
     TResult Function(String path, int sizeBytes)? avatarPicked,
     TResult Function()? submitPressed,
     required TResult orElse(),
@@ -1132,6 +1222,10 @@ class _$AvailabilityStartTimeChangedImpl
         availabilityStartTimeChanged,
     required TResult Function(_AvailabilityEndTimeChanged value)
         availabilityEndTimeChanged,
+    required TResult Function(_AvailabilityDayToggled value)
+        availabilityDayToggled,
+    required TResult Function(_DetectLocationPressed value)
+        detectLocationPressed,
     required TResult Function(_AvatarPicked value) avatarPicked,
     required TResult Function(_SubmitPressed value) submitPressed,
   }) {
@@ -1150,6 +1244,8 @@ class _$AvailabilityStartTimeChangedImpl
         availabilityStartTimeChanged,
     TResult? Function(_AvailabilityEndTimeChanged value)?
         availabilityEndTimeChanged,
+    TResult? Function(_AvailabilityDayToggled value)? availabilityDayToggled,
+    TResult? Function(_DetectLocationPressed value)? detectLocationPressed,
     TResult? Function(_AvatarPicked value)? avatarPicked,
     TResult? Function(_SubmitPressed value)? submitPressed,
   }) {
@@ -1168,6 +1264,8 @@ class _$AvailabilityStartTimeChangedImpl
         availabilityStartTimeChanged,
     TResult Function(_AvailabilityEndTimeChanged value)?
         availabilityEndTimeChanged,
+    TResult Function(_AvailabilityDayToggled value)? availabilityDayToggled,
+    TResult Function(_DetectLocationPressed value)? detectLocationPressed,
     TResult Function(_AvatarPicked value)? avatarPicked,
     TResult Function(_SubmitPressed value)? submitPressed,
     required TResult orElse(),
@@ -1272,6 +1370,8 @@ class _$AvailabilityEndTimeChangedImpl implements _AvailabilityEndTimeChanged {
     required TResult Function(String value) addressChanged,
     required TResult Function(String value) availabilityStartTimeChanged,
     required TResult Function(String value) availabilityEndTimeChanged,
+    required TResult Function(Weekday value) availabilityDayToggled,
+    required TResult Function() detectLocationPressed,
     required TResult Function(String path, int sizeBytes) avatarPicked,
     required TResult Function() submitPressed,
   }) {
@@ -1288,6 +1388,8 @@ class _$AvailabilityEndTimeChangedImpl implements _AvailabilityEndTimeChanged {
     TResult? Function(String value)? addressChanged,
     TResult? Function(String value)? availabilityStartTimeChanged,
     TResult? Function(String value)? availabilityEndTimeChanged,
+    TResult? Function(Weekday value)? availabilityDayToggled,
+    TResult? Function()? detectLocationPressed,
     TResult? Function(String path, int sizeBytes)? avatarPicked,
     TResult? Function()? submitPressed,
   }) {
@@ -1304,6 +1406,8 @@ class _$AvailabilityEndTimeChangedImpl implements _AvailabilityEndTimeChanged {
     TResult Function(String value)? addressChanged,
     TResult Function(String value)? availabilityStartTimeChanged,
     TResult Function(String value)? availabilityEndTimeChanged,
+    TResult Function(Weekday value)? availabilityDayToggled,
+    TResult Function()? detectLocationPressed,
     TResult Function(String path, int sizeBytes)? avatarPicked,
     TResult Function()? submitPressed,
     required TResult orElse(),
@@ -1326,6 +1430,10 @@ class _$AvailabilityEndTimeChangedImpl implements _AvailabilityEndTimeChanged {
         availabilityStartTimeChanged,
     required TResult Function(_AvailabilityEndTimeChanged value)
         availabilityEndTimeChanged,
+    required TResult Function(_AvailabilityDayToggled value)
+        availabilityDayToggled,
+    required TResult Function(_DetectLocationPressed value)
+        detectLocationPressed,
     required TResult Function(_AvatarPicked value) avatarPicked,
     required TResult Function(_SubmitPressed value) submitPressed,
   }) {
@@ -1344,6 +1452,8 @@ class _$AvailabilityEndTimeChangedImpl implements _AvailabilityEndTimeChanged {
         availabilityStartTimeChanged,
     TResult? Function(_AvailabilityEndTimeChanged value)?
         availabilityEndTimeChanged,
+    TResult? Function(_AvailabilityDayToggled value)? availabilityDayToggled,
+    TResult? Function(_DetectLocationPressed value)? detectLocationPressed,
     TResult? Function(_AvatarPicked value)? avatarPicked,
     TResult? Function(_SubmitPressed value)? submitPressed,
   }) {
@@ -1362,6 +1472,8 @@ class _$AvailabilityEndTimeChangedImpl implements _AvailabilityEndTimeChanged {
         availabilityStartTimeChanged,
     TResult Function(_AvailabilityEndTimeChanged value)?
         availabilityEndTimeChanged,
+    TResult Function(_AvailabilityDayToggled value)? availabilityDayToggled,
+    TResult Function(_DetectLocationPressed value)? detectLocationPressed,
     TResult Function(_AvatarPicked value)? avatarPicked,
     TResult Function(_SubmitPressed value)? submitPressed,
     required TResult orElse(),
@@ -1384,6 +1496,381 @@ abstract class _AvailabilityEndTimeChanged implements EditProfileEvent {
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AvailabilityEndTimeChangedImplCopyWith<_$AvailabilityEndTimeChangedImpl>
       get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$AvailabilityDayToggledImplCopyWith<$Res> {
+  factory _$$AvailabilityDayToggledImplCopyWith(
+          _$AvailabilityDayToggledImpl value,
+          $Res Function(_$AvailabilityDayToggledImpl) then) =
+      __$$AvailabilityDayToggledImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({Weekday value});
+}
+
+/// @nodoc
+class __$$AvailabilityDayToggledImplCopyWithImpl<$Res>
+    extends _$EditProfileEventCopyWithImpl<$Res, _$AvailabilityDayToggledImpl>
+    implements _$$AvailabilityDayToggledImplCopyWith<$Res> {
+  __$$AvailabilityDayToggledImplCopyWithImpl(
+      _$AvailabilityDayToggledImpl _value,
+      $Res Function(_$AvailabilityDayToggledImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of EditProfileEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? value = null,
+  }) {
+    return _then(_$AvailabilityDayToggledImpl(
+      null == value
+          ? _value.value
+          : value // ignore: cast_nullable_to_non_nullable
+              as Weekday,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$AvailabilityDayToggledImpl implements _AvailabilityDayToggled {
+  const _$AvailabilityDayToggledImpl(this.value);
+
+  @override
+  final Weekday value;
+
+  @override
+  String toString() {
+    return 'EditProfileEvent.availabilityDayToggled(value: $value)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$AvailabilityDayToggledImpl &&
+            (identical(other.value, value) || other.value == value));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, value);
+
+  /// Create a copy of EditProfileEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$AvailabilityDayToggledImplCopyWith<_$AvailabilityDayToggledImpl>
+      get copyWith => __$$AvailabilityDayToggledImplCopyWithImpl<
+          _$AvailabilityDayToggledImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function() retryLoadPressed,
+    required TResult Function(String value) fullNameChanged,
+    required TResult Function(String value) bioChanged,
+    required TResult Function(String value) addressChanged,
+    required TResult Function(String value) availabilityStartTimeChanged,
+    required TResult Function(String value) availabilityEndTimeChanged,
+    required TResult Function(Weekday value) availabilityDayToggled,
+    required TResult Function() detectLocationPressed,
+    required TResult Function(String path, int sizeBytes) avatarPicked,
+    required TResult Function() submitPressed,
+  }) {
+    return availabilityDayToggled(value);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function()? retryLoadPressed,
+    TResult? Function(String value)? fullNameChanged,
+    TResult? Function(String value)? bioChanged,
+    TResult? Function(String value)? addressChanged,
+    TResult? Function(String value)? availabilityStartTimeChanged,
+    TResult? Function(String value)? availabilityEndTimeChanged,
+    TResult? Function(Weekday value)? availabilityDayToggled,
+    TResult? Function()? detectLocationPressed,
+    TResult? Function(String path, int sizeBytes)? avatarPicked,
+    TResult? Function()? submitPressed,
+  }) {
+    return availabilityDayToggled?.call(value);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function()? retryLoadPressed,
+    TResult Function(String value)? fullNameChanged,
+    TResult Function(String value)? bioChanged,
+    TResult Function(String value)? addressChanged,
+    TResult Function(String value)? availabilityStartTimeChanged,
+    TResult Function(String value)? availabilityEndTimeChanged,
+    TResult Function(Weekday value)? availabilityDayToggled,
+    TResult Function()? detectLocationPressed,
+    TResult Function(String path, int sizeBytes)? avatarPicked,
+    TResult Function()? submitPressed,
+    required TResult orElse(),
+  }) {
+    if (availabilityDayToggled != null) {
+      return availabilityDayToggled(value);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_RetryLoadPressed value) retryLoadPressed,
+    required TResult Function(_FullNameChanged value) fullNameChanged,
+    required TResult Function(_BioChanged value) bioChanged,
+    required TResult Function(_AddressChanged value) addressChanged,
+    required TResult Function(_AvailabilityStartTimeChanged value)
+        availabilityStartTimeChanged,
+    required TResult Function(_AvailabilityEndTimeChanged value)
+        availabilityEndTimeChanged,
+    required TResult Function(_AvailabilityDayToggled value)
+        availabilityDayToggled,
+    required TResult Function(_DetectLocationPressed value)
+        detectLocationPressed,
+    required TResult Function(_AvatarPicked value) avatarPicked,
+    required TResult Function(_SubmitPressed value) submitPressed,
+  }) {
+    return availabilityDayToggled(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_RetryLoadPressed value)? retryLoadPressed,
+    TResult? Function(_FullNameChanged value)? fullNameChanged,
+    TResult? Function(_BioChanged value)? bioChanged,
+    TResult? Function(_AddressChanged value)? addressChanged,
+    TResult? Function(_AvailabilityStartTimeChanged value)?
+        availabilityStartTimeChanged,
+    TResult? Function(_AvailabilityEndTimeChanged value)?
+        availabilityEndTimeChanged,
+    TResult? Function(_AvailabilityDayToggled value)? availabilityDayToggled,
+    TResult? Function(_DetectLocationPressed value)? detectLocationPressed,
+    TResult? Function(_AvatarPicked value)? avatarPicked,
+    TResult? Function(_SubmitPressed value)? submitPressed,
+  }) {
+    return availabilityDayToggled?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_RetryLoadPressed value)? retryLoadPressed,
+    TResult Function(_FullNameChanged value)? fullNameChanged,
+    TResult Function(_BioChanged value)? bioChanged,
+    TResult Function(_AddressChanged value)? addressChanged,
+    TResult Function(_AvailabilityStartTimeChanged value)?
+        availabilityStartTimeChanged,
+    TResult Function(_AvailabilityEndTimeChanged value)?
+        availabilityEndTimeChanged,
+    TResult Function(_AvailabilityDayToggled value)? availabilityDayToggled,
+    TResult Function(_DetectLocationPressed value)? detectLocationPressed,
+    TResult Function(_AvatarPicked value)? avatarPicked,
+    TResult Function(_SubmitPressed value)? submitPressed,
+    required TResult orElse(),
+  }) {
+    if (availabilityDayToggled != null) {
+      return availabilityDayToggled(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _AvailabilityDayToggled implements EditProfileEvent {
+  const factory _AvailabilityDayToggled(final Weekday value) =
+      _$AvailabilityDayToggledImpl;
+
+  Weekday get value;
+
+  /// Create a copy of EditProfileEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$AvailabilityDayToggledImplCopyWith<_$AvailabilityDayToggledImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$DetectLocationPressedImplCopyWith<$Res> {
+  factory _$$DetectLocationPressedImplCopyWith(
+          _$DetectLocationPressedImpl value,
+          $Res Function(_$DetectLocationPressedImpl) then) =
+      __$$DetectLocationPressedImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$DetectLocationPressedImplCopyWithImpl<$Res>
+    extends _$EditProfileEventCopyWithImpl<$Res, _$DetectLocationPressedImpl>
+    implements _$$DetectLocationPressedImplCopyWith<$Res> {
+  __$$DetectLocationPressedImplCopyWithImpl(_$DetectLocationPressedImpl _value,
+      $Res Function(_$DetectLocationPressedImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of EditProfileEvent
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$DetectLocationPressedImpl implements _DetectLocationPressed {
+  const _$DetectLocationPressedImpl();
+
+  @override
+  String toString() {
+    return 'EditProfileEvent.detectLocationPressed()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DetectLocationPressedImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function() retryLoadPressed,
+    required TResult Function(String value) fullNameChanged,
+    required TResult Function(String value) bioChanged,
+    required TResult Function(String value) addressChanged,
+    required TResult Function(String value) availabilityStartTimeChanged,
+    required TResult Function(String value) availabilityEndTimeChanged,
+    required TResult Function(Weekday value) availabilityDayToggled,
+    required TResult Function() detectLocationPressed,
+    required TResult Function(String path, int sizeBytes) avatarPicked,
+    required TResult Function() submitPressed,
+  }) {
+    return detectLocationPressed();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function()? retryLoadPressed,
+    TResult? Function(String value)? fullNameChanged,
+    TResult? Function(String value)? bioChanged,
+    TResult? Function(String value)? addressChanged,
+    TResult? Function(String value)? availabilityStartTimeChanged,
+    TResult? Function(String value)? availabilityEndTimeChanged,
+    TResult? Function(Weekday value)? availabilityDayToggled,
+    TResult? Function()? detectLocationPressed,
+    TResult? Function(String path, int sizeBytes)? avatarPicked,
+    TResult? Function()? submitPressed,
+  }) {
+    return detectLocationPressed?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function()? retryLoadPressed,
+    TResult Function(String value)? fullNameChanged,
+    TResult Function(String value)? bioChanged,
+    TResult Function(String value)? addressChanged,
+    TResult Function(String value)? availabilityStartTimeChanged,
+    TResult Function(String value)? availabilityEndTimeChanged,
+    TResult Function(Weekday value)? availabilityDayToggled,
+    TResult Function()? detectLocationPressed,
+    TResult Function(String path, int sizeBytes)? avatarPicked,
+    TResult Function()? submitPressed,
+    required TResult orElse(),
+  }) {
+    if (detectLocationPressed != null) {
+      return detectLocationPressed();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_RetryLoadPressed value) retryLoadPressed,
+    required TResult Function(_FullNameChanged value) fullNameChanged,
+    required TResult Function(_BioChanged value) bioChanged,
+    required TResult Function(_AddressChanged value) addressChanged,
+    required TResult Function(_AvailabilityStartTimeChanged value)
+        availabilityStartTimeChanged,
+    required TResult Function(_AvailabilityEndTimeChanged value)
+        availabilityEndTimeChanged,
+    required TResult Function(_AvailabilityDayToggled value)
+        availabilityDayToggled,
+    required TResult Function(_DetectLocationPressed value)
+        detectLocationPressed,
+    required TResult Function(_AvatarPicked value) avatarPicked,
+    required TResult Function(_SubmitPressed value) submitPressed,
+  }) {
+    return detectLocationPressed(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_RetryLoadPressed value)? retryLoadPressed,
+    TResult? Function(_FullNameChanged value)? fullNameChanged,
+    TResult? Function(_BioChanged value)? bioChanged,
+    TResult? Function(_AddressChanged value)? addressChanged,
+    TResult? Function(_AvailabilityStartTimeChanged value)?
+        availabilityStartTimeChanged,
+    TResult? Function(_AvailabilityEndTimeChanged value)?
+        availabilityEndTimeChanged,
+    TResult? Function(_AvailabilityDayToggled value)? availabilityDayToggled,
+    TResult? Function(_DetectLocationPressed value)? detectLocationPressed,
+    TResult? Function(_AvatarPicked value)? avatarPicked,
+    TResult? Function(_SubmitPressed value)? submitPressed,
+  }) {
+    return detectLocationPressed?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_RetryLoadPressed value)? retryLoadPressed,
+    TResult Function(_FullNameChanged value)? fullNameChanged,
+    TResult Function(_BioChanged value)? bioChanged,
+    TResult Function(_AddressChanged value)? addressChanged,
+    TResult Function(_AvailabilityStartTimeChanged value)?
+        availabilityStartTimeChanged,
+    TResult Function(_AvailabilityEndTimeChanged value)?
+        availabilityEndTimeChanged,
+    TResult Function(_AvailabilityDayToggled value)? availabilityDayToggled,
+    TResult Function(_DetectLocationPressed value)? detectLocationPressed,
+    TResult Function(_AvatarPicked value)? avatarPicked,
+    TResult Function(_SubmitPressed value)? submitPressed,
+    required TResult orElse(),
+  }) {
+    if (detectLocationPressed != null) {
+      return detectLocationPressed(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _DetectLocationPressed implements EditProfileEvent {
+  const factory _DetectLocationPressed() = _$DetectLocationPressedImpl;
 }
 
 /// @nodoc
@@ -1470,6 +1957,8 @@ class _$AvatarPickedImpl implements _AvatarPicked {
     required TResult Function(String value) addressChanged,
     required TResult Function(String value) availabilityStartTimeChanged,
     required TResult Function(String value) availabilityEndTimeChanged,
+    required TResult Function(Weekday value) availabilityDayToggled,
+    required TResult Function() detectLocationPressed,
     required TResult Function(String path, int sizeBytes) avatarPicked,
     required TResult Function() submitPressed,
   }) {
@@ -1486,6 +1975,8 @@ class _$AvatarPickedImpl implements _AvatarPicked {
     TResult? Function(String value)? addressChanged,
     TResult? Function(String value)? availabilityStartTimeChanged,
     TResult? Function(String value)? availabilityEndTimeChanged,
+    TResult? Function(Weekday value)? availabilityDayToggled,
+    TResult? Function()? detectLocationPressed,
     TResult? Function(String path, int sizeBytes)? avatarPicked,
     TResult? Function()? submitPressed,
   }) {
@@ -1502,6 +1993,8 @@ class _$AvatarPickedImpl implements _AvatarPicked {
     TResult Function(String value)? addressChanged,
     TResult Function(String value)? availabilityStartTimeChanged,
     TResult Function(String value)? availabilityEndTimeChanged,
+    TResult Function(Weekday value)? availabilityDayToggled,
+    TResult Function()? detectLocationPressed,
     TResult Function(String path, int sizeBytes)? avatarPicked,
     TResult Function()? submitPressed,
     required TResult orElse(),
@@ -1524,6 +2017,10 @@ class _$AvatarPickedImpl implements _AvatarPicked {
         availabilityStartTimeChanged,
     required TResult Function(_AvailabilityEndTimeChanged value)
         availabilityEndTimeChanged,
+    required TResult Function(_AvailabilityDayToggled value)
+        availabilityDayToggled,
+    required TResult Function(_DetectLocationPressed value)
+        detectLocationPressed,
     required TResult Function(_AvatarPicked value) avatarPicked,
     required TResult Function(_SubmitPressed value) submitPressed,
   }) {
@@ -1542,6 +2039,8 @@ class _$AvatarPickedImpl implements _AvatarPicked {
         availabilityStartTimeChanged,
     TResult? Function(_AvailabilityEndTimeChanged value)?
         availabilityEndTimeChanged,
+    TResult? Function(_AvailabilityDayToggled value)? availabilityDayToggled,
+    TResult? Function(_DetectLocationPressed value)? detectLocationPressed,
     TResult? Function(_AvatarPicked value)? avatarPicked,
     TResult? Function(_SubmitPressed value)? submitPressed,
   }) {
@@ -1560,6 +2059,8 @@ class _$AvatarPickedImpl implements _AvatarPicked {
         availabilityStartTimeChanged,
     TResult Function(_AvailabilityEndTimeChanged value)?
         availabilityEndTimeChanged,
+    TResult Function(_AvailabilityDayToggled value)? availabilityDayToggled,
+    TResult Function(_DetectLocationPressed value)? detectLocationPressed,
     TResult Function(_AvatarPicked value)? avatarPicked,
     TResult Function(_SubmitPressed value)? submitPressed,
     required TResult orElse(),
@@ -1633,6 +2134,8 @@ class _$SubmitPressedImpl implements _SubmitPressed {
     required TResult Function(String value) addressChanged,
     required TResult Function(String value) availabilityStartTimeChanged,
     required TResult Function(String value) availabilityEndTimeChanged,
+    required TResult Function(Weekday value) availabilityDayToggled,
+    required TResult Function() detectLocationPressed,
     required TResult Function(String path, int sizeBytes) avatarPicked,
     required TResult Function() submitPressed,
   }) {
@@ -1649,6 +2152,8 @@ class _$SubmitPressedImpl implements _SubmitPressed {
     TResult? Function(String value)? addressChanged,
     TResult? Function(String value)? availabilityStartTimeChanged,
     TResult? Function(String value)? availabilityEndTimeChanged,
+    TResult? Function(Weekday value)? availabilityDayToggled,
+    TResult? Function()? detectLocationPressed,
     TResult? Function(String path, int sizeBytes)? avatarPicked,
     TResult? Function()? submitPressed,
   }) {
@@ -1665,6 +2170,8 @@ class _$SubmitPressedImpl implements _SubmitPressed {
     TResult Function(String value)? addressChanged,
     TResult Function(String value)? availabilityStartTimeChanged,
     TResult Function(String value)? availabilityEndTimeChanged,
+    TResult Function(Weekday value)? availabilityDayToggled,
+    TResult Function()? detectLocationPressed,
     TResult Function(String path, int sizeBytes)? avatarPicked,
     TResult Function()? submitPressed,
     required TResult orElse(),
@@ -1687,6 +2194,10 @@ class _$SubmitPressedImpl implements _SubmitPressed {
         availabilityStartTimeChanged,
     required TResult Function(_AvailabilityEndTimeChanged value)
         availabilityEndTimeChanged,
+    required TResult Function(_AvailabilityDayToggled value)
+        availabilityDayToggled,
+    required TResult Function(_DetectLocationPressed value)
+        detectLocationPressed,
     required TResult Function(_AvatarPicked value) avatarPicked,
     required TResult Function(_SubmitPressed value) submitPressed,
   }) {
@@ -1705,6 +2216,8 @@ class _$SubmitPressedImpl implements _SubmitPressed {
         availabilityStartTimeChanged,
     TResult? Function(_AvailabilityEndTimeChanged value)?
         availabilityEndTimeChanged,
+    TResult? Function(_AvailabilityDayToggled value)? availabilityDayToggled,
+    TResult? Function(_DetectLocationPressed value)? detectLocationPressed,
     TResult? Function(_AvatarPicked value)? avatarPicked,
     TResult? Function(_SubmitPressed value)? submitPressed,
   }) {
@@ -1723,6 +2236,8 @@ class _$SubmitPressedImpl implements _SubmitPressed {
         availabilityStartTimeChanged,
     TResult Function(_AvailabilityEndTimeChanged value)?
         availabilityEndTimeChanged,
+    TResult Function(_AvailabilityDayToggled value)? availabilityDayToggled,
+    TResult Function(_DetectLocationPressed value)? detectLocationPressed,
     TResult Function(_AvatarPicked value)? avatarPicked,
     TResult Function(_SubmitPressed value)? submitPressed,
     required TResult orElse(),

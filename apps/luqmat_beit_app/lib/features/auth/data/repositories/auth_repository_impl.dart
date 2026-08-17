@@ -21,7 +21,9 @@ class AuthRepositoryImpl implements AuthRepository {
     required String password,
     required String address,
     String? description,
-    String? availabilityDuration,
+    DateTime? startAvailabilityTime,
+    DateTime? endAvailabilityTime,
+    List<int>? availabilityDays,
     double? latitude,
     double? longitude,
   }) {
@@ -36,8 +38,12 @@ class AuthRepositoryImpl implements AuthRepository {
         'confirm_password': password,
         'role': role == UserRole.cook ? 'COOK' : 'CUSTOMER',
         if (role == UserRole.cook) ...{
-          'avalability_duration': availabilityDuration,
           'cook_description': description,
+          if (startAvailabilityTime != null)
+            'startAvailabilityTime': startAvailabilityTime.toIso8601String(),
+          if (endAvailabilityTime != null)
+            'endAvailabilityTime': endAvailabilityTime.toIso8601String(),
+          if (availabilityDays != null) 'availability_days': availabilityDays,
         },
       });
     });

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 
@@ -10,6 +11,8 @@ import '../location/location_repository_impl.dart';
 import '../network/api_client.dart';
 import '../network/dio_client.dart';
 import '../network/interceptors/auth_interceptor.dart';
+import '../network/interceptors/logging_interceptor.dart';
+import '../storage/onboarding_status_store.dart';
 import '../storage/secure_token_storage.dart';
 import '../blocs/auth/session_cubit.dart';
 import '../blocs/connectivity/connectivity_cubit.dart';
@@ -55,12 +58,14 @@ Future<void> registerCoreDependencies(
           // already available in getIt.
           onUnauthorized: () => getIt<SessionCubit>().logOut(),
         ),
+        LoggingInterceptor(enabled: kDebugMode),
       ],
     ),
   );
 
   getIt.registerLazySingleton<LocaleCubit>(() => LocaleCubit());
   getIt.registerLazySingleton<ConnectivityCubit>(() => ConnectivityCubit());
+  getIt.registerLazySingleton<OnboardingStatusStore>(() => OnboardingStatusStore());
 
   // Login/OTP/reset-password are identical across roles — shared here so
   // neither app reimplements the same API calls. Registration stays

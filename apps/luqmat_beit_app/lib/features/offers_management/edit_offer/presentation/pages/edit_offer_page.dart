@@ -15,6 +15,7 @@ import '../../../shared/presentation/widgets/select_selling_option_dialog.dart';
 import '../bloc/edit_offer_bloc.dart';
 import '../bloc/edit_offer_event.dart';
 import '../bloc/edit_offer_state.dart';
+import '../widgets/edit_offer_skeleton.dart';
 
 String? _fieldError(AppLocalizations l10n, Map<String, List<String>> fieldErrors, String field) {
   final tokens = fieldErrors[field];
@@ -67,7 +68,7 @@ class _EditOfferView extends StatelessWidget {
         appBar: AppBar(title: Text(l10n.editOfferTitle)),
         body: BlocBuilder<EditOfferBloc, EditOfferState>(
           builder: (context, state) => state.when(
-            loading: () => const Center(child: CircularProgressIndicator()),
+            loading: () => const EditOfferSkeleton(),
             loadError: (exception) => _LoadErrorBody(message: exception.message),
             form: (data) => _FormBody(data: data),
           ),
@@ -279,7 +280,13 @@ class _FormBody extends StatelessWidget {
         const SizedBox(height: AppSpace.xl),
         ElevatedButton(
           onPressed: isSubmitting ? null : () => bloc.add(const EditOfferEvent.submitPressed()),
-          child: Text(l10n.saveOfferChangesCta),
+          child: isSubmitting
+              ? const SizedBox(
+                  width: 20,
+                  height: 20,
+                  child: CircularProgressIndicator(strokeWidth: 2),
+                )
+              : Text(l10n.saveOfferChangesCta),
         ),
         const SizedBox(height: AppSpace.m),
         OutlinedButton(

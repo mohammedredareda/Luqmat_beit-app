@@ -69,7 +69,7 @@ class _OrdersListViewState extends State<_OrdersListView> {
         ),
         actions: [
           IconButton(
-            onPressed: () => context.push('/notifications'),
+            onPressed: () => context.push('/cook/notifications'),
             icon: const Icon(Icons.notifications_outlined),
             tooltip: l10n.notificationsTitle,
           ),
@@ -306,7 +306,7 @@ class _LoadedBody extends StatelessWidget {
   }
 
   void _openDetails(BuildContext context, String orderId, VoidCallback onChanged) {
-    context.push('/orders/$orderId').then((_) {
+    context.push('/cook/orders/$orderId').then((_) {
       if (context.mounted) onChanged();
     });
   }

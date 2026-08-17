@@ -43,6 +43,24 @@ class OrderMealItemModel {
         'sellingOptionLabel': sellingOptionLabel,
       };
 
+  /// Real-shape response parsing from `GET /user/cook/orders/{id}`'s
+  /// `mealItems[]` — nested `meal:{name,image}` and
+  /// `sellingOption:{variation}`, `notes` (not `note`).
+  factory OrderMealItemModel.fromApiJson(Map<String, dynamic> json) {
+    final meal = json['meal'] as Map?;
+    final sellingOption = json['sellingOption'] as Map?;
+    return OrderMealItemModel(
+      id: json['id'].toString(),
+      mealId: json['mealId']?.toString() ?? '',
+      mealName: meal?['name'] as String? ?? '',
+      mealImageUrl: meal?['image'] as String? ?? '',
+      quantity: json['quantity'] as int? ?? 1,
+      priceAtPurchase: double.tryParse(json['priceAtPurchase']?.toString() ?? '') ?? 0,
+      note: json['notes'] as String?,
+      sellingOptionLabel: sellingOption?['variation'] as String?,
+    );
+  }
+
   OrderMealItemEntity toEntity() => OrderMealItemEntity(
         id: id,
         mealId: mealId,

@@ -512,6 +512,11 @@ mixin _$EditProfileFormData {
   String get address => throw _privateConstructorUsedError;
   String get availabilityStartTime => throw _privateConstructorUsedError;
   String get availabilityEndTime => throw _privateConstructorUsedError;
+  Set<Weekday> get selectedDays => throw _privateConstructorUsedError;
+  double? get latitude => throw _privateConstructorUsedError;
+  double? get longitude => throw _privateConstructorUsedError;
+  bool get isDetectingLocation => throw _privateConstructorUsedError;
+  String? get locationError => throw _privateConstructorUsedError;
   String? get avatarPath => throw _privateConstructorUsedError;
   int? get avatarSizeBytes => throw _privateConstructorUsedError;
   ProfileSubmitStatus get submitStatus => throw _privateConstructorUsedError;
@@ -536,6 +541,11 @@ abstract class $EditProfileFormDataCopyWith<$Res> {
       String address,
       String availabilityStartTime,
       String availabilityEndTime,
+      Set<Weekday> selectedDays,
+      double? latitude,
+      double? longitude,
+      bool isDetectingLocation,
+      String? locationError,
       String? avatarPath,
       int? avatarSizeBytes,
       ProfileSubmitStatus submitStatus});
@@ -564,6 +574,11 @@ class _$EditProfileFormDataCopyWithImpl<$Res, $Val extends EditProfileFormData>
     Object? address = null,
     Object? availabilityStartTime = null,
     Object? availabilityEndTime = null,
+    Object? selectedDays = null,
+    Object? latitude = freezed,
+    Object? longitude = freezed,
+    Object? isDetectingLocation = null,
+    Object? locationError = freezed,
     Object? avatarPath = freezed,
     Object? avatarSizeBytes = freezed,
     Object? submitStatus = null,
@@ -593,6 +608,26 @@ class _$EditProfileFormDataCopyWithImpl<$Res, $Val extends EditProfileFormData>
           ? _value.availabilityEndTime
           : availabilityEndTime // ignore: cast_nullable_to_non_nullable
               as String,
+      selectedDays: null == selectedDays
+          ? _value.selectedDays
+          : selectedDays // ignore: cast_nullable_to_non_nullable
+              as Set<Weekday>,
+      latitude: freezed == latitude
+          ? _value.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      longitude: freezed == longitude
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      isDetectingLocation: null == isDetectingLocation
+          ? _value.isDetectingLocation
+          : isDetectingLocation // ignore: cast_nullable_to_non_nullable
+              as bool,
+      locationError: freezed == locationError
+          ? _value.locationError
+          : locationError // ignore: cast_nullable_to_non_nullable
+              as String?,
       avatarPath: freezed == avatarPath
           ? _value.avatarPath
           : avatarPath // ignore: cast_nullable_to_non_nullable
@@ -634,6 +669,11 @@ abstract class _$$EditProfileFormDataImplCopyWith<$Res>
       String address,
       String availabilityStartTime,
       String availabilityEndTime,
+      Set<Weekday> selectedDays,
+      double? latitude,
+      double? longitude,
+      bool isDetectingLocation,
+      String? locationError,
       String? avatarPath,
       int? avatarSizeBytes,
       ProfileSubmitStatus submitStatus});
@@ -661,6 +701,11 @@ class __$$EditProfileFormDataImplCopyWithImpl<$Res>
     Object? address = null,
     Object? availabilityStartTime = null,
     Object? availabilityEndTime = null,
+    Object? selectedDays = null,
+    Object? latitude = freezed,
+    Object? longitude = freezed,
+    Object? isDetectingLocation = null,
+    Object? locationError = freezed,
     Object? avatarPath = freezed,
     Object? avatarSizeBytes = freezed,
     Object? submitStatus = null,
@@ -690,6 +735,26 @@ class __$$EditProfileFormDataImplCopyWithImpl<$Res>
           ? _value.availabilityEndTime
           : availabilityEndTime // ignore: cast_nullable_to_non_nullable
               as String,
+      selectedDays: null == selectedDays
+          ? _value._selectedDays
+          : selectedDays // ignore: cast_nullable_to_non_nullable
+              as Set<Weekday>,
+      latitude: freezed == latitude
+          ? _value.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      longitude: freezed == longitude
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      isDetectingLocation: null == isDetectingLocation
+          ? _value.isDetectingLocation
+          : isDetectingLocation // ignore: cast_nullable_to_non_nullable
+              as bool,
+      locationError: freezed == locationError
+          ? _value.locationError
+          : locationError // ignore: cast_nullable_to_non_nullable
+              as String?,
       avatarPath: freezed == avatarPath
           ? _value.avatarPath
           : avatarPath // ignore: cast_nullable_to_non_nullable
@@ -716,9 +781,15 @@ class _$EditProfileFormDataImpl implements _EditProfileFormData {
       this.address = '',
       this.availabilityStartTime = '09:00',
       this.availabilityEndTime = '17:00',
+      final Set<Weekday> selectedDays = const <Weekday>{},
+      this.latitude,
+      this.longitude,
+      this.isDetectingLocation = false,
+      this.locationError,
       this.avatarPath,
       this.avatarSizeBytes,
-      this.submitStatus = const ProfileSubmitStatus.idle()});
+      this.submitStatus = const ProfileSubmitStatus.idle()})
+      : _selectedDays = selectedDays;
 
   @override
   @JsonKey()
@@ -738,6 +809,24 @@ class _$EditProfileFormDataImpl implements _EditProfileFormData {
   @override
   @JsonKey()
   final String availabilityEndTime;
+  final Set<Weekday> _selectedDays;
+  @override
+  @JsonKey()
+  Set<Weekday> get selectedDays {
+    if (_selectedDays is EqualUnmodifiableSetView) return _selectedDays;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableSetView(_selectedDays);
+  }
+
+  @override
+  final double? latitude;
+  @override
+  final double? longitude;
+  @override
+  @JsonKey()
+  final bool isDetectingLocation;
+  @override
+  final String? locationError;
   @override
   final String? avatarPath;
   @override
@@ -748,7 +837,7 @@ class _$EditProfileFormDataImpl implements _EditProfileFormData {
 
   @override
   String toString() {
-    return 'EditProfileFormData(fullName: $fullName, phoneNumber: $phoneNumber, bio: $bio, address: $address, availabilityStartTime: $availabilityStartTime, availabilityEndTime: $availabilityEndTime, avatarPath: $avatarPath, avatarSizeBytes: $avatarSizeBytes, submitStatus: $submitStatus)';
+    return 'EditProfileFormData(fullName: $fullName, phoneNumber: $phoneNumber, bio: $bio, address: $address, availabilityStartTime: $availabilityStartTime, availabilityEndTime: $availabilityEndTime, selectedDays: $selectedDays, latitude: $latitude, longitude: $longitude, isDetectingLocation: $isDetectingLocation, locationError: $locationError, avatarPath: $avatarPath, avatarSizeBytes: $avatarSizeBytes, submitStatus: $submitStatus)';
   }
 
   @override
@@ -766,6 +855,16 @@ class _$EditProfileFormDataImpl implements _EditProfileFormData {
                 other.availabilityStartTime == availabilityStartTime) &&
             (identical(other.availabilityEndTime, availabilityEndTime) ||
                 other.availabilityEndTime == availabilityEndTime) &&
+            const DeepCollectionEquality()
+                .equals(other._selectedDays, _selectedDays) &&
+            (identical(other.latitude, latitude) ||
+                other.latitude == latitude) &&
+            (identical(other.longitude, longitude) ||
+                other.longitude == longitude) &&
+            (identical(other.isDetectingLocation, isDetectingLocation) ||
+                other.isDetectingLocation == isDetectingLocation) &&
+            (identical(other.locationError, locationError) ||
+                other.locationError == locationError) &&
             (identical(other.avatarPath, avatarPath) ||
                 other.avatarPath == avatarPath) &&
             (identical(other.avatarSizeBytes, avatarSizeBytes) ||
@@ -783,6 +882,11 @@ class _$EditProfileFormDataImpl implements _EditProfileFormData {
       address,
       availabilityStartTime,
       availabilityEndTime,
+      const DeepCollectionEquality().hash(_selectedDays),
+      latitude,
+      longitude,
+      isDetectingLocation,
+      locationError,
       avatarPath,
       avatarSizeBytes,
       submitStatus);
@@ -805,6 +909,11 @@ abstract class _EditProfileFormData implements EditProfileFormData {
       final String address,
       final String availabilityStartTime,
       final String availabilityEndTime,
+      final Set<Weekday> selectedDays,
+      final double? latitude,
+      final double? longitude,
+      final bool isDetectingLocation,
+      final String? locationError,
       final String? avatarPath,
       final int? avatarSizeBytes,
       final ProfileSubmitStatus submitStatus}) = _$EditProfileFormDataImpl;
@@ -821,6 +930,16 @@ abstract class _EditProfileFormData implements EditProfileFormData {
   String get availabilityStartTime;
   @override
   String get availabilityEndTime;
+  @override
+  Set<Weekday> get selectedDays;
+  @override
+  double? get latitude;
+  @override
+  double? get longitude;
+  @override
+  bool get isDetectingLocation;
+  @override
+  String? get locationError;
   @override
   String? get avatarPath;
   @override

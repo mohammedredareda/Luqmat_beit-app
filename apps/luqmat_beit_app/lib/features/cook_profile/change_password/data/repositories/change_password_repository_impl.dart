@@ -1,12 +1,12 @@
 import 'package:core/core.dart';
 
 import '../../domain/repositories/change_password_repository.dart';
-import '../datasources/fake_password_remote_data_source.dart';
+import '../datasources/password_remote_data_source.dart';
 
 class ChangePasswordRepositoryImpl implements ChangePasswordRepository {
   ChangePasswordRepositoryImpl(this._dataSource);
 
-  final FakePasswordRemoteDataSource _dataSource;
+  final PasswordRemoteDataSource _dataSource;
 
   @override
   Future<Result<void>> changePassword({
@@ -15,7 +15,6 @@ class ChangePasswordRepositoryImpl implements ChangePasswordRepository {
     required String newPassword,
   }) {
     return guard(() => _dataSource.changePassword(
-          cookId: cookId,
           currentPassword: currentPassword,
           newPassword: newPassword,
         ));

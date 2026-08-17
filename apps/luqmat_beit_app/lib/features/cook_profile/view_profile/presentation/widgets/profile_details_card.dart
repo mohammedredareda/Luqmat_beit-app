@@ -4,14 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:luqmat_beit_app/l10n/generated/app_localizations.dart';
 
 import '../../../domain/availability_time_formatter.dart';
+import '../../../domain/cook_availability_days.dart';
+import '../../../presentation/weekday_label.dart';
 
 /// The bio / availability / address details card from `profile_with_stats`
-/// — one bordered card, three subsections separated by dividers.
+/// — one bordered card, subsections separated by dividers.
 class ProfileDetailsCard extends StatelessWidget {
   const ProfileDetailsCard({
     super.key,
     required this.bio,
     required this.availabilityTime,
+    required this.availabilityDays,
     required this.address,
   });
 
@@ -19,6 +22,10 @@ class ProfileDetailsCard extends StatelessWidget {
 
   /// A single `"HH:mm-HH:mm"` window (see [CookProfileEntity.availabilityTime]).
   final String availabilityTime;
+
+  /// `PATCH`/`GET /users/profile`'s own Sunday-first numbering — see
+  /// `cook_availability_days.dart`.
+  final List<int> availabilityDays;
   final String address;
 
   @override
@@ -30,6 +37,7 @@ class ProfileDetailsCard extends StatelessWidget {
         ? '${formatAvailabilityTime(parts[0], amLabel: l10n.amLabel, pmLabel: l10n.pmLabel)} '
             '- ${formatAvailabilityTime(parts[1], amLabel: l10n.amLabel, pmLabel: l10n.pmLabel)}'
         : availabilityTime;
+    final selectedDays = weekdaysFromSundayFirstNumbers(availabilityDays);
 
     return Container(
       padding: AppSpace.cardPadding,
@@ -47,6 +55,20 @@ class ProfileDetailsCard extends StatelessWidget {
             child: Text(bio, style: Theme.of(context).textTheme.bodyLarge),
           ),
           const Divider(),
+          if (selectedDays.isNotEmpty) ...[
+            _Section(
+              icon: Icons.calendar_today_outlined,
+              title: l10n.availabilityDaysFieldLabel,
+              child: Wrap(
+                spacing: AppSpace.s,
+                runSpacing: AppSpace.s,
+                children: [
+                  for (final day in selectedDays) _Pill(label: weekdayLabel(l10n, day)),
+                ],
+              ),
+            ),
+            const Divider(),
+          ],
           _Section(
             icon: Icons.schedule,
             title: l10n.availabilityHoursSectionTitle,

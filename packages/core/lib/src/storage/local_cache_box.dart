@@ -8,6 +8,7 @@ abstract final class LocalCacheBoxNames {
   static const notifications = 'notifications_box';
   static const cartSnapshot = 'cart_snapshot_box';
   static const localePreference = 'locale_preference_box';
+  static const onboarding = 'onboarding_box';
 }
 
 class LocalCacheBox {
@@ -17,6 +18,7 @@ class LocalCacheBox {
       Hive.openBox(LocalCacheBoxNames.notifications),
       Hive.openBox(LocalCacheBoxNames.cartSnapshot),
       Hive.openBox(LocalCacheBoxNames.localePreference),
+      Hive.openBox(LocalCacheBoxNames.onboarding),
     ]);
   }
 

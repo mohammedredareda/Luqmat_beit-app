@@ -1,7 +1,7 @@
 import 'package:core/core.dart';
 
 import 'package:luqmat_beit_app/shared/current_cook_id.dart';
-import '../../../shared/data/datasources/fake_offers_remote_data_source.dart';
+import '../../../shared/data/datasources/offers_remote_data_source.dart';
 import '../../../shared/data/models/offer_meal_model.dart';
 import '../../../shared/data/models/offer_model.dart';
 import '../../../shared/domain/offer_form_submission.dart';
@@ -10,7 +10,7 @@ import '../../domain/repositories/create_offer_repository.dart';
 class CreateOfferRepositoryImpl implements CreateOfferRepository {
   CreateOfferRepositoryImpl(this._dataSource);
 
-  final FakeOffersRemoteDataSource _dataSource;
+  final OffersRemoteDataSource _dataSource;
 
   @override
   Future<Result<OfferEntity>> createOffer(OfferFormSubmission submission) {

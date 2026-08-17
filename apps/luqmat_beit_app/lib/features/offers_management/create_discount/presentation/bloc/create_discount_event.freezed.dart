@@ -20,6 +20,8 @@ mixin _$CreateDiscountEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(MealEntity meal) mealSelected,
     required TResult Function(String value) percentageChanged,
+    required TResult Function(DiscountRestrictionType type)
+        restrictionTypeChanged,
     required TResult Function(String value) durationDaysChanged,
     required TResult Function(String value) usageLimitChanged,
     required TResult Function() submitPressed,
@@ -29,6 +31,7 @@ mixin _$CreateDiscountEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(MealEntity meal)? mealSelected,
     TResult? Function(String value)? percentageChanged,
+    TResult? Function(DiscountRestrictionType type)? restrictionTypeChanged,
     TResult? Function(String value)? durationDaysChanged,
     TResult? Function(String value)? usageLimitChanged,
     TResult? Function()? submitPressed,
@@ -38,6 +41,7 @@ mixin _$CreateDiscountEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(MealEntity meal)? mealSelected,
     TResult Function(String value)? percentageChanged,
+    TResult Function(DiscountRestrictionType type)? restrictionTypeChanged,
     TResult Function(String value)? durationDaysChanged,
     TResult Function(String value)? usageLimitChanged,
     TResult Function()? submitPressed,
@@ -48,6 +52,8 @@ mixin _$CreateDiscountEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_MealSelected value) mealSelected,
     required TResult Function(_PercentageChanged value) percentageChanged,
+    required TResult Function(_RestrictionTypeChanged value)
+        restrictionTypeChanged,
     required TResult Function(_DurationDaysChanged value) durationDaysChanged,
     required TResult Function(_UsageLimitChanged value) usageLimitChanged,
     required TResult Function(_SubmitPressed value) submitPressed,
@@ -57,6 +63,7 @@ mixin _$CreateDiscountEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_MealSelected value)? mealSelected,
     TResult? Function(_PercentageChanged value)? percentageChanged,
+    TResult? Function(_RestrictionTypeChanged value)? restrictionTypeChanged,
     TResult? Function(_DurationDaysChanged value)? durationDaysChanged,
     TResult? Function(_UsageLimitChanged value)? usageLimitChanged,
     TResult? Function(_SubmitPressed value)? submitPressed,
@@ -66,6 +73,7 @@ mixin _$CreateDiscountEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_MealSelected value)? mealSelected,
     TResult Function(_PercentageChanged value)? percentageChanged,
+    TResult Function(_RestrictionTypeChanged value)? restrictionTypeChanged,
     TResult Function(_DurationDaysChanged value)? durationDaysChanged,
     TResult Function(_UsageLimitChanged value)? usageLimitChanged,
     TResult Function(_SubmitPressed value)? submitPressed,
@@ -165,6 +173,8 @@ class _$MealSelectedImpl implements _MealSelected {
   TResult when<TResult extends Object?>({
     required TResult Function(MealEntity meal) mealSelected,
     required TResult Function(String value) percentageChanged,
+    required TResult Function(DiscountRestrictionType type)
+        restrictionTypeChanged,
     required TResult Function(String value) durationDaysChanged,
     required TResult Function(String value) usageLimitChanged,
     required TResult Function() submitPressed,
@@ -177,6 +187,7 @@ class _$MealSelectedImpl implements _MealSelected {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(MealEntity meal)? mealSelected,
     TResult? Function(String value)? percentageChanged,
+    TResult? Function(DiscountRestrictionType type)? restrictionTypeChanged,
     TResult? Function(String value)? durationDaysChanged,
     TResult? Function(String value)? usageLimitChanged,
     TResult? Function()? submitPressed,
@@ -189,6 +200,7 @@ class _$MealSelectedImpl implements _MealSelected {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(MealEntity meal)? mealSelected,
     TResult Function(String value)? percentageChanged,
+    TResult Function(DiscountRestrictionType type)? restrictionTypeChanged,
     TResult Function(String value)? durationDaysChanged,
     TResult Function(String value)? usageLimitChanged,
     TResult Function()? submitPressed,
@@ -205,6 +217,8 @@ class _$MealSelectedImpl implements _MealSelected {
   TResult map<TResult extends Object?>({
     required TResult Function(_MealSelected value) mealSelected,
     required TResult Function(_PercentageChanged value) percentageChanged,
+    required TResult Function(_RestrictionTypeChanged value)
+        restrictionTypeChanged,
     required TResult Function(_DurationDaysChanged value) durationDaysChanged,
     required TResult Function(_UsageLimitChanged value) usageLimitChanged,
     required TResult Function(_SubmitPressed value) submitPressed,
@@ -217,6 +231,7 @@ class _$MealSelectedImpl implements _MealSelected {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_MealSelected value)? mealSelected,
     TResult? Function(_PercentageChanged value)? percentageChanged,
+    TResult? Function(_RestrictionTypeChanged value)? restrictionTypeChanged,
     TResult? Function(_DurationDaysChanged value)? durationDaysChanged,
     TResult? Function(_UsageLimitChanged value)? usageLimitChanged,
     TResult? Function(_SubmitPressed value)? submitPressed,
@@ -229,6 +244,7 @@ class _$MealSelectedImpl implements _MealSelected {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_MealSelected value)? mealSelected,
     TResult Function(_PercentageChanged value)? percentageChanged,
+    TResult Function(_RestrictionTypeChanged value)? restrictionTypeChanged,
     TResult Function(_DurationDaysChanged value)? durationDaysChanged,
     TResult Function(_UsageLimitChanged value)? usageLimitChanged,
     TResult Function(_SubmitPressed value)? submitPressed,
@@ -324,6 +340,8 @@ class _$PercentageChangedImpl implements _PercentageChanged {
   TResult when<TResult extends Object?>({
     required TResult Function(MealEntity meal) mealSelected,
     required TResult Function(String value) percentageChanged,
+    required TResult Function(DiscountRestrictionType type)
+        restrictionTypeChanged,
     required TResult Function(String value) durationDaysChanged,
     required TResult Function(String value) usageLimitChanged,
     required TResult Function() submitPressed,
@@ -336,6 +354,7 @@ class _$PercentageChangedImpl implements _PercentageChanged {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(MealEntity meal)? mealSelected,
     TResult? Function(String value)? percentageChanged,
+    TResult? Function(DiscountRestrictionType type)? restrictionTypeChanged,
     TResult? Function(String value)? durationDaysChanged,
     TResult? Function(String value)? usageLimitChanged,
     TResult? Function()? submitPressed,
@@ -348,6 +367,7 @@ class _$PercentageChangedImpl implements _PercentageChanged {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(MealEntity meal)? mealSelected,
     TResult Function(String value)? percentageChanged,
+    TResult Function(DiscountRestrictionType type)? restrictionTypeChanged,
     TResult Function(String value)? durationDaysChanged,
     TResult Function(String value)? usageLimitChanged,
     TResult Function()? submitPressed,
@@ -364,6 +384,8 @@ class _$PercentageChangedImpl implements _PercentageChanged {
   TResult map<TResult extends Object?>({
     required TResult Function(_MealSelected value) mealSelected,
     required TResult Function(_PercentageChanged value) percentageChanged,
+    required TResult Function(_RestrictionTypeChanged value)
+        restrictionTypeChanged,
     required TResult Function(_DurationDaysChanged value) durationDaysChanged,
     required TResult Function(_UsageLimitChanged value) usageLimitChanged,
     required TResult Function(_SubmitPressed value) submitPressed,
@@ -376,6 +398,7 @@ class _$PercentageChangedImpl implements _PercentageChanged {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_MealSelected value)? mealSelected,
     TResult? Function(_PercentageChanged value)? percentageChanged,
+    TResult? Function(_RestrictionTypeChanged value)? restrictionTypeChanged,
     TResult? Function(_DurationDaysChanged value)? durationDaysChanged,
     TResult? Function(_UsageLimitChanged value)? usageLimitChanged,
     TResult? Function(_SubmitPressed value)? submitPressed,
@@ -388,6 +411,7 @@ class _$PercentageChangedImpl implements _PercentageChanged {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_MealSelected value)? mealSelected,
     TResult Function(_PercentageChanged value)? percentageChanged,
+    TResult Function(_RestrictionTypeChanged value)? restrictionTypeChanged,
     TResult Function(_DurationDaysChanged value)? durationDaysChanged,
     TResult Function(_UsageLimitChanged value)? usageLimitChanged,
     TResult Function(_SubmitPressed value)? submitPressed,
@@ -411,6 +435,177 @@ abstract class _PercentageChanged implements CreateDiscountEvent {
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PercentageChangedImplCopyWith<_$PercentageChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$RestrictionTypeChangedImplCopyWith<$Res> {
+  factory _$$RestrictionTypeChangedImplCopyWith(
+          _$RestrictionTypeChangedImpl value,
+          $Res Function(_$RestrictionTypeChangedImpl) then) =
+      __$$RestrictionTypeChangedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({DiscountRestrictionType type});
+}
+
+/// @nodoc
+class __$$RestrictionTypeChangedImplCopyWithImpl<$Res>
+    extends _$CreateDiscountEventCopyWithImpl<$Res,
+        _$RestrictionTypeChangedImpl>
+    implements _$$RestrictionTypeChangedImplCopyWith<$Res> {
+  __$$RestrictionTypeChangedImplCopyWithImpl(
+      _$RestrictionTypeChangedImpl _value,
+      $Res Function(_$RestrictionTypeChangedImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of CreateDiscountEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? type = null,
+  }) {
+    return _then(_$RestrictionTypeChangedImpl(
+      null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as DiscountRestrictionType,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$RestrictionTypeChangedImpl implements _RestrictionTypeChanged {
+  const _$RestrictionTypeChangedImpl(this.type);
+
+  @override
+  final DiscountRestrictionType type;
+
+  @override
+  String toString() {
+    return 'CreateDiscountEvent.restrictionTypeChanged(type: $type)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RestrictionTypeChangedImpl &&
+            (identical(other.type, type) || other.type == type));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, type);
+
+  /// Create a copy of CreateDiscountEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$RestrictionTypeChangedImplCopyWith<_$RestrictionTypeChangedImpl>
+      get copyWith => __$$RestrictionTypeChangedImplCopyWithImpl<
+          _$RestrictionTypeChangedImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(MealEntity meal) mealSelected,
+    required TResult Function(String value) percentageChanged,
+    required TResult Function(DiscountRestrictionType type)
+        restrictionTypeChanged,
+    required TResult Function(String value) durationDaysChanged,
+    required TResult Function(String value) usageLimitChanged,
+    required TResult Function() submitPressed,
+  }) {
+    return restrictionTypeChanged(type);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(MealEntity meal)? mealSelected,
+    TResult? Function(String value)? percentageChanged,
+    TResult? Function(DiscountRestrictionType type)? restrictionTypeChanged,
+    TResult? Function(String value)? durationDaysChanged,
+    TResult? Function(String value)? usageLimitChanged,
+    TResult? Function()? submitPressed,
+  }) {
+    return restrictionTypeChanged?.call(type);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(MealEntity meal)? mealSelected,
+    TResult Function(String value)? percentageChanged,
+    TResult Function(DiscountRestrictionType type)? restrictionTypeChanged,
+    TResult Function(String value)? durationDaysChanged,
+    TResult Function(String value)? usageLimitChanged,
+    TResult Function()? submitPressed,
+    required TResult orElse(),
+  }) {
+    if (restrictionTypeChanged != null) {
+      return restrictionTypeChanged(type);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_MealSelected value) mealSelected,
+    required TResult Function(_PercentageChanged value) percentageChanged,
+    required TResult Function(_RestrictionTypeChanged value)
+        restrictionTypeChanged,
+    required TResult Function(_DurationDaysChanged value) durationDaysChanged,
+    required TResult Function(_UsageLimitChanged value) usageLimitChanged,
+    required TResult Function(_SubmitPressed value) submitPressed,
+  }) {
+    return restrictionTypeChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_MealSelected value)? mealSelected,
+    TResult? Function(_PercentageChanged value)? percentageChanged,
+    TResult? Function(_RestrictionTypeChanged value)? restrictionTypeChanged,
+    TResult? Function(_DurationDaysChanged value)? durationDaysChanged,
+    TResult? Function(_UsageLimitChanged value)? usageLimitChanged,
+    TResult? Function(_SubmitPressed value)? submitPressed,
+  }) {
+    return restrictionTypeChanged?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_MealSelected value)? mealSelected,
+    TResult Function(_PercentageChanged value)? percentageChanged,
+    TResult Function(_RestrictionTypeChanged value)? restrictionTypeChanged,
+    TResult Function(_DurationDaysChanged value)? durationDaysChanged,
+    TResult Function(_UsageLimitChanged value)? usageLimitChanged,
+    TResult Function(_SubmitPressed value)? submitPressed,
+    required TResult orElse(),
+  }) {
+    if (restrictionTypeChanged != null) {
+      return restrictionTypeChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _RestrictionTypeChanged implements CreateDiscountEvent {
+  const factory _RestrictionTypeChanged(final DiscountRestrictionType type) =
+      _$RestrictionTypeChangedImpl;
+
+  DiscountRestrictionType get type;
+
+  /// Create a copy of CreateDiscountEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$RestrictionTypeChangedImplCopyWith<_$RestrictionTypeChangedImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -484,6 +679,8 @@ class _$DurationDaysChangedImpl implements _DurationDaysChanged {
   TResult when<TResult extends Object?>({
     required TResult Function(MealEntity meal) mealSelected,
     required TResult Function(String value) percentageChanged,
+    required TResult Function(DiscountRestrictionType type)
+        restrictionTypeChanged,
     required TResult Function(String value) durationDaysChanged,
     required TResult Function(String value) usageLimitChanged,
     required TResult Function() submitPressed,
@@ -496,6 +693,7 @@ class _$DurationDaysChangedImpl implements _DurationDaysChanged {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(MealEntity meal)? mealSelected,
     TResult? Function(String value)? percentageChanged,
+    TResult? Function(DiscountRestrictionType type)? restrictionTypeChanged,
     TResult? Function(String value)? durationDaysChanged,
     TResult? Function(String value)? usageLimitChanged,
     TResult? Function()? submitPressed,
@@ -508,6 +706,7 @@ class _$DurationDaysChangedImpl implements _DurationDaysChanged {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(MealEntity meal)? mealSelected,
     TResult Function(String value)? percentageChanged,
+    TResult Function(DiscountRestrictionType type)? restrictionTypeChanged,
     TResult Function(String value)? durationDaysChanged,
     TResult Function(String value)? usageLimitChanged,
     TResult Function()? submitPressed,
@@ -524,6 +723,8 @@ class _$DurationDaysChangedImpl implements _DurationDaysChanged {
   TResult map<TResult extends Object?>({
     required TResult Function(_MealSelected value) mealSelected,
     required TResult Function(_PercentageChanged value) percentageChanged,
+    required TResult Function(_RestrictionTypeChanged value)
+        restrictionTypeChanged,
     required TResult Function(_DurationDaysChanged value) durationDaysChanged,
     required TResult Function(_UsageLimitChanged value) usageLimitChanged,
     required TResult Function(_SubmitPressed value) submitPressed,
@@ -536,6 +737,7 @@ class _$DurationDaysChangedImpl implements _DurationDaysChanged {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_MealSelected value)? mealSelected,
     TResult? Function(_PercentageChanged value)? percentageChanged,
+    TResult? Function(_RestrictionTypeChanged value)? restrictionTypeChanged,
     TResult? Function(_DurationDaysChanged value)? durationDaysChanged,
     TResult? Function(_UsageLimitChanged value)? usageLimitChanged,
     TResult? Function(_SubmitPressed value)? submitPressed,
@@ -548,6 +750,7 @@ class _$DurationDaysChangedImpl implements _DurationDaysChanged {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_MealSelected value)? mealSelected,
     TResult Function(_PercentageChanged value)? percentageChanged,
+    TResult Function(_RestrictionTypeChanged value)? restrictionTypeChanged,
     TResult Function(_DurationDaysChanged value)? durationDaysChanged,
     TResult Function(_UsageLimitChanged value)? usageLimitChanged,
     TResult Function(_SubmitPressed value)? submitPressed,
@@ -644,6 +847,8 @@ class _$UsageLimitChangedImpl implements _UsageLimitChanged {
   TResult when<TResult extends Object?>({
     required TResult Function(MealEntity meal) mealSelected,
     required TResult Function(String value) percentageChanged,
+    required TResult Function(DiscountRestrictionType type)
+        restrictionTypeChanged,
     required TResult Function(String value) durationDaysChanged,
     required TResult Function(String value) usageLimitChanged,
     required TResult Function() submitPressed,
@@ -656,6 +861,7 @@ class _$UsageLimitChangedImpl implements _UsageLimitChanged {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(MealEntity meal)? mealSelected,
     TResult? Function(String value)? percentageChanged,
+    TResult? Function(DiscountRestrictionType type)? restrictionTypeChanged,
     TResult? Function(String value)? durationDaysChanged,
     TResult? Function(String value)? usageLimitChanged,
     TResult? Function()? submitPressed,
@@ -668,6 +874,7 @@ class _$UsageLimitChangedImpl implements _UsageLimitChanged {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(MealEntity meal)? mealSelected,
     TResult Function(String value)? percentageChanged,
+    TResult Function(DiscountRestrictionType type)? restrictionTypeChanged,
     TResult Function(String value)? durationDaysChanged,
     TResult Function(String value)? usageLimitChanged,
     TResult Function()? submitPressed,
@@ -684,6 +891,8 @@ class _$UsageLimitChangedImpl implements _UsageLimitChanged {
   TResult map<TResult extends Object?>({
     required TResult Function(_MealSelected value) mealSelected,
     required TResult Function(_PercentageChanged value) percentageChanged,
+    required TResult Function(_RestrictionTypeChanged value)
+        restrictionTypeChanged,
     required TResult Function(_DurationDaysChanged value) durationDaysChanged,
     required TResult Function(_UsageLimitChanged value) usageLimitChanged,
     required TResult Function(_SubmitPressed value) submitPressed,
@@ -696,6 +905,7 @@ class _$UsageLimitChangedImpl implements _UsageLimitChanged {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_MealSelected value)? mealSelected,
     TResult? Function(_PercentageChanged value)? percentageChanged,
+    TResult? Function(_RestrictionTypeChanged value)? restrictionTypeChanged,
     TResult? Function(_DurationDaysChanged value)? durationDaysChanged,
     TResult? Function(_UsageLimitChanged value)? usageLimitChanged,
     TResult? Function(_SubmitPressed value)? submitPressed,
@@ -708,6 +918,7 @@ class _$UsageLimitChangedImpl implements _UsageLimitChanged {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_MealSelected value)? mealSelected,
     TResult Function(_PercentageChanged value)? percentageChanged,
+    TResult Function(_RestrictionTypeChanged value)? restrictionTypeChanged,
     TResult Function(_DurationDaysChanged value)? durationDaysChanged,
     TResult Function(_UsageLimitChanged value)? usageLimitChanged,
     TResult Function(_SubmitPressed value)? submitPressed,
@@ -776,6 +987,8 @@ class _$SubmitPressedImpl implements _SubmitPressed {
   TResult when<TResult extends Object?>({
     required TResult Function(MealEntity meal) mealSelected,
     required TResult Function(String value) percentageChanged,
+    required TResult Function(DiscountRestrictionType type)
+        restrictionTypeChanged,
     required TResult Function(String value) durationDaysChanged,
     required TResult Function(String value) usageLimitChanged,
     required TResult Function() submitPressed,
@@ -788,6 +1001,7 @@ class _$SubmitPressedImpl implements _SubmitPressed {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(MealEntity meal)? mealSelected,
     TResult? Function(String value)? percentageChanged,
+    TResult? Function(DiscountRestrictionType type)? restrictionTypeChanged,
     TResult? Function(String value)? durationDaysChanged,
     TResult? Function(String value)? usageLimitChanged,
     TResult? Function()? submitPressed,
@@ -800,6 +1014,7 @@ class _$SubmitPressedImpl implements _SubmitPressed {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(MealEntity meal)? mealSelected,
     TResult Function(String value)? percentageChanged,
+    TResult Function(DiscountRestrictionType type)? restrictionTypeChanged,
     TResult Function(String value)? durationDaysChanged,
     TResult Function(String value)? usageLimitChanged,
     TResult Function()? submitPressed,
@@ -816,6 +1031,8 @@ class _$SubmitPressedImpl implements _SubmitPressed {
   TResult map<TResult extends Object?>({
     required TResult Function(_MealSelected value) mealSelected,
     required TResult Function(_PercentageChanged value) percentageChanged,
+    required TResult Function(_RestrictionTypeChanged value)
+        restrictionTypeChanged,
     required TResult Function(_DurationDaysChanged value) durationDaysChanged,
     required TResult Function(_UsageLimitChanged value) usageLimitChanged,
     required TResult Function(_SubmitPressed value) submitPressed,
@@ -828,6 +1045,7 @@ class _$SubmitPressedImpl implements _SubmitPressed {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_MealSelected value)? mealSelected,
     TResult? Function(_PercentageChanged value)? percentageChanged,
+    TResult? Function(_RestrictionTypeChanged value)? restrictionTypeChanged,
     TResult? Function(_DurationDaysChanged value)? durationDaysChanged,
     TResult? Function(_UsageLimitChanged value)? usageLimitChanged,
     TResult? Function(_SubmitPressed value)? submitPressed,
@@ -840,6 +1058,7 @@ class _$SubmitPressedImpl implements _SubmitPressed {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_MealSelected value)? mealSelected,
     TResult Function(_PercentageChanged value)? percentageChanged,
+    TResult Function(_RestrictionTypeChanged value)? restrictionTypeChanged,
     TResult Function(_DurationDaysChanged value)? durationDaysChanged,
     TResult Function(_UsageLimitChanged value)? usageLimitChanged,
     TResult Function(_SubmitPressed value)? submitPressed,

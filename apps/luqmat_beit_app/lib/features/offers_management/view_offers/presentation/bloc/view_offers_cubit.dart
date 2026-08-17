@@ -49,4 +49,15 @@ class ViewOffersCubit extends Cubit<ViewOffersState> with PaginationStateMixin<O
       },
     );
   }
+
+  /// Drops the item by its namespaced [OfferFeedItemEntity.id] without
+  /// refetching (mirrors `ViewMenuCubit.removeMeal`) — a re-fetch right
+  /// after a successful delete can still return the just-deleted item if
+  /// the backend hasn't reflected the write yet, so the deleted card is
+  /// removed from local state directly instead of relying on that GET.
+  void removeItem(String id) {
+    if (state is! ViewOffersLoaded) return;
+    items = items.where((item) => item.id != id).toList();
+    emit(ViewOffersState.loaded(items: items, hasMore: hasMore, isLoadingMore: isLoadingMore));
+  }
 }

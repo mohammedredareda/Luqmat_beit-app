@@ -21,47 +21,30 @@ void main() {
     getOffersFeed = _MockGetOffersFeed();
   });
 
-  final offer = OfferEntity(
-    id: 'offer-1',
-    cookId: 'cook-1',
-    name: 'لمة العائلة',
+  final now = DateTime.now();
+
+  final offerItem = OfferFeedOfferItem(
+    rawId: 'offer-1',
+    title: 'لمة العائلة',
     description: '',
-    totalPrice: 120,
-    durationDays: 14,
-    createdAt: DateTime.now(),
-    expiryTime: DateTime.now().add(const Duration(days: 14)),
+    createdAt: now,
+    expiryTime: now.add(const Duration(days: 14)),
   );
 
-  final discount = DiscountEntity(
-    id: 'discount-1',
-    mealId: 'meal-1',
-    discountPercentage: 20,
-    discountDurationDays: 5,
-    createdAt: DateTime.now(),
-    expiryTime: DateTime.now().add(const Duration(days: 5)),
+  final discountItem = OfferFeedDiscountItem(
+    rawId: 'discount-1',
+    title: 'خصم 20% على كبسة دجاج منزلية',
+    description: '',
+    createdAt: now,
+    expiryTime: now.add(const Duration(days: 5)),
   );
-
-  const discountMealName = 'كبسة دجاج منزلية';
-  const discountMealImageUrl = '';
-  const discountMealBasePrice = 45.0;
 
   blocTest<ViewOffersCubit, ViewOffersState>(
     'emits [loading, loaded] with the offers and discounts the repository returns',
     setUp: () {
       when(() => getOffersFeed(any(), filter: any(named: 'filter'))).thenAnswer(
         (_) async => Result.success(
-          PaginatedResult(
-            items: [
-              OfferFeedDiscountItem(
-                discount,
-                mealName: discountMealName,
-                mealImageUrl: discountMealImageUrl,
-                mealBasePrice: discountMealBasePrice,
-              ),
-              OfferFeedOfferItem(offer),
-            ],
-            hasMore: false,
-          ),
+          PaginatedResult(items: [discountItem, offerItem], hasMore: false),
         ),
       );
     },
@@ -70,15 +53,7 @@ void main() {
     expect: () => [
       const ViewOffersState.loading(),
       ViewOffersState.loaded(
-        items: [
-          OfferFeedDiscountItem(
-            discount,
-            mealName: discountMealName,
-            mealImageUrl: discountMealImageUrl,
-            mealBasePrice: discountMealBasePrice,
-          ),
-          OfferFeedOfferItem(offer),
-        ],
+        items: [discountItem, offerItem],
         hasMore: false,
         isLoadingMore: false,
       ),
@@ -122,22 +97,12 @@ void main() {
     setUp: () {
       when(() => getOffersFeed(any(), filter: OfferFeedFilter.all)).thenAnswer(
         (_) async => Result.success(
-          PaginatedResult(items: [OfferFeedOfferItem(offer)], hasMore: false),
+          PaginatedResult(items: [offerItem], hasMore: false),
         ),
       );
       when(() => getOffersFeed(any(), filter: OfferFeedFilter.active)).thenAnswer(
         (_) async => Result.success(
-          PaginatedResult(
-            items: [
-              OfferFeedDiscountItem(
-                discount,
-                mealName: discountMealName,
-                mealImageUrl: discountMealImageUrl,
-                mealBasePrice: discountMealBasePrice,
-              ),
-            ],
-            hasMore: false,
-          ),
+          PaginatedResult(items: [discountItem], hasMore: false),
         ),
       );
     },
@@ -148,20 +113,9 @@ void main() {
     },
     expect: () => [
       const ViewOffersState.loading(),
-      ViewOffersState.loaded(items: [OfferFeedOfferItem(offer)], hasMore: false, isLoadingMore: false),
+      ViewOffersState.loaded(items: [offerItem], hasMore: false, isLoadingMore: false),
       const ViewOffersState.loading(),
-      ViewOffersState.loaded(
-        items: [
-          OfferFeedDiscountItem(
-            discount,
-            mealName: discountMealName,
-            mealImageUrl: discountMealImageUrl,
-            mealBasePrice: discountMealBasePrice,
-          ),
-        ],
-        hasMore: false,
-        isLoadingMore: false,
-      ),
+      ViewOffersState.loaded(items: [discountItem], hasMore: false, isLoadingMore: false),
     ],
   );
 }

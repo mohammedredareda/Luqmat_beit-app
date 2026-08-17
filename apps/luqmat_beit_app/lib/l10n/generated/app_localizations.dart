@@ -62,7 +62,8 @@ import 'app_localizations_en.dart';
 /// be consistent with the languages listed in the AppLocalizations.supportedLocales
 /// property.
 abstract class AppLocalizations {
-  AppLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  AppLocalizations(String locale)
+      : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -70,7 +71,8 @@ abstract class AppLocalizations {
     return Localizations.of<AppLocalizations>(context, AppLocalizations);
   }
 
-  static const LocalizationsDelegate<AppLocalizations> delegate = _AppLocalizationsDelegate();
+  static const LocalizationsDelegate<AppLocalizations> delegate =
+      _AppLocalizationsDelegate();
 
   /// A list of this localizations delegate along with the default localizations
   /// delegates.
@@ -82,7 +84,8 @@ abstract class AppLocalizations {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
+      <LocalizationsDelegate<dynamic>>[
     delegate,
     GlobalMaterialLocalizations.delegate,
     GlobalCupertinoLocalizations.delegate,
@@ -497,6 +500,12 @@ abstract class AppLocalizations {
   /// **'خصم {percentage}٪'**
   String discountBadgeLabel(String percentage);
 
+  /// No description provided for @discountBadgeGenericLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'خصم'**
+  String get discountBadgeGenericLabel;
+
   /// No description provided for @selectOfferTypeSheetTitle.
   ///
   /// In ar, this message translates to:
@@ -671,11 +680,11 @@ abstract class AppLocalizations {
   /// **'تفعيل العرض ليظهر للعملاء فوراً'**
   String get offerStatusHelperText;
 
-  /// No description provided for @saveOfferCta.
+  /// No description provided for @createOfferCta.
   ///
   /// In ar, this message translates to:
-  /// **'حفظ العرض'**
-  String get saveOfferCta;
+  /// **'إنشاء'**
+  String get createOfferCta;
 
   /// No description provided for @saveOfferChangesCta.
   ///
@@ -1049,6 +1058,18 @@ abstract class AppLocalizations {
   /// **'أدخل عنوانك بالتفصيل'**
   String get addressHint;
 
+  /// No description provided for @detectLocationCta.
+  ///
+  /// In ar, this message translates to:
+  /// **'تحديد'**
+  String get detectLocationCta;
+
+  /// No description provided for @detectedLocationHint.
+  ///
+  /// In ar, this message translates to:
+  /// **'سيتم تحديد الموقع تلقائياً'**
+  String get detectedLocationHint;
+
   /// No description provided for @availabilityDaysFieldLabel.
   ///
   /// In ar, this message translates to:
@@ -1223,6 +1244,12 @@ abstract class AppLocalizations {
   /// **'طلب #{id}'**
   String orderNumberLabel(String id);
 
+  /// No description provided for @estimatedPrepTimeLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'الوقت المتوقع: {minutes} دقيقة'**
+  String estimatedPrepTimeLabel(int minutes);
+
   /// No description provided for @moreItemsLabel.
   ///
   /// In ar, this message translates to:
@@ -1346,7 +1373,7 @@ abstract class AppLocalizations {
   /// No description provided for @rejectionReasonLabel.
   ///
   /// In ar, this message translates to:
-  /// **'سبب الرفض'**
+  /// **'سبب الرفض (اختياري)'**
   String get rejectionReasonLabel;
 
   /// No description provided for @rejectionReasonHint.
@@ -1762,9 +1789,64 @@ abstract class AppLocalizations {
   /// In ar, this message translates to:
   /// **'الرمز غير صحيح، يرجى المحاولة مرة أخرى'**
   String get otpIncorrectError;
+
+  /// No description provided for @onboardingSlide1Title.
+  ///
+  /// In ar, this message translates to:
+  /// **'أشهى الأطباق البيتية'**
+  String get onboardingSlide1Title;
+
+  /// No description provided for @onboardingSlide1Body.
+  ///
+  /// In ar, this message translates to:
+  /// **'تذوق طعم البيت في كل وجبة، محضرة بعناية وحب من طهاة محليين شغوفين.'**
+  String get onboardingSlide1Body;
+
+  /// No description provided for @onboardingSlide2Title.
+  ///
+  /// In ar, this message translates to:
+  /// **'توصيل دافئ وسريع'**
+  String get onboardingSlide2Title;
+
+  /// No description provided for @onboardingSlide2Body.
+  ///
+  /// In ar, this message translates to:
+  /// **'تصلك وجباتك طازجة ودافئة، وكأنها خرجت للتو من فرن مطبخك الخاص.'**
+  String get onboardingSlide2Body;
+
+  /// No description provided for @onboardingSlide3Title.
+  ///
+  /// In ar, this message translates to:
+  /// **'شارك متعة الطعم'**
+  String get onboardingSlide3Title;
+
+  /// No description provided for @onboardingSlide3Body.
+  ///
+  /// In ar, this message translates to:
+  /// **'اكتشف نكهات جديدة وشارك التجربة مع عائلتك وأصدقائك في كل مناسبة.'**
+  String get onboardingSlide3Body;
+
+  /// No description provided for @onboardingNext.
+  ///
+  /// In ar, this message translates to:
+  /// **'التالي'**
+  String get onboardingNext;
+
+  /// No description provided for @onboardingStart.
+  ///
+  /// In ar, this message translates to:
+  /// **'ابدأ الآن'**
+  String get onboardingStart;
+
+  /// No description provided for @onboardingSkip.
+  ///
+  /// In ar, this message translates to:
+  /// **'تخطي'**
+  String get onboardingSkip;
 }
 
-class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
+class _AppLocalizationsDelegate
+    extends LocalizationsDelegate<AppLocalizations> {
   const _AppLocalizationsDelegate();
 
   @override
@@ -1773,25 +1855,25 @@ class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> 
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['ar', 'en'].contains(locale.languageCode);
+  bool isSupported(Locale locale) =>
+      <String>['ar', 'en'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
 }
 
 AppLocalizations lookupAppLocalizations(Locale locale) {
-
-
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'ar': return AppLocalizationsAr();
-    case 'en': return AppLocalizationsEn();
+    case 'ar':
+      return AppLocalizationsAr();
+    case 'en':
+      return AppLocalizationsEn();
   }
 
   throw FlutterError(
-    'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-    'an issue with the localizations generation tool. Please file an issue '
-    'on GitHub with a reproducible sample app and the gen-l10n configuration '
-    'that was used.'
-  );
+      'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+      'an issue with the localizations generation tool. Please file an issue '
+      'on GitHub with a reproducible sample app and the gen-l10n configuration '
+      'that was used.');
 }

@@ -2,8 +2,6 @@ import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../../domain/format_availability_duration.dart';
-
 part 'registration_state.freezed.dart';
 
 /// A single rich form state (not a branching union) — Registration is one

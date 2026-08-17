@@ -7,5 +7,6 @@ class ResendPhoneChangeCode {
 
   final ChangePhoneNumberRepository _repository;
 
-  Future<Result<void>> call({required String cookId}) => _repository.resendCode(cookId: cookId);
+  Future<Result<void>> call({required String cookId, required String newPhoneNumber}) =>
+      _repository.resendCode(cookId: cookId, newPhoneNumber: newPhoneNumber);
 }

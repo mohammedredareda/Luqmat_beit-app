@@ -1,7 +1,7 @@
 import 'package:core/core.dart';
 
 import 'package:luqmat_beit_app/shared/current_cook_id.dart';
-import '../../../shared/data/datasources/fake_discounts_remote_data_source.dart';
+import '../../../shared/data/datasources/discounts_remote_data_source.dart';
 import '../../../shared/data/models/discount_model.dart';
 import '../../../shared/domain/discount_form_submission.dart';
 import '../../domain/repositories/create_discount_repository.dart';
@@ -9,7 +9,7 @@ import '../../domain/repositories/create_discount_repository.dart';
 class CreateDiscountRepositoryImpl implements CreateDiscountRepository {
   CreateDiscountRepositoryImpl(this._dataSource);
 
-  final FakeDiscountsRemoteDataSource _dataSource;
+  final DiscountsRemoteDataSource _dataSource;
 
   @override
   Future<Result<DiscountEntity>> createDiscount(DiscountFormSubmission submission) {

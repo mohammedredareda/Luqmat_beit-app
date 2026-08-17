@@ -98,10 +98,7 @@ class _SelectMealPopupState extends State<SelectMealPopup> {
                     BlocBuilder<SelectMealCubit, SelectMealState>(
                       builder: (context, state) => state.when(
                         initial: () => const SizedBox.shrink(),
-                        loading: () => const Padding(
-                          padding: EdgeInsets.symmetric(vertical: AppSpace.xxl),
-                          child: Center(child: CircularProgressIndicator()),
-                        ),
+                        loading: () => const _SelectMealGridSkeleton(),
                         loaded: (meals) {
                           final filtered = meals
                               .where((m) => !widget.excludedMealIds.contains(m.id))
@@ -120,7 +117,11 @@ class _SelectMealPopupState extends State<SelectMealPopup> {
                               crossAxisCount: 2,
                               mainAxisSpacing: AppSpace.m,
                               crossAxisSpacing: AppSpace.m,
-                              childAspectRatio: 0.78,
+                              // Shorter than 0.78 to leave headroom for the
+                              // price row now that it also carries the
+                              // currency suffix — 0.78 clipped/overflowed by
+                              // a few px once that text got longer.
+                              childAspectRatio: 0.7,
                             ),
                             itemCount: filtered.length,
                             itemBuilder: (context, index) {
@@ -183,6 +184,41 @@ class _SelectMealPopupState extends State<SelectMealPopup> {
   }
 }
 
+/// R-29 — a skeleton grid mirroring [_MealTile]'s image/name/price shape,
+/// never a bare spinner, for the popup's initial meal-list fetch.
+class _SelectMealGridSkeleton extends StatelessWidget {
+  const _SelectMealGridSkeleton();
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        mainAxisSpacing: AppSpace.m,
+        crossAxisSpacing: AppSpace.m,
+        childAspectRatio: 0.7,
+      ),
+      itemCount: 4,
+      itemBuilder: (context, index) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: const [
+          AspectRatio(
+            aspectRatio: 4 / 3,
+            child: LoadingSkeleton(borderRadius: AppRadius.card),
+          ),
+          SizedBox(height: AppSpace.s),
+          LoadingSkeleton(width: 100, height: 12),
+          SizedBox(height: AppSpace.xs),
+          LoadingSkeleton(width: 60, height: 12),
+        ],
+      ),
+    );
+  }
+}
+
 class _MealTile extends StatelessWidget {
   const _MealTile({required this.meal, required this.selected, required this.onTap});
 
@@ -192,6 +228,7 @@ class _MealTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final scheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
 
@@ -250,7 +287,12 @@ class _MealTile extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(height: AppSpace.xs),
-                    Text(meal.startingPrice.toStringAsFixed(0), style: AppText.price(context)),
+                    Text(
+                      '${meal.startingPrice.toStringAsFixed(0)} ${l10n.currencySuffix}',
+                      style: AppText.price(context),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ],
                 ),
               ),

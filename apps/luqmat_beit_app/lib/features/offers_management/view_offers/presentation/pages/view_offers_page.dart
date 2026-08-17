@@ -31,9 +31,13 @@ class ViewOffersPage extends StatelessWidget {
 Future<void> _onAddPressed(BuildContext context) async {
   final choice = await showSelectOfferTypeSheet(context);
   if (choice == null || !context.mounted) return;
-  final route = choice == OfferTypeChoice.offer ? '/offers/create' : '/discounts/create';
-  context.push(route).then((_) {
-    if (context.mounted) context.read<ViewOffersCubit>().load();
+  final route = choice == OfferTypeChoice.offer ? '/cook/offers/create' : '/cook/discounts/create';
+  // Create pages only `pop(true)` on an actual successful save (see
+  // `CreateOfferPage`/`CreateDiscountPage`'s success listeners) — a plain
+  // Cancel/back pops `null`, so this skips the full skeleton-flash reload
+  // when nothing actually changed.
+  context.push(route).then((changed) {
+    if (changed == true && context.mounted) context.read<ViewOffersCubit>().load();
   });
 }
 
@@ -67,26 +71,69 @@ class _ViewOffersViewState extends State<_ViewOffersView> {
         ),
         actions: [
           IconButton(
-            onPressed: () => context.push('/notifications'),
+            onPressed: () => context.push('/cook/notifications'),
             icon: const Icon(Icons.notifications_outlined),
             tooltip: l10n.notificationsTitle,
           ),
         ],
       ),
-      body: BlocBuilder<ViewOffersCubit, ViewOffersState>(
-        builder: (context, state) => state.when(
-          initial: () => const SizedBox.shrink(),
-          loading: () => const ViewOffersSkeleton(),
-          loaded: (items, hasMore, isLoadingMore) => _LoadedBody(
-            items: items,
-            hasMore: hasMore,
-            isLoadingMore: isLoadingMore,
-            filter: _filter,
-            onFilterSelected: _selectFilter,
-            onLoadMore: () => context.read<ViewOffersCubit>().loadMore(),
+      // Header + filter tabs are persistent chrome (mirrors
+      // `OrdersListPage`'s `_Header`/`_FilterRow`) — only the body content
+      // below swaps between skeleton/loaded/error, so the "My Offers"
+      // title and tabs stay visible through every state, loading included.
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(AppSpace.l, AppSpace.l, AppSpace.l, 0),
+            child: _Header(l10n: l10n),
           ),
-          error: (exception) => _ErrorBody(message: exception.message),
-        ),
+          const SizedBox(height: AppSpace.l),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: AppSpace.l),
+            child: SizedBox(
+              height: 40,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: [
+                  _FilterChip(
+                    label: l10n.filterAllLabel,
+                    selected: _filter == OfferFeedFilter.all,
+                    onTap: () => _selectFilter(OfferFeedFilter.all),
+                  ),
+                  const SizedBox(width: AppSpace.s),
+                  _FilterChip(
+                    label: l10n.filterActiveLabel,
+                    selected: _filter == OfferFeedFilter.active,
+                    onTap: () => _selectFilter(OfferFeedFilter.active),
+                  ),
+                  const SizedBox(width: AppSpace.s),
+                  _FilterChip(
+                    label: l10n.filterExpiredLabel,
+                    selected: _filter == OfferFeedFilter.expired,
+                    onTap: () => _selectFilter(OfferFeedFilter.expired),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: AppSpace.l),
+          Expanded(
+            child: BlocBuilder<ViewOffersCubit, ViewOffersState>(
+              builder: (context, state) => state.when(
+                initial: () => const SizedBox.shrink(),
+                loading: () => const ViewOffersSkeleton(),
+                loaded: (items, hasMore, isLoadingMore) => _LoadedBody(
+                  items: items,
+                  hasMore: hasMore,
+                  isLoadingMore: isLoadingMore,
+                  filter: _filter,
+                  onLoadMore: () => context.read<ViewOffersCubit>().loadMore(),
+                ),
+                error: (exception) => _ErrorBody(message: exception.message),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -98,7 +145,6 @@ class _LoadedBody extends StatelessWidget {
     required this.hasMore,
     required this.isLoadingMore,
     required this.filter,
-    required this.onFilterSelected,
     required this.onLoadMore,
   });
 
@@ -106,7 +152,6 @@ class _LoadedBody extends StatelessWidget {
   final bool hasMore;
   final bool isLoadingMore;
   final OfferFeedFilter filter;
-  final ValueChanged<OfferFeedFilter> onFilterSelected;
   final VoidCallback onLoadMore;
 
   @override
@@ -117,102 +162,72 @@ class _LoadedBody extends StatelessWidget {
     // only reliably knowable on the unfiltered tab once it's fully loaded.
     final isTrulyEmpty = filter == OfferFeedFilter.all && items.isEmpty && !hasMore;
 
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(AppSpace.l, AppSpace.l, AppSpace.l, 0),
-          child: _Header(l10n: l10n),
-        ),
-        if (!isTrulyEmpty) ...[
-          const SizedBox(height: AppSpace.l),
-          Padding(
+    return isTrulyEmpty
+        ? SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: AppSpace.l),
-            child: SizedBox(
-              height: 40,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  _FilterChip(
-                    label: l10n.filterAllLabel,
-                    selected: filter == OfferFeedFilter.all,
-                    onTap: () => onFilterSelected(OfferFeedFilter.all),
-                  ),
-                  const SizedBox(width: AppSpace.s),
-                  _FilterChip(
-                    label: l10n.filterActiveLabel,
-                    selected: filter == OfferFeedFilter.active,
-                    onTap: () => onFilterSelected(OfferFeedFilter.active),
-                  ),
-                  const SizedBox(width: AppSpace.s),
-                  _FilterChip(
-                    label: l10n.filterExpiredLabel,
-                    selected: filter == OfferFeedFilter.expired,
-                    onTap: () => onFilterSelected(OfferFeedFilter.expired),
-                  ),
-                ],
-              ),
+            child: EmptyState(
+              icon: Icons.local_offer_outlined,
+              title: l10n.emptyOffersHeading,
+              message: l10n.emptyOffersBody,
+              actionLabel: l10n.addOfferOrDiscountCta,
+              onAction: () => _onAddPressed(context),
             ),
-          ),
-        ],
-        const SizedBox(height: AppSpace.l),
-        Expanded(
-          child: isTrulyEmpty
-              ? SingleChildScrollView(
-                  padding: const EdgeInsets.symmetric(horizontal: AppSpace.l),
-                  child: EmptyState(
-                    icon: Icons.local_offer_outlined,
-                    title: l10n.emptyOffersHeading,
-                    message: l10n.emptyOffersBody,
-                    actionLabel: l10n.addOfferOrDiscountCta,
-                    onAction: () => _onAddPressed(context),
+          )
+        : PaginatedListView<OfferFeedItemEntity>(
+            padding: const EdgeInsets.symmetric(horizontal: AppSpace.l, vertical: 0),
+            items: items,
+            hasMore: hasMore,
+            isLoadingMore: isLoadingMore,
+            onLoadMore: onLoadMore,
+            separatorBuilder: (_, __) => const SizedBox(height: AppSpace.l),
+            endOfListBuilder: (context) => _AddNewTile(l10n: l10n),
+            itemBuilder: (context, item, index) => switch (item) {
+              OfferFeedDiscountItem(
+                :final id,
+                :final rawId,
+                :final title,
+                :final description,
+                :final expiryTime,
+              ) =>
+                DiscountCard(
+                  title: title,
+                  description: description,
+                  expiryTime: expiryTime,
+                  onEdit: () => context.push('/cook/discounts/$rawId/edit').then((changed) {
+                    if (changed == true && context.mounted) {
+                      context.read<ViewOffersCubit>().load();
+                    }
+                  }),
+                  onDelete: () => showDeleteDiscountConfirmation(
+                    context,
+                    discountId: rawId,
+                    onDeleted: () => context.read<ViewOffersCubit>().removeItem(id),
                   ),
-                )
-              : PaginatedListView<OfferFeedItemEntity>(
-                  padding: const EdgeInsets.symmetric(horizontal: AppSpace.l, vertical: 0),
-                  items: items,
-                  hasMore: hasMore,
-                  isLoadingMore: isLoadingMore,
-                  onLoadMore: onLoadMore,
-                  separatorBuilder: (_, __) => const SizedBox(height: AppSpace.l),
-                  endOfListBuilder: (context) => _AddNewTile(l10n: l10n),
-                  itemBuilder: (context, item, index) => switch (item) {
-                    OfferFeedDiscountItem(
-                      :final discount,
-                      :final mealName,
-                      :final mealImageUrl,
-                      :final mealBasePrice,
-                    ) =>
-                      DiscountCard(
-                        discount: discount,
-                        mealName: mealName,
-                        mealImageUrl: mealImageUrl,
-                        mealBasePrice: mealBasePrice,
-                        onEdit: () => context.push('/discounts/${discount.id}/edit').then((_) {
-                          if (context.mounted) context.read<ViewOffersCubit>().load();
-                        }),
-                        onDelete: () => showDeleteDiscountConfirmation(
-                          context,
-                          discountId: discount.id,
-                          onDeleted: () => context.read<ViewOffersCubit>().load(),
-                        ),
-                      ),
-                    OfferFeedOfferItem(:final offer, :final imageUrl) => OfferCard(
-                        offer: offer,
-                        imageUrl: imageUrl,
-                        onEdit: () => context.push('/offers/${offer.id}/edit').then((_) {
-                          if (context.mounted) context.read<ViewOffersCubit>().load();
-                        }),
-                        onDelete: () => showDeleteOfferConfirmation(
-                          context,
-                          offerId: offer.id,
-                          onDeleted: () => context.read<ViewOffersCubit>().load(),
-                        ),
-                      ),
-                  },
                 ),
-        ),
-      ],
-    );
+              OfferFeedOfferItem(
+                :final id,
+                :final rawId,
+                :final title,
+                :final description,
+                :final expiryTime,
+              ) =>
+                OfferCard(
+                  title: title,
+                  description: description,
+                  expiryTime: expiryTime,
+                  onEdit: () => context.push('/cook/offers/$rawId/edit').then((changed) {
+                    if (changed == true && context.mounted) {
+                      context.read<ViewOffersCubit>().load();
+                    }
+                  }),
+                  onDelete: () => showDeleteOfferConfirmation(
+                    context,
+                    offerId: rawId,
+                    onDeleted: () => context.read<ViewOffersCubit>().removeItem(id),
+                  ),
+                ),
+            },
+          );
   }
 }
 

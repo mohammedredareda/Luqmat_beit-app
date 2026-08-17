@@ -14,7 +14,9 @@ class Register {
     required String password,
     required String address,
     String? description,
-    String? availabilityDuration,
+    DateTime? startAvailabilityTime,
+    DateTime? endAvailabilityTime,
+    List<int>? availabilityDays,
     double? latitude,
     double? longitude,
   }) {
@@ -25,7 +27,9 @@ class Register {
       password: password,
       address: address,
       description: description,
-      availabilityDuration: availabilityDuration,
+      startAvailabilityTime: startAvailabilityTime,
+      endAvailabilityTime: endAvailabilityTime,
+      availabilityDays: availabilityDays,
       latitude: latitude,
       longitude: longitude,
     );

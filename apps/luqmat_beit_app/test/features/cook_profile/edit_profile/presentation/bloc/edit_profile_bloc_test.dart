@@ -16,9 +16,12 @@ class _MockGetCookProfile extends Mock implements GetCookProfile {}
 
 class _MockUpdateCookProfile extends Mock implements UpdateCookProfile {}
 
+class _MockDetectCurrentLocation extends Mock implements DetectCurrentLocation {}
+
 void main() {
   late _MockGetCookProfile getCookProfile;
   late _MockUpdateCookProfile updateCookProfile;
+  late _MockDetectCurrentLocation detectCurrentLocation;
 
   setUpAll(() {
     registerFallbackValue(const ProfileFormSubmission(
@@ -34,6 +37,7 @@ void main() {
   setUp(() {
     getCookProfile = _MockGetCookProfile();
     updateCookProfile = _MockUpdateCookProfile();
+    detectCurrentLocation = _MockDetectCurrentLocation();
   });
 
   const existingProfile = CookProfileDetails(
@@ -65,7 +69,7 @@ void main() {
         (_) async => const Result.success(existingProfile),
       );
     },
-    build: () => EditProfileBloc(getCookProfile, updateCookProfile),
+    build: () => EditProfileBloc(getCookProfile, updateCookProfile, detectCurrentLocation),
     act: (bloc) => bloc.add(const EditProfileEvent.started()),
     expect: () => [
       const EditProfileState.loading(),
@@ -80,7 +84,7 @@ void main() {
         (_) async => const Result.failure(NotFoundException('Profile not found')),
       );
     },
-    build: () => EditProfileBloc(getCookProfile, updateCookProfile),
+    build: () => EditProfileBloc(getCookProfile, updateCookProfile, detectCurrentLocation),
     act: (bloc) => bloc.add(const EditProfileEvent.started()),
     expect: () => [
       const EditProfileState.loading(),
@@ -95,7 +99,7 @@ void main() {
         (_) async => const Result.success(existingProfile),
       );
     },
-    build: () => EditProfileBloc(getCookProfile, updateCookProfile),
+    build: () => EditProfileBloc(getCookProfile, updateCookProfile, detectCurrentLocation),
     seed: () => const EditProfileState.form(validFormData),
     act: (bloc) => bloc.add(const EditProfileEvent.submitPressed()),
     expect: () => [
@@ -126,7 +130,7 @@ void main() {
 
   blocTest<EditProfileBloc, EditProfileState>(
     'submitPressed with an empty fullName emits validationFailure and never calls updateCookProfile',
-    build: () => EditProfileBloc(getCookProfile, updateCookProfile),
+    build: () => EditProfileBloc(getCookProfile, updateCookProfile, detectCurrentLocation),
     seed: () => const EditProfileState.form(EditProfileFormData(
       fullName: '',
       phoneNumber: '+966 50 123 4567',

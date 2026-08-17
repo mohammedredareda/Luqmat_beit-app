@@ -23,6 +23,28 @@ class OfferMealModel {
   final double unitPrice;
   final int quantity;
 
+  /// Real-shape response parsing from `GET /user/cook/menu/offers/{id}`'s
+  /// `offerMeals[]` — only a free-text `variationQuantity` (not a
+  /// decomposed unit price/quantity/selling-option) and a nested
+  /// `meal:{name,image}`. [unitPrice]/[quantity]/[sellingOptionId] have no
+  /// real source here — default to 0/1/null so the edit form can still
+  /// render the included meal's name/image/description; the cook would
+  /// need to re-pick a selling option to change a per-meal quantity via
+  /// the stepper UI (see `EditOfferBloc.mealQuantityIncremented`, which
+  /// only mutates [quantity] locally, never round-trips it to the API on
+  /// its own — the whole `variationQuantity` string is rebuilt on submit).
+  factory OfferMealModel.fromApiJson(Map<String, dynamic> json) {
+    final meal = json['meal'] as Map?;
+    return OfferMealModel(
+      mealId: json['mealId'].toString(),
+      mealName: meal?['name'] as String? ?? '',
+      mealImageUrl: meal?['image'] as String? ?? '',
+      sellingOptionLabel: json['variationQuantity'] as String?,
+      unitPrice: 0,
+      quantity: 1,
+    );
+  }
+
   factory OfferMealModel.fromJson(Map<String, dynamic> json) => OfferMealModel(
         mealId: json['mealId'] as String,
         mealName: json['mealName'] as String,
@@ -49,4 +71,20 @@ class OfferMealModel {
         mealImageUrl: mealImageUrl,
         variationQuantity: quantity,
       );
+
+  /// Real API request shape for `POST/PUT .../offers/...`'s `meals` array.
+  /// The live endpoint wants one free-text `variation_quantity` string per
+  /// meal (e.g. `"حجم عائلي"`, `"نصف دجاجة"`) — no separate quantity
+  /// multiplier field — so [quantity] > 1 is folded into that same string
+  /// rather than dropped.
+  Map<String, dynamic> toApiJson() => {
+        'meal_id': int.tryParse(mealId) ?? mealId,
+        'variation_quantity': _variationQuantity,
+      };
+
+  String get _variationQuantity {
+    final base = sellingOptionLabel ?? '';
+    if (quantity <= 1) return base;
+    return base.isEmpty ? '${quantity}x' : '${quantity}x $base';
+  }
 }

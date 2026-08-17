@@ -5,16 +5,19 @@ import 'package:luqmat_beit_app/l10n/generated/app_localizations.dart';
 
 /// CK-18's Reject dialog — mirrors [ConfirmationDialog]'s R-20/R-08 shape
 /// (Cancel default-focused text button, Reject as an error-outlined
-/// button) but adds the mandatory free-text rejection reason field, which
-/// [ConfirmationDialog] has no room for. Collects the decision only — no
-/// network call happens here; the caller's Bloc drives the R-19 submitting
-/// spinner after this dialog has already closed.
+/// button) but adds an optional free-text rejection reason field, which
+/// [ConfirmationDialog] has no room for. The reason is never required —
+/// leaving it blank still rejects the order, with the data layer filling
+/// in an automatic placeholder reason server-side. Collects the decision
+/// only — no network call happens here; the caller's Bloc drives the R-19
+/// submitting spinner after this dialog has already closed.
 class RejectOrderDialog extends StatefulWidget {
   const RejectOrderDialog({super.key, required this.orderId});
 
   final String orderId;
 
-  /// Resolves to the trimmed rejection reason, or `null` on cancel/dismiss.
+  /// Resolves to the trimmed rejection reason (possibly empty — the field
+  /// is optional), or `null` on cancel/dismiss.
   static Future<String?> show(BuildContext context, {required String orderId}) {
     return showDialog<String>(
       context: context,
@@ -51,7 +54,6 @@ class _RejectOrderDialogState extends State<RejectOrderDialog> {
           labelText: l10n.rejectionReasonLabel,
           hintText: l10n.rejectionReasonHint,
         ),
-        onChanged: (_) => setState(() {}),
       ),
       actions: [
         TextButton(
@@ -60,9 +62,7 @@ class _RejectOrderDialogState extends State<RejectOrderDialog> {
           child: Text(l10n.cancelLabel),
         ),
         OutlinedButton(
-          onPressed: _controller.text.trim().isEmpty
-              ? null
-              : () => Navigator.of(context).pop(_controller.text.trim()),
+          onPressed: () => Navigator.of(context).pop(_controller.text.trim()),
           style: OutlinedButton.styleFrom(
             foregroundColor: scheme.error,
             side: BorderSide(color: scheme.error, width: 1.5),

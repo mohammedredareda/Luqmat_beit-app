@@ -18,6 +18,8 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$CreateDiscountState {
   MealEntity? get selectedMeal => throw _privateConstructorUsedError;
   String get percentageInput => throw _privateConstructorUsedError;
+  DiscountRestrictionType get restrictionType =>
+      throw _privateConstructorUsedError;
   String get durationDaysInput => throw _privateConstructorUsedError;
   String get usageLimitInput => throw _privateConstructorUsedError;
   DiscountSubmitStatus get submitStatus => throw _privateConstructorUsedError;
@@ -38,6 +40,7 @@ abstract class $CreateDiscountStateCopyWith<$Res> {
   $Res call(
       {MealEntity? selectedMeal,
       String percentageInput,
+      DiscountRestrictionType restrictionType,
       String durationDaysInput,
       String usageLimitInput,
       DiscountSubmitStatus submitStatus});
@@ -62,6 +65,7 @@ class _$CreateDiscountStateCopyWithImpl<$Res, $Val extends CreateDiscountState>
   $Res call({
     Object? selectedMeal = freezed,
     Object? percentageInput = null,
+    Object? restrictionType = null,
     Object? durationDaysInput = null,
     Object? usageLimitInput = null,
     Object? submitStatus = null,
@@ -75,6 +79,10 @@ class _$CreateDiscountStateCopyWithImpl<$Res, $Val extends CreateDiscountState>
           ? _value.percentageInput
           : percentageInput // ignore: cast_nullable_to_non_nullable
               as String,
+      restrictionType: null == restrictionType
+          ? _value.restrictionType
+          : restrictionType // ignore: cast_nullable_to_non_nullable
+              as DiscountRestrictionType,
       durationDaysInput: null == durationDaysInput
           ? _value.durationDaysInput
           : durationDaysInput // ignore: cast_nullable_to_non_nullable
@@ -112,6 +120,7 @@ abstract class _$$CreateDiscountStateImplCopyWith<$Res>
   $Res call(
       {MealEntity? selectedMeal,
       String percentageInput,
+      DiscountRestrictionType restrictionType,
       String durationDaysInput,
       String usageLimitInput,
       DiscountSubmitStatus submitStatus});
@@ -135,6 +144,7 @@ class __$$CreateDiscountStateImplCopyWithImpl<$Res>
   $Res call({
     Object? selectedMeal = freezed,
     Object? percentageInput = null,
+    Object? restrictionType = null,
     Object? durationDaysInput = null,
     Object? usageLimitInput = null,
     Object? submitStatus = null,
@@ -148,6 +158,10 @@ class __$$CreateDiscountStateImplCopyWithImpl<$Res>
           ? _value.percentageInput
           : percentageInput // ignore: cast_nullable_to_non_nullable
               as String,
+      restrictionType: null == restrictionType
+          ? _value.restrictionType
+          : restrictionType // ignore: cast_nullable_to_non_nullable
+              as DiscountRestrictionType,
       durationDaysInput: null == durationDaysInput
           ? _value.durationDaysInput
           : durationDaysInput // ignore: cast_nullable_to_non_nullable
@@ -170,6 +184,7 @@ class _$CreateDiscountStateImpl implements _CreateDiscountState {
   const _$CreateDiscountStateImpl(
       {this.selectedMeal,
       this.percentageInput = '',
+      this.restrictionType = DiscountRestrictionType.duration,
       this.durationDaysInput = '',
       this.usageLimitInput = '',
       this.submitStatus = const DiscountSubmitStatus.idle()});
@@ -179,6 +194,9 @@ class _$CreateDiscountStateImpl implements _CreateDiscountState {
   @override
   @JsonKey()
   final String percentageInput;
+  @override
+  @JsonKey()
+  final DiscountRestrictionType restrictionType;
   @override
   @JsonKey()
   final String durationDaysInput;
@@ -191,7 +209,7 @@ class _$CreateDiscountStateImpl implements _CreateDiscountState {
 
   @override
   String toString() {
-    return 'CreateDiscountState(selectedMeal: $selectedMeal, percentageInput: $percentageInput, durationDaysInput: $durationDaysInput, usageLimitInput: $usageLimitInput, submitStatus: $submitStatus)';
+    return 'CreateDiscountState(selectedMeal: $selectedMeal, percentageInput: $percentageInput, restrictionType: $restrictionType, durationDaysInput: $durationDaysInput, usageLimitInput: $usageLimitInput, submitStatus: $submitStatus)';
   }
 
   @override
@@ -203,6 +221,8 @@ class _$CreateDiscountStateImpl implements _CreateDiscountState {
                 other.selectedMeal == selectedMeal) &&
             (identical(other.percentageInput, percentageInput) ||
                 other.percentageInput == percentageInput) &&
+            (identical(other.restrictionType, restrictionType) ||
+                other.restrictionType == restrictionType) &&
             (identical(other.durationDaysInput, durationDaysInput) ||
                 other.durationDaysInput == durationDaysInput) &&
             (identical(other.usageLimitInput, usageLimitInput) ||
@@ -213,7 +233,7 @@ class _$CreateDiscountStateImpl implements _CreateDiscountState {
 
   @override
   int get hashCode => Object.hash(runtimeType, selectedMeal, percentageInput,
-      durationDaysInput, usageLimitInput, submitStatus);
+      restrictionType, durationDaysInput, usageLimitInput, submitStatus);
 
   /// Create a copy of CreateDiscountState
   /// with the given fields replaced by the non-null parameter values.
@@ -229,6 +249,7 @@ abstract class _CreateDiscountState implements CreateDiscountState {
   const factory _CreateDiscountState(
       {final MealEntity? selectedMeal,
       final String percentageInput,
+      final DiscountRestrictionType restrictionType,
       final String durationDaysInput,
       final String usageLimitInput,
       final DiscountSubmitStatus submitStatus}) = _$CreateDiscountStateImpl;
@@ -237,6 +258,8 @@ abstract class _CreateDiscountState implements CreateDiscountState {
   MealEntity? get selectedMeal;
   @override
   String get percentageInput;
+  @override
+  DiscountRestrictionType get restrictionType;
   @override
   String get durationDaysInput;
   @override

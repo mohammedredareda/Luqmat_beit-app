@@ -6,10 +6,9 @@ import 'package:luqmat_beit_app/di/injection.dart';
 import 'package:luqmat_beit_app/l10n/generated/app_localizations.dart';
 import 'package:luqmat_beit_app/shared/presentation/widgets/image_picker_field.dart';
 
-import '../../../domain/meal_category.dart';
 import '../../../shared/presentation/bloc/meal_submit_status.dart';
 import '../../../shared/presentation/widgets/meal_basic_info_section.dart';
-import '../../../shared/presentation/widgets/meal_category_chips_section.dart';
+import '../../../shared/presentation/widgets/meal_category_picker.dart';
 import '../../../shared/presentation/widgets/meal_preorder_time_field.dart';
 import '../../../shared/presentation/widgets/meal_pricing_section.dart';
 import '../bloc/create_meal_bloc.dart';
@@ -31,14 +30,6 @@ class CreateMealPage extends StatelessWidget {
 
 class _CreateMealView extends StatelessWidget {
   const _CreateMealView();
-
-  String _categoryLabel(AppLocalizations l10n, MealCategory category) => switch (category) {
-        MealCategory.mainDishes => l10n.categoryMainDishes,
-        MealCategory.pastries => l10n.categoryPastries,
-        MealCategory.desserts => l10n.categoryDesserts,
-        MealCategory.appetizers => l10n.categoryAppetizers,
-        MealCategory.beverages => l10n.categoryBeverages,
-      };
 
   String? _fieldError(AppLocalizations l10n, Map<String, List<String>> fieldErrors, String field) {
     final tokens = fieldErrors[field];
@@ -112,11 +103,12 @@ class _CreateMealView extends StatelessWidget {
                           bloc.add(CreateMealEvent.descriptionChanged(value)),
                     ),
                     const SizedBox(height: AppSpace.xl),
-                    MealCategoryChipsSection(
+                    MealCategoryPicker(
                       sectionTitle: l10n.categorySectionTitle,
                       selectedCategoryIds: state.categoryIds,
                       onToggle: (id) => bloc.add(CreateMealEvent.categoryToggled(id)),
-                      labelBuilder: (category) => _categoryLabel(l10n, category),
+                      errorLabel: l10n.genericErrorMessage,
+                      retryLabel: l10n.retryLabel,
                     ),
                     const SizedBox(height: AppSpace.xl),
                     MealPreorderTimeField(
@@ -160,7 +152,13 @@ class _CreateMealView extends StatelessWidget {
                   child: ElevatedButton.icon(
                     onPressed:
                         isSubmitting ? null : () => bloc.add(const CreateMealEvent.submitPressed()),
-                    icon: const Icon(Icons.done_all),
+                    icon: isSubmitting
+                        ? const SizedBox(
+                            width: 18,
+                            height: 18,
+                            child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                          )
+                        : const Icon(Icons.done_all),
                     label: Text(l10n.addMealCta),
                   ),
                 ),

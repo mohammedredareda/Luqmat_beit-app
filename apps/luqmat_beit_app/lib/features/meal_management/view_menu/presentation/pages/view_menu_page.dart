@@ -47,27 +47,47 @@ class _ViewMenuView extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            onPressed: () => context.push('/notifications'),
+            onPressed: () => context.push('/cook/notifications'),
             icon: const Icon(Icons.notifications_outlined),
             tooltip: l10n.notificationsTitle,
           ),
         ],
       ),
-      body: BlocBuilder<ViewMenuCubit, ViewMenuState>(
-        builder: (context, state) => state.when(
-          initial: () => const SizedBox.shrink(),
-          loading: () => const ViewMenuSkeleton(),
-          loaded: (meals, isSellingPaused, hasMore, isLoadingMore) => _LoadedBody(
-            meals: meals,
-            isSellingPaused: isSellingPaused,
-            hasMore: hasMore,
-            isLoadingMore: isLoadingMore,
+      // "My List" + subtitle are persistent chrome (mirrors
+      // `ViewOffersPage`'s `_Header`/filter-tabs) — only the content below
+      // swaps between skeleton/loaded/error, so the title never disappears
+      // during a fetch.
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(AppSpace.l, AppSpace.l, AppSpace.l, 0),
+            child: _Header(l10n: l10n),
           ),
-          error: (exception) => _ErrorBody(message: exception.message),
-        ),
+          const SizedBox(height: AppSpace.xl),
+          Expanded(
+            child: BlocBuilder<ViewMenuCubit, ViewMenuState>(
+              builder: (context, state) => state.when(
+                initial: () => const SizedBox.shrink(),
+                loading: () => const ViewMenuSkeleton(),
+                loaded: (meals, isSellingPaused, hasMore, isLoadingMore) => _LoadedBody(
+                  meals: meals,
+                  isSellingPaused: isSellingPaused,
+                  hasMore: hasMore,
+                  isLoadingMore: isLoadingMore,
+                ),
+                error: (exception) => _ErrorBody(message: exception.message),
+              ),
+            ),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => context.push('/meals/create').then((_) {
+        // Unlike edit/delete, creation can't be reflected optimistically:
+        // the backend's create response carries no meal data at all (see
+        // MealRemoteDataSource.createMeal's comment) — no server id, no
+        // hosted image URL — so there's nothing accurate to hand the cubit
+        // without asking the server again.
+        onPressed: () => context.push('/cook/meals/create').then((_) {
           if (context.mounted) context.read<ViewMenuCubit>().loadMenu();
         }),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
@@ -98,17 +118,10 @@ class _LoadedBody extends StatelessWidget {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.fromLTRB(AppSpace.l, AppSpace.l, AppSpace.l, 0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              _Header(l10n: l10n),
-              const SizedBox(height: AppSpace.xl),
-              SaleStatusCard(
-                isSellingPaused: isSellingPaused,
-                onSellingStatusChanged: () => context.read<ViewMenuCubit>().loadMenu(),
-              ),
-            ],
+          padding: const EdgeInsets.symmetric(horizontal: AppSpace.l),
+          child: SaleStatusCard(
+            isSellingPaused: isSellingPaused,
+            onSellingStatusChanged: () => context.read<ViewMenuCubit>().loadMenu(),
           ),
         ),
         const SizedBox(height: AppSpace.xl),
@@ -120,7 +133,7 @@ class _LoadedBody extends StatelessWidget {
                     title: l10n.emptyMenuHeading,
                     message: l10n.emptyMenuBody,
                     actionLabel: l10n.addMealCta,
-                    onAction: () => context.push('/meals/create').then((_) {
+                    onAction: () => context.push('/cook/meals/create').then((_) {
                       if (context.mounted) context.read<ViewMenuCubit>().loadMenu();
                     }),
                   ),
@@ -140,13 +153,19 @@ class _LoadedBody extends StatelessWidget {
                     ),
                     outOfStockLabel: l10n.outOfStockBadge,
                     startingFromLabel: l10n.startingFromLabel,
-                    onEdit: () => context.push('/meals/${meal.id}/edit').then((_) {
-                      if (context.mounted) context.read<ViewMenuCubit>().loadMenu();
+                    onEdit: () => context.push<Object>('/cook/meals/${meal.id}/edit').then((result) {
+                      if (!context.mounted) return;
+                      final cubit = context.read<ViewMenuCubit>();
+                      if (result is MealEntity) {
+                        cubit.replaceMeal(result);
+                      } else if (result is MealDeleted) {
+                        cubit.removeMeal(result.mealId);
+                      }
                     }),
                     onDelete: () => showDeleteMealConfirmation(
                       context,
                       mealId: meal.id,
-                      onDeleted: () => context.read<ViewMenuCubit>().loadMenu(),
+                      onDeleted: () => context.read<ViewMenuCubit>().removeMeal(meal.id),
                     ),
                   ),
                 ),

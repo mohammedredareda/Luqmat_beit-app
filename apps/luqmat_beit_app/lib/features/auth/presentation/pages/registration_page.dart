@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../di/injection.dart';
-import '../../domain/format_availability_duration.dart';
 import '../../domain/usecases/register.dart';
 import '../cubit/registration/registration_cubit.dart';
 import '../cubit/registration/registration_state.dart';

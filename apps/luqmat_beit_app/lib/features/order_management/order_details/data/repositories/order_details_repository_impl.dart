@@ -1,12 +1,12 @@
 import 'package:core/core.dart';
 
-import '../../../data/datasources/fake_order_remote_data_source.dart';
+import '../../../data/datasources/order_remote_data_source.dart';
 import '../../domain/repositories/order_details_repository.dart';
 
 class OrderDetailsRepositoryImpl implements OrderDetailsRepository {
   OrderDetailsRepositoryImpl(this._dataSource);
 
-  final FakeOrderRemoteDataSource _dataSource;
+  final OrderRemoteDataSource _dataSource;
 
   @override
   Future<Result<OrderEntity>> getOrder(String orderId) {
@@ -23,7 +23,7 @@ class OrderDetailsRepositoryImpl implements OrderDetailsRepository {
   }
 
   @override
-  Future<Result<OrderEntity>> rejectOrder({required String orderId, required String reason}) {
+  Future<Result<OrderEntity>> rejectOrder({required String orderId, String? reason}) {
     return guard(() async =>
         (await _dataSource.rejectOrder(id: orderId, reason: reason)).toEntity());
   }

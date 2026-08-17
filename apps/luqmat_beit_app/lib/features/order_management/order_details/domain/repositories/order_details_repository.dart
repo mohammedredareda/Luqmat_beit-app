@@ -8,10 +8,11 @@ abstract class OrderDetailsRepository {
   /// (now `preparing`). See CK-25 for the expired-pending failure mode.
   Future<Result<OrderEntity>> acceptOrder(String orderId);
 
-  /// CK-18 Reject. Only valid from `pending`; [reason] is mandatory
-  /// free-text — no preset/dropdown substitute is ever offered. Returns
-  /// the updated order (now `rejected`).
-  Future<Result<OrderEntity>> rejectOrder({required String orderId, required String reason});
+  /// CK-18 Reject. Only valid from `pending`; returns the updated order
+  /// (now `rejected`). [reason] is optional — the cook is not required to
+  /// give one; kept as a parameter rather than removed so it can be
+  /// reinstated without touching this call chain.
+  Future<Result<OrderEntity>> rejectOrder({required String orderId, String? reason});
 
   /// CK-19 Complete. Only valid from `preparing`; returns the updated
   /// order (now `done`).

@@ -74,13 +74,11 @@ class RegistrationCubit extends Cubit<RegistrationState> {
       password: state.password,
       address: state.address.trim(),
       description: state.registerAsCook ? state.description.trim() : null,
-      availabilityDuration: state.registerAsCook
-          ? formatAvailabilityDuration(
-              startDay: state.startDay,
-              endDay: state.endDay,
-              startTime: state.startTime,
-              endTime: state.endTime,
-            )
+      startAvailabilityTime:
+          state.registerAsCook ? timeOfDayToDateTime(state.startTime) : null,
+      endAvailabilityTime: state.registerAsCook ? timeOfDayToDateTime(state.endTime) : null,
+      availabilityDays: state.registerAsCook
+          ? weekdayRangeToIsoDays(startDay: state.startDay, endDay: state.endDay)
           : null,
       latitude: state.detectedLocation?.latitude,
       longitude: state.detectedLocation?.longitude,

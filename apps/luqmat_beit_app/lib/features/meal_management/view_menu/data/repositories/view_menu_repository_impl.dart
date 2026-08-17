@@ -1,12 +1,12 @@
 import 'package:core/core.dart';
 
-import '../../../data/datasources/fake_meal_remote_data_source.dart';
+import '../../../data/datasources/meal_remote_data_source.dart';
 import '../../domain/repositories/view_menu_repository.dart';
 
 class ViewMenuRepositoryImpl implements ViewMenuRepository {
   ViewMenuRepositoryImpl(this._dataSource);
 
-  final FakeMealRemoteDataSource _dataSource;
+  final MealRemoteDataSource _dataSource;
 
   @override
   Future<Result<({PaginatedResult<MealEntity> page, bool isSellingPaused})>> getMyMeals(

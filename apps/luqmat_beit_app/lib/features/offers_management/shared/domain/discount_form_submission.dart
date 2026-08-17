@@ -1,6 +1,10 @@
 /// The validated payload `CreateDiscount` consumes — built only after
 /// `validateDiscountForm` reports no errors. Discounts always target
-/// exactly one meal; there is no restriction-mode concept.
+/// exactly one meal. [DiscountRestrictionType] (duration vs. usage-count)
+/// is a UI-only concept the cook picks between — the wire contract still
+/// requires [discountDurationDays] on every request, so the calling Bloc
+/// fills it with a long fallback when the cook picked usage-count mode
+/// instead of leaving it unset.
 class DiscountFormSubmission {
   const DiscountFormSubmission({
     required this.mealId,

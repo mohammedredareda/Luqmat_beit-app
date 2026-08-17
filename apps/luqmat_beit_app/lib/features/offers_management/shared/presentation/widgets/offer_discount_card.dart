@@ -3,25 +3,26 @@ import 'package:flutter/material.dart';
 
 import 'package:luqmat_beit_app/l10n/generated/app_localizations.dart';
 
-/// A discount on a single meal — full-width photo header with a red
-/// "٪N خصم" badge, mirroring the `offers_discounts` mockup's card exactly:
-/// image → title/expiry-chip row → old/new price + edit/delete actions.
+/// A discount on a single meal. The real `my-promotions` endpoint only
+/// returns a pre-rendered [title]/[description] pair (the percentage is
+/// already baked into the Arabic title text, e.g. "خصم 16.12% على شاورما
+/// دجاج") and no meal image/price — this card is deliberately simpler than
+/// the original mockup's photo-and-price layout for that reason (see
+/// `OfferFeedItemEntity`'s doc comment).
 class DiscountCard extends StatelessWidget {
   const DiscountCard({
     super.key,
-    required this.discount,
-    required this.mealName,
-    required this.mealImageUrl,
-    required this.mealBasePrice,
+    required this.title,
+    required this.description,
+    required this.expiryTime,
     this.onTap,
     this.onEdit,
     this.onDelete,
   });
 
-  final DiscountEntity discount;
-  final String mealName;
-  final String mealImageUrl;
-  final double mealBasePrice;
+  final String title;
+  final String description;
+  final DateTime expiryTime;
   final VoidCallback? onTap;
   final VoidCallback? onEdit;
   final VoidCallback? onDelete;
@@ -30,61 +31,43 @@ class DiscountCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final scheme = Theme.of(context).colorScheme;
-    final remainingDays = discount.expiryTime.difference(DateTime.now()).inDays;
-    final remainingUsage =
-        discount.usageNumberLimit == null ? null : discount.usageNumberLimit! - discount.usageCount;
-    final expired = remainingDays <= 0 || (remainingUsage != null && remainingUsage <= 0);
-
-    final subtitle = expired
-        ? l10n.offerExpiredLabel
-        : l10n.offerExpiresInLabel(remainingDays);
+    final remainingDays = expiryTime.difference(DateTime.now()).inDays;
+    final expired = remainingDays <= 0;
 
     return _OfferDiscountCardShell(
       onTap: onTap,
-      header: _PhotoHeader(imageUrl: mealImageUrl),
-      // NOTE(R-13): rule says the discount badge is sumac-colored at
-      // top-left; the mockup renders it error-red at physical top-right
-      // (`top-md right-md`) — followed as mocked (`start` under our
-      // RTL-default app renders at the same physical top-right spot).
+      header: const _PlaceholderHeader(icon: Icons.percent),
       badge: _Badge(
         icon: Icons.percent,
-        label: l10n.discountBadgeLabel(discount.discountPercentage.toStringAsFixed(0)),
+        label: l10n.discountBadgeGenericLabel,
         backgroundColor: scheme.error,
         foregroundColor: scheme.onError,
       ),
-      title: mealName,
-      chip: subtitle,
-      priceRow: Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Text(mealBasePrice.toStringAsFixed(0), style: AppText.priceOld(context)),
-          const SizedBox(width: AppSpace.xs),
-          Text(discount.apply(mealBasePrice).toStringAsFixed(0), style: AppText.price(context)),
-        ],
-      ),
+      title: title,
+      chip: expired ? l10n.offerExpiredLabel : l10n.offerExpiresInLabel(remainingDays),
+      description: description,
       onEdit: onEdit,
       onDelete: onDelete,
     );
   }
 }
 
-/// A bundle/package offer — mirrors the mockup's "bundle" card: the cook's
-/// own uploaded bundle photo when set, else a stylized zaatar-tinted
-/// placeholder (a bundle has no single representative meal to fall back
-/// on), a green "عرض باقة" badge, an ingredient-style summary line, and a
-/// single price (no struck-through price).
+/// A bundle/package offer. Same data limitation as [DiscountCard] — no
+/// photo or price is available from the real feed endpoint.
 class OfferCard extends StatelessWidget {
   const OfferCard({
     super.key,
-    required this.offer,
-    this.imageUrl,
+    required this.title,
+    required this.description,
+    required this.expiryTime,
     this.onTap,
     this.onEdit,
     this.onDelete,
   });
 
-  final OfferEntity offer;
-  final String? imageUrl;
+  final String title;
+  final String description;
+  final DateTime expiryTime;
   final VoidCallback? onTap;
   final VoidCallback? onEdit;
   final VoidCallback? onDelete;
@@ -93,26 +76,21 @@ class OfferCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final scheme = Theme.of(context).colorScheme;
-    final remainingDays = offer.expiryTime.difference(DateTime.now()).inDays;
+    final remainingDays = expiryTime.difference(DateTime.now()).inDays;
     final expired = remainingDays <= 0;
-
-    final hasImage = imageUrl != null && imageUrl!.isNotEmpty;
 
     return _OfferDiscountCardShell(
       onTap: onTap,
-      header: hasImage ? _PhotoHeader(imageUrl: imageUrl!) : const _BundlePlaceholderHeader(),
+      header: const _PlaceholderHeader(icon: Icons.restaurant),
       badge: _Badge(
         icon: Icons.sell,
         label: l10n.offerBadgeLabel,
         backgroundColor: AppColors.zaatar,
         foregroundColor: scheme.onSecondary,
       ),
-      title: offer.name,
+      title: title,
       chip: expired ? l10n.offerExpiredLabel : l10n.offerExpiresInLabel(remainingDays),
-      description: [
-        for (final meal in offer.meals) '${meal.variationQuantity} ${meal.mealName}',
-      ].join(' + '),
-      priceRow: Text(offer.totalPrice.toStringAsFixed(0), style: AppText.price(context)),
+      description: description,
       onEdit: onEdit,
       onDelete: onDelete,
     );
@@ -159,51 +137,18 @@ class _Badge extends StatelessWidget {
   }
 }
 
-class _PhotoHeader extends StatelessWidget {
-  const _PhotoHeader({required this.imageUrl});
+/// TODO(backend): swap for a real photo header if/when a per-item detail
+/// endpoint returns one — `my-promotions` has no image field for either
+/// offers or discounts today.
+class _PlaceholderHeader extends StatelessWidget {
+  const _PlaceholderHeader({required this.icon});
 
-  final String imageUrl;
-
-  @override
-  Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
-
-    return SizedBox(
-      height: 128,
-      width: double.infinity,
-      child: Stack(
-        fit: StackFit.expand,
-        children: [
-          Image.network(
-            imageUrl,
-            fit: BoxFit.cover,
-            errorBuilder: (context, error, stackTrace) => Container(
-              color: scheme.surfaceContainerHighest,
-              child: Icon(Icons.restaurant_menu, color: scheme.onSurfaceVariant),
-            ),
-          ),
-          DecoratedBox(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.bottomCenter,
-                end: Alignment.topCenter,
-                colors: [Colors.black.withValues(alpha: 0.6), Colors.transparent],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _BundlePlaceholderHeader extends StatelessWidget {
-  const _BundlePlaceholderHeader();
+  final IconData icon;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 128,
+      height: 96,
       width: double.infinity,
       decoration: const BoxDecoration(
         gradient: LinearGradient(
@@ -213,24 +158,22 @@ class _BundlePlaceholderHeader extends StatelessWidget {
         ),
       ),
       alignment: Alignment.center,
-      child: Icon(Icons.restaurant, size: 64, color: AppColors.zaatar.withValues(alpha: 0.3)),
+      child: Icon(icon, size: 48, color: AppColors.zaatar.withValues(alpha: 0.3)),
     );
   }
 }
 
 /// Shared card shell both [OfferCard] and [DiscountCard] render through —
-/// full-width photo/placeholder header with a top-start badge, then
-/// title/expiry-chip row, optional description line, a price row, and
-/// both an Edit and an error-colored outlined Delete icon button (CK-11
-/// requires both; the mockup's cards only show Edit).
+/// full-width placeholder header with a top-start badge, then
+/// title/expiry-chip row, description line, and both an Edit and an
+/// error-colored outlined Delete icon button (CK-11 requires both).
 class _OfferDiscountCardShell extends StatelessWidget {
   const _OfferDiscountCardShell({
     required this.header,
     required this.badge,
     required this.title,
     required this.chip,
-    required this.priceRow,
-    this.description,
+    required this.description,
     this.onTap,
     this.onEdit,
     this.onDelete,
@@ -240,8 +183,7 @@ class _OfferDiscountCardShell extends StatelessWidget {
   final Widget badge;
   final String title;
   final String chip;
-  final Widget priceRow;
-  final String? description;
+  final String description;
   final VoidCallback? onTap;
   final VoidCallback? onEdit;
   final VoidCallback? onDelete;
@@ -304,10 +246,10 @@ class _OfferDiscountCardShell extends StatelessWidget {
                         ),
                       ],
                     ),
-                    if (description != null && description!.isNotEmpty) ...[
+                    if (description.isNotEmpty) ...[
                       const SizedBox(height: AppSpace.s),
                       Text(
-                        description!,
+                        description,
                         style: textTheme.bodySmall,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
@@ -316,9 +258,8 @@ class _OfferDiscountCardShell extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(top: AppSpace.m),
                       child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          Expanded(child: priceRow),
                           IconButton(
                             onPressed: onEdit,
                             icon: const Icon(Icons.edit_outlined),

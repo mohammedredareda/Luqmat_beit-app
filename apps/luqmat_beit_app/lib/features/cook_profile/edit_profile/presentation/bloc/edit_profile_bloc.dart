@@ -1,6 +1,8 @@
+import 'package:core/core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:luqmat_beit_app/shared/current_cook_id.dart';
+import '../../../domain/cook_availability_days.dart';
 import '../../../domain/profile_form_submission.dart';
 import '../../../domain/profile_form_validator.dart';
 import '../../domain/usecases/get_cook_profile.dart';
@@ -18,7 +20,7 @@ import 'profile_submit_status.dart';
 }
 
 class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
-  EditProfileBloc(this._getCookProfile, this._updateCookProfile)
+  EditProfileBloc(this._getCookProfile, this._updateCookProfile, this._detectCurrentLocation)
       : super(const EditProfileState.loading()) {
     on<EditProfileEvent>((event, emit) => event.when(
           started: () => _load(emit),
@@ -32,6 +34,15 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
               _updateForm(emit, (data) => data.copyWith(availabilityStartTime: value)),
           availabilityEndTimeChanged: (value) async =>
               _updateForm(emit, (data) => data.copyWith(availabilityEndTime: value)),
+          availabilityDayToggled: (value) async => _updateForm(
+                emit,
+                (data) {
+                  final days = {...data.selectedDays};
+                  if (!days.remove(value)) days.add(value);
+                  return data.copyWith(selectedDays: days);
+                },
+              ),
+          detectLocationPressed: () => _detectLocation(emit),
           avatarPicked: (path, sizeBytes) async => _updateForm(
                 emit,
                 (data) => data.copyWith(avatarPath: path, avatarSizeBytes: sizeBytes),
@@ -42,6 +53,7 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
 
   final GetCookProfile _getCookProfile;
   final UpdateCookProfile _updateCookProfile;
+  final DetectCurrentLocation _detectCurrentLocation;
 
   void _updateForm(
     Emitter<EditProfileState> emit,
@@ -64,10 +76,38 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
           address: details.address,
           availabilityStartTime: start,
           availabilityEndTime: end,
+          selectedDays: weekdaysFromSundayFirstNumbers(details.availabilityDays).toSet(),
+          latitude: details.latitude,
+          longitude: details.longitude,
           avatarPath: details.profile.photoUrl,
         )));
       },
       (exception) => emit(EditProfileState.loadError(exception)),
+    );
+  }
+
+  /// Mirrors `RegistrationCubit.detectLocation()`'s call pattern — never
+  /// touches `address`, unlike registration, since Edit Profile's address
+  /// field is independently editable and shouldn't be silently overwritten.
+  Future<void> _detectLocation(Emitter<EditProfileState> emit) async {
+    final current = state;
+    if (current is! EditProfileForm) return;
+    _updateForm(emit, (data) => data.copyWith(isDetectingLocation: true, locationError: null));
+
+    final result = await _detectCurrentLocation();
+    result.fold(
+      (location) => _updateForm(
+        emit,
+        (data) => data.copyWith(
+          isDetectingLocation: false,
+          latitude: location.latitude,
+          longitude: location.longitude,
+        ),
+      ),
+      (exception) => _updateForm(
+        emit,
+        (data) => data.copyWith(isDetectingLocation: false, locationError: exception.message),
+      ),
     );
   }
 
@@ -100,6 +140,12 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
       address: data.address,
       availabilityStartTime: data.availabilityStartTime,
       availabilityEndTime: data.availabilityEndTime,
+      availabilityDays: [
+        for (final day in Weekday.values)
+          if (data.selectedDays.contains(day)) weekdayToSundayFirstNumber(day),
+      ],
+      latitude: data.latitude,
+      longitude: data.longitude,
       avatarPath: data.avatarPath,
     );
 

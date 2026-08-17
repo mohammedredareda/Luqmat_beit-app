@@ -1,19 +1,15 @@
 import 'package:core/core.dart';
 
-import 'package:luqmat_beit_app/shared/in_memory_pagination.dart';
-import '../../../shared/data/datasources/fake_discounts_remote_data_source.dart';
-import '../../../shared/data/datasources/fake_offers_remote_data_source.dart';
-import '../../../shared/data/models/discount_model.dart';
-import '../../../shared/data/models/offer_model.dart';
+import '../../../shared/data/datasources/promotions_remote_data_source.dart';
+import '../../../shared/data/models/promotion_summary_model.dart';
 import '../../domain/entities/offer_feed_filter.dart';
 import '../../domain/entities/offer_feed_item_entity.dart';
 import '../../domain/repositories/view_offers_repository.dart';
 
 class ViewOffersRepositoryImpl implements ViewOffersRepository {
-  ViewOffersRepositoryImpl(this._offersDataSource, this._discountsDataSource);
+  ViewOffersRepositoryImpl(this._dataSource);
 
-  final FakeOffersRemoteDataSource _offersDataSource;
-  final FakeDiscountsRemoteDataSource _discountsDataSource;
+  final PromotionsRemoteDataSource _dataSource;
 
   @override
   Future<Result<PaginatedResult<OfferFeedItemEntity>>> getOffersFeed(
@@ -23,49 +19,41 @@ class ViewOffersRepositoryImpl implements ViewOffersRepository {
     int pageSize = PaginationConstants.defaultPageSize,
   }) {
     return guard(() async {
-      final results = await Future.wait([
-        _offersDataSource.getMyOffers(cookId),
-        _discountsDataSource.getMyDiscounts(cookId),
-      ]);
-      final offerModels = results[0] as List<OfferModel>;
-      final discountModels = results[1] as List<DiscountModel>;
-
-      final feed = <OfferFeedItemEntity>[
-        for (final model in offerModels)
-          OfferFeedOfferItem(model.toEntity(), imageUrl: model.imageUrl),
-        for (final model in discountModels)
-          OfferFeedDiscountItem(
-            model.toEntity(),
-            mealName: model.mealName,
-            mealImageUrl: model.mealImageUrl,
-            mealBasePrice: model.mealBasePrice,
-          ),
-      ].where((item) => _matchesFilter(item, filter)).toList()
-        ..sort((a, b) => b.createdAt.compareTo(a.createdAt));
-
-      return paginateInMemory(
-        all: feed,
-        idOf: (item) => item.id,
+      final page = await _dataSource.getMyPromotions(
         cursor: cursor,
         pageSize: pageSize,
+        status: _statusParam(filter),
+      );
+      return PaginatedResult(
+        items: page.items.map(_toFeedItem).toList(),
+        hasMore: page.hasMore,
+        nextCursor: page.nextCursor,
       );
     });
   }
 
-  bool _matchesFilter(OfferFeedItemEntity item, OfferFeedFilter filter) {
-    if (filter == OfferFeedFilter.all) return true;
-    final expired = switch (item) {
-      OfferFeedOfferItem(:final offer) =>
-        offer.expiryTime.difference(DateTime.now()).inDays <= 0,
-      OfferFeedDiscountItem(:final discount) =>
-        discount.expiryTime.difference(DateTime.now()).inDays <= 0 ||
-            (discount.usageNumberLimit != null &&
-                discount.usageNumberLimit! - discount.usageCount <= 0),
-    };
-    final isActive = switch (item) {
-      OfferFeedOfferItem(:final offer) => offer.isActive,
-      OfferFeedDiscountItem(:final discount) => discount.isActive,
-    };
-    return filter == OfferFeedFilter.active ? (!expired && isActive) : expired;
-  }
+  /// Server-side filter value — confirmed live to accept only `active` or
+  /// `expired`, omitted entirely for [OfferFeedFilter.all].
+  String? _statusParam(OfferFeedFilter filter) => switch (filter) {
+        OfferFeedFilter.all => null,
+        OfferFeedFilter.active => 'active',
+        OfferFeedFilter.expired => 'expired',
+      };
+
+  OfferFeedItemEntity _toFeedItem(PromotionSummaryModel model) => switch (model.type) {
+        PromotionItemType.offer => OfferFeedOfferItem(
+            rawId: model.id,
+            title: model.title,
+            description: model.description,
+            createdAt: model.createdAt,
+            expiryTime: model.expiryTime,
+          ),
+        PromotionItemType.discount => OfferFeedDiscountItem(
+            rawId: model.id,
+            title: model.title,
+            description: model.description,
+            createdAt: model.createdAt,
+            expiryTime: model.expiryTime,
+          ),
+      };
 }
