@@ -9,8 +9,6 @@ import '../features/auth/domain/repositories/auth_repository.dart';
 import '../features/cart/data/datasources/cart_remote_data_source.dart';
 import '../features/cart/data/repositories/cart_repository_impl.dart';
 import '../features/cart/domain/repositories/cart_repository.dart';
-import '../features/catering/data/repositories/catering_repository_impl.dart';
-import '../features/catering/domain/repositories/catering_repository.dart';
 import '../features/categories/data/datasources/categories_remote_data_source.dart';
 import '../features/categories/data/repositories/categories_repository_impl.dart';
 import '../features/categories/domain/repositories/categories_repository.dart';
