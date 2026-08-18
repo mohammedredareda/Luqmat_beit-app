@@ -8,5 +8,6 @@ class GetShorts {
 
   final ShortsRepository _repository;
 
-  Future<Result<List<ShortEntity>>> call() => _repository.getShorts();
+  Future<Result<PaginatedResult<ShortEntity>>> call({String? cursor}) =>
+      _repository.getFeed(cursor: cursor);
 }

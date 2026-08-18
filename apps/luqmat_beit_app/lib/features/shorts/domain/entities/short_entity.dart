@@ -1,45 +1,54 @@
 import 'package:equatable/equatable.dart';
 
-/// A single "short" in the vertical shorts feed (CU-26/27). There is no
-/// video backend yet, so `thumbnailUrl` stands in as a full-bleed still
-/// "video frame" — see `ShortsMockDataSource` for the seam a real
-/// `shorts_remote_data_source.dart` would replace.
+/// A single "short" in the vertical shorts feed (CU-26/27), backed by
+/// `GET /user/customer/content/feed`. [videoUrl] is a real streamable video
+/// (`.mp4`, supports `Range` requests) — not a still image. [mealId] is
+/// null when the cook posted the short without linking it to one of their
+/// meals (the backend's `meal` field is nullable), in which case there is
+/// nothing for "order this meal" to navigate to.
 class ShortEntity extends Equatable {
   final String id;
-  final String mealId;
+  final String? mealId;
+  final String cookId;
   final String cookName;
   final String cookAvatarUrl;
-  final String thumbnailUrl;
+  final String videoUrl;
   final String caption;
   final int likeCount;
   final int commentCount;
+  final int viewCount;
   final bool isLiked;
 
   const ShortEntity({
     required this.id,
-    required this.mealId,
+    required this.cookId,
     required this.cookName,
     required this.cookAvatarUrl,
-    required this.thumbnailUrl,
+    required this.videoUrl,
     required this.caption,
     required this.likeCount,
     required this.commentCount,
+    required this.viewCount,
     required this.isLiked,
+    this.mealId,
   });
 
   ShortEntity copyWith({
     int? likeCount,
+    int? commentCount,
     bool? isLiked,
   }) {
     return ShortEntity(
       id: id,
       mealId: mealId,
+      cookId: cookId,
       cookName: cookName,
       cookAvatarUrl: cookAvatarUrl,
-      thumbnailUrl: thumbnailUrl,
+      videoUrl: videoUrl,
       caption: caption,
       likeCount: likeCount ?? this.likeCount,
-      commentCount: commentCount,
+      commentCount: commentCount ?? this.commentCount,
+      viewCount: viewCount,
       isLiked: isLiked ?? this.isLiked,
     );
   }
@@ -48,12 +57,14 @@ class ShortEntity extends Equatable {
   List<Object?> get props => [
         id,
         mealId,
+        cookId,
         cookName,
         cookAvatarUrl,
-        thumbnailUrl,
+        videoUrl,
         caption,
         likeCount,
         commentCount,
+        viewCount,
         isLiked,
       ];
 }

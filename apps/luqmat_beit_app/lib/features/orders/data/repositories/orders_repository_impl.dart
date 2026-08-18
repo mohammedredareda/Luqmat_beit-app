@@ -21,6 +21,19 @@ class OrdersRepositoryImpl implements OrdersRepository {
   }
 
   @override
+  Future<Result<({double price, int expectedTimeMinutes})>> getDeliveryPrice({
+    required String cookId,
+    required double latitude,
+    required double longitude,
+  }) {
+    return guard(() => _dataSource.getDeliveryPrice(
+          cookId: cookId,
+          latitude: latitude,
+          longitude: longitude,
+        ));
+  }
+
+  @override
   Future<Result<String>> confirmOrder({
     required String cookId,
     required String deliveryAddress,

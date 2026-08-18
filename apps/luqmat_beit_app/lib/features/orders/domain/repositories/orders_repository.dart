@@ -7,6 +7,17 @@ abstract class OrdersRepository {
 
   Future<Result<List<OrderEntity>>> getInProgressOrders();
 
+  /// Real, distance-based delivery price/expected-time for a single cook
+  /// (the backend's `/order/delivery-price` is per-cook, not per-cart) —
+  /// what `/order/confirm` actually charges is always recomputed
+  /// server-side from the same inputs, so this is purely a "show the
+  /// customer what they'll pay before they commit" preview.
+  Future<Result<({double price, int expectedTimeMinutes})>> getDeliveryPrice({
+    required String cookId,
+    required double latitude,
+    required double longitude,
+  });
+
   /// Places an order for a single cook's cart lines (the backend's
   /// `/order/confirm` endpoint is per-cook, not per-cart) and returns the
   /// new order id.

@@ -88,34 +88,35 @@ class ShortCaptionBar extends StatelessWidget {
           ),
         ),
         const SizedBox(height: AppSpace.m),
-        GestureDetector(
-          onTap: onOrderMeal,
-          child: Container(
-            padding: const EdgeInsetsDirectional.symmetric(
-              horizontal: AppSpace.m,
-              vertical: 8,
-            ),
-            decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(AppRadius.image),
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Icon(Icons.restaurant, color: Colors.white, size: 16),
-                const SizedBox(width: AppSpace.s),
-                Text(
-                  short.caption.isEmpty ? 'اطلب هذه الأكلة' : 'اطلب هذه الأكلة',
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
+        if (short.mealId != null)
+          GestureDetector(
+            onTap: onOrderMeal,
+            child: Container(
+              padding: const EdgeInsetsDirectional.symmetric(
+                horizontal: AppSpace.m,
+                vertical: 8,
+              ),
+              decoration: BoxDecoration(
+                color: Colors.white.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(AppRadius.image),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(Icons.restaurant, color: Colors.white, size: 16),
+                  const SizedBox(width: AppSpace.s),
+                  const Text(
+                    'اطلب هذه الأكلة',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
-        ),
       ],
     );
   }

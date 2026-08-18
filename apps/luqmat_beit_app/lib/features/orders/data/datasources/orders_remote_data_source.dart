@@ -113,6 +113,26 @@ class OrdersRemoteDataSource implements OrdersDataSource {
   }
 
   @override
+  Future<({double price, int expectedTimeMinutes})> getDeliveryPrice({
+    required String cookId,
+    required double latitude,
+    required double longitude,
+  }) async {
+    final response = await _apiClient.post('/user/customer/order/delivery-price', data: {
+      'cook_id': int.tryParse(cookId) ?? cookId,
+      'latitude': latitude,
+      'longitude': longitude,
+    });
+    final map = response as Map;
+    return (
+      price: (map['delivery_price'] as num?)?.toDouble() ?? 0,
+      // The backend returns `expected_time` in hours for this endpoint
+      // (unlike `total_expected_time` elsewhere, which is minutes).
+      expectedTimeMinutes: (((map['expected_time'] as num?)?.toDouble() ?? 0) * 60).round(),
+    );
+  }
+
+  @override
   Future<String> confirmOrder({
     required String cookId,
     required String deliveryAddress,

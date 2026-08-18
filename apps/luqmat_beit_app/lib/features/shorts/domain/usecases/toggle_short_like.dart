@@ -7,5 +7,5 @@ class ToggleShortLike {
 
   final ShortsRepository _repository;
 
-  Future<Result<void>> call(String shortId) => _repository.toggleLike(shortId);
+  Future<Result<bool>> call(String shortId) => _repository.toggleReact(shortId);
 }
