@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:video_player/video_player.dart';
 
 import 'package:luqmat_beit_app/di/injection.dart';
 import 'package:luqmat_beit_app/l10n/generated/app_localizations.dart';
@@ -9,6 +12,7 @@ import 'package:luqmat_beit_app/l10n/generated/app_localizations.dart';
 import '../../../../offers_management/shared/presentation/widgets/select_meal_popup.dart';
 import '../../../shared/domain/short_form_validator.dart';
 import '../../../shared/presentation/bloc/short_submit_status.dart';
+import '../../../shared/presentation/widgets/short_video_player.dart';
 import '../bloc/create_short_bloc.dart';
 import '../bloc/create_short_event.dart';
 import '../bloc/create_short_state.dart';
@@ -98,47 +102,45 @@ class _FormBody extends StatelessWidget {
     return ListView(
       padding: const EdgeInsetsDirectional.all(AppSpace.l),
       children: [
-        InkWell(
-          onTap: () => _pickVideo(context),
-          borderRadius: BorderRadius.circular(AppRadius.image),
-          child: Container(
-            constraints: const BoxConstraints(minHeight: 200),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(AppRadius.image),
-              color: scheme.surfaceContainerHighest,
-              border: hasVideo
-                  ? null
-                  : Border.all(
-                      color: videoError != null ? scheme.error : scheme.outline,
-                      width: 1.5,
+        if (hasVideo)
+          ShortVideoPlayer(
+            key: ValueKey(state.videoPath),
+            controller: VideoPlayerController.file(File(state.videoPath!)),
+            onChangeVideo: () => _pickVideo(context),
+            muted: true,
+          )
+        else
+          InkWell(
+            onTap: () => _pickVideo(context),
+            borderRadius: BorderRadius.circular(AppRadius.image),
+            child: Container(
+              constraints: const BoxConstraints(minHeight: 200),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(AppRadius.image),
+                color: scheme.surfaceContainerHighest,
+                border: Border.all(
+                  color: videoError != null ? scheme.error : scheme.outline,
+                  width: 1.5,
+                ),
+              ),
+              child: Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(Icons.video_library_outlined, size: 40, color: scheme.onSurfaceVariant),
+                    const SizedBox(height: AppSpace.s),
+                    Text(l10n.videoPickerHint, textAlign: TextAlign.center, style: textTheme.bodyMedium),
+                    const SizedBox(height: AppSpace.xs),
+                    Text(
+                      l10n.videoMaxDurationHint,
+                      textAlign: TextAlign.center,
+                      style: textTheme.bodySmall?.copyWith(color: scheme.onSurfaceVariant),
                     ),
-            ),
-            child: Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(
-                    hasVideo ? Icons.videocam : Icons.video_library_outlined,
-                    size: 40,
-                    color: scheme.onSurfaceVariant,
-                  ),
-                  const SizedBox(height: AppSpace.s),
-                  Text(
-                    hasVideo ? l10n.videoSelectedLabel : l10n.videoPickerHint,
-                    textAlign: TextAlign.center,
-                    style: textTheme.bodyMedium,
-                  ),
-                  const SizedBox(height: AppSpace.xs),
-                  Text(
-                    l10n.videoMaxDurationHint,
-                    textAlign: TextAlign.center,
-                    style: textTheme.bodySmall?.copyWith(color: scheme.onSurfaceVariant),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
-        ),
         if (videoError != null) ...[
           const SizedBox(height: AppSpace.xs),
           Text(videoError, style: textTheme.bodySmall?.copyWith(color: scheme.error)),
@@ -184,38 +186,47 @@ class _FormBody extends StatelessWidget {
             ),
           )
         else
-          Container(
-            padding: const EdgeInsets.all(AppSpace.m),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(AppRadius.card),
-              border: Border.all(color: scheme.outline),
-            ),
-            child: Row(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(AppRadius.image),
-                  child: AspectRatio(
-                    aspectRatio: 4 / 3,
-                    child: SizedBox(
-                      width: 64,
-                      child: Image.network(state.selectedMeal!.imageUrl, fit: BoxFit.cover),
+          InkWell(
+            borderRadius: BorderRadius.circular(AppRadius.card),
+            onTap: () async {
+              final meal = await showSelectMealPopup(context, excludedMealIds: const {});
+              if (meal != null && context.mounted) {
+                bloc.add(CreateShortEvent.mealSelected(meal));
+              }
+            },
+            child: Container(
+              padding: const EdgeInsets.all(AppSpace.m),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(AppRadius.card),
+                border: Border.all(color: scheme.outline),
+              ),
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: 64,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(AppRadius.image),
+                      child: AspectRatio(
+                        aspectRatio: 4 / 3,
+                        child: Image.network(state.selectedMeal!.imageUrl, fit: BoxFit.cover),
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(width: AppSpace.m),
-                Expanded(
-                  child: Text(
-                    state.selectedMeal!.name,
-                    style: textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
+                  const SizedBox(width: AppSpace.m),
+                  Expanded(
+                    child: Text(
+                      state.selectedMeal!.name,
+                      style: textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
-                ),
-                IconButton(
-                  onPressed: () => bloc.add(const CreateShortEvent.mealRemoved()),
-                  icon: Icon(Icons.close, color: scheme.onSurfaceVariant),
-                ),
-              ],
+                  IconButton(
+                    onPressed: () => bloc.add(const CreateShortEvent.mealRemoved()),
+                    icon: Icon(Icons.close, color: scheme.onSurfaceVariant),
+                  ),
+                ],
+              ),
             ),
           ),
         const SizedBox(height: AppSpace.xl),

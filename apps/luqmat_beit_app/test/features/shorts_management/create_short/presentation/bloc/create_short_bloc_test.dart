@@ -38,6 +38,7 @@ void main() {
     id: 'short-new',
     cookId: 'cook-1',
     description: 'وصف المقطع',
+    videoUrl: 'https://example.com/short-new.mp4',
     viewCount: 0,
     createdAt: DateTime(2026),
   );

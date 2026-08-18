@@ -44,14 +44,4 @@ class ViewShortsCubit extends Cubit<ViewShortsState>
       },
     );
   }
-
-  /// Drops the item by id without refetching (mirrors
-  /// `ViewOffersCubit.removeItem`) — a re-fetch right after a successful
-  /// delete could still return the just-deleted item if the fake "backend"
-  /// state read raced the write.
-  void removeItem(String id) {
-    if (state is! ViewShortsLoaded) return;
-    items = items.where((item) => item.id != id).toList();
-    emit(ViewShortsState.loaded(items: items, hasMore: hasMore, isLoadingMore: isLoadingMore));
-  }
 }

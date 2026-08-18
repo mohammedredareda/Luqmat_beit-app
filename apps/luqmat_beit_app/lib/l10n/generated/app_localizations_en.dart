@@ -972,9 +972,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get myShortsTitle => 'Shorts';
 
   @override
-  String get myShortsBannerTitle => 'My Shorts Gallery';
-
-  @override
   String get myShortsBannerBody =>
       'Share short videos of your recipes, prep methods, or tasty shots from your kitchen to attract more customers.';
 
@@ -993,9 +990,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get videoMaxDurationHint => '60 seconds maximum';
-
-  @override
-  String get videoSelectedLabel => 'Video selected';
 
   @override
   String get shortDescriptionLabel => 'Description';

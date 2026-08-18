@@ -957,9 +957,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get myShortsTitle => 'الشورتس';
 
   @override
-  String get myShortsBannerTitle => 'معرض شورتاتي';
-
-  @override
   String get myShortsBannerBody =>
       'شاركي مقاطع فيديو قصيرة لوصفاتك، طرق التحضير، أو لقطات شهية من مطبخك لجذب المزيد من الزبائن.';
 
@@ -978,9 +975,6 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get videoMaxDurationHint => 'الحد الأقصى 60 ثانية';
-
-  @override
-  String get videoSelectedLabel => 'تم اختيار الفيديو';
 
   @override
   String get shortDescriptionLabel => 'الوصف';

@@ -22,6 +22,7 @@ void main() {
     id: 'short-1',
     cookId: 'cook-1',
     description: 'وصف',
+    videoUrl: 'https://example.com/short-1.mp4',
     viewCount: 420,
     createdAt: now,
   );
@@ -71,25 +72,5 @@ void main() {
       const ViewShortsState.loading(),
       const ViewShortsState.error(ServerErrorException('backend unreachable')),
     ],
-  );
-
-  blocTest<ViewShortsCubit, ViewShortsState>(
-    'removeItem drops the short by id without refetching',
-    setUp: () {
-      when(() => getMyShorts(any())).thenAnswer(
-        (_) async => Result.success(PaginatedResult(items: [short], hasMore: false)),
-      );
-    },
-    build: () => ViewShortsCubit(getMyShorts),
-    act: (cubit) async {
-      await cubit.load();
-      cubit.removeItem('short-1');
-    },
-    expect: () => [
-      const ViewShortsState.loading(),
-      ViewShortsState.loaded(items: [short], hasMore: false, isLoadingMore: false),
-      const ViewShortsState.loaded(items: [], hasMore: false, isLoadingMore: false),
-    ],
-    verify: (_) => verify(() => getMyShorts(any())).called(1),
   );
 }

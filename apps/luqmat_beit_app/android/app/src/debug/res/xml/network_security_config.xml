@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Debug-build-only: allows cleartext (plain http) traffic so the app
+     can talk to a local dev backend and, critically, so ExoPlayer
+     (video_player) can stream http media URLs. Dio's requests already
+     work over cleartext regardless since Dart's HTTP client isn't
+     subject to Android's NetworkSecurityPolicy the way ExoPlayer's
+     Java-level DefaultHttpDataSource is. Never bundled into
+     release/profile builds (src/debug only), and production always
+     serves https anyway. -->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="true" />
+</network-security-config>

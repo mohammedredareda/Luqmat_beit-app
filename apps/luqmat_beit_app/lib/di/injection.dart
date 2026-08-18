@@ -9,8 +9,6 @@ import '../features/auth/domain/repositories/auth_repository.dart';
 import '../features/cart/data/datasources/cart_remote_data_source.dart';
 import '../features/cart/data/repositories/cart_repository_impl.dart';
 import '../features/cart/domain/repositories/cart_repository.dart';
-import '../features/catering/data/repositories/catering_repository_impl.dart';
-import '../features/catering/domain/repositories/catering_repository.dart';
 import '../features/categories/data/datasources/categories_remote_data_source.dart';
 import '../features/categories/data/repositories/categories_repository_impl.dart';
 import '../features/categories/domain/repositories/categories_repository.dart';
@@ -52,7 +50,7 @@ import '../features/shorts/domain/repositories/shorts_repository.dart';
 // shared singletons so every feature reading/writing through it sees the
 // same data). ────────────────────────────────────────────────────────────
 import '../features/meal_management/data/datasources/meal_remote_data_source.dart';
-import '../features/shorts_management/shared/data/datasources/fake_shorts_remote_data_source.dart';
+import '../features/shorts_management/shared/data/datasources/shorts_remote_data_source.dart';
 import '../features/offers_management/shared/data/datasources/discounts_remote_data_source.dart';
 import '../features/offers_management/shared/data/datasources/offers_remote_data_source.dart';
 import '../features/offers_management/shared/data/datasources/promotions_remote_data_source.dart';
@@ -180,7 +178,7 @@ final getIt = GetIt.instance;
 /// look like a hang/timeout rather than a normal loading state.
 const _apiBaseUrl = String.fromEnvironment(
   'API_BASE_URL',
-  defaultValue: 'https://loqmet-beit-api.onrender.com',
+  defaultValue: 'http://localhost:8080',
 );
 
 /// Wires every repository behind its domain interface for both the customer
@@ -298,9 +296,9 @@ Future<void> configureDependencies() async {
   getIt.registerLazySingleton(() => CookProfileRemoteDataSource(getIt<ApiClient>()));
   getIt.registerLazySingleton(() => PasswordRemoteDataSource(getIt<ApiClient>()));
   getIt.registerLazySingleton(() => PhoneChangeRemoteDataSource(getIt<ApiClient>()));
-  // TODO(backend): no shorts endpoint — stays mocked (see
-  // FakeShortsRemoteDataSource's doc comment).
-  getIt.registerLazySingleton(() => FakeShortsRemoteDataSource());
+  // Real Content endpoints (create/delete); list still stays local — see
+  // ShortsRemoteDataSource's doc comment.
+  getIt.registerLazySingleton(() => ShortsRemoteDataSource(getIt<ApiClient>()));
 
   // ══ Cook-side repositories ═════════════════════════════════════════
   getIt.registerLazySingleton<CreateMealRepository>(

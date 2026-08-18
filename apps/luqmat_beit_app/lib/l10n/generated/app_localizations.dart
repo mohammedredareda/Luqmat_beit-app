@@ -1868,12 +1868,6 @@ abstract class AppLocalizations {
   /// **'الشورتس'**
   String get myShortsTitle;
 
-  /// No description provided for @myShortsBannerTitle.
-  ///
-  /// In ar, this message translates to:
-  /// **'معرض شورتاتي'**
-  String get myShortsBannerTitle;
-
   /// No description provided for @myShortsBannerBody.
   ///
   /// In ar, this message translates to:
@@ -1909,12 +1903,6 @@ abstract class AppLocalizations {
   /// In ar, this message translates to:
   /// **'الحد الأقصى 60 ثانية'**
   String get videoMaxDurationHint;
-
-  /// No description provided for @videoSelectedLabel.
-  ///
-  /// In ar, this message translates to:
-  /// **'تم اختيار الفيديو'**
-  String get videoSelectedLabel;
 
   /// No description provided for @shortDescriptionLabel.
   ///

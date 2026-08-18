@@ -6,9 +6,10 @@ import '../../../shared/domain/entities/short_management_entity.dart';
 /// One card in "My Shorts" (mockup `_4`) — 9:16, view-count badge, optional
 /// linked-meal pill, delete icon.
 class ShortGalleryCard extends StatelessWidget {
-  const ShortGalleryCard({super.key, required this.short, required this.onDelete});
+  const ShortGalleryCard({super.key, required this.short, required this.onTap, required this.onDelete});
 
   final ShortManagementEntity short;
+  final VoidCallback onTap;
   final VoidCallback onDelete;
 
   String _formatViewCount(int count) {
@@ -24,55 +25,58 @@ class ShortGalleryCard extends StatelessWidget {
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(AppRadius.card),
-      child: Stack(
-        fit: StackFit.expand,
-        children: [
-          if (hasThumbnail)
-            Image.network(
-              short.thumbnailUrl!,
-              fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) => _placeholder(scheme),
-            )
-          else
-            _placeholder(scheme),
-          DecoratedBox(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [Colors.transparent, scheme.scrim.withValues(alpha: 0.55)],
-                stops: const [0.6, 1.0],
+      child: InkWell(
+        onTap: onTap,
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            if (hasThumbnail)
+              Image.network(
+                short.thumbnailUrl!,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) => _placeholder(scheme),
+              )
+            else
+              _placeholder(scheme),
+            DecoratedBox(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [Colors.transparent, scheme.scrim.withValues(alpha: 0.55)],
+                  stops: const [0.6, 1.0],
+                ),
               ),
             ),
-          ),
-          const Center(
-            child: Icon(Icons.play_circle, color: Colors.white, size: 40),
-          ),
-          PositionedDirectional(
-            top: AppSpace.s,
-            start: AppSpace.s,
-            child: _Badge(
-              icon: Icons.visibility_outlined,
-              label: _formatViewCount(short.viewCount),
+            const Center(
+              child: Icon(Icons.play_circle, color: Colors.white, size: 40),
             ),
-          ),
-          PositionedDirectional(
-            top: AppSpace.s,
-            end: AppSpace.s,
-            child: _DeleteButton(onPressed: onDelete),
-          ),
-          if (short.hasLinkedMeal)
             PositionedDirectional(
-              bottom: AppSpace.s,
+              top: AppSpace.s,
               start: AppSpace.s,
-              end: AppSpace.s,
               child: _Badge(
-                icon: Icons.restaurant_outlined,
-                label: short.mealName ?? '',
-                textStyle: textTheme.bodySmall,
+                icon: Icons.visibility_outlined,
+                label: _formatViewCount(short.viewCount),
               ),
             ),
-        ],
+            PositionedDirectional(
+              top: AppSpace.s,
+              end: AppSpace.s,
+              child: _DeleteButton(onPressed: onDelete),
+            ),
+            if (short.hasLinkedMeal)
+              PositionedDirectional(
+                bottom: AppSpace.s,
+                start: AppSpace.s,
+                end: AppSpace.s,
+                child: _Badge(
+                  icon: Icons.restaurant_outlined,
+                  label: short.mealName ?? '',
+                  textStyle: textTheme.bodySmall,
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }

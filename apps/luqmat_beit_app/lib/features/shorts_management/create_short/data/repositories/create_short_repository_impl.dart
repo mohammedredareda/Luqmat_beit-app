@@ -1,7 +1,7 @@
 import 'package:core/core.dart';
 
 import 'package:luqmat_beit_app/shared/current_cook_id.dart';
-import '../../../shared/data/datasources/fake_shorts_remote_data_source.dart';
+import '../../../shared/data/datasources/shorts_remote_data_source.dart';
 import '../../../shared/data/models/short_model.dart';
 import '../../../shared/domain/entities/short_management_entity.dart';
 import '../../../shared/domain/short_form_submission.dart';
@@ -10,7 +10,7 @@ import '../../domain/repositories/create_short_repository.dart';
 class CreateShortRepositoryImpl implements CreateShortRepository {
   CreateShortRepositoryImpl(this._dataSource);
 
-  final FakeShortsRemoteDataSource _dataSource;
+  final ShortsRemoteDataSource _dataSource;
 
   @override
   Future<Result<ShortManagementEntity>> createShort(ShortFormSubmission submission) {

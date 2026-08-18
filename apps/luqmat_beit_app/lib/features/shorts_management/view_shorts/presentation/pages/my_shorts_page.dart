@@ -8,6 +8,7 @@ import 'package:luqmat_beit_app/l10n/generated/app_localizations.dart';
 
 import '../../../shared/domain/entities/short_management_entity.dart';
 import '../../../shared/presentation/widgets/delete_short_confirmation.dart';
+import '../../../shared/presentation/widgets/short_player_dialog.dart';
 import '../bloc/view_shorts_cubit.dart';
 import '../bloc/view_shorts_state.dart';
 import '../widgets/my_shorts_gallery_skeleton.dart';
@@ -40,24 +41,85 @@ class _MyShortsView extends StatelessWidget {
     final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.myShortsTitle)),
-      body: BlocBuilder<ViewShortsCubit, ViewShortsState>(
-        builder: (context, state) => state.when(
-          initial: () => const SizedBox.shrink(),
-          loading: () => const MyShortsGallerySkeleton(),
-          loaded: (items, hasMore, isLoadingMore) => _LoadedBody(
-            items: items,
-            hasMore: hasMore,
-            isLoadingMore: isLoadingMore,
-            onLoadMore: () => context.read<ViewShortsCubit>().loadMore(),
-          ),
-          error: (exception) => _ErrorBody(message: exception.message),
+      appBar: AppBar(
+        title: Text(
+          'Luqmat Beit',
+          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                color: Theme.of(context).colorScheme.primary,
+              ),
         ),
+        actions: [
+          IconButton(
+            onPressed: () => context.push('/cook/notifications'),
+            icon: const Icon(Icons.notifications_outlined),
+            tooltip: l10n.notificationsTitle,
+          ),
+        ],
+      ),
+      // Title + subtitle are persistent chrome (mirrors `ViewOffersPage`/
+      // `ViewMenuPage`'s `_Header`) — only the body below swaps between
+      // skeleton/loaded/error, so the title stays visible through every
+      // state, loading included.
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(AppSpace.l, AppSpace.l, AppSpace.l, 0),
+            child: _Header(l10n: l10n),
+          ),
+          const SizedBox(height: AppSpace.xl),
+          Expanded(
+            child: BlocBuilder<ViewShortsCubit, ViewShortsState>(
+              builder: (context, state) => state.when(
+                initial: () => const SizedBox.shrink(),
+                loading: () => const MyShortsGallerySkeleton(),
+                loaded: (items, hasMore, isLoadingMore) => _LoadedBody(
+                  items: items,
+                  hasMore: hasMore,
+                  isLoadingMore: isLoadingMore,
+                  onLoadMore: () => context.read<ViewShortsCubit>().loadMore(),
+                ),
+                error: (exception) => _ErrorBody(message: exception.message),
+              ),
+            ),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _onAddPressed(context),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         child: const Icon(Icons.add),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+    );
+  }
+}
+
+class _Header extends StatelessWidget {
+  const _Header({required this.l10n});
+
+  final AppLocalizations l10n;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Text(
+          l10n.myShortsTitle,
+          style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                fontSize: 40,
+                height: 48 / 40,
+                color: scheme.primary,
+              ),
+        ),
+        const SizedBox(height: AppSpace.xs),
+        Text(
+          l10n.myShortsBannerBody,
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: scheme.onSurfaceVariant),
+        ),
+      ],
     );
   }
 }
@@ -92,6 +154,15 @@ class _LoadedBodyState extends State<_LoadedBody> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    // Captured once from this widget's own stable context — not re-derived
+    // per grid item inside the delete closure below, since a grid item's
+    // own BuildContext can be disposed by SliverGrid's recycling while the
+    // delete's network round-trip is in flight (a real possibility now
+    // that delete is a genuine request, not the old instant fake-cache
+    // write), which would silently drop the reload call below and leave a
+    // deleted card stuck on screen. A Cubit reference itself has no such
+    // lifecycle sensitivity.
+    final viewShortsCubit = context.read<ViewShortsCubit>();
 
     if (widget.items.isEmpty && !widget.hasMore) {
       return SingleChildScrollView(
@@ -111,10 +182,6 @@ class _LoadedBodyState extends State<_LoadedBody> {
       child: CustomScrollView(
         slivers: [
           SliverPadding(
-            padding: const EdgeInsetsDirectional.fromSTEB(AppSpace.l, AppSpace.l, AppSpace.l, 0),
-            sliver: SliverToBoxAdapter(child: _Banner(l10n: l10n)),
-          ),
-          SliverPadding(
             padding: const EdgeInsetsDirectional.all(AppSpace.l),
             sliver: SliverGrid(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -128,10 +195,21 @@ class _LoadedBodyState extends State<_LoadedBody> {
                   final short = widget.items[index];
                   return ShortGalleryCard(
                     short: short,
+                    onTap: () => showShortPlayerDialog(
+                      context,
+                      videoUrl: short.videoUrl,
+                      description: short.description,
+                      viewCount: short.viewCount,
+                    ),
                     onDelete: () => showDeleteShortConfirmation(
                       context,
                       shortId: short.id,
-                      onDeleted: () => context.read<ViewShortsCubit>().removeItem(short.id),
+                      // Re-fetches page 1 from the real server after a
+                      // successful delete instead of only removing the
+                      // card from local state — guarantees the grid
+                      // matches the backend regardless of any local-state
+                      // edge case, at the cost of one extra request.
+                      onDeleted: () => viewShortsCubit.load(),
                     ),
                   );
                 },
@@ -146,40 +224,6 @@ class _LoadedBodyState extends State<_LoadedBody> {
                 child: Center(child: CircularProgressIndicator()),
               ),
             ),
-        ],
-      ),
-    );
-  }
-}
-
-class _Banner extends StatelessWidget {
-  const _Banner({required this.l10n});
-
-  final AppLocalizations l10n;
-
-  @override
-  Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
-    final textTheme = Theme.of(context).textTheme;
-
-    return Container(
-      padding: const EdgeInsets.all(AppSpace.l),
-      decoration: BoxDecoration(
-        color: scheme.primaryContainer,
-        borderRadius: BorderRadius.circular(AppRadius.card),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            l10n.myShortsBannerTitle,
-            style: textTheme.titleMedium?.copyWith(color: scheme.onPrimaryContainer),
-          ),
-          const SizedBox(height: AppSpace.xs),
-          Text(
-            l10n.myShortsBannerBody,
-            style: textTheme.bodySmall?.copyWith(color: scheme.onPrimaryContainer),
-          ),
         ],
       ),
     );
