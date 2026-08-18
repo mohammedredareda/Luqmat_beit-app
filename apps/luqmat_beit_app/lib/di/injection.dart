@@ -43,7 +43,12 @@ import '../features/ratings/domain/repositories/ratings_repository.dart';
 import '../features/search/data/datasources/search_remote_data_source.dart';
 import '../features/search/data/repositories/search_repository_impl.dart';
 import '../features/search/domain/repositories/search_repository.dart';
-import '../features/shorts/data/datasources/shorts_remote_data_source.dart';
+// `ShortsRemoteDataSource` is declared independently in both `shorts`
+// (customer) and `shorts_management` (cook) — same name, different classes
+// — so both imports need a prefix to disambiguate (same pattern as
+// `GetCookProfile` below).
+import '../features/shorts/data/datasources/shorts_remote_data_source.dart'
+    as customer_shorts;
 import '../features/shorts/data/repositories/shorts_repository_impl.dart';
 import '../features/shorts/domain/repositories/shorts_repository.dart';
 
@@ -51,7 +56,8 @@ import '../features/shorts/domain/repositories/shorts_repository.dart';
 // shared singletons so every feature reading/writing through it sees the
 // same data). ────────────────────────────────────────────────────────────
 import '../features/meal_management/data/datasources/meal_remote_data_source.dart';
-import '../features/shorts_management/shared/data/datasources/shorts_remote_data_source.dart';
+import '../features/shorts_management/shared/data/datasources/shorts_remote_data_source.dart'
+    as cook_shorts;
 import '../features/offers_management/shared/data/datasources/discounts_remote_data_source.dart';
 import '../features/offers_management/shared/data/datasources/offers_remote_data_source.dart';
 import '../features/offers_management/shared/data/datasources/promotions_remote_data_source.dart';
@@ -286,7 +292,9 @@ Future<void> configureDependencies() async {
   // TODO(backend): no notification push/sync endpoint — stays local-cache-only.
   getIt.registerLazySingleton<NotificationsRepository>(() => NotificationsRepositoryImpl());
   getIt.registerLazySingleton<ShortsRepository>(
-    () => ShortsRepositoryImpl(dataSource: ShortsRemoteDataSource(getIt<ApiClient>())),
+    () => ShortsRepositoryImpl(
+      dataSource: customer_shorts.ShortsRemoteDataSource(getIt<ApiClient>()),
+    ),
   );
 
   // ══ Cook-side data sources (shared in-memory "backend" state) ═════════
@@ -300,7 +308,7 @@ Future<void> configureDependencies() async {
   getIt.registerLazySingleton(() => PhoneChangeRemoteDataSource(getIt<ApiClient>()));
   // Real Content endpoints (create/delete); list still stays local — see
   // ShortsRemoteDataSource's doc comment.
-  getIt.registerLazySingleton(() => ShortsRemoteDataSource(getIt<ApiClient>()));
+  getIt.registerLazySingleton(() => cook_shorts.ShortsRemoteDataSource(getIt<ApiClient>()));
 
   // ══ Cook-side repositories ═════════════════════════════════════════
   getIt.registerLazySingleton<CreateMealRepository>(
