@@ -17,7 +17,7 @@ import '../features/chef_profile/data/repositories/chef_repository_impl.dart';
 import '../features/chef_profile/domain/repositories/chef_repository.dart';
 import '../features/delivery/data/repositories/delivery_repository_impl.dart';
 import '../features/delivery/domain/repositories/delivery_repository.dart';
-import '../features/favorites/data/datasources/favorites_local_data_source.dart';
+import '../features/favorites/data/datasources/favorites_remote_data_source.dart';
 import '../features/favorites/data/repositories/favorites_repository_impl.dart';
 import '../features/favorites/domain/repositories/favorites_repository.dart';
 import '../features/home/data/datasources/home_remote_data_source.dart';
@@ -227,12 +227,9 @@ Future<void> configureDependencies() async {
   getIt.registerLazySingleton<ChefRepository>(
     () => ChefRepositoryImpl(dataSource: ChefRemoteDataSource(getIt<ApiClient>())),
   );
-  // No GET endpoint to list favorites/follows — FavoritesLocalDataSource
-  // reads a local mirror kept in sync by meal_details/chef_profile's own
-  // favorite/follow toggles (see FavoritesCache).
   getIt.registerLazySingleton<FavoritesRepository>(
     () => FavoritesRepositoryImpl(
-      dataSource: FavoritesLocalDataSource(getIt<ApiClient>(), getIt<FavoritesCache>()),
+      dataSource: FavoritesRemoteDataSource(getIt<ApiClient>()),
     ),
   );
   getIt.registerLazySingleton<CartRepository>(

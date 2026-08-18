@@ -52,4 +52,9 @@ class MealDetailsRepositoryImpl implements MealDetailsRepository {
   Future<Result<void>> setFavorite(String mealId, bool isFavorite) {
     return guard(() => _dataSource.setFavorite(mealId, isFavorite));
   }
+
+  @override
+  Future<Result<void>> reportMeal(String mealId, String message) {
+    return guard(() => _dataSource.reportMeal(mealId, message));
+  }
 }

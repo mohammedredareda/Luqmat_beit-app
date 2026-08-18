@@ -28,4 +28,9 @@ class MealDetailsMockDataSource implements MealDetailsDataSource {
   Future<void> setFavorite(String mealId, bool isFavorite) async {
     await Future.delayed(const Duration(milliseconds: 150));
   }
+
+  @override
+  Future<void> reportMeal(String mealId, String message) async {
+    await Future.delayed(const Duration(milliseconds: 150));
+  }
 }

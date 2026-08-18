@@ -50,4 +50,15 @@ class MealDetailsRemoteDataSource implements MealDetailsDataSource {
       await _apiClient.delete('/user/customer/favorite', data: {'meal_id': id});
     }
   }
+
+  @override
+  Future<void> reportMeal(String mealId, String message) async {
+    final id = int.tryParse(mealId) ?? mealId;
+    // Field name is intentionally `report_meessage` (typo) — matches the
+    // backend's exact DTO spelling.
+    await _apiClient.post('/user/customer/meal/report', data: {
+      'meal_id': id,
+      'report_meessage': message,
+    });
+  }
 }

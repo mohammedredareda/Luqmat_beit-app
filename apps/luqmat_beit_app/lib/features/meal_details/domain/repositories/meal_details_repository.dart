@@ -16,4 +16,9 @@ abstract class MealDetailsRepository {
 
   /// Backed by `POST`/`DELETE /user/customer/favorite`.
   Future<Result<void>> setFavorite(String mealId, bool isFavorite);
+
+  /// Backed by `POST /user/customer/meal/report` — the backend only
+  /// accepts this for a meal from one of the customer's delivered orders
+  /// and rejects otherwise.
+  Future<Result<void>> reportMeal(String mealId, String message);
 }
