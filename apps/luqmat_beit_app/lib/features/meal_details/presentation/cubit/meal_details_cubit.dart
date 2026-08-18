@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../domain/usecases/add_meal_to_cart.dart';
 import '../../domain/usecases/get_meal_details.dart';
+import '../../domain/usecases/report_meal.dart';
 import '../../domain/usecases/toggle_meal_favorite.dart';
 import 'meal_details_state.dart';
 
@@ -11,13 +12,13 @@ class MealDetailsCubit extends Cubit<MealDetailsState> {
     this._getMealDetails,
     this._addMealToCart,
     this._toggleMealFavorite,
-    this._favoritesCache,
+    this._reportMeal,
   ) : super(const MealDetailsState.initial());
 
   final GetMealDetails _getMealDetails;
   final AddMealToCart _addMealToCart;
   final ToggleMealFavorite _toggleMealFavorite;
-  final FavoritesCache _favoritesCache;
+  final ReportMeal _reportMeal;
 
   String? _mealId;
 
@@ -80,15 +81,17 @@ class MealDetailsCubit extends Cubit<MealDetailsState> {
       // local state above; a failure here isn't worth blocking or
       // reverting the UI over.
       _toggleMealFavorite(current.meal.id, newValue);
-      // There's no backend endpoint to list favorited meals, so the
-      // favorites screen reads this local mirror instead — keep it in sync
-      // with every toggle, not just the ones made from that screen.
-      if (newValue) {
-        _favoritesCache.addFavoriteMeal(current.meal);
-      } else {
-        _favoritesCache.removeFavoriteMeal(current.meal.id);
-      }
     }
+  }
+
+  /// CU-XX: report a meal — only allowed for meals from a delivered order
+  /// (the backend enforces this and rejects otherwise).
+  Future<Result<void>> report(String message) {
+    final current = state;
+    if (current is! MealDetailsLoaded) {
+      return Future.value(const Result.failure(UnknownException('لا توجد وجبة محمّلة.')));
+    }
+    return _reportMeal(current.meal.id, message);
   }
 
   /// Called by the page after it has shown the "added to cart"

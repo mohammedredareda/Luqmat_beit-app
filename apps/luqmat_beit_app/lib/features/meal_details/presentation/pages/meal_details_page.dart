@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../di/injection.dart';
 import '../../domain/usecases/add_meal_to_cart.dart';
 import '../../domain/usecases/get_meal_details.dart';
+import '../../domain/usecases/report_meal.dart';
 import '../../domain/usecases/toggle_meal_favorite.dart';
 import '../cubit/meal_details_cubit.dart';
 import '../cubit/meal_details_state.dart';
@@ -27,7 +28,7 @@ class MealDetailsPage extends StatelessWidget {
         GetMealDetails(getIt()),
         AddMealToCart(getIt()),
         ToggleMealFavorite(getIt()),
-        getIt<FavoritesCache>(),
+        ReportMeal(getIt()),
       )..loadMeal(mealId),
       child: const _MealDetailsView(),
     );
@@ -401,6 +402,26 @@ class _MealDetailsContent extends StatelessWidget {
             ),
           ),
         ),
+        // Report — only meaningful for meals from a delivered order (the
+        // backend rejects otherwise), but the entry point lives here
+        // regardless since there's no other screen this action belongs to.
+        PositionedDirectional(
+          top: AppSpace.s,
+          end: AppSpace.s,
+          child: SafeArea(
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white.withValues(alpha: 0.8),
+                shape: BoxShape.circle,
+              ),
+              child: IconButton(
+                icon: const Icon(Icons.flag_outlined),
+                tooltip: 'الإبلاغ عن الوجبة',
+                onPressed: () => _showReportDialog(context, cubit),
+              ),
+            ),
+          ),
+        ),
         // Bottom action bar
         PositionedDirectional(
           bottom: 0,
@@ -442,6 +463,44 @@ class _MealDetailsContent extends StatelessWidget {
       ],
     );
   }
+}
+
+Future<void> _showReportDialog(BuildContext context, MealDetailsCubit cubit) async {
+  final controller = TextEditingController();
+  final message = await showDialog<String>(
+    context: context,
+    builder: (dialogContext) => AlertDialog(
+      title: const Text('الإبلاغ عن الوجبة'),
+      content: TextField(
+        controller: controller,
+        maxLines: 3,
+        maxLength: 500,
+        decoration: const InputDecoration(hintText: 'وضّح سبب الإبلاغ...'),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(dialogContext).pop(),
+          child: const Text('إلغاء'),
+        ),
+        TextButton(
+          onPressed: () => Navigator.of(dialogContext).pop(controller.text.trim()),
+          child: const Text('إرسال'),
+        ),
+      ],
+    ),
+  );
+  controller.dispose();
+  if (message == null || message.isEmpty || !context.mounted) return;
+
+  final result = await cubit.report(message);
+  if (!context.mounted) return;
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text(
+        result.fold((_) => 'تم إرسال البلاغ، شكراً لك.', (exception) => exception.message),
+      ),
+    ),
+  );
 }
 
 class _MealDetailsSkeleton extends StatelessWidget {

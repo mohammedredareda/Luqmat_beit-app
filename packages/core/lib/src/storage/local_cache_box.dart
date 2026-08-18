@@ -9,7 +9,6 @@ abstract final class LocalCacheBoxNames {
   static const cartSnapshot = 'cart_snapshot_box';
   static const localePreference = 'locale_preference_box';
   static const userProfile = 'user_profile_box';
-  static const favorites = 'favorites_box';
   static const onboarding = 'onboarding_box';
 }
 
@@ -21,7 +20,6 @@ class LocalCacheBox {
       Hive.openBox(LocalCacheBoxNames.cartSnapshot),
       Hive.openBox(LocalCacheBoxNames.localePreference),
       Hive.openBox(LocalCacheBoxNames.userProfile),
-      Hive.openBox(LocalCacheBoxNames.favorites),
       Hive.openBox(LocalCacheBoxNames.onboarding),
     ]);
   }

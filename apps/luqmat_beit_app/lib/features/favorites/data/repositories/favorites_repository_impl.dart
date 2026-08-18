@@ -2,13 +2,13 @@ import 'package:core/core.dart';
 
 import '../../../home/domain/entities/home_feed_entity.dart';
 import '../../domain/repositories/favorites_repository.dart';
-import '../datasources/favorites_local_data_source.dart';
+import '../datasources/favorites_remote_data_source.dart';
 
 class FavoritesRepositoryImpl implements FavoritesRepository {
-  FavoritesRepositoryImpl({required FavoritesLocalDataSource dataSource})
+  FavoritesRepositoryImpl({required FavoritesRemoteDataSource dataSource})
       : _dataSource = dataSource;
 
-  final FavoritesLocalDataSource _dataSource;
+  final FavoritesRemoteDataSource _dataSource;
 
   @override
   Future<Result<List<MealEntity>>> getFavoriteMeals() {

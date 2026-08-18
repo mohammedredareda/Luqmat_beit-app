@@ -15,7 +15,6 @@ export 'src/network/jwt_payload.dart';
 export 'src/storage/secure_token_storage.dart';
 export 'src/storage/local_cache_box.dart';
 export 'src/storage/user_profile_cache.dart';
-export 'src/storage/favorites_cache.dart';
 export 'src/storage/onboarding_status_store.dart';
 
 // DI

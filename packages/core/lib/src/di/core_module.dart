@@ -15,7 +15,6 @@ import '../network/interceptors/logging_interceptor.dart';
 import '../storage/onboarding_status_store.dart';
 import '../storage/secure_token_storage.dart';
 import '../storage/user_profile_cache.dart';
-import '../storage/favorites_cache.dart';
 import '../blocs/auth/session_cubit.dart';
 import '../blocs/connectivity/connectivity_cubit.dart';
 
@@ -44,7 +43,6 @@ Future<void> registerCoreDependencies(
   );
 
   getIt.registerLazySingleton<UserProfileCache>(() => UserProfileCache());
-  getIt.registerLazySingleton<FavoritesCache>(() => FavoritesCache());
 
   getIt.registerLazySingleton<ApiClient>(
     () => DioClient(
