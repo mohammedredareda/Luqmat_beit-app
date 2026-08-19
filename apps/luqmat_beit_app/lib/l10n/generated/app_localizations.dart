@@ -974,6 +974,18 @@ abstract class AppLocalizations {
   /// **'الطلبات المكتملة'**
   String get completedOrdersStatLabel;
 
+  /// No description provided for @favoritesStatLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'المفضلة'**
+  String get favoritesStatLabel;
+
+  /// No description provided for @orderHistoryTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'سجل الطلبات'**
+  String get orderHistoryTitle;
+
   /// No description provided for @totalMealsStatLabel.
   ///
   /// In ar, this message translates to:

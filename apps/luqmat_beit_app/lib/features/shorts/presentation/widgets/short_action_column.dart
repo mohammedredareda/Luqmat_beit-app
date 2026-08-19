@@ -3,22 +3,21 @@ import 'package:flutter/material.dart';
 import '../../domain/entities/short_entity.dart';
 
 /// The left-side (in RTL, "start"-anchored per the mockup) vertical column
-/// of social actions: like, comment, share. Matches
-/// `shorts_feed_u17/code.html`'s `w-12 h-12 rounded-full bg-white/10` icon
-/// buttons with a count label beneath each.
+/// of social actions: like, comment. Matches `shorts_feed_u17/code.html`'s
+/// `w-12 h-12 rounded-full bg-white/10` icon buttons with a count label
+/// beneath each (the mockup's third "share" button was dropped — not part
+/// of this app).
 class ShortActionColumn extends StatelessWidget {
   const ShortActionColumn({
     super.key,
     required this.short,
     required this.onLike,
     required this.onComment,
-    required this.onShare,
   });
 
   final ShortEntity short;
   final VoidCallback onLike;
   final VoidCallback onComment;
-  final VoidCallback onShare;
 
   @override
   Widget build(BuildContext context) {
@@ -37,12 +36,6 @@ class ShortActionColumn extends StatelessWidget {
           icon: Icons.chat_bubble,
           label: _formatCount(short.commentCount),
           onTap: onComment,
-        ),
-        const SizedBox(height: 24),
-        _ActionButton(
-          icon: Icons.share,
-          label: 'مشاركة',
-          onTap: onShare,
         ),
       ],
     );

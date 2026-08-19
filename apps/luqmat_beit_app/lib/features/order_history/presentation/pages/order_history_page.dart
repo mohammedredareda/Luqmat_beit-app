@@ -1,10 +1,12 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../../di/injection.dart';
+import '../../../../l10n/generated/app_localizations.dart';
+import '../../../../shared/presentation/widgets/order_items_dialog.dart';
 import '../../domain/usecases/get_order_history.dart';
+import '../../domain/usecases/reorder_past_order.dart';
 import '../cubit/order_history_cubit.dart';
 import '../cubit/order_history_state.dart';
 import '../widgets/order_history_card.dart';
@@ -18,7 +20,9 @@ class OrderHistoryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => OrderHistoryCubit(GetOrderHistory(getIt()))..loadOrderHistory(),
+      create: (_) =>
+          OrderHistoryCubit(GetOrderHistory(getIt()), ReorderPastOrder(getIt()))
+            ..loadOrderHistory(),
       child: const _OrderHistoryView(),
     );
   }
@@ -29,8 +33,10 @@ class _OrderHistoryView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
-      appBar: AppBar(title: const Text('سجل الطلبات')),
+      appBar: AppBar(title: Text(l10n.orderHistoryTitle)),
       body: SafeArea(
         child: BlocBuilder<OrderHistoryCubit, OrderHistoryState>(
           builder: (context, state) {
@@ -72,7 +78,7 @@ class _OrderHistoryList extends StatelessWidget {
         final order = orders[index];
         return OrderHistoryCard(
           order: order,
-          onTap: () => context.push('/invoice/${order.id}'),
+          onTap: () => showOrderItemsDialog(context, order: order),
         );
       },
     );

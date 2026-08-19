@@ -43,7 +43,8 @@ class SearchFilterChip extends StatelessWidget {
               Text(
                 label,
                 style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                      color: selected ? scheme.onPrimary : scheme.onSurfaceVariant,
+                      color:
+                          selected ? scheme.onPrimary : scheme.onSurfaceVariant,
                       fontWeight: FontWeight.bold,
                     ),
               ),

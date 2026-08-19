@@ -111,4 +111,9 @@ class OrderHistoryMockDataSource implements OrderHistoryDataSource {
       ),
     ];
   }
+
+  @override
+  Future<void> reorder(String orderId) async {
+    await Future.delayed(const Duration(milliseconds: 300));
+  }
 }

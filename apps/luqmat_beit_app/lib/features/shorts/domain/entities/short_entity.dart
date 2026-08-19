@@ -19,6 +19,9 @@ class ShortEntity extends Equatable {
   final int viewCount;
   final bool isLiked;
 
+  /// The feed's `is_followed` field, same shape as `is_reacted`/[isLiked].
+  final bool isFollowing;
+
   const ShortEntity({
     required this.id,
     required this.cookId,
@@ -30,6 +33,7 @@ class ShortEntity extends Equatable {
     required this.commentCount,
     required this.viewCount,
     required this.isLiked,
+    this.isFollowing = false,
     this.mealId,
   });
 
@@ -37,6 +41,7 @@ class ShortEntity extends Equatable {
     int? likeCount,
     int? commentCount,
     bool? isLiked,
+    bool? isFollowing,
   }) {
     return ShortEntity(
       id: id,
@@ -50,6 +55,7 @@ class ShortEntity extends Equatable {
       commentCount: commentCount ?? this.commentCount,
       viewCount: viewCount,
       isLiked: isLiked ?? this.isLiked,
+      isFollowing: isFollowing ?? this.isFollowing,
     );
   }
 
@@ -66,5 +72,6 @@ class ShortEntity extends Equatable {
         commentCount,
         viewCount,
         isLiked,
+        isFollowing,
       ];
 }

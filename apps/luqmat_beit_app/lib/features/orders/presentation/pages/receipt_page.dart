@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:luqmat_beit_app/l10n/generated/app_localizations.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 
@@ -25,7 +26,8 @@ class ReceiptPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => OrderConfirmationCubit(GetOrderById(getIt()))..loadOrder(orderId),
+      create: (_) =>
+          OrderConfirmationCubit(GetOrderById(getIt()))..loadOrder(orderId),
       child: _ReceiptView(orderId: orderId),
     );
   }
@@ -36,24 +38,31 @@ class _ReceiptView extends StatelessWidget {
 
   final String orderId;
 
-  String _invoiceText(OrderEntity order) {
+  String _invoiceText(OrderEntity order, String currencySuffix) {
     final buffer = StringBuffer('فاتورة الطلب #$orderId\n\n');
     for (final item in order.mealItems) {
-      buffer.writeln('${item.mealName} ×${item.quantity} — ${item.subtotal.toStringAsFixed(0)}');
+      buffer.writeln(
+          '${item.mealName} ×${item.quantity} — ${item.subtotal.toStringAsFixed(0)}');
     }
     for (final item in order.offerItems) {
-      buffer.writeln('${item.offerName} ×${item.quantity} — ${item.subtotal.toStringAsFixed(0)}');
+      buffer.writeln(
+          '${item.offerName} ×${item.quantity} — ${item.subtotal.toStringAsFixed(0)}');
     }
     buffer.writeln('أجرة التوصيل: ${order.deliveryFee.toStringAsFixed(0)}');
-    buffer.writeln('المجموع الكلي: ${order.grandTotal.toStringAsFixed(0)} ₪');
+    buffer.writeln(
+        'المجموع الكلي: ${order.grandTotal.toStringAsFixed(0)} $currencySuffix');
     return buffer.toString();
   }
 
   Future<void> _share(BuildContext context, OrderEntity order) async {
-    await Clipboard.setData(ClipboardData(text: _invoiceText(order)));
+    final currencySuffix = AppLocalizations.of(context)!.currencySuffix;
+    await Clipboard.setData(
+        ClipboardData(text: _invoiceText(order, currencySuffix)));
     if (!context.mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('تم نسخ تفاصيل الفاتورة — الصقها بالتطبيق يلي بدك ترسلها فيه.')),
+      const SnackBar(
+          content: Text(
+              'تم نسخ تفاصيل الفاتورة — الصقها بالتطبيق يلي بدك ترسلها فيه.')),
     );
   }
 
@@ -61,10 +70,12 @@ class _ReceiptView extends StatelessWidget {
     try {
       final dir = await getApplicationDocumentsDirectory();
       final file = File('${dir.path}/invoice-$orderId.txt');
-      await file.writeAsString(_invoiceText(order));
       if (!context.mounted) return;
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('تم حفظ الفاتورة: ${file.path}')));
+      final currencySuffix = AppLocalizations.of(context)!.currencySuffix;
+      await file.writeAsString(_invoiceText(order, currencySuffix));
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('تم حفظ الفاتورة: ${file.path}')));
     } catch (e) {
       if (!context.mounted) return;
       ScaffoldMessenger.of(context)
@@ -92,11 +103,14 @@ class _ReceiptView extends StatelessWidget {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(Icons.check_circle, size: 80, color: AppColors.success),
+                        Icon(Icons.check_circle,
+                            size: 80, color: AppColors.success),
                         const SizedBox(height: AppSpace.l),
-                        Text('تم تأكيد طلبك بنجاح!', style: textTheme.titleLarge),
+                        Text('تم تأكيد طلبك بنجاح!',
+                            style: textTheme.titleLarge),
                         const SizedBox(height: AppSpace.s),
-                        Text('رقم الطلب: $orderId', style: textTheme.bodyMedium),
+                        Text('رقم الطلب: $orderId',
+                            style: textTheme.bodyMedium),
                         const SizedBox(height: AppSpace.xl),
                         ElevatedButton(
                           onPressed: () => context.go('/orders'),
@@ -112,13 +126,16 @@ class _ReceiptView extends StatelessWidget {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(Icons.check_circle, size: 80, color: AppColors.success),
+                        Icon(Icons.check_circle,
+                            size: 80, color: AppColors.success),
                         const SizedBox(height: AppSpace.l),
-                        Text('تم تأكيد طلبك بنجاح!', style: textTheme.titleLarge),
+                        Text('تم تأكيد طلبك بنجاح!',
+                            style: textTheme.titleLarge),
                         const SizedBox(height: AppSpace.s),
                         Text(
-                          'المجموع الكلي: ${order.grandTotal.toStringAsFixed(0)} ₪',
-                          style: textTheme.bodyMedium?.copyWith(color: scheme.primary),
+                          'المجموع الكلي: ${order.grandTotal.toStringAsFixed(0)} ${AppLocalizations.of(context)!.currencySuffix}',
+                          style: textTheme.bodyMedium
+                              ?.copyWith(color: scheme.primary),
                         ),
                         const SizedBox(height: AppSpace.xl),
                         SizedBox(

@@ -13,5 +13,6 @@ sealed class ShortCommentsState with _$ShortCommentsState {
     List<ShortCommentEntity> comments, {
     @Default(false) bool isPosting,
   }) = ShortCommentsLoaded;
-  const factory ShortCommentsState.failure(AppException exception) = ShortCommentsFailure;
+  const factory ShortCommentsState.failure(AppException exception) =
+      ShortCommentsFailure;
 }

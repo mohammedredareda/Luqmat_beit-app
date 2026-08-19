@@ -41,9 +41,11 @@ class ChefProfileCubit extends Cubit<ChefProfileState> {
 
     final original = current.profile;
     // Optimistic update — reverted below if the call fails.
-    emit(current.copyWith(profile: original.copyWith(isFollowing: !original.isFollowing)));
+    emit(current.copyWith(
+        profile: original.copyWith(isFollowing: !original.isFollowing)));
 
-    final result = await _toggleFollowChef(original.id, wasFollowing: original.isFollowing);
+    final result = await _toggleFollowChef(original.id,
+        wasFollowing: original.isFollowing);
     if (isClosed) return;
     result.fold(
       (_) {},

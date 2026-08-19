@@ -473,6 +473,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get completedOrdersStatLabel => 'الطلبات المكتملة';
 
   @override
+  String get favoritesStatLabel => 'المفضلة';
+
+  @override
+  String get orderHistoryTitle => 'سجل الطلبات';
+
+  @override
   String get totalMealsStatLabel => 'إجمالي الوجبات';
 
   @override

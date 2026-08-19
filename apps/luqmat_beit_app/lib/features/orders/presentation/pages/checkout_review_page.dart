@@ -1,14 +1,15 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:luqmat_beit_app/l10n/generated/app_localizations.dart';
 
 import '../../../../di/injection.dart';
 import '../../domain/usecases/confirm_order.dart';
 import '../../domain/usecases/get_delivery_price.dart';
 
 /// Shown when the customer taps "تأكيد طلب `<cook>`" in the cart — a review
-/// of that one cook's order (items, total, expected time, a delivery
-/// date/time picker) *before* the real `POST /order/confirm` call fires.
+/// of that one cook's order (items, total, expected time) *before* the
+/// real `POST /order/confirm` call fires.
 /// Only pressing "إتمام الطلب" here actually places the order — matching
 /// the cart's own confirm button, which used to call the backend directly
 /// and, on a business rejection (e.g. "cook is currently closed"), had
@@ -37,14 +38,6 @@ class _CheckoutReviewPageState extends State<CheckoutReviewPage> {
   late final ConfirmOrder _confirmOrder = ConfirmOrder(getIt());
   late final GetDeliveryPrice _getDeliveryPrice = GetDeliveryPrice(getIt());
   bool _submitting = false;
-
-  // Cosmetic only — the backend's `/order/confirm` has no field for a
-  // scheduled delivery date/time (confirmed against its validation errors,
-  // which only ever named `cook_id`/`latitude`/`longitude`/`meals`), so this
-  // isn't sent anywhere yet. It's here because the mockup shows it; wiring
-  // it through needs the backend to actually accept it first.
-  DateTime _selectedDate = DateTime.now();
-  TimeOfDay _selectedTime = TimeOfDay.now();
 
   // `/order/confirm` always recomputes the real charge server-side from
   // the same cook/location inputs — this is purely a "show the real price
@@ -94,21 +87,6 @@ class _CheckoutReviewPageState extends State<CheckoutReviewPage> {
   // for *this* order.
   bool get _hasLocation => widget.latitude != null && widget.longitude != null;
 
-  Future<void> _pickDate() async {
-    final picked = await showDatePicker(
-      context: context,
-      initialDate: _selectedDate,
-      firstDate: DateTime.now(),
-      lastDate: DateTime.now().add(const Duration(days: 14)),
-    );
-    if (picked != null) setState(() => _selectedDate = picked);
-  }
-
-  Future<void> _pickTime() async {
-    final picked = await showTimePicker(context: context, initialTime: _selectedTime);
-    if (picked != null) setState(() => _selectedTime = picked);
-  }
-
   Future<void> _submit() async {
     setState(() => _submitting = true);
     final result = await _confirmOrder(
@@ -142,7 +120,8 @@ class _CheckoutReviewPageState extends State<CheckoutReviewPage> {
     showDialog<void>(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppRadius.sheet)),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppRadius.sheet)),
         icon: Icon(Icons.storefront_outlined, size: 48, color: scheme.error),
         title: Text(
           isCookClosed ? 'الطباخ غير متاح حالياً' : 'تعذر إتمام الطلب',
@@ -183,7 +162,8 @@ class _CheckoutReviewPageState extends State<CheckoutReviewPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsetsDirectional.only(bottom: AppSpace.s),
+                    padding:
+                        const EdgeInsetsDirectional.only(bottom: AppSpace.s),
                     child: Text('الفاتورة', style: textTheme.titleLarge),
                   ),
                   Divider(color: scheme.outlineVariant),
@@ -207,7 +187,8 @@ class _CheckoutReviewPageState extends State<CheckoutReviewPage> {
                               height: 14,
                               child: CircularProgressIndicator(strokeWidth: 2),
                             )
-                          : Text(_deliveryFee.toStringAsFixed(0), style: textTheme.bodyLarge),
+                          : Text(_deliveryFee.toStringAsFixed(0),
+                              style: textTheme.bodyLarge),
                     ],
                   ),
                   const Divider(),
@@ -216,11 +197,13 @@ class _CheckoutReviewPageState extends State<CheckoutReviewPage> {
                     children: [
                       Text(
                         'المجموع الكلي',
-                        style: textTheme.titleMedium?.copyWith(color: scheme.primary),
+                        style: textTheme.titleMedium
+                            ?.copyWith(color: scheme.primary),
                       ),
                       Text(
-                        '${(_itemsTotal + _deliveryFee).toStringAsFixed(0)} ₪',
-                        style: textTheme.titleMedium?.copyWith(color: scheme.primary),
+                        '${(_itemsTotal + _deliveryFee).toStringAsFixed(0)} ${AppLocalizations.of(context)!.currencySuffix}',
+                        style: textTheme.titleMedium
+                            ?.copyWith(color: scheme.primary),
                       ),
                     ],
                   ),
@@ -261,51 +244,6 @@ class _CheckoutReviewPageState extends State<CheckoutReviewPage> {
                 ],
               ),
             ),
-            const SizedBox(height: AppSpace.l),
-            _Card(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Icon(Icons.calendar_month, color: scheme.primary),
-                      const SizedBox(width: AppSpace.s),
-                      Text('خيارات التوصيل', style: textTheme.titleLarge),
-                    ],
-                  ),
-                  const SizedBox(height: AppSpace.m),
-                  Text('تاريخ التوصيل', style: textTheme.bodySmall),
-                  const SizedBox(height: AppSpace.xs),
-                  _PickerField(
-                    icon: Icons.calendar_today,
-                    label:
-                        '${_selectedDate.year}/${_selectedDate.month.toString().padLeft(2, '0')}/${_selectedDate.day.toString().padLeft(2, '0')}',
-                    onTap: _pickDate,
-                  ),
-                  const SizedBox(height: AppSpace.m),
-                  Text('وقت التوصيل', style: textTheme.bodySmall),
-                  const SizedBox(height: AppSpace.xs),
-                  _PickerField(
-                    icon: Icons.access_time,
-                    label: _selectedTime.format(context),
-                    onTap: _pickTime,
-                  ),
-                  const SizedBox(height: AppSpace.s),
-                  Row(
-                    children: [
-                      Icon(Icons.info_outline, size: 16, color: scheme.onSurfaceVariant),
-                      const SizedBox(width: AppSpace.xs),
-                      Expanded(
-                        child: Text(
-                          'يجب أن يقع الموعد ضمن أوقات توفر الطباخة',
-                          style: textTheme.bodySmall?.copyWith(color: scheme.onSurfaceVariant),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
           ],
         ),
       ),
@@ -313,7 +251,8 @@ class _CheckoutReviewPageState extends State<CheckoutReviewPage> {
         padding: const EdgeInsetsDirectional.all(AppSpace.l),
         decoration: BoxDecoration(
           color: scheme.surface,
-          border: BorderDirectional(top: BorderSide(color: scheme.outlineVariant)),
+          border:
+              BorderDirectional(top: BorderSide(color: scheme.outlineVariant)),
         ),
         child: SafeArea(
           top: false,
@@ -323,12 +262,14 @@ class _CheckoutReviewPageState extends State<CheckoutReviewPage> {
               if (!_hasLocation) ...[
                 Row(
                   children: [
-                    Icon(Icons.location_off_outlined, size: 16, color: scheme.error),
+                    Icon(Icons.location_off_outlined,
+                        size: 16, color: scheme.error),
                     const SizedBox(width: AppSpace.xs),
                     Expanded(
                       child: Text(
                         'حدّد موقع التوصيل من السلة أولاً لتتمكن من إتمام الطلب.',
-                        style: textTheme.bodySmall?.copyWith(color: scheme.error),
+                        style:
+                            textTheme.bodySmall?.copyWith(color: scheme.error),
                       ),
                     ),
                   ],
@@ -341,7 +282,8 @@ class _CheckoutReviewPageState extends State<CheckoutReviewPage> {
                     ? const SizedBox(
                         width: 18,
                         height: 18,
-                        child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                        child: CircularProgressIndicator(
+                            strokeWidth: 2, color: Colors.white),
                       )
                     : const Icon(Icons.check),
                 label: const Text('إتمام الطلب'),
@@ -377,40 +319,6 @@ class _LineItemRow extends StatelessWidget {
           Expanded(child: Text(label, style: textTheme.bodyLarge)),
           Text(value.toStringAsFixed(0), style: textTheme.bodyLarge),
         ],
-      ),
-    );
-  }
-}
-
-class _PickerField extends StatelessWidget {
-  const _PickerField({required this.icon, required this.label, required this.onTap});
-
-  final IconData icon;
-  final String label;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(AppRadius.input),
-      child: Container(
-        padding: const EdgeInsetsDirectional.symmetric(
-          horizontal: AppSpace.m,
-          vertical: AppSpace.m,
-        ),
-        decoration: BoxDecoration(
-          border: Border.all(color: scheme.outline),
-          borderRadius: BorderRadius.circular(AppRadius.input),
-        ),
-        child: Row(
-          children: [
-            Icon(icon, size: 18, color: scheme.onSurfaceVariant),
-            const SizedBox(width: AppSpace.s),
-            Text(label),
-          ],
-        ),
       ),
     );
   }

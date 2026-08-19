@@ -51,8 +51,8 @@ class OrderLineItemRow extends StatelessWidget {
           ),
           Text(
             subtotal.toStringAsFixed(0),
-            style: textTheme.bodyLarge
-                ?.copyWith(color: scheme.onSurface, fontWeight: FontWeight.bold),
+            style: textTheme.bodyLarge?.copyWith(
+                color: scheme.onSurface, fontWeight: FontWeight.bold),
           ),
         ],
       ),

@@ -19,11 +19,4 @@ class HomeCubit extends Cubit<HomeState> {
       (exception) => emit(HomeState.failure(exception)),
     );
   }
-
-  void selectCategory(String categoryId) {
-    final current = state;
-    if (current is HomeLoaded) {
-      emit(HomeState.loaded(current.feed, selectedCategoryId: categoryId));
-    }
-  }
 }

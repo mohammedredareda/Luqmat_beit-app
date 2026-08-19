@@ -8,15 +8,20 @@ class QuantityStepper extends StatelessWidget {
     required this.quantity,
     required this.onIncrement,
     required this.onDecrement,
+    this.maxQuantity,
   });
 
   final int quantity;
   final VoidCallback onIncrement;
   final VoidCallback onDecrement;
+  /// Caps a returned/salvage meal's quantity to how many are actually
+  /// available — `null` (the normal-meal case) leaves it unlimited.
+  final int? maxQuantity;
 
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
+    final atMax = maxQuantity != null && quantity >= maxQuantity!;
 
     return Container(
       padding: const EdgeInsetsDirectional.all(AppSpace.xs),
@@ -28,7 +33,11 @@ class QuantityStepper extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          _StepperButton(icon: Icons.add, onTap: onIncrement, scheme: scheme),
+          _StepperButton(
+            icon: Icons.add,
+            onTap: atMax ? null : onIncrement,
+            scheme: scheme,
+          ),
           Padding(
             padding: const EdgeInsetsDirectional.symmetric(horizontal: AppSpace.m),
             child: Text(
@@ -49,7 +58,7 @@ class _StepperButton extends StatelessWidget {
   const _StepperButton({required this.icon, required this.onTap, required this.scheme});
 
   final IconData icon;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
   final ColorScheme scheme;
 
   @override
@@ -60,7 +69,7 @@ class _StepperButton extends StatelessWidget {
       child: SizedBox(
         width: 40,
         height: 40,
-        child: Icon(icon, color: scheme.onSurface),
+        child: Icon(icon, color: onTap == null ? scheme.outline : scheme.onSurface),
       ),
     );
   }

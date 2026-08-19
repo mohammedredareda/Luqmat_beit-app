@@ -7,5 +7,6 @@ class RemoveCartItem {
 
   final CartRepository _repository;
 
-  Future<Result<void>> call(String cartItemId) => _repository.removeItem(cartItemId);
+  Future<Result<void>> call(String cartItemId) =>
+      _repository.removeItem(cartItemId);
 }

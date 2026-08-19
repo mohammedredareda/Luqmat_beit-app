@@ -20,9 +20,7 @@ mixin _$ProfileState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(
-            CustomerProfileEntity profile, bool isEditing, bool isSaving)
-        loaded,
+    required TResult Function(CustomerProfileEntity profile) loaded,
     required TResult Function(AppException exception) failure,
   }) =>
       throw _privateConstructorUsedError;
@@ -30,9 +28,7 @@ mixin _$ProfileState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(
-            CustomerProfileEntity profile, bool isEditing, bool isSaving)?
-        loaded,
+    TResult? Function(CustomerProfileEntity profile)? loaded,
     TResult? Function(AppException exception)? failure,
   }) =>
       throw _privateConstructorUsedError;
@@ -40,9 +36,7 @@ mixin _$ProfileState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(
-            CustomerProfileEntity profile, bool isEditing, bool isSaving)?
-        loaded,
+    TResult Function(CustomerProfileEntity profile)? loaded,
     TResult Function(AppException exception)? failure,
     required TResult orElse(),
   }) =>
@@ -138,9 +132,7 @@ class _$ProfileInitialImpl implements ProfileInitial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(
-            CustomerProfileEntity profile, bool isEditing, bool isSaving)
-        loaded,
+    required TResult Function(CustomerProfileEntity profile) loaded,
     required TResult Function(AppException exception) failure,
   }) {
     return initial();
@@ -151,9 +143,7 @@ class _$ProfileInitialImpl implements ProfileInitial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(
-            CustomerProfileEntity profile, bool isEditing, bool isSaving)?
-        loaded,
+    TResult? Function(CustomerProfileEntity profile)? loaded,
     TResult? Function(AppException exception)? failure,
   }) {
     return initial?.call();
@@ -164,9 +154,7 @@ class _$ProfileInitialImpl implements ProfileInitial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(
-            CustomerProfileEntity profile, bool isEditing, bool isSaving)?
-        loaded,
+    TResult Function(CustomerProfileEntity profile)? loaded,
     TResult Function(AppException exception)? failure,
     required TResult orElse(),
   }) {
@@ -261,9 +249,7 @@ class _$ProfileLoadingImpl implements ProfileLoading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(
-            CustomerProfileEntity profile, bool isEditing, bool isSaving)
-        loaded,
+    required TResult Function(CustomerProfileEntity profile) loaded,
     required TResult Function(AppException exception) failure,
   }) {
     return loading();
@@ -274,9 +260,7 @@ class _$ProfileLoadingImpl implements ProfileLoading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(
-            CustomerProfileEntity profile, bool isEditing, bool isSaving)?
-        loaded,
+    TResult? Function(CustomerProfileEntity profile)? loaded,
     TResult? Function(AppException exception)? failure,
   }) {
     return loading?.call();
@@ -287,9 +271,7 @@ class _$ProfileLoadingImpl implements ProfileLoading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(
-            CustomerProfileEntity profile, bool isEditing, bool isSaving)?
-        loaded,
+    TResult Function(CustomerProfileEntity profile)? loaded,
     TResult Function(AppException exception)? failure,
     required TResult orElse(),
   }) {
@@ -347,7 +329,7 @@ abstract class _$$ProfileLoadedImplCopyWith<$Res> {
           _$ProfileLoadedImpl value, $Res Function(_$ProfileLoadedImpl) then) =
       __$$ProfileLoadedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({CustomerProfileEntity profile, bool isEditing, bool isSaving});
+  $Res call({CustomerProfileEntity profile});
 }
 
 /// @nodoc
@@ -364,22 +346,12 @@ class __$$ProfileLoadedImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? profile = null,
-    Object? isEditing = null,
-    Object? isSaving = null,
   }) {
     return _then(_$ProfileLoadedImpl(
       null == profile
           ? _value.profile
           : profile // ignore: cast_nullable_to_non_nullable
               as CustomerProfileEntity,
-      isEditing: null == isEditing
-          ? _value.isEditing
-          : isEditing // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isSaving: null == isSaving
-          ? _value.isSaving
-          : isSaving // ignore: cast_nullable_to_non_nullable
-              as bool,
     ));
   }
 }
@@ -387,21 +359,14 @@ class __$$ProfileLoadedImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ProfileLoadedImpl implements ProfileLoaded {
-  const _$ProfileLoadedImpl(this.profile,
-      {this.isEditing = false, this.isSaving = false});
+  const _$ProfileLoadedImpl(this.profile);
 
   @override
   final CustomerProfileEntity profile;
-  @override
-  @JsonKey()
-  final bool isEditing;
-  @override
-  @JsonKey()
-  final bool isSaving;
 
   @override
   String toString() {
-    return 'ProfileState.loaded(profile: $profile, isEditing: $isEditing, isSaving: $isSaving)';
+    return 'ProfileState.loaded(profile: $profile)';
   }
 
   @override
@@ -409,15 +374,11 @@ class _$ProfileLoadedImpl implements ProfileLoaded {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ProfileLoadedImpl &&
-            (identical(other.profile, profile) || other.profile == profile) &&
-            (identical(other.isEditing, isEditing) ||
-                other.isEditing == isEditing) &&
-            (identical(other.isSaving, isSaving) ||
-                other.isSaving == isSaving));
+            (identical(other.profile, profile) || other.profile == profile));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, profile, isEditing, isSaving);
+  int get hashCode => Object.hash(runtimeType, profile);
 
   /// Create a copy of ProfileState
   /// with the given fields replaced by the non-null parameter values.
@@ -432,12 +393,10 @@ class _$ProfileLoadedImpl implements ProfileLoaded {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(
-            CustomerProfileEntity profile, bool isEditing, bool isSaving)
-        loaded,
+    required TResult Function(CustomerProfileEntity profile) loaded,
     required TResult Function(AppException exception) failure,
   }) {
-    return loaded(profile, isEditing, isSaving);
+    return loaded(profile);
   }
 
   @override
@@ -445,12 +404,10 @@ class _$ProfileLoadedImpl implements ProfileLoaded {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(
-            CustomerProfileEntity profile, bool isEditing, bool isSaving)?
-        loaded,
+    TResult? Function(CustomerProfileEntity profile)? loaded,
     TResult? Function(AppException exception)? failure,
   }) {
-    return loaded?.call(profile, isEditing, isSaving);
+    return loaded?.call(profile);
   }
 
   @override
@@ -458,14 +415,12 @@ class _$ProfileLoadedImpl implements ProfileLoaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(
-            CustomerProfileEntity profile, bool isEditing, bool isSaving)?
-        loaded,
+    TResult Function(CustomerProfileEntity profile)? loaded,
     TResult Function(AppException exception)? failure,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(profile, isEditing, isSaving);
+      return loaded(profile);
     }
     return orElse();
   }
@@ -509,12 +464,10 @@ class _$ProfileLoadedImpl implements ProfileLoaded {
 }
 
 abstract class ProfileLoaded implements ProfileState {
-  const factory ProfileLoaded(final CustomerProfileEntity profile,
-      {final bool isEditing, final bool isSaving}) = _$ProfileLoadedImpl;
+  const factory ProfileLoaded(final CustomerProfileEntity profile) =
+      _$ProfileLoadedImpl;
 
   CustomerProfileEntity get profile;
-  bool get isEditing;
-  bool get isSaving;
 
   /// Create a copy of ProfileState
   /// with the given fields replaced by the non-null parameter values.
@@ -595,9 +548,7 @@ class _$ProfileFailureImpl implements ProfileFailure {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(
-            CustomerProfileEntity profile, bool isEditing, bool isSaving)
-        loaded,
+    required TResult Function(CustomerProfileEntity profile) loaded,
     required TResult Function(AppException exception) failure,
   }) {
     return failure(exception);
@@ -608,9 +559,7 @@ class _$ProfileFailureImpl implements ProfileFailure {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(
-            CustomerProfileEntity profile, bool isEditing, bool isSaving)?
-        loaded,
+    TResult? Function(CustomerProfileEntity profile)? loaded,
     TResult? Function(AppException exception)? failure,
   }) {
     return failure?.call(exception);
@@ -621,9 +570,7 @@ class _$ProfileFailureImpl implements ProfileFailure {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(
-            CustomerProfileEntity profile, bool isEditing, bool isSaving)?
-        loaded,
+    TResult Function(CustomerProfileEntity profile)? loaded,
     TResult Function(AppException exception)? failure,
     required TResult orElse(),
   }) {

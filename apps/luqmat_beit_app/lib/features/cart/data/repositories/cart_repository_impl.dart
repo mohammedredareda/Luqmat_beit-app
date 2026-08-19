@@ -41,12 +41,28 @@ class CartRepositoryImpl implements CartRepository {
   }
 
   @override
-  Future<Result<void>> updateSellingOption(String cartItemId, String sellingOptionId) {
-    return guard(() => _dataSource.updateSellingOption(cartItemId, sellingOptionId));
+  Future<Result<void>> updateSellingOption(
+      String cartItemId, String sellingOptionId) {
+    return guard(
+        () => _dataSource.updateSellingOption(cartItemId, sellingOptionId));
   }
 
   @override
   Future<Result<void>> updateNote(String cartItemId, String note) {
     return guard(() => _dataSource.updateNote(cartItemId, note));
+  }
+
+  @override
+  Future<Result<void>> addReturnedMeal(
+      {required String returnedMealId, required int count}) {
+    return guard(
+      () => _dataSource.addReturnedMeal(
+          returnedMealId: returnedMealId, count: count),
+    );
+  }
+
+  @override
+  Future<Result<void>> addOffer({required String offerId, required int count}) {
+    return guard(() => _dataSource.addOffer(offerId: offerId, count: count));
   }
 }

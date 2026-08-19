@@ -18,6 +18,10 @@ sealed class MealDetailsState with _$MealDetailsState {
     @Default(1) int quantity,
     @Default('') String note,
     @Default(false) bool isFavorite,
+    /// Set when this screen was reached from a "Your Own" (returned/salvage
+    /// meal) card — swaps the price/CTA to the salvage flow instead of the
+    /// normal selling-option one.
+    ReturnedMealEntity? returnedMeal,
   }) = MealDetailsLoaded;
 
   /// Emitted once, right after a successful `addToCart` call, so the page
@@ -29,6 +33,7 @@ sealed class MealDetailsState with _$MealDetailsState {
     @Default(1) int quantity,
     @Default('') String note,
     @Default(false) bool isFavorite,
+    ReturnedMealEntity? returnedMeal,
   }) = MealDetailsAddedToCart;
 
   const factory MealDetailsState.failure(AppException exception) =

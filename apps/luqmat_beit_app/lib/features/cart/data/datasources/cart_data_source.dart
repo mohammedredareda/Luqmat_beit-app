@@ -20,4 +20,9 @@ abstract class CartDataSource {
   Future<void> updateSellingOption(String cartItemId, String sellingOptionId);
 
   Future<void> updateNote(String cartItemId, String note);
+
+  Future<void> addReturnedMeal(
+      {required String returnedMealId, required int count});
+
+  Future<void> addOffer({required String offerId, required int count});
 }

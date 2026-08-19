@@ -4,7 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../di/injection.dart';
+import '../../../../router/route_observer.dart';
 import '../../../../shared/widgets/customer_bottom_nav.dart';
+import '../../../chef_profile/domain/usecases/toggle_follow_chef.dart';
 import '../../domain/entities/short_entity.dart';
 import '../../domain/usecases/get_shorts.dart';
 import '../../domain/usecases/mark_short_viewed.dart';
@@ -28,6 +30,7 @@ class ShortsFeedPage extends StatelessWidget {
         GetShorts(getIt()),
         ToggleShortLike(getIt()),
         MarkShortViewed(getIt()),
+        ToggleFollowChef(getIt()),
       )..loadShorts(),
       child: const _ShortsFeedView(),
     );
@@ -47,15 +50,19 @@ class _ShortsFeedView extends StatelessWidget {
             child: BlocBuilder<ShortsFeedCubit, ShortsFeedState>(
               builder: (context, state) {
                 return switch (state) {
-                  ShortsFeedInitial() || ShortsFeedLoading() => const _ShortsLoadingSkeleton(),
+                  ShortsFeedInitial() ||
+                  ShortsFeedLoading() =>
+                    const _ShortsLoadingSkeleton(),
                   ShortsFeedFailure(:final exception) => EmptyState(
                       icon: Icons.wifi_off,
                       title: 'تعذر تحميل الفيديوهات',
                       message: exception.message,
                       actionLabel: 'إعادة المحاولة',
-                      onAction: () => context.read<ShortsFeedCubit>().loadShorts(),
+                      onAction: () =>
+                          context.read<ShortsFeedCubit>().loadShorts(),
                     ),
-                  ShortsFeedLoaded(:final shorts) => _ShortsPageView(shorts: shorts),
+                  ShortsFeedLoaded(:final shorts) =>
+                    _ShortsPageView(shorts: shorts),
                 };
               },
             ),
@@ -83,16 +90,35 @@ class _ShortsPageView extends StatefulWidget {
   State<_ShortsPageView> createState() => _ShortsPageViewState();
 }
 
-class _ShortsPageViewState extends State<_ShortsPageView> {
+class _ShortsPageViewState extends State<_ShortsPageView> with RouteAware {
   final _pageController = PageController();
   int _activeIndex = 0;
   final Set<String> _viewedIds = {};
+
+  // Flips false while another route (e.g. the chef profile pushed from
+  // tapping the cook avatar) sits on top of this one — without it the
+  // currently-active slide keeps playing/audible underneath the new
+  // screen, since it's still mounted, just covered.
+  bool _routeIsCurrent = true;
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) => _markViewed(0));
   }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final route = ModalRoute.of(context);
+    if (route is PageRoute) routeObserver.subscribe(this, route);
+  }
+
+  @override
+  void didPushNext() => setState(() => _routeIsCurrent = false);
+
+  @override
+  void didPopNext() => setState(() => _routeIsCurrent = true);
 
   void _markViewed(int index) {
     if (index < 0 || index >= widget.shorts.length) return;
@@ -114,6 +140,7 @@ class _ShortsPageViewState extends State<_ShortsPageView> {
 
   @override
   void dispose() {
+    routeObserver.unsubscribe(this);
     _pageController.dispose();
     super.dispose();
   }
@@ -138,15 +165,18 @@ class _ShortsPageViewState extends State<_ShortsPageView> {
         final cubit = context.read<ShortsFeedCubit>();
         return ShortSlide(
           short: short,
-          isActive: index == _activeIndex,
+          isActive: index == _activeIndex && _routeIsCurrent,
           onLike: () => cubit.toggleLike(short.id),
           onComment: () => showShortCommentsSheet(
             context,
             shortId: short.id,
             onCommentPosted: () => cubit.incrementCommentCount(short.id),
           ),
-          onShare: () {},
-          onOrderMeal: short.mealId == null ? () {} : () => context.push('/meal/${short.mealId}'),
+          onOrderMeal: short.mealId == null
+              ? () {}
+              : () => context.push('/meal/${short.mealId}'),
+          onFollow: () => cubit.toggleFollow(short.cookId),
+          onTapCook: () => context.push('/chef/${short.cookId}'),
         );
       },
     );

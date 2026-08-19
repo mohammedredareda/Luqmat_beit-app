@@ -55,4 +55,17 @@ class OrdersRepositoryImpl implements OrdersRepository {
           longitude: longitude,
         ));
   }
+
+  @override
+  Future<Result<String>> confirmReturnedMealsOrder({
+    required List<CartReturnedMealItemEntity> returnedMealItems,
+    double? latitude,
+    double? longitude,
+  }) {
+    return guard(() => _dataSource.confirmReturnedMealsOrder(
+          returnedMealItems: returnedMealItems,
+          latitude: latitude,
+          longitude: longitude,
+        ));
+  }
 }

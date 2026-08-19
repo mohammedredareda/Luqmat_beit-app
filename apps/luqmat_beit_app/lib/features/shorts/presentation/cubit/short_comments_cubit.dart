@@ -10,7 +10,8 @@ import 'short_comments_state.dart';
 /// fetch-and-post flow, so a Cubit rather than a Bloc.
 class ShortCommentsCubit extends Cubit<ShortCommentsState>
     with PaginationStateMixin<ShortCommentEntity> {
-  ShortCommentsCubit(this._shortId, this._getShortComments, this._addShortComment)
+  ShortCommentsCubit(
+      this._shortId, this._getShortComments, this._addShortComment)
       : super(const ShortCommentsState.initial());
 
   final String _shortId;

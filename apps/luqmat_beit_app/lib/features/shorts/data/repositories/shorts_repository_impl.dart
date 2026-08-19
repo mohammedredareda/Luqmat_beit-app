@@ -6,7 +6,8 @@ import '../../domain/repositories/shorts_repository.dart';
 import '../datasources/shorts_data_source.dart';
 
 class ShortsRepositoryImpl implements ShortsRepository {
-  ShortsRepositoryImpl({required ShortsDataSource dataSource}) : _dataSource = dataSource;
+  ShortsRepositoryImpl({required ShortsDataSource dataSource})
+      : _dataSource = dataSource;
 
   final ShortsDataSource _dataSource;
 

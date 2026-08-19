@@ -18,7 +18,8 @@ class PlaceholderPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text(title)),
       body: Center(
-        child: Text(l10n.comingSoon, style: Theme.of(context).textTheme.headlineSmall),
+        child: Text(l10n.comingSoon,
+            style: Theme.of(context).textTheme.headlineSmall),
       ),
     );
   }

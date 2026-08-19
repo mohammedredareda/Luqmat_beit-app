@@ -2,8 +2,10 @@ import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:luqmat_beit_app/l10n/generated/app_localizations.dart';
 
 import '../../../../di/injection.dart';
+import '../../../../shared/presentation/widgets/order_items_dialog.dart';
 import '../../../../shared/widgets/customer_bottom_nav.dart';
 import '../../domain/usecases/get_in_progress_orders.dart';
 import '../cubit/my_orders_cubit.dart';
@@ -44,7 +46,9 @@ class _MyOrdersView extends StatelessWidget {
         child: BlocBuilder<MyOrdersCubit, MyOrdersState>(
           builder: (context, state) {
             return switch (state) {
-              MyOrdersInitial() || MyOrdersLoading() => const _MyOrdersLoadingSkeleton(),
+              MyOrdersInitial() ||
+              MyOrdersLoading() =>
+                const _MyOrdersLoadingSkeleton(),
               MyOrdersFailure(:final exception) => EmptyState(
                   icon: Icons.wifi_off,
                   title: 'تعذر تحميل الطلبات',
@@ -64,7 +68,8 @@ class _MyOrdersView extends StatelessWidget {
           },
         ),
       ),
-      bottomNavigationBar: const CustomerBottomNav(currentTab: CustomerNavTab.orders),
+      bottomNavigationBar:
+          const CustomerBottomNav(currentTab: CustomerNavTab.orders),
       backgroundColor: scheme.surface,
     );
   }
@@ -86,6 +91,8 @@ class _MyOrdersList extends StatelessWidget {
   }
 }
 
+/// Tapping opens [showOrderItemsDialog] with this order's items/quantities
+/// and cook name — there's no dedicated order-details screen to push to.
 class _OrderCard extends StatelessWidget {
   const _OrderCard({required this.order});
 
@@ -95,17 +102,14 @@ class _OrderCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
-    final (firstItemName, firstItemImageUrl) = order.mealItems.isNotEmpty
-        ? (order.mealItems.first.mealName, order.mealItems.first.mealImageUrl)
-        : order.offerItems.isNotEmpty
-            ? (order.offerItems.first.offerName, '')
-            : (order.returnedMealItems.first.mealName, order.returnedMealItems.first.mealImageUrl);
+    final currencySuffix = AppLocalizations.of(context)!.currencySuffix;
     final isRejected = order.status == OrderStatus.rejected;
 
-    return GestureDetector(
-      onTap: () => context.push('/invoice/${order.id}'),
-      child: Opacity(
-        opacity: isRejected ? 0.75 : 1,
+    return Opacity(
+      opacity: isRejected ? 0.75 : 1,
+      child: InkWell(
+        onTap: () => showOrderItemsDialog(context, order: order),
+        borderRadius: BorderRadius.circular(AppRadius.card),
         child: Container(
           padding: const EdgeInsetsDirectional.all(AppSpace.m),
           decoration: BoxDecoration(
@@ -113,58 +117,56 @@ class _OrderCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(AppRadius.card),
             border: Border.all(color: scheme.surfaceContainerHighest),
           ),
-          child: Row(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(AppRadius.image),
-                child: SizedBox(
-                  width: 96,
-                  child: AspectRatio(
-                    aspectRatio: 4 / 3,
-                    child: Image.network(firstItemImageUrl, fit: BoxFit.cover),
-                  ),
-                ),
-              ),
-              const SizedBox(width: AppSpace.m),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      firstItemName,
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      'طلب #${order.id}',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: textTheme.titleLarge,
+                      style: textTheme.titleMedium,
                     ),
-                    const SizedBox(height: AppSpace.xs),
-                    Row(
-                      children: [
-                        Icon(Icons.person, size: 16, color: scheme.onSurfaceVariant),
-                        const SizedBox(width: AppSpace.xs),
-                        Text(
-                          order.cookName,
-                          style: textTheme.bodySmall
-                              ?.copyWith(color: scheme.onSurfaceVariant),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: AppSpace.xs),
-                    Row(
-                      children: [
-                        Icon(Icons.calendar_today, size: 16, color: scheme.onSurfaceVariant),
-                        const SizedBox(width: AppSpace.xs),
-                        Text(
-                          _formatDate(order.createdAt),
-                          style: textTheme.bodySmall
-                              ?.copyWith(color: scheme.onSurfaceVariant),
-                        ),
-                      ],
-                    ),
-                  ],
+                  ),
+                  const SizedBox(width: AppSpace.s),
+                  OrderStatusBadge(status: order.status),
+                ],
+              ),
+              const SizedBox(height: AppSpace.s),
+              Row(
+                children: [
+                  Icon(Icons.person, size: 16, color: scheme.onSurfaceVariant),
+                  const SizedBox(width: AppSpace.xs),
+                  Text(
+                    order.cookName,
+                    style: textTheme.bodySmall
+                        ?.copyWith(color: scheme.onSurfaceVariant),
+                  ),
+                ],
+              ),
+              const SizedBox(height: AppSpace.xs),
+              Row(
+                children: [
+                  Icon(Icons.calendar_today,
+                      size: 16, color: scheme.onSurfaceVariant),
+                  const SizedBox(width: AppSpace.xs),
+                  Text(
+                    _formatDate(order.createdAt),
+                    style: textTheme.bodySmall
+                        ?.copyWith(color: scheme.onSurfaceVariant),
+                  ),
+                ],
+              ),
+              const SizedBox(height: AppSpace.s),
+              Text(
+                '${order.grandTotal.toStringAsFixed(0)} $currencySuffix',
+                style: textTheme.titleMedium?.copyWith(
+                  color: scheme.primary,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(width: AppSpace.s),
-              OrderStatusBadge(status: order.status),
             ],
           ),
         ),
@@ -189,7 +191,8 @@ class _MyOrdersLoadingSkeleton extends StatelessWidget {
       padding: const EdgeInsetsDirectional.all(AppSpace.l),
       itemCount: 3,
       separatorBuilder: (context, index) => const SizedBox(height: AppSpace.m),
-      itemBuilder: (context, index) => const LoadingSkeleton(height: 96, borderRadius: 16),
+      itemBuilder: (context, index) =>
+          const LoadingSkeleton(height: 96, borderRadius: 16),
     );
   }
 }

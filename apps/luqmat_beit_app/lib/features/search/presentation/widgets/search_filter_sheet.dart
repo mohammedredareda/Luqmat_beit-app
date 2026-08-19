@@ -1,7 +1,6 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../shared/mock/sample_catalog.dart';
 import '../../domain/entities/search_sort_option.dart';
 
 /// Bottom sheet opened by the "tune" icon and by the "السعر"/"الصنف" chips.
@@ -14,23 +13,32 @@ class SearchFilterSheet extends StatefulWidget {
     super.key,
     required this.sortOption,
     required this.categoryId,
+    required this.categories,
   });
 
   final SearchSortOption sortOption;
   final String? categoryId;
+  final List<FoodCategoryEntity> categories;
 
   static Future<({SearchSortOption sortOption, String? categoryId})?> show(
     BuildContext context, {
     required SearchSortOption sortOption,
     required String? categoryId,
+    required List<FoodCategoryEntity> categories,
   }) {
-    return showModalBottomSheet<({SearchSortOption sortOption, String? categoryId})>(
+    return showModalBottomSheet<
+        ({SearchSortOption sortOption, String? categoryId})>(
       context: context,
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadiusDirectional.vertical(top: Radius.circular(AppRadius.sheet)),
+        borderRadius: BorderRadiusDirectional.vertical(
+            top: Radius.circular(AppRadius.sheet)),
       ),
-      builder: (_) => SearchFilterSheet(sortOption: sortOption, categoryId: categoryId),
+      builder: (_) => SearchFilterSheet(
+        sortOption: sortOption,
+        categoryId: categoryId,
+        categories: categories,
+      ),
     );
   }
 
@@ -68,8 +76,11 @@ class _SearchFilterSheetState extends State<SearchFilterSheet> {
               children: [
                 _sortTile(SearchSortOption.nearest, 'الأقرب'),
                 _sortTile(SearchSortOption.topRated, 'الأعلى تقييماً'),
-                _sortTile(SearchSortOption.priceLowToHigh, 'السعر: الأقل أولاً'),
-                _sortTile(SearchSortOption.priceHighToLow, 'السعر: الأعلى أولاً'),
+                _sortTile(SearchSortOption.mostPopular, 'الأكثر طلباً'),
+                _sortTile(
+                    SearchSortOption.priceLowToHigh, 'السعر: الأقل أولاً'),
+                _sortTile(
+                    SearchSortOption.priceHighToLow, 'السعر: الأعلى أولاً'),
               ],
             ),
             const SizedBox(height: AppSpace.xl),
@@ -80,8 +91,8 @@ class _SearchFilterSheetState extends State<SearchFilterSheet> {
               runSpacing: AppSpace.s,
               children: [
                 _categoryTile(null, 'الكل'),
-                for (final category in SampleCatalog.categories)
-                  _categoryTile(category.id, category.label),
+                for (final category in widget.categories)
+                  _categoryTile(category.id, category.name),
               ],
             ),
             const SizedBox(height: AppSpace.xl),
@@ -91,7 +102,8 @@ class _SearchFilterSheetState extends State<SearchFilterSheet> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: scheme.primary,
                   foregroundColor: scheme.onPrimary,
-                  padding: const EdgeInsetsDirectional.symmetric(vertical: AppSpace.m),
+                  padding: const EdgeInsetsDirectional.symmetric(
+                      vertical: AppSpace.m),
                 ),
                 onPressed: () => Navigator.of(context).pop((
                   sortOption: _sortOption,

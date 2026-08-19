@@ -5,8 +5,8 @@ import 'chef_data_source.dart';
 
 /// Real implementation, backed by `GET /user/customer/cook/:id` and
 /// `POST`/`DELETE /user/customer/follow`. The cook-info response has no
-/// `bio`/`isFollowing`/`ratingCount` fields — left at empty/`false`/`0`
-/// until the backend adds them.
+/// `bio`/`ratingCount` fields — left at empty/`0` until the backend adds
+/// them; `is_followed` is real.
 class ChefRemoteDataSource implements ChefDataSource {
   ChefRemoteDataSource(this._apiClient);
 
@@ -25,8 +25,9 @@ class ChefRemoteDataSource implements ChefDataSource {
       rating: (json['rate'] as num?)?.toDouble() ?? 0,
       ratingCount: 0,
       distanceKm: (json['distance'] as num?)?.toDouble() ?? 0,
-      isFollowing: false,
-      meals: menuJson.map((m) => _mealFromJson(m as Map, chefId, json)).toList(),
+      isFollowing: json['is_followed'] as bool? ?? false,
+      meals:
+          menuJson.map((m) => _mealFromJson(m as Map, chefId, json)).toList(),
     );
   }
 

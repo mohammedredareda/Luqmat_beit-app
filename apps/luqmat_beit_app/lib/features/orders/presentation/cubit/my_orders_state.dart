@@ -9,8 +9,6 @@ part 'my_orders_state.freezed.dart';
 sealed class MyOrdersState with _$MyOrdersState {
   const factory MyOrdersState.initial() = MyOrdersInitial;
   const factory MyOrdersState.loading() = MyOrdersLoading;
-  const factory MyOrdersState.loaded(List<OrderEntity> orders) =
-      MyOrdersLoaded;
-  const factory MyOrdersState.failure(AppException exception) =
-      MyOrdersFailure;
+  const factory MyOrdersState.loaded(List<OrderEntity> orders) = MyOrdersLoaded;
+  const factory MyOrdersState.failure(AppException exception) = MyOrdersFailure;
 }

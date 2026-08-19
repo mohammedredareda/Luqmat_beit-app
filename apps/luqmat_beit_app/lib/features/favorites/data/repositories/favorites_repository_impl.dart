@@ -1,6 +1,5 @@
 import 'package:core/core.dart';
 
-import '../../../home/domain/entities/home_feed_entity.dart';
 import '../../domain/repositories/favorites_repository.dart';
 import '../datasources/favorites_remote_data_source.dart';
 

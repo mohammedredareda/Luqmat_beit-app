@@ -17,5 +17,6 @@ sealed class ChefProfileState with _$ChefProfileState {
     @Default('') String searchQuery,
     String? selectedTag,
   }) = ChefProfileLoaded;
-  const factory ChefProfileState.failure(AppException exception) = ChefProfileFailure;
+  const factory ChefProfileState.failure(AppException exception) =
+      ChefProfileFailure;
 }

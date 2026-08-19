@@ -14,6 +14,14 @@ abstract class MealDetailsRepository {
     String? note,
   });
 
+  /// Backed by `POST /user/customer/cart/returned-meals` — a returned/
+  /// salvage meal is identified purely by `returnedMealId` server-side, no
+  /// selling-option resolution needed (unlike [addToCart]).
+  Future<Result<void>> addReturnedMealToCart({
+    required String returnedMealId,
+    required int count,
+  });
+
   /// Backed by `POST`/`DELETE /user/customer/favorite`.
   Future<Result<void>> setFavorite(String mealId, bool isFavorite);
 

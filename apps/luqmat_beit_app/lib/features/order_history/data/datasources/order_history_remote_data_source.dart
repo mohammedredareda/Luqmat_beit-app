@@ -2,13 +2,11 @@ import 'package:core/core.dart';
 
 import 'order_history_data_source.dart';
 
-/// Real implementation, backed by `GET /user/customer/order/history`. The
-/// live response was empty (`{"orders":[],"page":1,...}`) when confirmed,
-/// so items are parsed with the same `order_items: {meals, offers,
-/// returned_meals}` nesting confirmed for `my-orders`
-/// (`orders_remote_data_source.dart`) rather than an actual populated
-/// example — that file's doc comment covers the same caveats (no
-/// `cook_id`/`delivery_address`/etc. on the order itself).
+/// Real implementation, backed by `GET /user/customer/order/history`. Nests
+/// items under `order_items: {meals, offers, returned_meals}` and the cook
+/// under `cook: {cook_id, name}` — same shape as `my-orders`
+/// (`orders_remote_data_source.dart`), confirmed against a populated live
+/// response.
 class OrderHistoryRemoteDataSource implements OrderHistoryDataSource {
   OrderHistoryRemoteDataSource(this._apiClient);
 
@@ -21,16 +19,29 @@ class OrderHistoryRemoteDataSource implements OrderHistoryDataSource {
     return ordersJson.map((o) => _orderFromJson(o as Map)).toList();
   }
 
+  /// "Re-add to cart (re order)" in the Postman collection —
+  /// `POST /user/customer/order/history/re-add`, body `{ "order_id": "1" }`.
+  /// A single call re-adds every line item of the order server-side; no
+  /// per-item cart calls needed on this side.
+  @override
+  Future<void> reorder(String orderId) async {
+    await _apiClient.post(
+      '/user/customer/order/history/re-add',
+      data: {'order_id': orderId},
+    );
+  }
+
   OrderEntity _orderFromJson(Map json) {
     final items = json['order_items'] as Map? ?? const {};
     final mealsJson = items['meals'] as List? ?? const [];
     final offersJson = items['offers'] as List? ?? const [];
     final returnedJson = items['returned_meals'] as List? ?? const [];
+    final cook = json['cook'] as Map? ?? const {};
 
     return OrderEntity(
       id: json['order_id'].toString(),
-      cookId: json['cook_id']?.toString() ?? '',
-      cookName: json['cook_name'] as String? ?? '',
+      cookId: cook['cook_id']?.toString() ?? '',
+      cookName: cook['name'] as String? ?? '',
       customerId: '',
       createdAt: DateTime.tryParse(json['created_at']?.toString() ?? '') ?? DateTime.now(),
       status: OrderStatus.values.firstWhere(

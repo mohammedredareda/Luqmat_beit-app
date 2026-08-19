@@ -1,6 +1,5 @@
 import 'package:core/core.dart';
 
-import '../../../home/domain/entities/home_feed_entity.dart';
 
 /// Real implementation, backed by `GET /user/customer/favorites` and
 /// `GET /user/customer/follows` (added after `POST`/`DELETE` had been the

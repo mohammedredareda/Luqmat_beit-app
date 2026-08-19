@@ -1,5 +1,6 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:luqmat_beit_app/l10n/generated/app_localizations.dart';
 
 /// Wraps the shared [MealCard] with a favorite (heart) toggle overlay, as
 /// shown on the favorited-meals tab of the mockup — [MealCard] itself has
@@ -23,7 +24,12 @@ class FavoriteMealCard extends StatelessWidget {
 
     return Stack(
       children: [
-        MealCard(meal: meal, isActive: true, onTap: onTap),
+        MealCard(
+          meal: meal,
+          isActive: true,
+          currencySuffix: AppLocalizations.of(context)!.currencySuffix,
+          onTap: onTap,
+        ),
         PositionedDirectional(
           top: AppSpace.s,
           end: AppSpace.s,

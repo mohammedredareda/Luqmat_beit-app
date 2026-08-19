@@ -38,7 +38,8 @@ class _SearchQueryBarState extends State<SearchQueryBar> {
       children: [
         Material(
           color: scheme.surface,
-          shape: CircleBorder(side: BorderSide(color: scheme.outline, width: 1.5)),
+          shape:
+              CircleBorder(side: BorderSide(color: scheme.outline, width: 1.5)),
           child: InkWell(
             customBorder: const CircleBorder(),
             onTap: widget.onTuneTap,
@@ -72,7 +73,8 @@ class _SearchQueryBarState extends State<SearchQueryBar> {
                   );
                 },
               ),
-              contentPadding: const EdgeInsetsDirectional.symmetric(horizontal: AppSpace.l),
+              contentPadding:
+                  const EdgeInsetsDirectional.symmetric(horizontal: AppSpace.l),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(AppRadius.pill),
                 borderSide: BorderSide(color: scheme.outline, width: 1.5),

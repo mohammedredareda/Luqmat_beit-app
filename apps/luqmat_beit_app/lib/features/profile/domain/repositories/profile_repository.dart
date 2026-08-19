@@ -8,5 +8,7 @@ abstract class ProfileRepository {
   Future<Result<CustomerProfileEntity>> updateProfile({
     required String name,
     required String address,
+    double? latitude,
+    double? longitude,
   });
 }

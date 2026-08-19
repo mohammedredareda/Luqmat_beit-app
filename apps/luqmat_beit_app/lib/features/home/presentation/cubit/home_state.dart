@@ -11,7 +11,6 @@ part 'home_state.freezed.dart';
 sealed class HomeState with _$HomeState {
   const factory HomeState.initial() = HomeInitial;
   const factory HomeState.loading() = HomeLoading;
-  const factory HomeState.loaded(HomeFeedEntity feed, {String? selectedCategoryId}) =
-      HomeLoaded;
+  const factory HomeState.loaded(HomeFeedEntity feed) = HomeLoaded;
   const factory HomeState.failure(AppException exception) = HomeFailure;
 }

@@ -10,10 +10,14 @@ class ShortCaptionBar extends StatelessWidget {
     super.key,
     required this.short,
     required this.onOrderMeal,
+    required this.onFollow,
+    required this.onTapCook,
   });
 
   final ShortEntity short;
   final VoidCallback onOrderMeal;
+  final VoidCallback onFollow;
+  final VoidCallback onTapCook;
 
   @override
   Widget build(BuildContext context) {
@@ -24,53 +28,68 @@ class ShortCaptionBar extends StatelessWidget {
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Container(
-              width: 48,
-              height: 48,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                // "sumac-red" #A83226 is AppColors.sumac (the project's
-                // canonical primary, per app_theme.dart).
-                border: Border.all(color: AppColors.sumac, width: 2),
+            GestureDetector(
+              onTap: onTapCook,
+              child: Container(
+                width: 48,
+                height: 48,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  // "sumac-red" #A83226 is AppColors.sumac (the project's
+                  // canonical primary, per app_theme.dart).
+                  border: Border.all(color: AppColors.sumac, width: 2),
+                ),
+                clipBehavior: Clip.antiAlias,
+                child: short.cookAvatarUrl.isEmpty
+                    ? Container(color: Colors.white24)
+                    : Image.network(short.cookAvatarUrl, fit: BoxFit.cover),
               ),
-              clipBehavior: Clip.antiAlias,
-              child: short.cookAvatarUrl.isEmpty
-                  ? Container(color: Colors.white24)
-                  : Image.network(short.cookAvatarUrl, fit: BoxFit.cover),
             ),
             const SizedBox(width: AppSpace.m),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      short.cookName,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 17,
-                        fontWeight: FontWeight.bold,
+                GestureDetector(
+                  onTap: onTapCook,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        short.cookName,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 17,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                    const SizedBox(width: AppSpace.xs),
-                    const Icon(Icons.verified, color: Color(0xFF5A7233), size: 18),
-                  ],
+                      const SizedBox(width: AppSpace.xs),
+                      const Icon(Icons.verified,
+                          color: Color(0xFF5A7233), size: 18),
+                    ],
+                  ),
                 ),
                 const SizedBox(height: AppSpace.xs),
-                Container(
-                  padding: const EdgeInsetsDirectional.symmetric(
-                    horizontal: AppSpace.l,
-                    vertical: 4,
-                  ),
-                  decoration: BoxDecoration(
-                    color: AppColors.sumac,
-                    borderRadius: BorderRadius.circular(999),
-                  ),
-                  child: const Text(
-                    'متابعة',
-                    style: TextStyle(color: Colors.white, fontSize: 12),
+                GestureDetector(
+                  onTap: onFollow,
+                  child: Container(
+                    padding: const EdgeInsetsDirectional.symmetric(
+                      horizontal: AppSpace.l,
+                      vertical: 4,
+                    ),
+                    decoration: BoxDecoration(
+                      color: short.isFollowing
+                          ? Colors.transparent
+                          : AppColors.sumac,
+                      border: short.isFollowing
+                          ? Border.all(color: Colors.white)
+                          : null,
+                      borderRadius: BorderRadius.circular(999),
+                    ),
+                    child: Text(
+                      short.isFollowing ? 'متابَع' : 'متابعة',
+                      style: const TextStyle(color: Colors.white, fontSize: 12),
+                    ),
                   ),
                 ),
               ],

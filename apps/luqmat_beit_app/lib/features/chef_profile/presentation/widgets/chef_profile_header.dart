@@ -64,13 +64,15 @@ class ChefProfileHeader extends StatelessWidget {
                 Text(
                   profile.name,
                   textAlign: TextAlign.center,
-                  style: textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
+                  style: textTheme.headlineSmall
+                      ?.copyWith(fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: AppSpace.xs),
                 Text(
                   profile.bio,
                   textAlign: TextAlign.center,
-                  style: textTheme.bodyMedium?.copyWith(color: scheme.onSurfaceVariant),
+                  style: textTheme.bodyMedium
+                      ?.copyWith(color: scheme.onSurfaceVariant),
                 ),
                 const SizedBox(height: AppSpace.l),
                 Wrap(
@@ -168,7 +170,8 @@ class _StatChip extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(label, style: TextStyle(color: foreground, fontWeight: FontWeight.bold)),
+          Text(label,
+              style: TextStyle(color: foreground, fontWeight: FontWeight.bold)),
           const SizedBox(width: AppSpace.xs),
           Icon(icon, size: 18, color: iconColor),
         ],

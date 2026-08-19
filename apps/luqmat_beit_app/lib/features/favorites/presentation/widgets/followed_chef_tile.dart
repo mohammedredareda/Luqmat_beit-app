@@ -1,7 +1,6 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 
-import '../../../home/domain/entities/home_feed_entity.dart';
 import '../../../home/presentation/widgets/chef_list_tile.dart';
 
 /// Wraps the shared [ChefListTile] with an "متابعة"/unfollow toggle button,

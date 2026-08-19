@@ -16,15 +16,15 @@ class CartMealItemEntity extends Equatable {
 
   /// Pre-discount unit price and the discount percentage applied to reach
   /// [unitPrice] (which is the backend's `final_price`, already
-  /// discounted). `/order/confirm` validates the order by recomputing
-  /// `originalPrice * (1 - discountPercentage / 100)` server-side and
-  /// comparing it against the resubmitted `final_price` — sending
-  /// [unitPrice] back as both `price` and `final_price` with a 0% discount
-  /// fails that check (rejected as "prices have changed") whenever the meal
-  /// actually has a discount, so both have to be carried through from the
-  /// cart response rather than reconstructed.
+  /// discounted). `/order/confirm` validates the order by comparing the
+  /// resubmitted `discount_percentage` against its own stored value —
+  /// which is JSON `null` for an undiscounted meal, not `0`. Coalescing
+  /// that to `0` here (as this used to) resends a different value than
+  /// what the backend has on file and gets rejected as "prices have
+  /// changed" even though nothing actually changed, so this stays `null`
+  /// when the cart response says `null`.
   final double originalPrice;
-  final double discountPercentage;
+  final double? discountPercentage;
 
   /// Every selling option the meal offers (not just the one currently
   /// chosen) — lets the cart screen offer the same "صغير/وسط/كبير"-style
@@ -43,7 +43,7 @@ class CartMealItemEntity extends Equatable {
     this.sellingOptionLabel,
     this.note,
     double? originalPrice,
-    this.discountPercentage = 0,
+    this.discountPercentage,
     this.availableSellingOptions = const [],
   }) : originalPrice = originalPrice ?? unitPrice;
 

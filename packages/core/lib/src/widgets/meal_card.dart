@@ -12,11 +12,13 @@ class MealCard extends StatelessWidget {
     super.key,
     required this.meal,
     required this.isActive,
+    required this.currencySuffix,
     required this.onTap,
   });
 
   final MealEntity meal;
   final bool isActive;
+  final String currencySuffix;
   final VoidCallback onTap;
 
   @override
@@ -94,7 +96,7 @@ class MealCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          '${meal.startingPrice.toStringAsFixed(0)} ₪',
+                          '${meal.startingPrice.toStringAsFixed(0)} $currencySuffix',
                           style: Theme.of(context)
                               .textTheme
                               .titleSmall

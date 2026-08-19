@@ -8,5 +8,6 @@ abstract class ChefRepository {
   /// [wasFollowing] is the state *before* the toggle, so a real datasource
   /// knows whether to call the follow or unfollow endpoint (the backend
   /// exposes them separately, not as one toggle).
-  Future<Result<void>> toggleFollow(String chefId, {required bool wasFollowing});
+  Future<Result<void>> toggleFollow(String chefId,
+      {required bool wasFollowing});
 }

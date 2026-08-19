@@ -14,4 +14,9 @@ class OrderHistoryRepositoryImpl implements OrderHistoryRepository {
   Future<Result<List<OrderEntity>>> getOrderHistory() {
     return guard(() => _dataSource.getOrderHistory());
   }
+
+  @override
+  Future<Result<void>> reorder(String orderId) {
+    return guard(() => _dataSource.reorder(orderId));
+  }
 }

@@ -11,7 +11,14 @@ class UpdateProfile {
   Future<Result<CustomerProfileEntity>> call({
     required String name,
     required String address,
+    double? latitude,
+    double? longitude,
   }) {
-    return _repository.updateProfile(name: name, address: address);
+    return _repository.updateProfile(
+      name: name,
+      address: address,
+      latitude: latitude,
+      longitude: longitude,
+    );
   }
 }

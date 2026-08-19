@@ -70,7 +70,8 @@ class _ShortCommentsSheetState extends State<_ShortCommentsSheet> {
         return Container(
           decoration: BoxDecoration(
             color: scheme.surface,
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(AppRadius.sheet)),
+            borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(AppRadius.sheet)),
           ),
           child: Column(
             children: [
@@ -79,18 +80,21 @@ class _ShortCommentsSheetState extends State<_ShortCommentsSheet> {
                 child: SizedBox(
                   width: 40,
                   height: 4,
-                  child: DecoratedBox(decoration: BoxDecoration(color: Colors.black12)),
+                  child: DecoratedBox(
+                      decoration: BoxDecoration(color: Colors.black12)),
                 ),
               ),
               Padding(
                 padding: const EdgeInsetsDirectional.all(AppSpace.m),
-                child: Text('التعليقات', style: Theme.of(context).textTheme.titleMedium),
+                child: Text('التعليقات',
+                    style: Theme.of(context).textTheme.titleMedium),
               ),
               Expanded(
                 child: BlocBuilder<ShortCommentsCubit, ShortCommentsState>(
                   builder: (context, state) {
                     return switch (state) {
-                      ShortCommentsInitial() || ShortCommentsLoading() =>
+                      ShortCommentsInitial() ||
+                      ShortCommentsLoading() =>
                         const Center(child: CircularProgressIndicator()),
                       ShortCommentsFailure(:final exception) => Center(
                           child: Text(exception.message),
@@ -100,7 +104,8 @@ class _ShortCommentsSheetState extends State<_ShortCommentsSheet> {
                           : NotificationListener<ScrollNotification>(
                               onNotification: (notification) {
                                 if (notification.metrics.pixels >=
-                                    notification.metrics.maxScrollExtent - 200) {
+                                    notification.metrics.maxScrollExtent -
+                                        200) {
                                   context.read<ShortCommentsCubit>().loadMore();
                                 }
                                 return false;
@@ -114,25 +119,33 @@ class _ShortCommentsSheetState extends State<_ShortCommentsSheet> {
                                 itemBuilder: (context, index) {
                                   final comment = comments[index];
                                   return Padding(
-                                    padding: const EdgeInsetsDirectional.symmetric(
+                                    padding:
+                                        const EdgeInsetsDirectional.symmetric(
                                       vertical: AppSpace.s,
                                     ),
                                     child: Row(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         CircleAvatar(
                                           radius: 16,
-                                          backgroundImage: comment.customerAvatarUrl != null
-                                              ? NetworkImage(comment.customerAvatarUrl!)
+                                          backgroundImage: comment
+                                                      .customerAvatarUrl !=
+                                                  null
+                                              ? NetworkImage(
+                                                  comment.customerAvatarUrl!)
                                               : null,
-                                          child: comment.customerAvatarUrl == null
-                                              ? const Icon(Icons.person, size: 16)
-                                              : null,
+                                          child:
+                                              comment.customerAvatarUrl == null
+                                                  ? const Icon(Icons.person,
+                                                      size: 16)
+                                                  : null,
                                         ),
                                         const SizedBox(width: AppSpace.s),
                                         Expanded(
                                           child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
                                               Text(
                                                 comment.customerName,
@@ -157,13 +170,18 @@ class _ShortCommentsSheetState extends State<_ShortCommentsSheet> {
               SafeArea(
                 top: false,
                 child: Padding(
-                  padding: const EdgeInsetsDirectional.all(AppSpace.m),
+                  padding: EdgeInsetsDirectional.all(AppSpace.m).add(
+                    EdgeInsetsDirectional.only(
+                      bottom: MediaQuery.viewInsetsOf(context).bottom,
+                    ),
+                  ),
                   child: Row(
                     children: [
                       Expanded(
                         child: TextField(
                           controller: _controller,
-                          decoration: const InputDecoration(hintText: 'أضف تعليقاً...'),
+                          decoration:
+                              const InputDecoration(hintText: 'أضف تعليقاً...'),
                           onSubmitted: (_) => _submit(context),
                         ),
                       ),

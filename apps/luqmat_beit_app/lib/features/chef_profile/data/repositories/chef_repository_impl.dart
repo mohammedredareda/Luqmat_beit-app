@@ -17,7 +17,9 @@ class ChefRepositoryImpl implements ChefRepository {
   }
 
   @override
-  Future<Result<void>> toggleFollow(String chefId, {required bool wasFollowing}) {
-    return guard(() => _dataSource.toggleFollow(chefId, wasFollowing: wasFollowing));
+  Future<Result<void>> toggleFollow(String chefId,
+      {required bool wasFollowing}) {
+    return guard(
+        () => _dataSource.toggleFollow(chefId, wasFollowing: wasFollowing));
   }
 }

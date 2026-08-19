@@ -13,9 +13,22 @@ import '../widgets/settings_list_tile.dart';
 /// mockup. Holds the current phone number locally so its subtitle can
 /// refresh after a successful Change Phone Number flow without a refetch.
 class SettingsPage extends StatefulWidget {
-  const SettingsPage({super.key, this.initialPhoneNumber});
+  const SettingsPage({
+    super.key,
+    this.initialPhoneNumber,
+    this.changePasswordRoute = '/cook/account/settings/change-password',
+    this.changePhoneRoute = '/cook/account/settings/change-phone',
+  });
 
   final String? initialPhoneNumber;
+
+  /// Role-specific push targets — defaults to the cook routes so the cook
+  /// call site needs no change; the customer call site passes its own
+  /// `/settings/...` paths. `ChangePasswordPage`/`ChangePhoneNumberPage`
+  /// themselves are role-agnostic (see their datasources' doc comments),
+  /// only the route paths differ per role.
+  final String changePasswordRoute;
+  final String changePhoneRoute;
 
   @override
   State<SettingsPage> createState() => _SettingsPageState();
@@ -25,7 +38,7 @@ class _SettingsPageState extends State<SettingsPage> {
   late String? _phoneNumber = widget.initialPhoneNumber;
 
   Future<void> _openChangePhoneNumber(BuildContext context) async {
-    final result = await context.push<String>('/cook/account/settings/change-phone');
+    final result = await context.push<String>(widget.changePhoneRoute);
     if (result != null && mounted) {
       setState(() => _phoneNumber = result);
     }
@@ -103,7 +116,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 SettingsListTile(
                   icon: Icons.lock_outline,
                   title: l10n.changePasswordRowTitle,
-                  onTap: () => context.push('/cook/account/settings/change-password'),
+                  onTap: () => context.push(widget.changePasswordRoute),
                 ),
               ],
             ),

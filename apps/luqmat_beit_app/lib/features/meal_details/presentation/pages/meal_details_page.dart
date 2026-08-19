@@ -2,9 +2,11 @@ import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:luqmat_beit_app/l10n/generated/app_localizations.dart';
 
 import '../../../../di/injection.dart';
 import '../../domain/usecases/add_meal_to_cart.dart';
+import '../../domain/usecases/add_returned_meal_to_cart.dart';
 import '../../domain/usecases/get_meal_details.dart';
 import '../../domain/usecases/report_meal.dart';
 import '../../domain/usecases/toggle_meal_favorite.dart';
@@ -15,11 +17,17 @@ import '../widgets/quantity_stepper.dart';
 import '../widgets/selling_option_selector.dart';
 
 /// CU-09 (view meal details) / CU-10 (add to cart). Referenced by the
-/// router at `/meal/:mealId` — no bottom nav bar on this screen.
+/// router at `/meal/:mealId` — no bottom nav bar on this screen. When
+/// reached from Home's "Your Own" slider, [returnedMeal] carries the
+/// already-fetched salvage listing (no "get returned meal by id" endpoint
+/// exists) so this screen can show the salvage price and add it to the
+/// cart via the real `POST /user/customer/cart/returned-meals` endpoint
+/// instead of the normal meal add-to-cart flow.
 class MealDetailsPage extends StatelessWidget {
-  const MealDetailsPage({super.key, required this.mealId});
+  const MealDetailsPage({super.key, required this.mealId, this.returnedMeal});
 
   final String mealId;
+  final ReturnedMealEntity? returnedMeal;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +37,8 @@ class MealDetailsPage extends StatelessWidget {
         AddMealToCart(getIt()),
         ToggleMealFavorite(getIt()),
         ReportMeal(getIt()),
-      )..loadMeal(mealId),
+        AddReturnedMealToCart(getIt()),
+      )..loadMeal(mealId, returnedMeal: returnedMeal),
       child: const _MealDetailsView(),
     );
   }
@@ -77,6 +86,7 @@ class _MealDetailsView extends StatelessWidget {
                 :final quantity,
                 :final note,
                 :final isFavorite,
+                :final returnedMeal,
               ) ||
               MealDetailsAddedToCart(
                 :final meal,
@@ -84,6 +94,7 @@ class _MealDetailsView extends StatelessWidget {
                 :final quantity,
                 :final note,
                 :final isFavorite,
+                :final returnedMeal,
               ) =>
                 _MealDetailsContent(
                   meal: meal,
@@ -91,6 +102,7 @@ class _MealDetailsView extends StatelessWidget {
                   quantity: quantity,
                   note: note,
                   isFavorite: isFavorite,
+                  returnedMeal: returnedMeal,
                 ),
             };
           },
@@ -107,6 +119,7 @@ class _MealDetailsContent extends StatelessWidget {
     required this.quantity,
     required this.note,
     required this.isFavorite,
+    this.returnedMeal,
   });
 
   final MealEntity meal;
@@ -114,12 +127,14 @@ class _MealDetailsContent extends StatelessWidget {
   final int quantity;
   final String note;
   final bool isFavorite;
+  final ReturnedMealEntity? returnedMeal;
 
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
     final cubit = context.read<MealDetailsCubit>();
+    final l10n = AppLocalizations.of(context)!;
 
     final selectedOption = meal.sellingOptions.firstWhere(
       (o) => o.id == selectedSellingOptionId,
@@ -127,7 +142,8 @@ class _MealDetailsContent extends StatelessWidget {
           ? meal.sellingOptions.first
           : const SellingOptionEntity(id: '', label: '', price: 0),
     );
-    final totalPrice = selectedOption.price * quantity;
+    final unitPrice = returnedMeal?.salvagePrice ?? selectedOption.price;
+    final totalPrice = unitPrice * quantity;
 
     return Stack(
       children: [
@@ -316,8 +332,9 @@ class _MealDetailsContent extends StatelessWidget {
                   ).add(const EdgeInsetsDirectional.only(top: AppSpace.xl)),
                   child: Divider(color: scheme.outline.withValues(alpha: 0.5)),
                 ),
-                // Selling options
-                if (meal.sellingOptions.isNotEmpty)
+                // Selling options — not applicable to a returned/salvage
+                // meal, which is already tied to one specific batch/price.
+                if (returnedMeal == null && meal.sellingOptions.isNotEmpty)
                   Padding(
                     padding: const EdgeInsetsDirectional.symmetric(
                       horizontal: AppSpace.l,
@@ -350,6 +367,7 @@ class _MealDetailsContent extends StatelessWidget {
                         quantity: quantity,
                         onIncrement: cubit.incrementQuantity,
                         onDecrement: cubit.decrementQuantity,
+                        maxQuantity: returnedMeal?.quantity,
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -360,12 +378,20 @@ class _MealDetailsContent extends StatelessWidget {
                                 ?.copyWith(color: scheme.onSurfaceVariant),
                           ),
                           Text(
-                            '${totalPrice.toStringAsFixed(0)} ل.س',
+                            '${totalPrice.toStringAsFixed(0)} ${l10n.currencySuffix}',
                             style: textTheme.headlineMedium?.copyWith(
                               color: scheme.primary,
                               fontWeight: FontWeight.w800,
                             ),
                           ),
+                          if (returnedMeal != null)
+                            Text(
+                              '${(returnedMeal!.originalPrice * quantity).toStringAsFixed(0)} ${l10n.currencySuffix}',
+                              style: textTheme.bodySmall?.copyWith(
+                                color: scheme.onSurfaceVariant,
+                                decoration: TextDecoration.lineThrough,
+                              ),
+                            ),
                         ],
                       ),
                     ],
@@ -440,7 +466,7 @@ class _MealDetailsContent extends StatelessWidget {
               child: SizedBox(
                 width: double.infinity,
                 child: ElevatedButton.icon(
-                  onPressed: meal.sellingOptions.isEmpty
+                  onPressed: (returnedMeal == null && meal.sellingOptions.isEmpty)
                       ? null
                       : cubit.addToCart,
                   style: ElevatedButton.styleFrom(

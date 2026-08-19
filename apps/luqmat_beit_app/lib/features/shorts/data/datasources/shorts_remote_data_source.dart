@@ -15,8 +15,8 @@ class ShortsRemoteDataSource implements ShortsDataSource {
   @override
   Future<PaginatedResult<ShortEntity>> getFeed({String? cursor}) async {
     final page = cursor == null ? 1 : int.tryParse(cursor) ?? 1;
-    final response =
-        await _apiClient.get('/user/customer/content/feed', queryParameters: {'page': page});
+    final response = await _apiClient
+        .get('/user/customer/content/feed', queryParameters: {'page': page});
 
     final itemsJson = (response as Map)['items'] as List? ?? const [];
     final next = response['next'];
@@ -35,7 +35,8 @@ class ShortsRemoteDataSource implements ShortsDataSource {
 
   @override
   Future<bool> toggleReact(String shortId) async {
-    final response = await _apiClient.post('/user/customer/content/$shortId/react');
+    final response =
+        await _apiClient.post('/user/customer/content/$shortId/react');
     return (response as Map)['reacted'] as bool? ?? false;
   }
 
@@ -71,7 +72,8 @@ class ShortsRemoteDataSource implements ShortsDataSource {
       id: (data['id'] ?? DateTime.now().millisecondsSinceEpoch).toString(),
       text: data['text'] as String? ?? text,
       customerName: '',
-      createdAt: DateTime.tryParse(data['createdAt']?.toString() ?? '') ?? DateTime.now(),
+      createdAt: DateTime.tryParse(data['createdAt']?.toString() ?? '') ??
+          DateTime.now(),
     );
   }
 
@@ -91,6 +93,11 @@ class ShortsRemoteDataSource implements ShortsDataSource {
       commentCount: (json['comments_count'] as num?)?.toInt() ?? 0,
       viewCount: (json['views_count'] as num?)?.toInt() ?? 0,
       isLiked: json['is_reacted'] as bool? ?? false,
+      // Seen both top-level (sibling of `is_reacted`) and nested under
+      // `cook` in different backend builds — checked defensively so
+      // whichever shape is actually deployed is picked up.
+      isFollowing:
+          json['is_followed'] as bool? ?? cook['is_followed'] as bool? ?? false,
     );
   }
 
@@ -101,7 +108,8 @@ class ShortsRemoteDataSource implements ShortsDataSource {
       text: json['text'] as String? ?? '',
       customerName: customer['name'] as String? ?? '',
       customerAvatarUrl: customer['image'] as String?,
-      createdAt: DateTime.tryParse(json['created_at']?.toString() ?? '') ?? DateTime.now(),
+      createdAt: DateTime.tryParse(json['created_at']?.toString() ?? '') ??
+          DateTime.now(),
     );
   }
 }

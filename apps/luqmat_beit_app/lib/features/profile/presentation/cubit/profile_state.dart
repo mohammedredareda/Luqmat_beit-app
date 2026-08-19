@@ -9,10 +9,6 @@ part 'profile_state.freezed.dart';
 sealed class ProfileState with _$ProfileState {
   const factory ProfileState.initial() = ProfileInitial;
   const factory ProfileState.loading() = ProfileLoading;
-  const factory ProfileState.loaded(
-    CustomerProfileEntity profile, {
-    @Default(false) bool isEditing,
-    @Default(false) bool isSaving,
-  }) = ProfileLoaded;
+  const factory ProfileState.loaded(CustomerProfileEntity profile) = ProfileLoaded;
   const factory ProfileState.failure(AppException exception) = ProfileFailure;
 }

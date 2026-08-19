@@ -3,47 +3,70 @@ import 'package:core/core.dart';
 import '../../domain/entities/customer_profile_entity.dart';
 import 'profile_data_source.dart';
 
-/// Real implementation. There is no `GET` "my profile" endpoint in the
-/// backend at all — only `POST /auth/register` and `PUT /user/{id}` (edit
-/// profile) ever hand back a user object — so `getProfile` is assembled
-/// from [UserProfileCache] (whatever name/phone/address registration or a
-/// previous edit left behind) rather than fetched. `completedOrdersCount`/
-/// `favoritesCount`/`avatarUrl` have no backend source at all yet and stay
-/// at 0/null.
+/// Real implementation backed by `/users/profile` — `GET` (confirmed live)
+/// and `PATCH` (confirmed live). No `{id}` in either URL — the
+/// authenticated user is resolved from the Bearer token server-side, same
+/// endpoint the cook role uses (see `CookProfileRemoteDataSource`'s doc
+/// comment — `name`/`address` are confirmed to apply to both roles). This
+/// replaces the earlier `PUT /user/{id}` guess, which mirrored the cook
+/// side's own now-abandoned guess that 404'd ("Cannot PUT") — that route
+/// never existed.
+///
+/// `completedOrdersCount`/`favoritesCount` have no backend source at all
+/// yet and stay at 0 — same honest gap the cook role has for its own
+/// stats. `avatarUrl` comes from the response's `image` field with no
+/// upload endpoint to write it back (see `updateProfile`'s doc comment).
 class ProfileRemoteDataSource implements ProfileDataSource {
-  ProfileRemoteDataSource(this._apiClient, this._tokenStorage, this._profileCache);
+  ProfileRemoteDataSource(this._apiClient, this._profileCache);
 
   final ApiClient _apiClient;
-  final SecureTokenStorage _tokenStorage;
   final UserProfileCache _profileCache;
 
   @override
   Future<CustomerProfileEntity> getProfile() async {
-    final cached = _profileCache.read();
+    final response = await _apiClient.get('/users/profile') as Map;
+    final user = response['user'] as Map?;
+    if (user == null) throw const NotFoundException('Profile not found');
+
     return CustomerProfileEntity(
-      name: cached.name ?? '',
-      phone: cached.phone ?? '',
-      address: cached.address ?? '',
+      name: user['name'] as String? ?? '',
+      phone: user['phone'] as String? ?? '',
+      address: user['address'] as String? ?? '',
       completedOrdersCount: 0,
       favoritesCount: 0,
+      avatarUrl: user['image'] as String?,
+      latitude: double.tryParse(user['latitude']?.toString() ?? ''),
+      longitude: double.tryParse(user['longitude']?.toString() ?? ''),
     );
   }
 
+  /// Confirmed body: `name`, `address`, `latitude`, `longitude` — the same
+  /// role-agnostic fields `CookProfileRemoteDataSource.updateProfile` sends
+  /// (minus the cook-only ones). No response body documented, so this
+  /// re-fetches rather than fabricating one.
+  ///
+  /// TODO(backend): avatar upload has no confirmed endpoint on either
+  /// role — not sent here.
   @override
   Future<CustomerProfileEntity> updateProfile({
     required String name,
     required String address,
+    double? latitude,
+    double? longitude,
   }) async {
-    final token = await _tokenStorage.readAccessToken();
-    final claims = token != null ? decodeJwtPayload(token) : const {};
-    final id = (claims['sub'] ?? claims['id'] ?? '').toString();
-
-    await _apiClient.put('/user/$id', data: {
+    await _apiClient.patch('/users/profile', data: {
       'name': name,
-      'addresses': address,
+      'address': address,
+      if (latitude != null) 'latitude': latitude,
+      if (longitude != null) 'longitude': longitude,
     });
 
-    await _profileCache.save(name: name, address: address);
+    await _profileCache.save(
+      name: name,
+      address: address,
+      latitude: latitude,
+      longitude: longitude,
+    );
     return getProfile();
   }
 }

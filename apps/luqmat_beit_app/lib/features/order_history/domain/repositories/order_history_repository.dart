@@ -4,4 +4,7 @@ import 'package:core/core.dart';
 /// in-progress "My Orders" list built by another feature.
 abstract class OrderHistoryRepository {
   Future<Result<List<OrderEntity>>> getOrderHistory();
+
+  /// Re-adds every line item of a past order to the cart server-side.
+  Future<Result<void>> reorder(String orderId);
 }

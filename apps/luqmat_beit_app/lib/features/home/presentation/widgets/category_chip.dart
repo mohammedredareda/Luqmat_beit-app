@@ -28,11 +28,14 @@ class CategoryChip extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsetsDirectional.symmetric(horizontal: 20, vertical: 12),
+        padding:
+            const EdgeInsetsDirectional.symmetric(horizontal: 20, vertical: 12),
         decoration: BoxDecoration(
           color: isSelected ? scheme.primaryContainer : scheme.surface,
           borderRadius: BorderRadius.circular(999),
-          border: isSelected ? null : Border.all(color: scheme.outline.withValues(alpha: 0.3)),
+          border: isSelected
+              ? null
+              : Border.all(color: scheme.outline.withValues(alpha: 0.3)),
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
@@ -40,14 +43,18 @@ class CategoryChip extends StatelessWidget {
             Icon(
               _iconByName[category.iconName] ?? Icons.restaurant,
               size: 20,
-              color: isSelected ? scheme.onPrimaryContainer : scheme.onSurfaceVariant,
+              color: isSelected
+                  ? scheme.onPrimaryContainer
+                  : scheme.onSurfaceVariant,
             ),
             const SizedBox(width: 8),
             Text(
               category.label,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                color: isSelected ? scheme.onPrimaryContainer : scheme.onSurfaceVariant,
+                color: isSelected
+                    ? scheme.onPrimaryContainer
+                    : scheme.onSurfaceVariant,
               ),
             ),
           ],

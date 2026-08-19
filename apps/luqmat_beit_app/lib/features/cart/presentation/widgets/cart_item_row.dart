@@ -8,15 +8,19 @@ class CartItemRow extends StatelessWidget {
   const CartItemRow({
     super.key,
     required this.item,
+    required this.currencySuffix,
     required this.onQuantityChanged,
     required this.onSellingOptionChanged,
     required this.onNoteChanged,
+    required this.onRemove,
   });
 
   final CartMealItemEntity item;
+  final String currencySuffix;
   final ValueChanged<int> onQuantityChanged;
   final ValueChanged<String> onSellingOptionChanged;
   final ValueChanged<String> onNoteChanged;
+  final VoidCallback onRemove;
 
   Future<void> _editNote(BuildContext context) async {
     final controller = TextEditingController(text: item.note ?? '');
@@ -36,7 +40,8 @@ class CartItemRow extends StatelessWidget {
             child: const Text('إلغاء'),
           ),
           TextButton(
-            onPressed: () => Navigator.of(dialogContext).pop(controller.text.trim()),
+            onPressed: () =>
+                Navigator.of(dialogContext).pop(controller.text.trim()),
             child: const Text('حفظ'),
           ),
         ],
@@ -77,8 +82,9 @@ class CartItemRow extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          '${item.subtotal.toStringAsFixed(2)} AED',
-                          style: textTheme.titleMedium?.copyWith(color: scheme.primary),
+                          '${item.subtotal.toStringAsFixed(2)} $currencySuffix',
+                          style: textTheme.titleMedium
+                              ?.copyWith(color: scheme.primary),
                         ),
                         Expanded(
                           child: Text(
@@ -88,6 +94,12 @@ class CartItemRow extends StatelessWidget {
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
+                        ),
+                        IconButton(
+                          onPressed: onRemove,
+                          icon: Icon(Icons.delete_outline, color: scheme.error),
+                          tooltip: 'إزالة',
+                          visualDensity: VisualDensity.compact,
                         ),
                       ],
                     ),
@@ -149,8 +161,11 @@ class CartItemRow extends StatelessWidget {
                 onPressed: () => _editNote(context),
                 icon: Icon(Icons.edit_note, color: scheme.onSurfaceVariant),
                 label: Text(
-                  item.note != null && item.note!.isNotEmpty ? item.note! : 'إضافة ملاحظة',
-                  style: textTheme.bodySmall?.copyWith(color: scheme.onSurfaceVariant),
+                  item.note != null && item.note!.isNotEmpty
+                      ? item.note!
+                      : 'إضافة ملاحظة',
+                  style: textTheme.bodySmall
+                      ?.copyWith(color: scheme.onSurfaceVariant),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -182,11 +197,13 @@ class _SellingOptionChip extends StatelessWidget {
       onTap: onTap,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 150),
-        padding: const EdgeInsetsDirectional.symmetric(horizontal: AppSpace.m, vertical: AppSpace.xs),
+        padding: const EdgeInsetsDirectional.symmetric(
+            horizontal: AppSpace.m, vertical: AppSpace.xs),
         decoration: BoxDecoration(
           color: isSelected ? scheme.primary : Colors.transparent,
           borderRadius: BorderRadius.circular(AppRadius.pill),
-          border: Border.all(color: isSelected ? scheme.primary : scheme.outline),
+          border:
+              Border.all(color: isSelected ? scheme.primary : scheme.outline),
         ),
         child: Text(
           label,

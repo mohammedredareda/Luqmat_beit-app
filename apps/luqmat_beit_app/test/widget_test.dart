@@ -6,6 +6,7 @@ import 'package:luqmat_beit_app/di/injection.dart';
 import 'package:luqmat_beit_app/features/home/domain/entities/home_feed_entity.dart';
 import 'package:luqmat_beit_app/features/home/domain/repositories/home_repository.dart';
 import 'package:luqmat_beit_app/features/home/presentation/pages/home_page.dart';
+import 'package:luqmat_beit_app/l10n/generated/app_localizations.dart';
 
 class _FakeHomeRepository implements HomeRepository {
   @override
@@ -15,9 +16,10 @@ class _FakeHomeRepository implements HomeRepository {
         categories: [],
         bestSellers: [],
         chefs: [],
-        offers: [],
-        bigDiscounts: [],
+        offerBundles: [],
+        discountedMeals: [],
         discountsByMealId: {},
+        returnedMeals: [],
       ),
     );
   }
@@ -33,6 +35,8 @@ void main() {
     await tester.pumpWidget(
       MaterialApp(
         theme: AppTheme.light,
+        supportedLocales: const [Locale('ar'), Locale('en')],
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
         home: const HomePage(),
       ),
     );

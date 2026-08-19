@@ -6,5 +6,7 @@ abstract class ProfileDataSource {
   Future<CustomerProfileEntity> updateProfile({
     required String name,
     required String address,
+    double? latitude,
+    double? longitude,
   });
 }

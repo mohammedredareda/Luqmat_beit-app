@@ -1,6 +1,14 @@
-/// The four sort/filter chips on the Search & Filters screen (CU-08).
+/// The sort/filter options on the Search & Filters screen (CU-08).
 /// `nearest` is the default per the approved mockup (chip pre-selected).
-enum SearchSortOption { nearest, topRated, priceLowToHigh, priceHighToLow }
+/// `mostPopular` maps to the backend's `top_selling` sort — used by Home's
+/// "الأكثر طلباً" section and its "الكل" link.
+enum SearchSortOption {
+  nearest,
+  topRated,
+  mostPopular,
+  priceLowToHigh,
+  priceHighToLow
+}
 
 extension SearchSortOptionFilterKey on SearchSortOption {
   /// The value stored under the `sort` key of the repository's `filters`

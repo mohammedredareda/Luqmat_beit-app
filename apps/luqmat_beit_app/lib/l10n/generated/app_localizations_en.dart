@@ -482,6 +482,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get completedOrdersStatLabel => 'Completed Orders';
 
   @override
+  String get favoritesStatLabel => 'Favorites';
+
+  @override
+  String get orderHistoryTitle => 'Order History';
+
+  @override
   String get totalMealsStatLabel => 'Total Meals';
 
   @override

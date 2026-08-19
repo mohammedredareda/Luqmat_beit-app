@@ -2,6 +2,7 @@ import 'package:core/core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../domain/usecases/add_meal_to_cart.dart';
+import '../../domain/usecases/add_returned_meal_to_cart.dart';
 import '../../domain/usecases/get_meal_details.dart';
 import '../../domain/usecases/report_meal.dart';
 import '../../domain/usecases/toggle_meal_favorite.dart';
@@ -13,16 +14,18 @@ class MealDetailsCubit extends Cubit<MealDetailsState> {
     this._addMealToCart,
     this._toggleMealFavorite,
     this._reportMeal,
+    this._addReturnedMealToCart,
   ) : super(const MealDetailsState.initial());
 
   final GetMealDetails _getMealDetails;
   final AddMealToCart _addMealToCart;
   final ToggleMealFavorite _toggleMealFavorite;
   final ReportMeal _reportMeal;
+  final AddReturnedMealToCart _addReturnedMealToCart;
 
   String? _mealId;
 
-  Future<void> loadMeal(String mealId) async {
+  Future<void> loadMeal(String mealId, {ReturnedMealEntity? returnedMeal}) async {
     _mealId = mealId;
     emit(const MealDetailsState.loading());
     final result = await _getMealDetails(mealId);
@@ -34,6 +37,7 @@ class MealDetailsCubit extends Cubit<MealDetailsState> {
             ? meal.sellingOptions.first.id
             : '',
         isFavorite: meal.isFavorite,
+        returnedMeal: returnedMeal,
       )),
       (exception) => emit(MealDetailsState.failure(exception)),
     );
@@ -49,6 +53,8 @@ class MealDetailsCubit extends Cubit<MealDetailsState> {
   void incrementQuantity() {
     final current = state;
     if (current is MealDetailsLoaded) {
+      final max = current.returnedMeal?.quantity;
+      if (max != null && current.quantity >= max) return;
       emit(current.copyWith(quantity: current.quantity + 1));
     }
   }
@@ -106,6 +112,7 @@ class MealDetailsCubit extends Cubit<MealDetailsState> {
         quantity: current.quantity,
         note: current.note,
         isFavorite: current.isFavorite,
+        returnedMeal: current.returnedMeal,
       ));
     }
   }
@@ -114,12 +121,17 @@ class MealDetailsCubit extends Cubit<MealDetailsState> {
     final current = state;
     if (current is! MealDetailsLoaded) return;
 
-    final result = await _addMealToCart(
-      mealId: current.meal.id,
-      sellingOptionId: current.selectedSellingOptionId,
-      quantity: current.quantity,
-      note: current.note.isEmpty ? null : current.note,
-    );
+    final result = current.returnedMeal != null
+        ? await _addReturnedMealToCart(
+            returnedMealId: current.returnedMeal!.id,
+            count: current.quantity,
+          )
+        : await _addMealToCart(
+            mealId: current.meal.id,
+            sellingOptionId: current.selectedSellingOptionId,
+            quantity: current.quantity,
+            note: current.note.isEmpty ? null : current.note,
+          );
     if (isClosed) return;
     result.fold(
       (_) => emit(MealDetailsState.addedToCart(
@@ -128,6 +140,7 @@ class MealDetailsCubit extends Cubit<MealDetailsState> {
         quantity: current.quantity,
         note: current.note,
         isFavorite: current.isFavorite,
+        returnedMeal: current.returnedMeal,
       )),
       (exception) => emit(MealDetailsState.failure(exception)),
     );

@@ -1,15 +1,18 @@
 import 'package:core/core.dart';
 
 import '../../../../shared/mock/sample_catalog.dart';
+import '../../domain/entities/search_result_item.dart';
 import 'search_data_source.dart';
 
 /// Stands in for `search_remote_data_source.dart` until a backend exists.
-/// Filters/sorts/paginates `SampleCatalog.meals` in memory. Same call shape
-/// a real Dio-backed datasource would have, so swapping it in later doesn't
-/// touch the repository.
+/// Filters/sorts/paginates `SampleCatalog.meals` in memory (meals only —
+/// offers/cooks/returned-meals results are a real-backend-only feature, no
+/// sample data exists for them). Same call shape a real Dio-backed
+/// datasource would have, so swapping it in later doesn't touch the
+/// repository.
 class SearchMockDataSource implements SearchDataSource {
   @override
-  Future<PaginatedResult<MealEntity>> search({
+  Future<PaginatedResult<SearchResultItem>> search({
     required String query,
     Map<String, dynamic>? filters,
     String? cursor,
@@ -32,7 +35,8 @@ class SearchMockDataSource implements SearchDataSource {
         (c) => c.id == categoryId,
         orElse: () => SampleCatalog.categories.first,
       );
-      results = results.where((meal) => meal.tags.contains(category.label)).toList();
+      results =
+          results.where((meal) => meal.tags.contains(category.label)).toList();
     }
 
     switch (filters?['sort'] as String?) {
@@ -51,11 +55,13 @@ class SearchMockDataSource implements SearchDataSource {
 
     final start = cursor == null ? 0 : int.parse(cursor);
     final end = (start + pageSize).clamp(0, results.length);
-    final page = start >= results.length ? const <MealEntity>[] : results.sublist(start, end);
+    final page = start >= results.length
+        ? const <MealEntity>[]
+        : results.sublist(start, end);
     final hasMore = end < results.length;
 
-    return PaginatedResult<MealEntity>(
-      items: page,
+    return PaginatedResult<SearchResultItem>(
+      items: page.map(SearchResultItem.meal).toList(),
       hasMore: hasMore,
       nextCursor: hasMore ? end.toString() : null,
     );

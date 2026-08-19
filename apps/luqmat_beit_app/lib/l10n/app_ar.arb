@@ -165,6 +165,8 @@
   "profileRatingLabel": "{rating} ({count} تقييم)",
   "@profileRatingLabel": {"placeholders": {"rating": {"type": "String"}, "count": {"type": "int"}}},
   "completedOrdersStatLabel": "الطلبات المكتملة",
+  "favoritesStatLabel": "المفضلة",
+  "orderHistoryTitle": "سجل الطلبات",
   "totalMealsStatLabel": "إجمالي الوجبات",
   "phoneNumberStatLabel": "رقم الهاتف",
   "statsComingSoonLabel": "الإحصائيات قريباً",

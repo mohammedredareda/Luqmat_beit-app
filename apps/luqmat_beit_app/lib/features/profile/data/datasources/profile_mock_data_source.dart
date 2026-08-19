@@ -23,9 +23,16 @@ class ProfileMockDataSource implements ProfileDataSource {
   Future<CustomerProfileEntity> updateProfile({
     required String name,
     required String address,
+    double? latitude,
+    double? longitude,
   }) async {
     await Future.delayed(const Duration(milliseconds: 300));
-    _profile = _profile.copyWith(name: name, address: address);
+    _profile = _profile.copyWith(
+      name: name,
+      address: address,
+      latitude: latitude,
+      longitude: longitude,
+    );
     return _profile;
   }
 }

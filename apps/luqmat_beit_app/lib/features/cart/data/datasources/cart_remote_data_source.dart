@@ -37,7 +37,8 @@ class CartRemoteDataSource implements CartDataSource {
     return CartEntity(
       customerId: json['customer_id']?.toString() ?? '',
       cookGroups: groups,
-      returnedMealItems: returnedJson.map((r) => _returnedMealItemFromJson(r as Map)).toList(),
+      returnedMealItems:
+          returnedJson.map((r) => _returnedMealItemFromJson(r as Map)).toList(),
     );
   }
 
@@ -82,33 +83,63 @@ class CartRemoteDataSource implements CartDataSource {
       mealImageUrl: json['image'] as String? ?? '',
       sellingOptionId: sellingOptionId,
       sellingOptionLabel: (label == null || label.isEmpty) ? null : label,
-      unitPrice:
-          (json['final_price'] as num?)?.toDouble() ?? (json['price'] as num?)?.toDouble() ?? 0,
+      unitPrice: (json['final_price'] as num?)?.toDouble() ??
+          (json['price'] as num?)?.toDouble() ??
+          0,
       quantity: (json['quantity'] as num?)?.toInt() ?? 1,
       note: json['notes'] as String?,
       originalPrice: (json['price'] as num?)?.toDouble(),
-      discountPercentage: (json['discount_percentage'] as num?)?.toDouble() ?? 0,
+      discountPercentage: (json['discount_percentage'] as num?)?.toDouble(),
       availableSellingOptions: availableOptions,
     );
   }
 
-  CartOfferItemEntity _offerItemFromJson(Map json) => CartOfferItemEntity(
-        id: json['cart_item_id'].toString(),
-        offerId: json['offer_id'].toString(),
-        offerName: json['name'] as String? ?? '',
-        offerImageUrl: json['image'] as String?,
-        unitPrice: (json['total_price'] as num?)?.toDouble() ?? 0,
-        quantity: (json['quantity'] as num?)?.toInt() ?? 1,
+  CartOfferItemEntity _offerItemFromJson(Map json) {
+    final mealsJson = json['meals'] as List? ?? const [];
+    return CartOfferItemEntity(
+      id: json['cart_item_id'].toString(),
+      offerId: json['offer_id'].toString(),
+      offerName: json['name'] as String? ?? '',
+      offerImageUrl: json['image'] as String?,
+      // `total_price` comes back as a JSON string here (same as the
+      // customer offers-list endpoint), unlike meal items' numeric
+      // `price`/`final_price` — parse leniently rather than casting.
+      unitPrice: double.tryParse(json['total_price']?.toString() ?? '') ?? 0,
+      quantity: (json['quantity'] as num?)?.toInt() ?? 1,
+      // `expire_time`/`meals` aren't shown anywhere in the cart UI — kept
+      // only so `POST /order/confirm` can resubmit this offer's exact
+      // snapshot (the backend rejects the order otherwise).
+      expireTime: DateTime.tryParse(json['expire_time']?.toString() ?? '') ??
+          DateTime.now(),
+      meals:
+          mealsJson.map((m) => _offerMealSnapshotFromJson(m as Map)).toList(),
+    );
+  }
+
+  CartOfferMealSnapshotEntity _offerMealSnapshotFromJson(Map json) =>
+      CartOfferMealSnapshotEntity(
+        mealId: json['meal_id'].toString(),
+        name: json['name'] as String? ?? '',
+        imageUrl: json['image'] as String? ?? '',
+        variationQuantity: json['variation_quantity'] as String? ?? '',
+        price: (json['price'] as num?)?.toDouble() ?? 0,
+        discountPercentage: (json['discount_percentage'] as num?)?.toDouble(),
+        finalPrice: (json['final_price'] as num?)?.toDouble() ?? 0,
       );
 
-  CartReturnedMealItemEntity _returnedMealItemFromJson(Map json) => CartReturnedMealItemEntity(
-        id: json['cart_item_id'].toString(),
-        returnedMealId: json['returned_meal_id'].toString(),
-        mealName: json['name'] as String? ?? '',
-        mealImageUrl: json['image'] as String? ?? '',
-        salvagePrice: (json['salvage_price'] as num?)?.toDouble() ?? 0,
-        quantity: (json['quantity'] as num?)?.toInt() ?? 1,
-      );
+  CartReturnedMealItemEntity _returnedMealItemFromJson(Map json) {
+    final meal = json['meal'] as Map? ?? const {};
+    return CartReturnedMealItemEntity(
+      id: json['cart_item_id'].toString(),
+      returnedMealId: json['returned_meal_id'].toString(),
+      // Name/image are nested under `meal`, not top-level, confirmed
+      // against the live `GET /user/customer/cart` response.
+      mealName: meal['name'] as String? ?? '',
+      mealImageUrl: meal['image'] as String? ?? '',
+      salvagePrice: (json['salvage_price'] as num?)?.toDouble() ?? 0,
+      quantity: (json['quantity'] as num?)?.toInt() ?? 1,
+    );
+  }
 
   @override
   Future<void> addItem({
@@ -138,8 +169,8 @@ class CartRemoteDataSource implements CartDataSource {
     final current = _find(cartItemId);
     await _apiClient.put('/user/customer/cart/meals/$cartItemId', data: {
       'quantity': quantity,
-      'selling_option_id':
-          int.tryParse(current?.sellingOptionId ?? '') ?? current?.sellingOptionId,
+      'selling_option_id': int.tryParse(current?.sellingOptionId ?? '') ??
+          current?.sellingOptionId,
       'notes': current?.note ?? '',
     });
   }
@@ -150,7 +181,8 @@ class CartRemoteDataSource implements CartDataSource {
   }
 
   @override
-  Future<void> updateSellingOption(String cartItemId, String sellingOptionId) async {
+  Future<void> updateSellingOption(
+      String cartItemId, String sellingOptionId) async {
     final current = _find(cartItemId);
     await _apiClient.put('/user/customer/cart/meals/$cartItemId', data: {
       'quantity': current?.quantity ?? 1,
@@ -164,9 +196,26 @@ class CartRemoteDataSource implements CartDataSource {
     final current = _find(cartItemId);
     await _apiClient.put('/user/customer/cart/meals/$cartItemId', data: {
       'quantity': current?.quantity ?? 1,
-      'selling_option_id':
-          int.tryParse(current?.sellingOptionId ?? '') ?? current?.sellingOptionId,
+      'selling_option_id': int.tryParse(current?.sellingOptionId ?? '') ??
+          current?.sellingOptionId,
       'notes': note,
+    });
+  }
+
+  @override
+  Future<void> addReturnedMeal(
+      {required String returnedMealId, required int count}) async {
+    await _apiClient.post('/user/customer/cart/returned-meals', data: {
+      'returned_meal_id': int.tryParse(returnedMealId) ?? returnedMealId,
+      'count': count,
+    });
+  }
+
+  @override
+  Future<void> addOffer({required String offerId, required int count}) async {
+    await _apiClient.post('/user/customer/cart/offers', data: {
+      'offer_id': int.tryParse(offerId) ?? offerId,
+      'count': count,
     });
   }
 }

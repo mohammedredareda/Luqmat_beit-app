@@ -31,4 +31,14 @@ abstract class OrdersRepository {
     double? latitude,
     double? longitude,
   });
+
+  /// Places an order for "من نصيبك" (returned/salvage meal) cart lines only
+  /// — a distinct request shape from [confirmOrder]: no `cook_id` at all
+  /// (these aren't grouped by cook), sent instead with
+  /// `is_returned_meals_order: true`.
+  Future<Result<String>> confirmReturnedMealsOrder({
+    required List<CartReturnedMealItemEntity> returnedMealItems,
+    double? latitude,
+    double? longitude,
+  });
 }

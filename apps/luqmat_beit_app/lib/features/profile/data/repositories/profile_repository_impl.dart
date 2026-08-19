@@ -20,7 +20,14 @@ class ProfileRepositoryImpl implements ProfileRepository {
   Future<Result<CustomerProfileEntity>> updateProfile({
     required String name,
     required String address,
+    double? latitude,
+    double? longitude,
   }) {
-    return guard(() => _dataSource.updateProfile(name: name, address: address));
+    return guard(() => _dataSource.updateProfile(
+          name: name,
+          address: address,
+          latitude: latitude,
+          longitude: longitude,
+        ));
   }
 }

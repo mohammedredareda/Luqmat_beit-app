@@ -1,5 +1,6 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:luqmat_beit_app/l10n/generated/app_localizations.dart';
 
 /// Row-style meal card for the chef's menu list, per the chef-profile
 /// mockup — a horizontal card (image start-aligned in RTL, 4:3 per R-25)
@@ -47,7 +48,8 @@ class ChefMealListTile extends StatelessWidget {
                     meal.name,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                    style: textTheme.titleMedium
+                        ?.copyWith(fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: AppSpace.xs),
                   Row(
@@ -56,13 +58,14 @@ class ChefMealListTile extends StatelessWidget {
                       const SizedBox(width: AppSpace.xs),
                       Text(
                         '${meal.rating.toStringAsFixed(1)} (${meal.ratingCount}+)',
-                        style: textTheme.bodySmall?.copyWith(color: scheme.onSurfaceVariant),
+                        style: textTheme.bodySmall
+                            ?.copyWith(color: scheme.onSurfaceVariant),
                       ),
                     ],
                   ),
                   const SizedBox(height: AppSpace.s),
                   Text(
-                    '${meal.startingPrice.toStringAsFixed(0)} ₪',
+                    '${meal.startingPrice.toStringAsFixed(0)} ${AppLocalizations.of(context)!.currencySuffix}',
                     style: textTheme.titleMedium?.copyWith(
                       color: scheme.primary,
                       fontWeight: FontWeight.w800,

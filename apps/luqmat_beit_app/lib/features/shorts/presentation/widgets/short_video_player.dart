@@ -2,15 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
 /// Full-bleed looping video for one [ShortSlide] — plays/pauses based on
-/// [isActive] (the page currently centered in the vertical `PageView`),
-/// muted-by-default like every short-video feed, tap-to-toggle-mute.
+/// [isActive] (the page currently centered in the vertical `PageView`,
+/// combined with whether this whole screen is the topmost route — see
+/// `ShortsFeedPage`'s `RouteAware` wiring), sound on by default (cooking
+/// content relies on it), tap-to-pause/resume.
 ///
 /// Falls back to a plain dark frame with an icon on load failure — the
 /// backend's asset URLs are known to sometimes resolve to `localhost`
 /// (an `ASSET_BASE_URL` misconfiguration on their end, not fixable here),
 /// so a broken video must never crash the feed or leave a stuck spinner.
 class ShortVideoPlayer extends StatefulWidget {
-  const ShortVideoPlayer({super.key, required this.url, required this.isActive});
+  const ShortVideoPlayer(
+      {super.key, required this.url, required this.isActive});
 
   final String url;
   final bool isActive;
@@ -22,7 +25,6 @@ class ShortVideoPlayer extends StatefulWidget {
 class _ShortVideoPlayerState extends State<ShortVideoPlayer> {
   VideoPlayerController? _controller;
   bool _failed = false;
-  bool _muted = true;
 
   @override
   void initState() {
@@ -37,12 +39,21 @@ class _ShortVideoPlayerState extends State<ShortVideoPlayer> {
       await controller.initialize();
       if (!mounted) return;
       await controller.setLooping(true);
-      await controller.setVolume(_muted ? 0 : 1);
+      await controller.setVolume(1);
       if (widget.isActive) await controller.play();
+      // The play/pause icon (and anything else reading `controller.value`)
+      // has to react to state changes the *controller* makes on its own
+      // timeline (pause()/play() are async — the value updates only once
+      // the native player confirms it), not just to our own setState calls.
+      controller.addListener(_onControllerChanged);
       setState(() {});
     } catch (_) {
       if (mounted) setState(() => _failed = true);
     }
+  }
+
+  void _onControllerChanged() {
+    if (mounted) setState(() {});
   }
 
   @override
@@ -57,16 +68,21 @@ class _ShortVideoPlayerState extends State<ShortVideoPlayer> {
     }
   }
 
-  void _toggleMute() {
+  void _togglePlayPause() {
     final controller = _controller;
-    if (controller == null) return;
-    setState(() => _muted = !_muted);
-    controller.setVolume(_muted ? 0 : 1);
+    if (controller == null || !controller.value.isInitialized) return;
+    if (controller.value.isPlaying) {
+      controller.pause();
+    } else {
+      controller.play();
+    }
   }
 
   @override
   void dispose() {
-    _controller?.dispose();
+    _controller
+      ?..removeListener(_onControllerChanged)
+      ..dispose();
     super.dispose();
   }
 
@@ -76,7 +92,8 @@ class _ShortVideoPlayerState extends State<ShortVideoPlayer> {
       return const ColoredBox(
         color: Colors.black,
         child: Center(
-          child: Icon(Icons.videocam_off_outlined, color: Colors.white38, size: 48),
+          child: Icon(Icons.videocam_off_outlined,
+              color: Colors.white38, size: 48),
         ),
       );
     }
@@ -90,14 +107,21 @@ class _ShortVideoPlayerState extends State<ShortVideoPlayer> {
     }
 
     return GestureDetector(
-      onTap: _toggleMute,
-      child: FittedBox(
-        fit: BoxFit.cover,
-        child: SizedBox(
-          width: controller.value.size.width,
-          height: controller.value.size.height,
-          child: VideoPlayer(controller),
-        ),
+      onTap: _togglePlayPause,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          FittedBox(
+            fit: BoxFit.cover,
+            child: SizedBox(
+              width: controller.value.size.width,
+              height: controller.value.size.height,
+              child: VideoPlayer(controller),
+            ),
+          ),
+          if (!controller.value.isPlaying)
+            const Icon(Icons.play_arrow, color: Colors.white70, size: 72),
+        ],
       ),
     );
   }

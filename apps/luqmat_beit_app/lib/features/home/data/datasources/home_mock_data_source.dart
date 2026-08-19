@@ -13,9 +13,10 @@ class HomeMockDataSource implements HomeDataSource {
       categories: SampleCatalog.categories,
       bestSellers: SampleCatalog.meals.take(2).toList(),
       chefs: SampleCatalog.chefs,
-      offers: SampleCatalog.meals.take(3).toList(),
-      bigDiscounts: SampleCatalog.meals.skip(2).toList(),
+      offerBundles: const [],
+      discountedMeals: SampleCatalog.meals.skip(2).toList(),
       discountsByMealId: SampleCatalog.discountsByMealId,
+      returnedMeals: const [],
     );
   }
 }

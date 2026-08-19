@@ -86,7 +86,8 @@ class CartMockDataSource implements CartDataSource {
   }) async {
     await Future.delayed(const Duration(milliseconds: 200));
     final existingIndex = _mealItems.indexWhere(
-      (item) => item.mealId == meal.id && item.sellingOptionId == sellingOption.id,
+      (item) =>
+          item.mealId == meal.id && item.sellingOptionId == sellingOption.id,
     );
     if (existingIndex != -1) {
       final existing = _mealItems[existingIndex];
@@ -118,7 +119,8 @@ class CartMockDataSource implements CartDataSource {
       if (quantity <= 0) {
         _mealItems.removeAt(mealIndex);
       } else {
-        _mealItems[mealIndex] = _mealItems[mealIndex].copyWith(quantity: quantity);
+        _mealItems[mealIndex] =
+            _mealItems[mealIndex].copyWith(quantity: quantity);
       }
       return;
     }
@@ -127,7 +129,8 @@ class CartMockDataSource implements CartDataSource {
       if (quantity <= 0) {
         _offerItems.removeAt(offerIndex);
       } else {
-        _offerItems[offerIndex] = _offerItems[offerIndex].copyWith(quantity: quantity);
+        _offerItems[offerIndex] =
+            _offerItems[offerIndex].copyWith(quantity: quantity);
       }
     }
   }
@@ -141,7 +144,8 @@ class CartMockDataSource implements CartDataSource {
   }
 
   @override
-  Future<void> updateSellingOption(String cartItemId, String sellingOptionId) async {
+  Future<void> updateSellingOption(
+      String cartItemId, String sellingOptionId) async {
     await Future.delayed(const Duration(milliseconds: 150));
     final index = _mealItems.indexWhere((item) => item.id == cartItemId);
     if (index == -1) return;
@@ -171,5 +175,32 @@ class CartMockDataSource implements CartDataSource {
     final index = _mealItems.indexWhere((item) => item.id == cartItemId);
     if (index == -1) return;
     _mealItems[index] = _mealItems[index].copyWith(note: note);
+  }
+
+  @override
+  Future<void> addReturnedMeal(
+      {required String returnedMealId, required int count}) async {
+    await Future.delayed(const Duration(milliseconds: 200));
+    _returnedMealItems.add(CartReturnedMealItemEntity(
+      id: 'cart-returned-${DateTime.now().microsecondsSinceEpoch}',
+      returnedMealId: returnedMealId,
+      mealName: '',
+      mealImageUrl: '',
+      salvagePrice: 0,
+      quantity: count,
+    ));
+  }
+
+  @override
+  Future<void> addOffer({required String offerId, required int count}) async {
+    await Future.delayed(const Duration(milliseconds: 200));
+    _offerItems.add(CartOfferItemEntity(
+      id: 'cart-offer-${DateTime.now().microsecondsSinceEpoch}',
+      offerId: offerId,
+      offerName: '',
+      unitPrice: 0,
+      quantity: count,
+      expireTime: DateTime.now().add(const Duration(days: 7)),
+    ));
   }
 }

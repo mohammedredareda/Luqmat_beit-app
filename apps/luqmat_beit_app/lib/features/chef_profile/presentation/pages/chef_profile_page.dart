@@ -48,15 +48,22 @@ class _ChefProfileView extends StatelessWidget {
         child: BlocBuilder<ChefProfileCubit, ChefProfileState>(
           builder: (context, state) {
             return switch (state) {
-              ChefProfileInitial() || ChefProfileLoading() => const _ChefProfileLoadingSkeleton(),
+              ChefProfileInitial() ||
+              ChefProfileLoading() =>
+                const _ChefProfileLoadingSkeleton(),
               ChefProfileFailure(:final exception) => EmptyState(
                   icon: Icons.wifi_off,
                   title: 'تعذر تحميل بروفايل الطباخة',
                   message: exception.message,
                   actionLabel: 'إعادة المحاولة',
-                  onAction: () => context.read<ChefProfileCubit>().loadProfile(chefId),
+                  onAction: () =>
+                      context.read<ChefProfileCubit>().loadProfile(chefId),
                 ),
-              ChefProfileLoaded(:final profile, :final searchQuery, :final selectedTag) =>
+              ChefProfileLoaded(
+                :final profile,
+                :final searchQuery,
+                :final selectedTag
+              ) =>
                 _ChefProfileContent(
                   profile: profile,
                   searchQuery: searchQuery,
@@ -86,7 +93,8 @@ class _ChefProfileContent extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     final scheme = Theme.of(context).colorScheme;
 
-    final tags = <String>{for (final meal in profile.meals) ...meal.tags}.toList();
+    final tags =
+        <String>{for (final meal in profile.meals) ...meal.tags}.toList();
 
     final filteredMeals = profile.meals.where((meal) {
       final matchesTag = selectedTag == null || meal.tags.contains(selectedTag);
@@ -102,23 +110,27 @@ class _ChefProfileContent extends StatelessWidget {
           sliver: SliverToBoxAdapter(
             child: ChefProfileHeader(
               profile: profile,
-              onToggleFollow: () => context.read<ChefProfileCubit>().toggleFollow(),
+              onToggleFollow: () =>
+                  context.read<ChefProfileCubit>().toggleFollow(),
             ),
           ),
         ),
         SliverPadding(
-          padding: const EdgeInsetsDirectional.symmetric(horizontal: AppSpace.l),
+          padding:
+              const EdgeInsetsDirectional.symmetric(horizontal: AppSpace.l),
           sliver: SliverToBoxAdapter(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   'القائمة',
-                  style: textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+                  style: textTheme.titleLarge
+                      ?.copyWith(fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: AppSpace.m),
                 TextField(
-                  onChanged: (value) => context.read<ChefProfileCubit>().search(value),
+                  onChanged: (value) =>
+                      context.read<ChefProfileCubit>().search(value),
                   decoration: InputDecoration(
                     hintText: 'ابحث في قائمة ${profile.name}...',
                     prefixIcon: const Icon(Icons.search),
@@ -137,20 +149,24 @@ class _ChefProfileContent extends StatelessWidget {
                     child: ListView.separated(
                       scrollDirection: Axis.horizontal,
                       itemCount: tags.length + 1,
-                      separatorBuilder: (context, index) => const SizedBox(width: AppSpace.s),
+                      separatorBuilder: (context, index) =>
+                          const SizedBox(width: AppSpace.s),
                       itemBuilder: (context, index) {
                         if (index == 0) {
                           return MenuFilterChip(
                             label: 'الكل',
                             isSelected: selectedTag == null,
-                            onTap: () => context.read<ChefProfileCubit>().selectTag(null),
+                            onTap: () => context
+                                .read<ChefProfileCubit>()
+                                .selectTag(null),
                           );
                         }
                         final tag = tags[index - 1];
                         return MenuFilterChip(
                           label: tag,
                           isSelected: selectedTag == tag,
-                          onTap: () => context.read<ChefProfileCubit>().selectTag(tag),
+                          onTap: () =>
+                              context.read<ChefProfileCubit>().selectTag(tag),
                         );
                       },
                     ),
@@ -176,7 +192,8 @@ class _ChefProfileContent extends StatelessWidget {
             ),
             sliver: SliverList.separated(
               itemCount: filteredMeals.length,
-              separatorBuilder: (context, index) => const SizedBox(height: AppSpace.m),
+              separatorBuilder: (context, index) =>
+                  const SizedBox(height: AppSpace.m),
               itemBuilder: (context, index) {
                 final meal = filteredMeals[index];
                 return ChefMealListTile(

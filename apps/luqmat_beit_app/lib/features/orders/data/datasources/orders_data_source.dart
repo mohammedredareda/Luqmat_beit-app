@@ -24,4 +24,10 @@ abstract class OrdersDataSource {
     double? latitude,
     double? longitude,
   });
+
+  Future<String> confirmReturnedMealsOrder({
+    required List<CartReturnedMealItemEntity> returnedMealItems,
+    double? latitude,
+    double? longitude,
+  });
 }

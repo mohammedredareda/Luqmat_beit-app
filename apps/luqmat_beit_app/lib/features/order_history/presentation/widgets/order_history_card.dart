@@ -1,9 +1,14 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-/// One past-order row: meal thumbnail, date, status badge and a visual
-/// "reorder" affordance (per the order_history mockup) — matches
-/// design_rules.html card styling (4:3 image, R-25) reused at 96x72.
+import '../../../../l10n/generated/app_localizations.dart';
+import '../cubit/order_history_cubit.dart';
+
+/// One past-order row: meal thumbnail, date, status badge and a "reorder"
+/// button that calls `POST /user/customer/order/history/re-add` (per the
+/// order_history mockup) — matches design_rules.html card styling (4:3
+/// image, R-25) reused at 96x72.
 class OrderHistoryCard extends StatelessWidget {
   const OrderHistoryCard({super.key, required this.order, required this.onTap});
 
@@ -19,21 +24,14 @@ class OrderHistoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final scheme = Theme.of(context).colorScheme;
-    final allItemsCount =
-        order.mealItems.length + order.offerItems.length + order.returnedMealItems.length;
-    final firstItemName = order.mealItems.isNotEmpty
-        ? order.mealItems.first.mealName
-        : order.offerItems.isNotEmpty
-            ? order.offerItems.first.offerName
-            : order.returnedMealItems.first.mealName;
     final firstItemImageUrl = order.mealItems.isNotEmpty
         ? order.mealItems.first.mealImageUrl
         : order.offerItems.isNotEmpty
             ? ''
             : order.returnedMealItems.first.mealImageUrl;
     final status = order.status;
-    final extraItemsCount = allItemsCount - 1;
 
     return GestureDetector(
       onTap: onTap,
@@ -68,9 +66,7 @@ class OrderHistoryCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    extraItemsCount > 0
-                        ? '$firstItemName +$extraItemsCount'
-                        : firstItemName,
+                    l10n.orderNumberLabel(order.id),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.titleMedium,
@@ -105,7 +101,7 @@ class OrderHistoryCard extends StatelessWidget {
               ),
             ),
             const SizedBox(width: AppSpace.s),
-            _ReorderButton(scheme: scheme),
+            _ReorderButton(scheme: scheme, orderId: order.id),
           ],
         ),
       ),
@@ -114,21 +110,29 @@ class OrderHistoryCard extends StatelessWidget {
 }
 
 class _ReorderButton extends StatefulWidget {
-  const _ReorderButton({required this.scheme});
+  const _ReorderButton({required this.scheme, required this.orderId});
 
   final ColorScheme scheme;
+  final String orderId;
 
   @override
   State<_ReorderButton> createState() => _ReorderButtonState();
 }
 
 class _ReorderButtonState extends State<_ReorderButton> {
+  bool _submitting = false;
   bool _added = false;
 
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
+  Future<void> _reorder() async {
+    if (_submitting) return;
+    setState(() => _submitting = true);
+
+    final result = await context.read<OrderHistoryCubit>().reorder(widget.orderId);
+    if (!mounted) return;
+    setState(() => _submitting = false);
+
+    result.fold(
+      (_) {
         setState(() => _added = true);
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('تمت الإضافة إلى السلة')),
@@ -137,6 +141,16 @@ class _ReorderButtonState extends State<_ReorderButton> {
           if (mounted) setState(() => _added = false);
         });
       },
+      (exception) => ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(exception.message)),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: _reorder,
       child: Container(
         padding: const EdgeInsetsDirectional.symmetric(
           horizontal: AppSpace.s,
@@ -146,11 +160,20 @@ class _ReorderButtonState extends State<_ReorderButton> {
           color: _added ? widget.scheme.secondary : widget.scheme.primary,
           borderRadius: BorderRadius.circular(AppRadius.image),
         ),
-        child: Icon(
-          _added ? Icons.check : Icons.replay,
-          color: widget.scheme.onPrimary,
-          size: 18,
-        ),
+        child: _submitting
+            ? SizedBox(
+                width: 18,
+                height: 18,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  color: widget.scheme.onPrimary,
+                ),
+              )
+            : Icon(
+                _added ? Icons.check : Icons.replay,
+                color: widget.scheme.onPrimary,
+                size: 18,
+              ),
       ),
     );
   }

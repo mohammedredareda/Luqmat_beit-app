@@ -2,6 +2,7 @@ import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:luqmat_beit_app/l10n/generated/app_localizations.dart';
 
 import '../../../../di/injection.dart';
 import '../../domain/usecases/get_order_by_id.dart';
@@ -46,7 +47,8 @@ class _OrderConfirmationView extends StatelessWidget {
         child: BlocBuilder<OrderConfirmationCubit, OrderConfirmationState>(
           builder: (context, state) {
             return switch (state) {
-              OrderConfirmationInitial() || OrderConfirmationLoading() =>
+              OrderConfirmationInitial() ||
+              OrderConfirmationLoading() =>
                 const _ConfirmationLoadingSkeleton(),
               OrderConfirmationFailure(:final exception) => EmptyState(
                   icon: Icons.wifi_off,
@@ -66,7 +68,8 @@ class _OrderConfirmationView extends StatelessWidget {
         padding: const EdgeInsetsDirectional.all(AppSpace.l),
         decoration: BoxDecoration(
           color: scheme.surface,
-          border: BorderDirectional(top: BorderSide(color: scheme.outlineVariant)),
+          border:
+              BorderDirectional(top: BorderSide(color: scheme.outlineVariant)),
         ),
         child: SafeArea(
           top: false,
@@ -99,7 +102,8 @@ class _ConfirmationContent extends StatelessWidget {
     final lineItemRows = [
       ...order.mealItems.map((item) => OrderLineItemRow.meal(item)),
       ...order.offerItems.map((item) => OrderLineItemRow.offer(item)),
-      ...order.returnedMealItems.map((item) => OrderLineItemRow.returnedMeal(item)),
+      ...order.returnedMealItems
+          .map((item) => OrderLineItemRow.returnedMeal(item)),
     ];
 
     return ListView(
@@ -142,11 +146,13 @@ class _ConfirmationContent extends StatelessWidget {
                 children: [
                   Text(
                     'المجموع الكلي',
-                    style: textTheme.titleMedium?.copyWith(color: scheme.primary),
+                    style:
+                        textTheme.titleMedium?.copyWith(color: scheme.primary),
                   ),
                   Text(
-                    '${order.grandTotal.toStringAsFixed(0)} ₪',
-                    style: textTheme.titleMedium?.copyWith(color: scheme.primary),
+                    '${order.grandTotal.toStringAsFixed(0)} ${AppLocalizations.of(context)!.currencySuffix}',
+                    style:
+                        textTheme.titleMedium?.copyWith(color: scheme.primary),
                   ),
                 ],
               ),
@@ -202,7 +208,8 @@ class _ConfirmationContent extends StatelessWidget {
               const SizedBox(height: AppSpace.s),
               Row(
                 children: [
-                  Icon(Icons.info_outline, size: 16, color: scheme.onSurfaceVariant),
+                  Icon(Icons.info_outline,
+                      size: 16, color: scheme.onSurfaceVariant),
                   const SizedBox(width: AppSpace.xs),
                   Expanded(
                     child: Text(

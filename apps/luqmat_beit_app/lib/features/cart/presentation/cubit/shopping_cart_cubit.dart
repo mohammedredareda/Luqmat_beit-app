@@ -1,7 +1,7 @@
 import 'package:core/core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../orders/domain/usecases/confirm_order.dart';
+import '../../../orders/domain/usecases/confirm_returned_meals_order.dart';
 import '../../domain/repositories/cart_repository.dart';
 import '../../domain/usecases/get_cart_items.dart';
 import '../../domain/usecases/remove_cart_item.dart';
@@ -19,7 +19,7 @@ class ShoppingCartCubit extends Cubit<ShoppingCartState> {
     this._updateCartItemQuantity,
     this._removeCartItem,
     this._repository,
-    this._confirmOrder,
+    this._confirmReturnedMealsOrder,
     this._profileCache,
   ) : super(const ShoppingCartState.initial());
 
@@ -30,7 +30,7 @@ class ShoppingCartCubit extends Cubit<ShoppingCartState> {
   // brief (get/update-quantity/remove), so this calls the repository
   // directly rather than adding a fourth single-method usecase class.
   final CartRepository _repository;
-  final ConfirmOrder _confirmOrder;
+  final ConfirmReturnedMealsOrder _confirmReturnedMealsOrder;
   final UserProfileCache _profileCache;
 
   Future<void> loadCart() async {
@@ -61,8 +61,10 @@ class ShoppingCartCubit extends Cubit<ShoppingCartState> {
     );
   }
 
-  Future<void> changeSellingOption(String cartItemId, String sellingOptionId) async {
-    final result = await _repository.updateSellingOption(cartItemId, sellingOptionId);
+  Future<void> changeSellingOption(
+      String cartItemId, String sellingOptionId) async {
+    final result =
+        await _repository.updateSellingOption(cartItemId, sellingOptionId);
     if (isClosed) return;
     result.fold(
       (_) => _reload(),
@@ -88,52 +90,24 @@ class ShoppingCartCubit extends Cubit<ShoppingCartState> {
     );
   }
 
-  /// Places one order per non-empty cook section (the mockup's fixed
-  /// "تأكيد الكل" button) — the backend only ever confirms one cook per
-  /// call, so "confirm all" runs every group's confirm in sequence,
-  /// stopping at the first failure. Returns every order id confirmed
-  /// before that, plus the exception that stopped it (if any) — a failed
-  /// checkout (e.g. "this cook is currently closed", stale prices) is a
-  /// business-rule rejection, not a reason to blow away the cart the
-  /// customer is still looking at, so this reports the error via the
-  /// return value instead of routing it through [ShoppingCartState.failure]
-  /// (which the page would render as a full-screen "couldn't load the
-  /// cart" error). [locationByCookId] carries each section's own
-  /// "تحديد الموقع" pick (address text + coordinates); a cook with no entry
-  /// falls back to the cached registration-time address/location.
-  Future<({List<String> orderIds, AppException? error})> checkoutAll({
-    Map<String, ({String address, double? latitude, double? longitude})> locationByCookId =
-        const {},
-  }) async {
+  /// Confirms every "من نصيبك" (returned/salvage meal) line in one order —
+  /// a distinct request from [confirmOrder] (no `cook_id`, flagged with
+  /// `is_returned_meals_order` instead), since these aren't grouped under
+  /// any cook section in the cart.
+  Future<Result<String>> confirmReturnedMeals() {
     final current = state;
-    if (current is! ShoppingCartLoaded) return (orderIds: <String>[], error: null);
-
-    final confirmedOrderIds = <String>[];
-    for (final group in current.cart.cookGroups) {
-      if (group.isEmpty) continue;
-      final location = locationByCookId[group.cookId];
-      final result = await _confirmOrder(
-        cookId: group.cookId,
-        deliveryAddress: location?.address ?? _profileCache.read().address ?? '',
-        deliveryFee: _flatDeliveryFee,
-        mealItems: group.mealItems,
-        offerItems: group.offerItems,
-        latitude: location?.latitude,
-        longitude: location?.longitude,
-      );
-      if (isClosed) break;
-      AppException? error;
-      final orderId = result.fold(
-        (id) => id,
-        (exception) {
-          error = exception;
-          return null;
-        },
-      );
-      if (orderId == null) return (orderIds: confirmedOrderIds, error: error);
-      confirmedOrderIds.add(orderId);
+    if (current is! ShoppingCartLoaded ||
+        current.cart.returnedMealItems.isEmpty) {
+      return Future.value(const Result.failure(
+        UnknownException('لا توجد عناصر من نصيبك لتأكيدها.'),
+      ));
     }
-    return (orderIds: confirmedOrderIds, error: null);
+    final cached = _profileCache.read();
+    return _confirmReturnedMealsOrder(
+      returnedMealItems: current.cart.returnedMealItems,
+      latitude: cached.latitude,
+      longitude: cached.longitude,
+    );
   }
 
   void _emitCart(CartEntity cart) {

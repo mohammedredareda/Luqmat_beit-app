@@ -20,11 +20,21 @@ mixin _$MealDetailsState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(MealEntity meal, String selectedSellingOptionId,
-            int quantity, String note, bool isFavorite)
+    required TResult Function(
+            MealEntity meal,
+            String selectedSellingOptionId,
+            int quantity,
+            String note,
+            bool isFavorite,
+            ReturnedMealEntity? returnedMeal)
         loaded,
-    required TResult Function(MealEntity meal, String selectedSellingOptionId,
-            int quantity, String note, bool isFavorite)
+    required TResult Function(
+            MealEntity meal,
+            String selectedSellingOptionId,
+            int quantity,
+            String note,
+            bool isFavorite,
+            ReturnedMealEntity? returnedMeal)
         addedToCart,
     required TResult Function(AppException exception) failure,
   }) =>
@@ -33,11 +43,21 @@ mixin _$MealDetailsState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(MealEntity meal, String selectedSellingOptionId,
-            int quantity, String note, bool isFavorite)?
+    TResult? Function(
+            MealEntity meal,
+            String selectedSellingOptionId,
+            int quantity,
+            String note,
+            bool isFavorite,
+            ReturnedMealEntity? returnedMeal)?
         loaded,
-    TResult? Function(MealEntity meal, String selectedSellingOptionId,
-            int quantity, String note, bool isFavorite)?
+    TResult? Function(
+            MealEntity meal,
+            String selectedSellingOptionId,
+            int quantity,
+            String note,
+            bool isFavorite,
+            ReturnedMealEntity? returnedMeal)?
         addedToCart,
     TResult? Function(AppException exception)? failure,
   }) =>
@@ -46,11 +66,21 @@ mixin _$MealDetailsState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(MealEntity meal, String selectedSellingOptionId,
-            int quantity, String note, bool isFavorite)?
+    TResult Function(
+            MealEntity meal,
+            String selectedSellingOptionId,
+            int quantity,
+            String note,
+            bool isFavorite,
+            ReturnedMealEntity? returnedMeal)?
         loaded,
-    TResult Function(MealEntity meal, String selectedSellingOptionId,
-            int quantity, String note, bool isFavorite)?
+    TResult Function(
+            MealEntity meal,
+            String selectedSellingOptionId,
+            int quantity,
+            String note,
+            bool isFavorite,
+            ReturnedMealEntity? returnedMeal)?
         addedToCart,
     TResult Function(AppException exception)? failure,
     required TResult orElse(),
@@ -150,11 +180,21 @@ class _$MealDetailsInitialImpl implements MealDetailsInitial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(MealEntity meal, String selectedSellingOptionId,
-            int quantity, String note, bool isFavorite)
+    required TResult Function(
+            MealEntity meal,
+            String selectedSellingOptionId,
+            int quantity,
+            String note,
+            bool isFavorite,
+            ReturnedMealEntity? returnedMeal)
         loaded,
-    required TResult Function(MealEntity meal, String selectedSellingOptionId,
-            int quantity, String note, bool isFavorite)
+    required TResult Function(
+            MealEntity meal,
+            String selectedSellingOptionId,
+            int quantity,
+            String note,
+            bool isFavorite,
+            ReturnedMealEntity? returnedMeal)
         addedToCart,
     required TResult Function(AppException exception) failure,
   }) {
@@ -166,11 +206,21 @@ class _$MealDetailsInitialImpl implements MealDetailsInitial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(MealEntity meal, String selectedSellingOptionId,
-            int quantity, String note, bool isFavorite)?
+    TResult? Function(
+            MealEntity meal,
+            String selectedSellingOptionId,
+            int quantity,
+            String note,
+            bool isFavorite,
+            ReturnedMealEntity? returnedMeal)?
         loaded,
-    TResult? Function(MealEntity meal, String selectedSellingOptionId,
-            int quantity, String note, bool isFavorite)?
+    TResult? Function(
+            MealEntity meal,
+            String selectedSellingOptionId,
+            int quantity,
+            String note,
+            bool isFavorite,
+            ReturnedMealEntity? returnedMeal)?
         addedToCart,
     TResult? Function(AppException exception)? failure,
   }) {
@@ -182,11 +232,21 @@ class _$MealDetailsInitialImpl implements MealDetailsInitial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(MealEntity meal, String selectedSellingOptionId,
-            int quantity, String note, bool isFavorite)?
+    TResult Function(
+            MealEntity meal,
+            String selectedSellingOptionId,
+            int quantity,
+            String note,
+            bool isFavorite,
+            ReturnedMealEntity? returnedMeal)?
         loaded,
-    TResult Function(MealEntity meal, String selectedSellingOptionId,
-            int quantity, String note, bool isFavorite)?
+    TResult Function(
+            MealEntity meal,
+            String selectedSellingOptionId,
+            int quantity,
+            String note,
+            bool isFavorite,
+            ReturnedMealEntity? returnedMeal)?
         addedToCart,
     TResult Function(AppException exception)? failure,
     required TResult orElse(),
@@ -285,11 +345,21 @@ class _$MealDetailsLoadingImpl implements MealDetailsLoading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(MealEntity meal, String selectedSellingOptionId,
-            int quantity, String note, bool isFavorite)
+    required TResult Function(
+            MealEntity meal,
+            String selectedSellingOptionId,
+            int quantity,
+            String note,
+            bool isFavorite,
+            ReturnedMealEntity? returnedMeal)
         loaded,
-    required TResult Function(MealEntity meal, String selectedSellingOptionId,
-            int quantity, String note, bool isFavorite)
+    required TResult Function(
+            MealEntity meal,
+            String selectedSellingOptionId,
+            int quantity,
+            String note,
+            bool isFavorite,
+            ReturnedMealEntity? returnedMeal)
         addedToCart,
     required TResult Function(AppException exception) failure,
   }) {
@@ -301,11 +371,21 @@ class _$MealDetailsLoadingImpl implements MealDetailsLoading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(MealEntity meal, String selectedSellingOptionId,
-            int quantity, String note, bool isFavorite)?
+    TResult? Function(
+            MealEntity meal,
+            String selectedSellingOptionId,
+            int quantity,
+            String note,
+            bool isFavorite,
+            ReturnedMealEntity? returnedMeal)?
         loaded,
-    TResult? Function(MealEntity meal, String selectedSellingOptionId,
-            int quantity, String note, bool isFavorite)?
+    TResult? Function(
+            MealEntity meal,
+            String selectedSellingOptionId,
+            int quantity,
+            String note,
+            bool isFavorite,
+            ReturnedMealEntity? returnedMeal)?
         addedToCart,
     TResult? Function(AppException exception)? failure,
   }) {
@@ -317,11 +397,21 @@ class _$MealDetailsLoadingImpl implements MealDetailsLoading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(MealEntity meal, String selectedSellingOptionId,
-            int quantity, String note, bool isFavorite)?
+    TResult Function(
+            MealEntity meal,
+            String selectedSellingOptionId,
+            int quantity,
+            String note,
+            bool isFavorite,
+            ReturnedMealEntity? returnedMeal)?
         loaded,
-    TResult Function(MealEntity meal, String selectedSellingOptionId,
-            int quantity, String note, bool isFavorite)?
+    TResult Function(
+            MealEntity meal,
+            String selectedSellingOptionId,
+            int quantity,
+            String note,
+            bool isFavorite,
+            ReturnedMealEntity? returnedMeal)?
         addedToCart,
     TResult Function(AppException exception)? failure,
     required TResult orElse(),
@@ -388,7 +478,8 @@ abstract class _$$MealDetailsLoadedImplCopyWith<$Res> {
       String selectedSellingOptionId,
       int quantity,
       String note,
-      bool isFavorite});
+      bool isFavorite,
+      ReturnedMealEntity? returnedMeal});
 }
 
 /// @nodoc
@@ -409,6 +500,7 @@ class __$$MealDetailsLoadedImplCopyWithImpl<$Res>
     Object? quantity = null,
     Object? note = null,
     Object? isFavorite = null,
+    Object? returnedMeal = freezed,
   }) {
     return _then(_$MealDetailsLoadedImpl(
       meal: null == meal
@@ -431,6 +523,10 @@ class __$$MealDetailsLoadedImplCopyWithImpl<$Res>
           ? _value.isFavorite
           : isFavorite // ignore: cast_nullable_to_non_nullable
               as bool,
+      returnedMeal: freezed == returnedMeal
+          ? _value.returnedMeal
+          : returnedMeal // ignore: cast_nullable_to_non_nullable
+              as ReturnedMealEntity?,
     ));
   }
 }
@@ -443,7 +539,8 @@ class _$MealDetailsLoadedImpl implements MealDetailsLoaded {
       required this.selectedSellingOptionId,
       this.quantity = 1,
       this.note = '',
-      this.isFavorite = false});
+      this.isFavorite = false,
+      this.returnedMeal});
 
   @override
   final MealEntity meal;
@@ -459,9 +556,15 @@ class _$MealDetailsLoadedImpl implements MealDetailsLoaded {
   @JsonKey()
   final bool isFavorite;
 
+  /// Set when this screen was reached from a "Your Own" (returned/salvage
+  /// meal) card — swaps the price/CTA to the salvage flow instead of the
+  /// normal selling-option one.
+  @override
+  final ReturnedMealEntity? returnedMeal;
+
   @override
   String toString() {
-    return 'MealDetailsState.loaded(meal: $meal, selectedSellingOptionId: $selectedSellingOptionId, quantity: $quantity, note: $note, isFavorite: $isFavorite)';
+    return 'MealDetailsState.loaded(meal: $meal, selectedSellingOptionId: $selectedSellingOptionId, quantity: $quantity, note: $note, isFavorite: $isFavorite, returnedMeal: $returnedMeal)';
   }
 
   @override
@@ -477,12 +580,14 @@ class _$MealDetailsLoadedImpl implements MealDetailsLoaded {
                 other.quantity == quantity) &&
             (identical(other.note, note) || other.note == note) &&
             (identical(other.isFavorite, isFavorite) ||
-                other.isFavorite == isFavorite));
+                other.isFavorite == isFavorite) &&
+            (identical(other.returnedMeal, returnedMeal) ||
+                other.returnedMeal == returnedMeal));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, meal, selectedSellingOptionId, quantity, note, isFavorite);
+  int get hashCode => Object.hash(runtimeType, meal, selectedSellingOptionId,
+      quantity, note, isFavorite, returnedMeal);
 
   /// Create a copy of MealDetailsState
   /// with the given fields replaced by the non-null parameter values.
@@ -498,15 +603,26 @@ class _$MealDetailsLoadedImpl implements MealDetailsLoaded {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(MealEntity meal, String selectedSellingOptionId,
-            int quantity, String note, bool isFavorite)
+    required TResult Function(
+            MealEntity meal,
+            String selectedSellingOptionId,
+            int quantity,
+            String note,
+            bool isFavorite,
+            ReturnedMealEntity? returnedMeal)
         loaded,
-    required TResult Function(MealEntity meal, String selectedSellingOptionId,
-            int quantity, String note, bool isFavorite)
+    required TResult Function(
+            MealEntity meal,
+            String selectedSellingOptionId,
+            int quantity,
+            String note,
+            bool isFavorite,
+            ReturnedMealEntity? returnedMeal)
         addedToCart,
     required TResult Function(AppException exception) failure,
   }) {
-    return loaded(meal, selectedSellingOptionId, quantity, note, isFavorite);
+    return loaded(meal, selectedSellingOptionId, quantity, note, isFavorite,
+        returnedMeal);
   }
 
   @override
@@ -514,16 +630,26 @@ class _$MealDetailsLoadedImpl implements MealDetailsLoaded {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(MealEntity meal, String selectedSellingOptionId,
-            int quantity, String note, bool isFavorite)?
+    TResult? Function(
+            MealEntity meal,
+            String selectedSellingOptionId,
+            int quantity,
+            String note,
+            bool isFavorite,
+            ReturnedMealEntity? returnedMeal)?
         loaded,
-    TResult? Function(MealEntity meal, String selectedSellingOptionId,
-            int quantity, String note, bool isFavorite)?
+    TResult? Function(
+            MealEntity meal,
+            String selectedSellingOptionId,
+            int quantity,
+            String note,
+            bool isFavorite,
+            ReturnedMealEntity? returnedMeal)?
         addedToCart,
     TResult? Function(AppException exception)? failure,
   }) {
-    return loaded?.call(
-        meal, selectedSellingOptionId, quantity, note, isFavorite);
+    return loaded?.call(meal, selectedSellingOptionId, quantity, note,
+        isFavorite, returnedMeal);
   }
 
   @override
@@ -531,17 +657,28 @@ class _$MealDetailsLoadedImpl implements MealDetailsLoaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(MealEntity meal, String selectedSellingOptionId,
-            int quantity, String note, bool isFavorite)?
+    TResult Function(
+            MealEntity meal,
+            String selectedSellingOptionId,
+            int quantity,
+            String note,
+            bool isFavorite,
+            ReturnedMealEntity? returnedMeal)?
         loaded,
-    TResult Function(MealEntity meal, String selectedSellingOptionId,
-            int quantity, String note, bool isFavorite)?
+    TResult Function(
+            MealEntity meal,
+            String selectedSellingOptionId,
+            int quantity,
+            String note,
+            bool isFavorite,
+            ReturnedMealEntity? returnedMeal)?
         addedToCart,
     TResult Function(AppException exception)? failure,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(meal, selectedSellingOptionId, quantity, note, isFavorite);
+      return loaded(meal, selectedSellingOptionId, quantity, note, isFavorite,
+          returnedMeal);
     }
     return orElse();
   }
@@ -593,13 +730,19 @@ abstract class MealDetailsLoaded implements MealDetailsState {
       required final String selectedSellingOptionId,
       final int quantity,
       final String note,
-      final bool isFavorite}) = _$MealDetailsLoadedImpl;
+      final bool isFavorite,
+      final ReturnedMealEntity? returnedMeal}) = _$MealDetailsLoadedImpl;
 
   MealEntity get meal;
   String get selectedSellingOptionId;
   int get quantity;
   String get note;
   bool get isFavorite;
+
+  /// Set when this screen was reached from a "Your Own" (returned/salvage
+  /// meal) card — swaps the price/CTA to the salvage flow instead of the
+  /// normal selling-option one.
+  ReturnedMealEntity? get returnedMeal;
 
   /// Create a copy of MealDetailsState
   /// with the given fields replaced by the non-null parameter values.
@@ -620,7 +763,8 @@ abstract class _$$MealDetailsAddedToCartImplCopyWith<$Res> {
       String selectedSellingOptionId,
       int quantity,
       String note,
-      bool isFavorite});
+      bool isFavorite,
+      ReturnedMealEntity? returnedMeal});
 }
 
 /// @nodoc
@@ -642,6 +786,7 @@ class __$$MealDetailsAddedToCartImplCopyWithImpl<$Res>
     Object? quantity = null,
     Object? note = null,
     Object? isFavorite = null,
+    Object? returnedMeal = freezed,
   }) {
     return _then(_$MealDetailsAddedToCartImpl(
       meal: null == meal
@@ -664,6 +809,10 @@ class __$$MealDetailsAddedToCartImplCopyWithImpl<$Res>
           ? _value.isFavorite
           : isFavorite // ignore: cast_nullable_to_non_nullable
               as bool,
+      returnedMeal: freezed == returnedMeal
+          ? _value.returnedMeal
+          : returnedMeal // ignore: cast_nullable_to_non_nullable
+              as ReturnedMealEntity?,
     ));
   }
 }
@@ -676,7 +825,8 @@ class _$MealDetailsAddedToCartImpl implements MealDetailsAddedToCart {
       required this.selectedSellingOptionId,
       this.quantity = 1,
       this.note = '',
-      this.isFavorite = false});
+      this.isFavorite = false,
+      this.returnedMeal});
 
   @override
   final MealEntity meal;
@@ -691,10 +841,12 @@ class _$MealDetailsAddedToCartImpl implements MealDetailsAddedToCart {
   @override
   @JsonKey()
   final bool isFavorite;
+  @override
+  final ReturnedMealEntity? returnedMeal;
 
   @override
   String toString() {
-    return 'MealDetailsState.addedToCart(meal: $meal, selectedSellingOptionId: $selectedSellingOptionId, quantity: $quantity, note: $note, isFavorite: $isFavorite)';
+    return 'MealDetailsState.addedToCart(meal: $meal, selectedSellingOptionId: $selectedSellingOptionId, quantity: $quantity, note: $note, isFavorite: $isFavorite, returnedMeal: $returnedMeal)';
   }
 
   @override
@@ -710,12 +862,14 @@ class _$MealDetailsAddedToCartImpl implements MealDetailsAddedToCart {
                 other.quantity == quantity) &&
             (identical(other.note, note) || other.note == note) &&
             (identical(other.isFavorite, isFavorite) ||
-                other.isFavorite == isFavorite));
+                other.isFavorite == isFavorite) &&
+            (identical(other.returnedMeal, returnedMeal) ||
+                other.returnedMeal == returnedMeal));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, meal, selectedSellingOptionId, quantity, note, isFavorite);
+  int get hashCode => Object.hash(runtimeType, meal, selectedSellingOptionId,
+      quantity, note, isFavorite, returnedMeal);
 
   /// Create a copy of MealDetailsState
   /// with the given fields replaced by the non-null parameter values.
@@ -731,16 +885,26 @@ class _$MealDetailsAddedToCartImpl implements MealDetailsAddedToCart {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(MealEntity meal, String selectedSellingOptionId,
-            int quantity, String note, bool isFavorite)
+    required TResult Function(
+            MealEntity meal,
+            String selectedSellingOptionId,
+            int quantity,
+            String note,
+            bool isFavorite,
+            ReturnedMealEntity? returnedMeal)
         loaded,
-    required TResult Function(MealEntity meal, String selectedSellingOptionId,
-            int quantity, String note, bool isFavorite)
+    required TResult Function(
+            MealEntity meal,
+            String selectedSellingOptionId,
+            int quantity,
+            String note,
+            bool isFavorite,
+            ReturnedMealEntity? returnedMeal)
         addedToCart,
     required TResult Function(AppException exception) failure,
   }) {
-    return addedToCart(
-        meal, selectedSellingOptionId, quantity, note, isFavorite);
+    return addedToCart(meal, selectedSellingOptionId, quantity, note,
+        isFavorite, returnedMeal);
   }
 
   @override
@@ -748,16 +912,26 @@ class _$MealDetailsAddedToCartImpl implements MealDetailsAddedToCart {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(MealEntity meal, String selectedSellingOptionId,
-            int quantity, String note, bool isFavorite)?
+    TResult? Function(
+            MealEntity meal,
+            String selectedSellingOptionId,
+            int quantity,
+            String note,
+            bool isFavorite,
+            ReturnedMealEntity? returnedMeal)?
         loaded,
-    TResult? Function(MealEntity meal, String selectedSellingOptionId,
-            int quantity, String note, bool isFavorite)?
+    TResult? Function(
+            MealEntity meal,
+            String selectedSellingOptionId,
+            int quantity,
+            String note,
+            bool isFavorite,
+            ReturnedMealEntity? returnedMeal)?
         addedToCart,
     TResult? Function(AppException exception)? failure,
   }) {
-    return addedToCart?.call(
-        meal, selectedSellingOptionId, quantity, note, isFavorite);
+    return addedToCart?.call(meal, selectedSellingOptionId, quantity, note,
+        isFavorite, returnedMeal);
   }
 
   @override
@@ -765,18 +939,28 @@ class _$MealDetailsAddedToCartImpl implements MealDetailsAddedToCart {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(MealEntity meal, String selectedSellingOptionId,
-            int quantity, String note, bool isFavorite)?
+    TResult Function(
+            MealEntity meal,
+            String selectedSellingOptionId,
+            int quantity,
+            String note,
+            bool isFavorite,
+            ReturnedMealEntity? returnedMeal)?
         loaded,
-    TResult Function(MealEntity meal, String selectedSellingOptionId,
-            int quantity, String note, bool isFavorite)?
+    TResult Function(
+            MealEntity meal,
+            String selectedSellingOptionId,
+            int quantity,
+            String note,
+            bool isFavorite,
+            ReturnedMealEntity? returnedMeal)?
         addedToCart,
     TResult Function(AppException exception)? failure,
     required TResult orElse(),
   }) {
     if (addedToCart != null) {
-      return addedToCart(
-          meal, selectedSellingOptionId, quantity, note, isFavorite);
+      return addedToCart(meal, selectedSellingOptionId, quantity, note,
+          isFavorite, returnedMeal);
     }
     return orElse();
   }
@@ -828,13 +1012,15 @@ abstract class MealDetailsAddedToCart implements MealDetailsState {
       required final String selectedSellingOptionId,
       final int quantity,
       final String note,
-      final bool isFavorite}) = _$MealDetailsAddedToCartImpl;
+      final bool isFavorite,
+      final ReturnedMealEntity? returnedMeal}) = _$MealDetailsAddedToCartImpl;
 
   MealEntity get meal;
   String get selectedSellingOptionId;
   int get quantity;
   String get note;
   bool get isFavorite;
+  ReturnedMealEntity? get returnedMeal;
 
   /// Create a copy of MealDetailsState
   /// with the given fields replaced by the non-null parameter values.
@@ -915,11 +1101,21 @@ class _$MealDetailsFailureImpl implements MealDetailsFailure {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(MealEntity meal, String selectedSellingOptionId,
-            int quantity, String note, bool isFavorite)
+    required TResult Function(
+            MealEntity meal,
+            String selectedSellingOptionId,
+            int quantity,
+            String note,
+            bool isFavorite,
+            ReturnedMealEntity? returnedMeal)
         loaded,
-    required TResult Function(MealEntity meal, String selectedSellingOptionId,
-            int quantity, String note, bool isFavorite)
+    required TResult Function(
+            MealEntity meal,
+            String selectedSellingOptionId,
+            int quantity,
+            String note,
+            bool isFavorite,
+            ReturnedMealEntity? returnedMeal)
         addedToCart,
     required TResult Function(AppException exception) failure,
   }) {
@@ -931,11 +1127,21 @@ class _$MealDetailsFailureImpl implements MealDetailsFailure {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(MealEntity meal, String selectedSellingOptionId,
-            int quantity, String note, bool isFavorite)?
+    TResult? Function(
+            MealEntity meal,
+            String selectedSellingOptionId,
+            int quantity,
+            String note,
+            bool isFavorite,
+            ReturnedMealEntity? returnedMeal)?
         loaded,
-    TResult? Function(MealEntity meal, String selectedSellingOptionId,
-            int quantity, String note, bool isFavorite)?
+    TResult? Function(
+            MealEntity meal,
+            String selectedSellingOptionId,
+            int quantity,
+            String note,
+            bool isFavorite,
+            ReturnedMealEntity? returnedMeal)?
         addedToCart,
     TResult? Function(AppException exception)? failure,
   }) {
@@ -947,11 +1153,21 @@ class _$MealDetailsFailureImpl implements MealDetailsFailure {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(MealEntity meal, String selectedSellingOptionId,
-            int quantity, String note, bool isFavorite)?
+    TResult Function(
+            MealEntity meal,
+            String selectedSellingOptionId,
+            int quantity,
+            String note,
+            bool isFavorite,
+            ReturnedMealEntity? returnedMeal)?
         loaded,
-    TResult Function(MealEntity meal, String selectedSellingOptionId,
-            int quantity, String note, bool isFavorite)?
+    TResult Function(
+            MealEntity meal,
+            String selectedSellingOptionId,
+            int quantity,
+            String note,
+            bool isFavorite,
+            ReturnedMealEntity? returnedMeal)?
         addedToCart,
     TResult Function(AppException exception)? failure,
     required TResult orElse(),

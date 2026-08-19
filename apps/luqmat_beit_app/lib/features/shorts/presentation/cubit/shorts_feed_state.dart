@@ -14,6 +14,8 @@ part 'shorts_feed_state.freezed.dart';
 sealed class ShortsFeedState with _$ShortsFeedState {
   const factory ShortsFeedState.initial() = ShortsFeedInitial;
   const factory ShortsFeedState.loading() = ShortsFeedLoading;
-  const factory ShortsFeedState.loaded(List<ShortEntity> shorts) = ShortsFeedLoaded;
-  const factory ShortsFeedState.failure(AppException exception) = ShortsFeedFailure;
+  const factory ShortsFeedState.loaded(List<ShortEntity> shorts) =
+      ShortsFeedLoaded;
+  const factory ShortsFeedState.failure(AppException exception) =
+      ShortsFeedFailure;
 }

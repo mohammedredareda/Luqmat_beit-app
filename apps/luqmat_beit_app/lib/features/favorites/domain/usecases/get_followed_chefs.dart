@@ -1,6 +1,5 @@
 import 'package:core/core.dart';
 
-import '../../../home/domain/entities/home_feed_entity.dart';
 import '../repositories/favorites_repository.dart';
 
 class GetFollowedChefs {

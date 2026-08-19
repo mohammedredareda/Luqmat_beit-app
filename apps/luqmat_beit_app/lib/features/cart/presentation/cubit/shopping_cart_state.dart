@@ -15,5 +15,6 @@ sealed class ShoppingCartState with _$ShoppingCartState {
     required double deliveryFee,
   }) = ShoppingCartLoaded;
   const factory ShoppingCartState.empty() = ShoppingCartEmpty;
-  const factory ShoppingCartState.failure(AppException exception) = ShoppingCartFailure;
+  const factory ShoppingCartState.failure(AppException exception) =
+      ShoppingCartFailure;
 }

@@ -49,6 +49,14 @@ class MealDetailsRepositoryImpl implements MealDetailsRepository {
   }
 
   @override
+  Future<Result<void>> addReturnedMealToCart({
+    required String returnedMealId,
+    required int count,
+  }) {
+    return _cartRepository.addReturnedMeal(returnedMealId: returnedMealId, count: count);
+  }
+
+  @override
   Future<Result<void>> setFavorite(String mealId, bool isFavorite) {
     return guard(() => _dataSource.setFavorite(mealId, isFavorite));
   }

@@ -12,6 +12,8 @@ class CustomerProfileEntity extends Equatable {
     required this.completedOrdersCount,
     required this.favoritesCount,
     this.avatarUrl,
+    this.latitude,
+    this.longitude,
   });
 
   final String name;
@@ -20,17 +22,36 @@ class CustomerProfileEntity extends Equatable {
   final int completedOrdersCount;
   final int favoritesCount;
   final String? avatarUrl;
+  final double? latitude;
+  final double? longitude;
 
-  CustomerProfileEntity copyWith({String? name, String? address}) => CustomerProfileEntity(
+  CustomerProfileEntity copyWith({
+    String? name,
+    String? address,
+    String? avatarUrl,
+    double? latitude,
+    double? longitude,
+  }) =>
+      CustomerProfileEntity(
         name: name ?? this.name,
         phone: phone,
         address: address ?? this.address,
         completedOrdersCount: completedOrdersCount,
         favoritesCount: favoritesCount,
-        avatarUrl: avatarUrl,
+        avatarUrl: avatarUrl ?? this.avatarUrl,
+        latitude: latitude ?? this.latitude,
+        longitude: longitude ?? this.longitude,
       );
 
   @override
-  List<Object?> get props =>
-      [name, phone, address, completedOrdersCount, favoritesCount, avatarUrl];
+  List<Object?> get props => [
+        name,
+        phone,
+        address,
+        completedOrdersCount,
+        favoritesCount,
+        avatarUrl,
+        latitude,
+        longitude,
+      ];
 }

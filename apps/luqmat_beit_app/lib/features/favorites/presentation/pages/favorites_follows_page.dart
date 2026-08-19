@@ -5,7 +5,6 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../di/injection.dart';
 import '../../../../shared/widgets/customer_bottom_nav.dart';
-import '../../../home/domain/entities/home_feed_entity.dart';
 import '../../domain/usecases/get_favorite_meals.dart';
 import '../../domain/usecases/get_followed_chefs.dart';
 import '../../domain/usecases/unfavorite_meal.dart';
@@ -95,22 +94,47 @@ class _TopBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          IconButton(
-            icon: Icon(Icons.notifications_outlined, color: scheme.primary),
-            onPressed: () => context.push('/notifications'),
+          _TopBarIconButton(
+            icon: Icons.notifications_outlined,
+            scheme: scheme,
+            onTap: () => context.push('/notifications'),
           ),
           Text(
-            'المفضلة ♥',
+            'المفضلة',
             style: Theme.of(context)
                 .textTheme
                 .headlineSmall
-                ?.copyWith(color: scheme.primary, fontWeight: FontWeight.bold),
+                ?.copyWith(color: scheme.onSurface, fontWeight: FontWeight.bold),
           ),
-          IconButton(
-            icon: Icon(Icons.arrow_back, color: scheme.primary),
-            onPressed: () => context.pop(),
-          ),
+          _TopBarIconButton(icon: Icons.favorite, scheme: scheme),
         ],
+      ),
+    );
+  }
+}
+
+/// Circular icon-button chrome shared by the notification and heart glyphs
+/// in the top bar — the heart is purely decorative (this screen already
+/// *is* Favorites), so [onTap] is optional.
+class _TopBarIconButton extends StatelessWidget {
+  const _TopBarIconButton({required this.icon, required this.scheme, this.onTap});
+
+  final IconData icon;
+  final ColorScheme scheme;
+  final VoidCallback? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: scheme.surfaceContainerHighest,
+      shape: const CircleBorder(),
+      child: InkWell(
+        customBorder: const CircleBorder(),
+        onTap: onTap,
+        child: Padding(
+          padding: const EdgeInsetsDirectional.all(AppSpace.s),
+          child: Icon(icon, color: scheme.primary, size: 22),
+        ),
       ),
     );
   }

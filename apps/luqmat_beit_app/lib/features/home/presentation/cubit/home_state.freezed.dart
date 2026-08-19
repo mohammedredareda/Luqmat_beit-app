@@ -20,8 +20,7 @@ mixin _$HomeState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(HomeFeedEntity feed, String? selectedCategoryId)
-        loaded,
+    required TResult Function(HomeFeedEntity feed) loaded,
     required TResult Function(AppException exception) failure,
   }) =>
       throw _privateConstructorUsedError;
@@ -29,7 +28,7 @@ mixin _$HomeState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(HomeFeedEntity feed, String? selectedCategoryId)? loaded,
+    TResult? Function(HomeFeedEntity feed)? loaded,
     TResult? Function(AppException exception)? failure,
   }) =>
       throw _privateConstructorUsedError;
@@ -37,7 +36,7 @@ mixin _$HomeState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(HomeFeedEntity feed, String? selectedCategoryId)? loaded,
+    TResult Function(HomeFeedEntity feed)? loaded,
     TResult Function(AppException exception)? failure,
     required TResult orElse(),
   }) =>
@@ -132,8 +131,7 @@ class _$HomeInitialImpl implements HomeInitial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(HomeFeedEntity feed, String? selectedCategoryId)
-        loaded,
+    required TResult Function(HomeFeedEntity feed) loaded,
     required TResult Function(AppException exception) failure,
   }) {
     return initial();
@@ -144,7 +142,7 @@ class _$HomeInitialImpl implements HomeInitial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(HomeFeedEntity feed, String? selectedCategoryId)? loaded,
+    TResult? Function(HomeFeedEntity feed)? loaded,
     TResult? Function(AppException exception)? failure,
   }) {
     return initial?.call();
@@ -155,7 +153,7 @@ class _$HomeInitialImpl implements HomeInitial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(HomeFeedEntity feed, String? selectedCategoryId)? loaded,
+    TResult Function(HomeFeedEntity feed)? loaded,
     TResult Function(AppException exception)? failure,
     required TResult orElse(),
   }) {
@@ -250,8 +248,7 @@ class _$HomeLoadingImpl implements HomeLoading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(HomeFeedEntity feed, String? selectedCategoryId)
-        loaded,
+    required TResult Function(HomeFeedEntity feed) loaded,
     required TResult Function(AppException exception) failure,
   }) {
     return loading();
@@ -262,7 +259,7 @@ class _$HomeLoadingImpl implements HomeLoading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(HomeFeedEntity feed, String? selectedCategoryId)? loaded,
+    TResult? Function(HomeFeedEntity feed)? loaded,
     TResult? Function(AppException exception)? failure,
   }) {
     return loading?.call();
@@ -273,7 +270,7 @@ class _$HomeLoadingImpl implements HomeLoading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(HomeFeedEntity feed, String? selectedCategoryId)? loaded,
+    TResult Function(HomeFeedEntity feed)? loaded,
     TResult Function(AppException exception)? failure,
     required TResult orElse(),
   }) {
@@ -331,7 +328,7 @@ abstract class _$$HomeLoadedImplCopyWith<$Res> {
           _$HomeLoadedImpl value, $Res Function(_$HomeLoadedImpl) then) =
       __$$HomeLoadedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({HomeFeedEntity feed, String? selectedCategoryId});
+  $Res call({HomeFeedEntity feed});
 }
 
 /// @nodoc
@@ -348,17 +345,12 @@ class __$$HomeLoadedImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? feed = null,
-    Object? selectedCategoryId = freezed,
   }) {
     return _then(_$HomeLoadedImpl(
       null == feed
           ? _value.feed
           : feed // ignore: cast_nullable_to_non_nullable
               as HomeFeedEntity,
-      selectedCategoryId: freezed == selectedCategoryId
-          ? _value.selectedCategoryId
-          : selectedCategoryId // ignore: cast_nullable_to_non_nullable
-              as String?,
     ));
   }
 }
@@ -366,16 +358,14 @@ class __$$HomeLoadedImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$HomeLoadedImpl implements HomeLoaded {
-  const _$HomeLoadedImpl(this.feed, {this.selectedCategoryId});
+  const _$HomeLoadedImpl(this.feed);
 
   @override
   final HomeFeedEntity feed;
-  @override
-  final String? selectedCategoryId;
 
   @override
   String toString() {
-    return 'HomeState.loaded(feed: $feed, selectedCategoryId: $selectedCategoryId)';
+    return 'HomeState.loaded(feed: $feed)';
   }
 
   @override
@@ -383,13 +373,11 @@ class _$HomeLoadedImpl implements HomeLoaded {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$HomeLoadedImpl &&
-            (identical(other.feed, feed) || other.feed == feed) &&
-            (identical(other.selectedCategoryId, selectedCategoryId) ||
-                other.selectedCategoryId == selectedCategoryId));
+            (identical(other.feed, feed) || other.feed == feed));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, feed, selectedCategoryId);
+  int get hashCode => Object.hash(runtimeType, feed);
 
   /// Create a copy of HomeState
   /// with the given fields replaced by the non-null parameter values.
@@ -404,11 +392,10 @@ class _$HomeLoadedImpl implements HomeLoaded {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(HomeFeedEntity feed, String? selectedCategoryId)
-        loaded,
+    required TResult Function(HomeFeedEntity feed) loaded,
     required TResult Function(AppException exception) failure,
   }) {
-    return loaded(feed, selectedCategoryId);
+    return loaded(feed);
   }
 
   @override
@@ -416,10 +403,10 @@ class _$HomeLoadedImpl implements HomeLoaded {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(HomeFeedEntity feed, String? selectedCategoryId)? loaded,
+    TResult? Function(HomeFeedEntity feed)? loaded,
     TResult? Function(AppException exception)? failure,
   }) {
-    return loaded?.call(feed, selectedCategoryId);
+    return loaded?.call(feed);
   }
 
   @override
@@ -427,12 +414,12 @@ class _$HomeLoadedImpl implements HomeLoaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(HomeFeedEntity feed, String? selectedCategoryId)? loaded,
+    TResult Function(HomeFeedEntity feed)? loaded,
     TResult Function(AppException exception)? failure,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(feed, selectedCategoryId);
+      return loaded(feed);
     }
     return orElse();
   }
@@ -476,11 +463,9 @@ class _$HomeLoadedImpl implements HomeLoaded {
 }
 
 abstract class HomeLoaded implements HomeState {
-  const factory HomeLoaded(final HomeFeedEntity feed,
-      {final String? selectedCategoryId}) = _$HomeLoadedImpl;
+  const factory HomeLoaded(final HomeFeedEntity feed) = _$HomeLoadedImpl;
 
   HomeFeedEntity get feed;
-  String? get selectedCategoryId;
 
   /// Create a copy of HomeState
   /// with the given fields replaced by the non-null parameter values.
@@ -560,8 +545,7 @@ class _$HomeFailureImpl implements HomeFailure {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(HomeFeedEntity feed, String? selectedCategoryId)
-        loaded,
+    required TResult Function(HomeFeedEntity feed) loaded,
     required TResult Function(AppException exception) failure,
   }) {
     return failure(exception);
@@ -572,7 +556,7 @@ class _$HomeFailureImpl implements HomeFailure {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(HomeFeedEntity feed, String? selectedCategoryId)? loaded,
+    TResult? Function(HomeFeedEntity feed)? loaded,
     TResult? Function(AppException exception)? failure,
   }) {
     return failure?.call(exception);
@@ -583,7 +567,7 @@ class _$HomeFailureImpl implements HomeFailure {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(HomeFeedEntity feed, String? selectedCategoryId)? loaded,
+    TResult Function(HomeFeedEntity feed)? loaded,
     TResult Function(AppException exception)? failure,
     required TResult orElse(),
   }) {

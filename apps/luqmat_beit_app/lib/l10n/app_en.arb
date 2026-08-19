@@ -164,6 +164,8 @@
   "profileRatingLabel": "{rating} ({count} reviews)",
   "@profileRatingLabel": {"placeholders": {"rating": {"type": "String"}, "count": {"type": "int"}}},
   "completedOrdersStatLabel": "Completed Orders",
+  "favoritesStatLabel": "Favorites",
+  "orderHistoryTitle": "Order History",
   "totalMealsStatLabel": "Total Meals",
   "phoneNumberStatLabel": "Phone Number",
   "statsComingSoonLabel": "Stats coming soon",

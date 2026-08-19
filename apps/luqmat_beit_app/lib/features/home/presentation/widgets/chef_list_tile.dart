@@ -23,13 +23,15 @@ class ChefListTile extends StatelessWidget {
         ),
         child: Row(
           children: [
-            CircleAvatar(radius: 32, backgroundImage: NetworkImage(chef.avatarUrl)),
+            CircleAvatar(
+                radius: 32, backgroundImage: NetworkImage(chef.avatarUrl)),
             const SizedBox(width: 12),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(chef.name, style: Theme.of(context).textTheme.titleMedium),
+                  Text(chef.name,
+                      style: Theme.of(context).textTheme.titleMedium),
                   const SizedBox(height: 4),
                   Row(
                     children: [
@@ -37,7 +39,8 @@ class ChefListTile extends StatelessWidget {
                       const SizedBox(width: 4),
                       Text('${chef.rating} (${chef.ratingCount}+)'),
                       const SizedBox(width: 16),
-                      Icon(Icons.location_on, size: 14, color: scheme.onSurfaceVariant),
+                      Icon(Icons.location_on,
+                          size: 14, color: scheme.onSurfaceVariant),
                       const SizedBox(width: 4),
                       Text('${chef.distanceKm} كم',
                           style: TextStyle(color: scheme.onSurfaceVariant)),

@@ -7,6 +7,5 @@ class GetInProgressOrders {
 
   final OrdersRepository _repository;
 
-  Future<Result<List<OrderEntity>>> call() =>
-      _repository.getInProgressOrders();
+  Future<Result<List<OrderEntity>>> call() => _repository.getInProgressOrders();
 }

@@ -1,6 +1,7 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:luqmat_beit_app/l10n/generated/app_localizations.dart';
 
 import '../../../../di/injection.dart';
 import '../../domain/usecases/get_order_by_id.dart';
@@ -43,13 +44,16 @@ class _InvoiceView extends StatelessWidget {
         child: BlocBuilder<InvoiceCubit, InvoiceState>(
           builder: (context, state) {
             return switch (state) {
-              InvoiceInitial() || InvoiceLoading() => const _InvoiceLoadingSkeleton(),
+              InvoiceInitial() ||
+              InvoiceLoading() =>
+                const _InvoiceLoadingSkeleton(),
               InvoiceFailure(:final exception) => EmptyState(
                   icon: Icons.wifi_off,
                   title: 'تعذر تحميل الفاتورة',
                   message: exception.message,
                   actionLabel: 'إعادة المحاولة',
-                  onAction: () => context.read<InvoiceCubit>().loadOrder(orderId),
+                  onAction: () =>
+                      context.read<InvoiceCubit>().loadOrder(orderId),
                 ),
               InvoiceLoaded(:final order) => _InvoiceContent(order: order),
             };
@@ -72,7 +76,8 @@ class _InvoiceContent extends StatelessWidget {
     final lineItemRows = [
       ...order.mealItems.map((item) => OrderLineItemRow.meal(item)),
       ...order.offerItems.map((item) => OrderLineItemRow.offer(item)),
-      ...order.returnedMealItems.map((item) => OrderLineItemRow.returnedMeal(item)),
+      ...order.returnedMealItems
+          .map((item) => OrderLineItemRow.returnedMeal(item)),
     ];
 
     return ListView(
@@ -84,7 +89,8 @@ class _InvoiceContent extends StatelessWidget {
             const SizedBox(height: AppSpace.xs),
             Text(
               _formatDate(order.createdAt),
-              style: textTheme.bodyMedium?.copyWith(color: scheme.onSurfaceVariant),
+              style: textTheme.bodyMedium
+                  ?.copyWith(color: scheme.onSurfaceVariant),
             ),
           ],
         ),
@@ -103,7 +109,8 @@ class _InvoiceContent extends StatelessWidget {
               const SizedBox(height: AppSpace.s),
               for (final row in lineItemRows)
                 Padding(
-                  padding: const EdgeInsetsDirectional.symmetric(vertical: AppSpace.xs),
+                  padding: const EdgeInsetsDirectional.symmetric(
+                      vertical: AppSpace.xs),
                   child: row,
                 ),
               const SizedBox(height: AppSpace.s),
@@ -123,8 +130,9 @@ class _InvoiceContent extends StatelessWidget {
                 children: [
                   Text('الإجمالي', style: textTheme.titleLarge),
                   Text(
-                    '${order.grandTotal.toStringAsFixed(0)} ₪',
-                    style: textTheme.headlineSmall?.copyWith(color: scheme.primary),
+                    '${order.grandTotal.toStringAsFixed(0)} ${AppLocalizations.of(context)!.currencySuffix}',
+                    style: textTheme.headlineSmall
+                        ?.copyWith(color: scheme.primary),
                   ),
                 ],
               ),
@@ -180,7 +188,8 @@ class _BreakdownRow extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(label, style: TextStyle(color: resolvedColor)),
-          Text(value.toStringAsFixed(0), style: TextStyle(color: resolvedColor)),
+          Text(value.toStringAsFixed(0),
+              style: TextStyle(color: resolvedColor)),
         ],
       ),
     );
@@ -199,13 +208,17 @@ class _DashedDivider extends StatelessWidget {
         builder: (context, constraints) {
           const dashWidth = 6.0;
           const dashSpace = 4.0;
-          final dashCount = (constraints.maxWidth / (dashWidth + dashSpace)).floor();
+          final dashCount =
+              (constraints.maxWidth / (dashWidth + dashSpace)).floor();
           return Row(
             children: List.generate(
               dashCount,
               (_) => Padding(
                 padding: const EdgeInsetsDirectional.only(end: dashSpace),
-                child: Container(width: dashWidth, height: 1.5, color: scheme.outlineVariant),
+                child: Container(
+                    width: dashWidth,
+                    height: 1.5,
+                    color: scheme.outlineVariant),
               ),
             ),
           );

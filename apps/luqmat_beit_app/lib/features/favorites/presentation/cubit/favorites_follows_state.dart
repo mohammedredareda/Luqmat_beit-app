@@ -1,7 +1,6 @@
 import 'package:core/core.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../../home/domain/entities/home_feed_entity.dart';
 
 part 'favorites_follows_state.freezed.dart';
 

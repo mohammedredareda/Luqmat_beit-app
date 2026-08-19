@@ -28,6 +28,8 @@ import '../features/meal_details/data/repositories/meal_details_repository_impl.
 import '../features/meal_details/domain/repositories/meal_details_repository.dart';
 import '../features/notifications/data/repositories/notifications_repository_impl.dart';
 import '../features/notifications/domain/repositories/notifications_repository.dart';
+import '../features/offer_details/data/repositories/offer_details_repository_impl.dart';
+import '../features/offer_details/domain/repositories/offer_details_repository.dart';
 import '../features/order_history/data/datasources/order_history_remote_data_source.dart';
 import '../features/order_history/data/repositories/order_history_repository_impl.dart';
 import '../features/order_history/domain/repositories/order_history_repository.dart';
@@ -131,6 +133,8 @@ import '../features/offers_management/edit_offer/domain/usecases/get_offer.dart'
 import '../features/offers_management/edit_offer/domain/usecases/update_offer.dart';
 import '../features/offers_management/shared/domain/usecases/get_selectable_meals.dart';
 import '../features/offers_management/view_offers/domain/usecases/get_offers_feed.dart';
+import '../features/profile/domain/usecases/get_profile.dart';
+import '../features/profile/domain/usecases/update_profile.dart';
 import '../features/order_management/order_details/domain/usecases/accept_order.dart';
 import '../features/order_management/order_details/domain/usecases/complete_order.dart';
 import '../features/order_management/order_details/domain/usecases/get_order.dart';
@@ -173,8 +177,14 @@ import '../features/shorts_management/delete_short/presentation/bloc/delete_shor
 import '../features/shorts_management/view_shorts/presentation/bloc/view_shorts_cubit.dart';
 import '../features/cook_profile/change_password/presentation/bloc/change_password_cubit.dart';
 import '../features/cook_profile/change_phone_number/presentation/bloc/change_phone_number_bloc.dart';
-import '../features/cook_profile/edit_profile/presentation/bloc/edit_profile_bloc.dart';
+// `EditProfileBloc` is declared independently in both the cook and
+// customer `edit_profile` features — same name, different classes — so
+// both imports need a prefix to disambiguate (same pattern as
+// `GetCookProfile` above).
+import '../features/cook_profile/edit_profile/presentation/bloc/edit_profile_bloc.dart'
+    as cook_edit_profile;
 import '../features/cook_profile/view_profile/presentation/bloc/profile_cubit.dart';
+import '../features/profile/edit_profile/presentation/bloc/edit_profile_bloc.dart';
 
 final getIt = GetIt.instance;
 
@@ -185,7 +195,7 @@ final getIt = GetIt.instance;
 /// look like a hang/timeout rather than a normal loading state.
 const _apiBaseUrl = String.fromEnvironment(
   'API_BASE_URL',
-  defaultValue: 'http://localhost:8080',
+  defaultValue: '10.231.46.152:3000re',
 );
 
 /// Wires every repository behind its domain interface for both the customer
@@ -233,18 +243,22 @@ Future<void> configureDependencies() async {
 
   // ══ Shared infra (used by both roles) ══════════════════════════════════
   getIt.registerLazySingleton<CategoriesRepository>(
-    () => CategoriesRepositoryImpl(CategoriesRemoteDataSource(getIt<ApiClient>())),
+    () => CategoriesRepositoryImpl(
+        CategoriesRemoteDataSource(getIt<ApiClient>())),
   );
 
   // ══ Customer-side repositories ═══════════════════════════════════════
   getIt.registerLazySingleton<HomeRepository>(
-    () => HomeRepositoryImpl(dataSource: HomeRemoteDataSource(getIt<ApiClient>())),
+    () => HomeRepositoryImpl(
+        dataSource: HomeRemoteDataSource(getIt<ApiClient>())),
   );
   getIt.registerLazySingleton<SearchRepository>(
-    () => SearchRepositoryImpl(dataSource: SearchRemoteDataSource(getIt<ApiClient>())),
+    () => SearchRepositoryImpl(
+        dataSource: SearchRemoteDataSource(getIt<ApiClient>())),
   );
   getIt.registerLazySingleton<ChefRepository>(
-    () => ChefRepositoryImpl(dataSource: ChefRemoteDataSource(getIt<ApiClient>())),
+    () => ChefRepositoryImpl(
+        dataSource: ChefRemoteDataSource(getIt<ApiClient>())),
   );
   getIt.registerLazySingleton<FavoritesRepository>(
     () => FavoritesRepositoryImpl(
@@ -252,7 +266,8 @@ Future<void> configureDependencies() async {
     ),
   );
   getIt.registerLazySingleton<CartRepository>(
-    () => CartRepositoryImpl(dataSource: CartRemoteDataSource(getIt<ApiClient>())),
+    () => CartRepositoryImpl(
+        dataSource: CartRemoteDataSource(getIt<ApiClient>())),
   );
   // Depends on CartRepository so "Add to Cart" on Meal Details lands in the
   // same cart the Cart screen reads from — registered after it.
@@ -262,18 +277,19 @@ Future<void> configureDependencies() async {
       dataSource: MealDetailsRemoteDataSource(getIt<ApiClient>()),
     ),
   );
+  // Depends on CartRepository, same reasoning as MealDetailsRepository above.
+  getIt.registerLazySingleton<OfferDetailsRepository>(
+    () => OfferDetailsRepositoryImpl(cartRepository: getIt<CartRepository>()),
+  );
   getIt.registerLazySingleton<ProfileRepository>(
     () => ProfileRepositoryImpl(
-      dataSource: ProfileRemoteDataSource(
-        getIt<ApiClient>(),
-        getIt<SecureTokenStorage>(),
-        getIt<UserProfileCache>(),
-      ),
+      dataSource: ProfileRemoteDataSource(getIt<ApiClient>(), getIt<UserProfileCache>()),
     ),
   );
   getIt.registerLazySingleton<OrdersRepository>(
     () => OrdersRepositoryImpl(
-      dataSource: OrdersRemoteDataSource(getIt<ApiClient>(), getIt<UserProfileCache>()),
+      dataSource:
+          OrdersRemoteDataSource(getIt<ApiClient>(), getIt<UserProfileCache>()),
     ),
   );
   getIt.registerLazySingleton<OrderHistoryRepository>(
@@ -282,12 +298,15 @@ Future<void> configureDependencies() async {
     ),
   );
   // TODO(backend): no accept/confirm-receipt/report-issue endpoints — stays mocked.
-  getIt.registerLazySingleton<DeliveryRepository>(() => DeliveryRepositoryImpl());
+  getIt.registerLazySingleton<DeliveryRepository>(
+      () => DeliveryRepositoryImpl());
   getIt.registerLazySingleton<RatingsRepository>(
-    () => RatingsRepositoryImpl(dataSource: RatingsRemoteDataSource(getIt<ApiClient>())),
+    () => RatingsRepositoryImpl(
+        dataSource: RatingsRemoteDataSource(getIt<ApiClient>())),
   );
   // TODO(backend): no notification push/sync endpoint — stays local-cache-only.
-  getIt.registerLazySingleton<NotificationsRepository>(() => NotificationsRepositoryImpl());
+  getIt.registerLazySingleton<NotificationsRepository>(
+      () => NotificationsRepositoryImpl());
   getIt.registerLazySingleton<ShortsRepository>(
     () => ShortsRepositoryImpl(
       dataSource: customer_shorts.ShortsRemoteDataSource(getIt<ApiClient>()),
@@ -297,15 +316,21 @@ Future<void> configureDependencies() async {
   // ══ Cook-side data sources (shared in-memory "backend" state) ═════════
   getIt.registerLazySingleton(() => MealRemoteDataSource(getIt<ApiClient>()));
   getIt.registerLazySingleton(() => OffersRemoteDataSource(getIt<ApiClient>()));
-  getIt.registerLazySingleton(() => DiscountsRemoteDataSource(getIt<ApiClient>()));
-  getIt.registerLazySingleton(() => PromotionsRemoteDataSource(getIt<ApiClient>()));
+  getIt.registerLazySingleton(
+      () => DiscountsRemoteDataSource(getIt<ApiClient>()));
+  getIt.registerLazySingleton(
+      () => PromotionsRemoteDataSource(getIt<ApiClient>()));
   getIt.registerLazySingleton(() => OrderRemoteDataSource(getIt<ApiClient>()));
-  getIt.registerLazySingleton(() => CookProfileRemoteDataSource(getIt<ApiClient>()));
-  getIt.registerLazySingleton(() => PasswordRemoteDataSource(getIt<ApiClient>()));
-  getIt.registerLazySingleton(() => PhoneChangeRemoteDataSource(getIt<ApiClient>()));
+  getIt.registerLazySingleton(
+      () => CookProfileRemoteDataSource(getIt<ApiClient>()));
+  getIt.registerLazySingleton(
+      () => PasswordRemoteDataSource(getIt<ApiClient>()));
+  getIt.registerLazySingleton(
+      () => PhoneChangeRemoteDataSource(getIt<ApiClient>()));
   // Real Content endpoints (create/delete); list still stays local — see
   // ShortsRemoteDataSource's doc comment.
-  getIt.registerLazySingleton(() => cook_shorts.ShortsRemoteDataSource(getIt<ApiClient>()));
+  getIt.registerLazySingleton(
+      () => cook_shorts.ShortsRemoteDataSource(getIt<ApiClient>()));
 
   // ══ Cook-side repositories ═════════════════════════════════════════
   getIt.registerLazySingleton<CreateMealRepository>(
@@ -438,7 +463,7 @@ Future<void> configureDependencies() async {
     ),
   );
   getIt.registerFactory(
-    () => EditProfileBloc(
+    () => cook_edit_profile.EditProfileBloc(
       edit_profile_uc.GetCookProfile(getIt()),
       UpdateCookProfile(getIt()),
       DetectCurrentLocation(getIt()),
@@ -446,6 +471,17 @@ Future<void> configureDependencies() async {
   );
   getIt.registerFactory(
     () => ProfileCubit(view_profile_uc.GetCookProfile(getIt())),
+  );
+  // Customer edit-profile — reuses the existing `ProfileRepository`'s
+  // `GetProfile`/`UpdateProfile` usecases (no separate view/edit repository
+  // split like cook's, since the customer repository already exposes both
+  // on one interface) plus the shared core `LocationRepository` singleton.
+  getIt.registerFactory(
+    () => EditProfileBloc(
+      GetProfile(getIt<ProfileRepository>()),
+      UpdateProfile(getIt<ProfileRepository>()),
+      DetectCurrentLocation(getIt()),
+    ),
   );
   getIt.registerFactory(
     () => CreateShortBloc(CreateShort(getIt())),

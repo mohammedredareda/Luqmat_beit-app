@@ -50,7 +50,9 @@ class OrdersMockDataSource implements OrdersDataSource {
     _orders.add(OrderEntity(
       id: id,
       cookId: cookId,
-      cookName: mealItems.isNotEmpty ? SampleCatalog.mealById(mealItems.first.mealId).cookName : '',
+      cookName: mealItems.isNotEmpty
+          ? SampleCatalog.mealById(mealItems.first.mealId).cookName
+          : '',
       customerId: 'customer-1',
       createdAt: DateTime.now(),
       status: OrderStatus.pending,
@@ -78,6 +80,38 @@ class OrdersMockDataSource implements OrdersDataSource {
                 quantity: item.quantity,
               ))
           .toList(),
+      returnedMealItems: returnedMealItems
+          .map((item) => OrderReturnedMealItemEntity(
+                id: item.id,
+                returnedMealId: item.returnedMealId,
+                mealName: item.mealName,
+                mealImageUrl: item.mealImageUrl,
+                priceAtPurchase: item.salvagePrice,
+                quantity: item.quantity,
+              ))
+          .toList(),
+    ));
+    return id;
+  }
+
+  @override
+  Future<String> confirmReturnedMealsOrder({
+    required List<CartReturnedMealItemEntity> returnedMealItems,
+    double? latitude,
+    double? longitude,
+  }) async {
+    await Future.delayed(const Duration(milliseconds: 300));
+    final id = 'ORD-${DateTime.now().millisecondsSinceEpoch}';
+    _orders.add(OrderEntity(
+      id: id,
+      cookId: '',
+      cookName: '',
+      customerId: 'customer-1',
+      createdAt: DateTime.now(),
+      status: OrderStatus.pending,
+      deliveryAddress: '',
+      deliveryFee: 0,
+      totalExpectedTimeMinutes: 45,
       returnedMealItems: returnedMealItems
           .map((item) => OrderReturnedMealItemEntity(
                 id: item.id,

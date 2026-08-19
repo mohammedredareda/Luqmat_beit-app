@@ -17,5 +17,6 @@ class ShortCommentEntity extends Equatable {
   });
 
   @override
-  List<Object?> get props => [id, text, customerName, customerAvatarUrl, createdAt];
+  List<Object?> get props =>
+      [id, text, customerName, customerAvatarUrl, createdAt];
 }
