@@ -96,4 +96,13 @@ class DioClient implements ApiClient {
   }) =>
       _run(() => dio.delete(path,
           data: data, queryParameters: queryParameters, options: _options(headers)));
+
+  @override
+  String? resolveAssetUrl(String? path) {
+    if (path == null || path.isEmpty) return null;
+    if (path.startsWith('http://') || path.startsWith('https://')) return path;
+    final base = dio.options.baseUrl;
+    if (base.isEmpty) return path;
+    return path.startsWith('/') ? '$base$path' : '$base/$path';
+  }
 }

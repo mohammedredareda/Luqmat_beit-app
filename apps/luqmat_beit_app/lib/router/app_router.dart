@@ -42,6 +42,7 @@ import '../features/orders/presentation/pages/invoice_page.dart';
 import '../features/orders/presentation/pages/my_orders_page.dart';
 import '../features/orders/presentation/pages/order_confirmation_page.dart';
 import '../features/orders/presentation/pages/receipt_page.dart';
+import '../features/orders/presentation/pages/returned_meals_checkout_review_page.dart';
 import '../features/profile/edit_profile/presentation/pages/edit_profile_page.dart';
 import '../features/profile/presentation/pages/profile_page.dart';
 import '../features/ratings/presentation/pages/meal_rating_page.dart';
@@ -175,6 +176,23 @@ final appRouter = GoRouter(
         return CheckoutReviewPage(
           group: extra.group,
           deliveryFee: extra.deliveryFee,
+          deliveryAddress: extra.deliveryAddress,
+          latitude: extra.latitude,
+          longitude: extra.longitude,
+        );
+      },
+    ),
+    GoRoute(
+      path: '/checkout-review-returned',
+      builder: (context, state) {
+        final extra = state.extra as ({
+          List<CartReturnedMealItemEntity> returnedMealItems,
+          String? deliveryAddress,
+          double? latitude,
+          double? longitude,
+        });
+        return ReturnedMealsCheckoutReviewPage(
+          returnedMealItems: extra.returnedMealItems,
           deliveryAddress: extra.deliveryAddress,
           latitude: extra.latitude,
           longitude: extra.longitude,

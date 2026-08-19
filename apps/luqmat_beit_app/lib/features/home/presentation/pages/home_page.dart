@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:luqmat_beit_app/l10n/generated/app_localizations.dart';
 
 import '../../../../di/injection.dart';
+import '../../../../router/route_observer.dart';
 import '../../../../shared/widgets/customer_bottom_nav.dart';
 import '../../../search/domain/entities/search_result_type.dart';
 import '../../../search/domain/entities/search_sort_option.dart';
@@ -27,8 +28,34 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class _HomeView extends StatelessWidget {
+class _HomeView extends StatefulWidget {
   const _HomeView();
+
+  @override
+  State<_HomeView> createState() => _HomeViewState();
+}
+
+// Home lives on a plain (non-shell) route, so navigating deeper — search,
+// meal details, chef profile, cart — pushes on top of it rather than
+// disposing it; without RouteAware, popping back would show whatever feed
+// was fetched once at the very first visit instead of current data (new
+// offers, restocked "من نصيبك" items, etc.).
+class _HomeViewState extends State<_HomeView> with RouteAware {
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final route = ModalRoute.of(context);
+    if (route is PageRoute) routeObserver.subscribe(this, route);
+  }
+
+  @override
+  void didPopNext() => context.read<HomeCubit>().loadFeed();
+
+  @override
+  void dispose() {
+    routeObserver.unsubscribe(this);
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

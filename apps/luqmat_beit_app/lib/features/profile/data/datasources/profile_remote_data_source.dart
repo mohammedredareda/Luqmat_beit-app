@@ -34,7 +34,7 @@ class ProfileRemoteDataSource implements ProfileDataSource {
       address: user['address'] as String? ?? '',
       completedOrdersCount: 0,
       favoritesCount: 0,
-      avatarUrl: user['image'] as String?,
+      avatarUrl: _apiClient.resolveAssetUrl(user['image'] as String?),
       latitude: double.tryParse(user['latitude']?.toString() ?? ''),
       longitude: double.tryParse(user['longitude']?.toString() ?? ''),
     );

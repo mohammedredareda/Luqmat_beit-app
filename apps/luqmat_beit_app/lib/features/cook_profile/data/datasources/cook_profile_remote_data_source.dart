@@ -17,7 +17,11 @@ class CookProfileRemoteDataSource {
     final response = await _apiClient.get('/users/profile') as Map;
     final user = response['user'] as Map?;
     if (user == null) throw const NotFoundException('Profile not found');
-    return CookProfileModel.fromApiUserJson(user.cast<String, dynamic>());
+    final model = CookProfileModel.fromApiUserJson(user.cast<String, dynamic>());
+    // `image` comes back host-relative from this endpoint, unlike every
+    // other endpoint's already-absolute image URLs — without this,
+    // `Image.network` throws "No host specified in URI".
+    return model.copyWith(avatarUrl: _apiClient.resolveAssetUrl(model.avatarUrl));
   }
 
   /// Confirmed body: `name`, `address` (both roles); `latitude`,

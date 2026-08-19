@@ -195,7 +195,7 @@ final getIt = GetIt.instance;
 /// look like a hang/timeout rather than a normal loading state.
 const _apiBaseUrl = String.fromEnvironment(
   'API_BASE_URL',
-  defaultValue: '10.231.46.152:3000re',
+  defaultValue: 'http://10.218.127.152:3000',
 );
 
 /// Wires every repository behind its domain interface for both the customer

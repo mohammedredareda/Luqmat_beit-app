@@ -5,7 +5,6 @@ import 'package:go_router/go_router.dart';
 import 'package:luqmat_beit_app/l10n/generated/app_localizations.dart';
 
 import '../../../../di/injection.dart';
-import '../../../orders/domain/usecases/confirm_returned_meals_order.dart';
 import '../../domain/repositories/cart_repository.dart';
 import '../../domain/usecases/get_cart_items.dart';
 import '../../domain/usecases/remove_cart_item.dart';
@@ -31,8 +30,6 @@ class ShoppingCartPage extends StatelessWidget {
         UpdateCartItemQuantity(repository),
         RemoveCartItem(repository),
         repository,
-        ConfirmReturnedMealsOrder(getIt()),
-        getIt(),
       )..loadCart(),
       child: const _ShoppingCartView(),
     );
@@ -109,6 +106,12 @@ class _CartContentState extends State<_CartContent> {
   // formatted address text — `/order/confirm` requires latitude/longitude
   // on every call, and those have to come from here too, not just the
   // address shown on screen.
+  // "من نصيبك" isn't grouped under any cook, but checkout for it must
+  // collect a location the same way every cook section does — reuses this
+  // same map/set under a key no real cook id can collide with, rather than
+  // duplicating the picker state.
+  static const _returnedMealsLocationKey = '__returned_meals__';
+
   final Map<String, DetectedLocationEntity> _locationByCookId = {};
   final Set<String> _detectingCookIds = {};
   late final DetectCurrentLocation _detectCurrentLocation =
@@ -126,24 +129,6 @@ class _CartContentState extends State<_CartContent> {
             .showSnackBar(SnackBar(content: Text(exception.message))),
       );
     });
-  }
-
-  Future<void> _confirmReturnedMeals(BuildContext context) async {
-    final cubit = context.read<ShoppingCartCubit>();
-    final confirmed = await ConfirmationDialog.show(
-      context,
-      title: 'تأكيد الطلب',
-      message: 'هل تريد تأكيد طلب عناصر "من نصيبك"؟',
-      confirmLabel: 'تأكيد',
-    );
-    if (!confirmed || !context.mounted) return;
-    final result = await cubit.confirmReturnedMeals();
-    if (!context.mounted) return;
-    result.fold(
-      (orderId) => context.push('/order-confirmation/$orderId'),
-      (exception) => ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(exception.message))),
-    );
   }
 
   @override
@@ -221,10 +206,64 @@ class _CartContentState extends State<_CartContent> {
             ),
             const Divider(height: AppSpace.xl),
           ],
+          InkWell(
+            onTap: _detectingCookIds.contains(_returnedMealsLocationKey)
+                ? null
+                : () => _pickLocation(_returnedMealsLocationKey),
+            borderRadius: BorderRadius.circular(AppRadius.pill),
+            child: Padding(
+              padding:
+                  const EdgeInsetsDirectional.symmetric(vertical: AppSpace.s),
+              child: Row(
+                children: [
+                  Icon(Icons.chevron_left, color: scheme.onSurfaceVariant),
+                  const SizedBox(width: AppSpace.xs),
+                  Expanded(
+                    child: Text(
+                      _locationByCookId[_returnedMealsLocationKey]
+                              ?.formattedAddress ??
+                          'تحديد الموقع',
+                      textAlign: TextAlign.end,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: textTheme.bodyMedium
+                          ?.copyWith(color: scheme.onSurfaceVariant),
+                    ),
+                  ),
+                  const SizedBox(width: AppSpace.xs),
+                  if (_detectingCookIds.contains(_returnedMealsLocationKey))
+                    SizedBox(
+                      width: 16,
+                      height: 16,
+                      child: CircularProgressIndicator(
+                          strokeWidth: 2, color: scheme.primary),
+                    )
+                  else
+                    Icon(Icons.location_on_outlined,
+                        size: 18, color: scheme.primary),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: AppSpace.s),
           SizedBox(
             width: double.infinity,
             child: OutlinedButton(
-              onPressed: () => _confirmReturnedMeals(context),
+              // Same as a cook's confirm button — takes the customer to a
+              // review screen first; only that screen's "إتمام الطلب"
+              // places the real order.
+              onPressed: () => context.push(
+                '/checkout-review-returned',
+                extra: (
+                  returnedMealItems: widget.cart.returnedMealItems,
+                  deliveryAddress: _locationByCookId[_returnedMealsLocationKey]
+                      ?.formattedAddress,
+                  latitude:
+                      _locationByCookId[_returnedMealsLocationKey]?.latitude,
+                  longitude:
+                      _locationByCookId[_returnedMealsLocationKey]?.longitude,
+                ),
+              ),
               style: OutlinedButton.styleFrom(
                 foregroundColor: scheme.primary,
                 side: BorderSide(color: scheme.primary),

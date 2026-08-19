@@ -39,4 +39,12 @@ abstract class ApiClient {
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? headers,
   });
+
+  /// Resolves a possibly host-relative asset path (e.g. `/uploads/x.png`,
+  /// as `/users/profile`'s `image` field comes back) into an absolute URL
+  /// `Image.network` can load — most endpoints already return a full URL,
+  /// but callers can't tell which shape they'll get without this, so every
+  /// datasource that reads an image/avatar field should route it through
+  /// here rather than trusting the backend's field verbatim.
+  String? resolveAssetUrl(String? path);
 }

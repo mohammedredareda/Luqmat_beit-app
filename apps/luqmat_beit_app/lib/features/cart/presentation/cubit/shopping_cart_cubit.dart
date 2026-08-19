@@ -1,7 +1,6 @@
 import 'package:core/core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../orders/domain/usecases/confirm_returned_meals_order.dart';
 import '../../domain/repositories/cart_repository.dart';
 import '../../domain/usecases/get_cart_items.dart';
 import '../../domain/usecases/remove_cart_item.dart';
@@ -19,8 +18,6 @@ class ShoppingCartCubit extends Cubit<ShoppingCartState> {
     this._updateCartItemQuantity,
     this._removeCartItem,
     this._repository,
-    this._confirmReturnedMealsOrder,
-    this._profileCache,
   ) : super(const ShoppingCartState.initial());
 
   final GetCartItems _getCartItems;
@@ -30,8 +27,6 @@ class ShoppingCartCubit extends Cubit<ShoppingCartState> {
   // brief (get/update-quantity/remove), so this calls the repository
   // directly rather than adding a fourth single-method usecase class.
   final CartRepository _repository;
-  final ConfirmReturnedMealsOrder _confirmReturnedMealsOrder;
-  final UserProfileCache _profileCache;
 
   Future<void> loadCart() async {
     emit(const ShoppingCartState.loading());
@@ -87,26 +82,6 @@ class ShoppingCartCubit extends Cubit<ShoppingCartState> {
     refreshed.fold(
       (cart) => _emitCart(cart),
       (exception) => emit(ShoppingCartState.failure(exception)),
-    );
-  }
-
-  /// Confirms every "من نصيبك" (returned/salvage meal) line in one order —
-  /// a distinct request from [confirmOrder] (no `cook_id`, flagged with
-  /// `is_returned_meals_order` instead), since these aren't grouped under
-  /// any cook section in the cart.
-  Future<Result<String>> confirmReturnedMeals() {
-    final current = state;
-    if (current is! ShoppingCartLoaded ||
-        current.cart.returnedMealItems.isEmpty) {
-      return Future.value(const Result.failure(
-        UnknownException('لا توجد عناصر من نصيبك لتأكيدها.'),
-      ));
-    }
-    final cached = _profileCache.read();
-    return _confirmReturnedMealsOrder(
-      returnedMealItems: current.cart.returnedMealItems,
-      latitude: cached.latitude,
-      longitude: cached.longitude,
     );
   }
 

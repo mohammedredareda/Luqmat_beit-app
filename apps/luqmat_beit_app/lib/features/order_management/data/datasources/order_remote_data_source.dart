@@ -87,7 +87,7 @@ class OrderRemoteDataSource {
   static const _noReasonGivenPlaceholder = 'لم يقدم الطباخ سبباً للرفض';
 
   Future<OrderModel> completeOrder(String id) async {
-    await _apiClient.patch('/user/cook/orders/$id/complete');
+    await _apiClient.patch('/user/cook/orders/$id/done');
     return _requireOrder(id);
   }
 
