@@ -13,12 +13,14 @@ class UpdateProfile {
     required String address,
     double? latitude,
     double? longitude,
+    String? avatarPath,
   }) {
     return _repository.updateProfile(
       name: name,
       address: address,
       latitude: latitude,
       longitude: longitude,
+      avatarPath: avatarPath,
     );
   }
 }

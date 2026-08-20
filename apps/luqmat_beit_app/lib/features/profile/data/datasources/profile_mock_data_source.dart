@@ -25,6 +25,7 @@ class ProfileMockDataSource implements ProfileDataSource {
     required String address,
     double? latitude,
     double? longitude,
+    String? avatarPath,
   }) async {
     await Future.delayed(const Duration(milliseconds: 300));
     _profile = _profile.copyWith(
@@ -32,6 +33,7 @@ class ProfileMockDataSource implements ProfileDataSource {
       address: address,
       latitude: latitude,
       longitude: longitude,
+      avatarUrl: avatarPath,
     );
     return _profile;
   }

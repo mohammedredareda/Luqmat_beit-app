@@ -10,5 +10,6 @@ abstract class ProfileRepository {
     required String address,
     double? latitude,
     double? longitude,
+    String? avatarPath,
   });
 }

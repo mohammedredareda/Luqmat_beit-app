@@ -492,30 +492,12 @@ class _MealDetailsContent extends StatelessWidget {
 }
 
 Future<void> _showReportDialog(BuildContext context, MealDetailsCubit cubit) async {
-  final controller = TextEditingController();
-  final message = await showDialog<String>(
-    context: context,
-    builder: (dialogContext) => AlertDialog(
-      title: const Text('الإبلاغ عن الوجبة'),
-      content: TextField(
-        controller: controller,
-        maxLines: 3,
-        maxLength: 500,
-        decoration: const InputDecoration(hintText: 'وضّح سبب الإبلاغ...'),
-      ),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.of(dialogContext).pop(),
-          child: const Text('إلغاء'),
-        ),
-        TextButton(
-          onPressed: () => Navigator.of(dialogContext).pop(controller.text.trim()),
-          child: const Text('إرسال'),
-        ),
-      ],
-    ),
+  final message = await TextInputDialog.show(
+    context,
+    title: 'الإبلاغ عن الوجبة',
+    hintText: 'وضّح سبب الإبلاغ...',
+    maxLength: 500,
   );
-  controller.dispose();
   if (message == null || message.isEmpty || !context.mounted) return;
 
   final result = await cubit.report(message);

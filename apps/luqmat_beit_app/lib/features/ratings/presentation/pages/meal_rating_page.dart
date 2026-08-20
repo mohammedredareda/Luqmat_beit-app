@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../di/injection.dart';
+import '../../../meal_details/domain/usecases/report_meal.dart';
 import '../../domain/usecases/get_order_to_rate.dart';
 import '../../domain/usecases/submit_meal_rating.dart';
 import '../cubit/meal_rating_cubit.dart';
@@ -25,6 +26,7 @@ class MealRatingPage extends StatelessWidget {
       create: (_) => MealRatingCubit(
         GetOrderToRate(getIt()),
         SubmitMealRating(getIt()),
+        ReportMeal(getIt()),
       )..loadOrder(orderId),
       child: _MealRatingView(orderId: orderId),
     );
@@ -186,7 +188,9 @@ class _RatingCard extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: OutlinedButton(
-                  onPressed: isSubmitted ? null : () => _showReportDialog(context),
+                  onPressed: isSubmitted
+                      ? null
+                      : () => _showReportDialog(context, context.read<MealRatingCubit>()),
                   child: const Text('إبلاغ'),
                 ),
               ),
@@ -197,43 +201,28 @@ class _RatingCard extends StatelessWidget {
     );
   }
 
-  void _showReportDialog(BuildContext context) {
-    final controller = TextEditingController();
-    final scheme = Theme.of(context).colorScheme;
-    showDialog<void>(
-      context: context,
-      builder: (dialogContext) {
-        return AlertDialog(
-          title: const Text('الإبلاغ عن مشكلة'),
-          content: TextField(
-            controller: controller,
-            maxLines: 4,
-            textAlign: TextAlign.right,
-            decoration: const InputDecoration(hintText: 'صف المشكلة التي واجهتها'),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(dialogContext).pop(),
-              child: const Text('إلغاء'),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(dialogContext).pop();
-                ScaffoldMessenger.of(context)
-                  ..hideCurrentSnackBar()
-                  ..showSnackBar(
-                    SnackBar(
-                      content: const Text('تم استلام بلاغك، شكراً لك'),
-                      backgroundColor: scheme.error,
-                    ),
-                  );
-              },
-              child: Text('إرسال', style: TextStyle(color: scheme.error)),
-            ),
-          ],
-        );
-      },
+  Future<void> _showReportDialog(BuildContext context, MealRatingCubit cubit) async {
+    final message = await TextInputDialog.show(
+      context,
+      title: 'الإبلاغ عن مشكلة',
+      hintText: 'صف المشكلة التي واجهتها',
+      maxLines: 4,
     );
+    if (message == null || message.isEmpty || !context.mounted) return;
+
+    final scheme = Theme.of(context).colorScheme;
+    final result = await cubit.reportIssue(message);
+    if (!context.mounted) return;
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(
+          content: Text(
+            result.fold((_) => 'تم استلام بلاغك، شكراً لك', (exception) => exception.message),
+          ),
+          backgroundColor: result.fold((_) => scheme.primary, (_) => scheme.error),
+        ),
+      );
   }
 }
 

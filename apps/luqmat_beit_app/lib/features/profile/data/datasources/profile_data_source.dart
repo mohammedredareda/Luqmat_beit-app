@@ -8,5 +8,6 @@ abstract class ProfileDataSource {
     required String address,
     double? latitude,
     double? longitude,
+    String? avatarPath,
   });
 }

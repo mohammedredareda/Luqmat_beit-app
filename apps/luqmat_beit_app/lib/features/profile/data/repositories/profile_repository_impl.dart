@@ -22,12 +22,14 @@ class ProfileRepositoryImpl implements ProfileRepository {
     required String address,
     double? latitude,
     double? longitude,
+    String? avatarPath,
   }) {
     return guard(() => _dataSource.updateProfile(
           name: name,
           address: address,
           latitude: latitude,
           longitude: longitude,
+          avatarPath: avatarPath,
         ));
   }
 }

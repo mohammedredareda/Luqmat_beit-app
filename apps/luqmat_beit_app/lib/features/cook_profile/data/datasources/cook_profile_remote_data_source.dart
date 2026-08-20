@@ -1,4 +1,5 @@
 import 'package:core/core.dart';
+import 'package:dio/dio.dart' show MultipartFile;
 
 import '../models/cook_profile_model.dart';
 
@@ -29,12 +30,23 @@ class CookProfileRemoteDataSource {
   /// `startAvailabilityTime`/`endAvailabilityTime` (cook-only — ignored
   /// server-side unless the token's role is COOK, harmless to always
   /// send from this cook-only screen). No `phone_number` (moved to the
-  /// dedicated Request/Confirm Phone Change flow) and no photo/image
-  /// field at all in the documented contract.
+  /// dedicated Request/Confirm Phone Change flow).
   ///
-  /// TODO(backend): avatar upload has no confirmed endpoint — the picked
-  /// `avatarPath` is deliberately not sent here; `ProfileAvatarPicker`
-  /// stays wired up client-side so it's ready the moment one exists.
+  /// Avatar upload: a *second*, separate `PATCH` carrying only the `image`
+  /// multipart field — the same field name `GET /users/profile` returns
+  /// the photo under, and the same one `meal`/`create`/`edit` uploads use
+  /// ([MealRemoteDataSource]). Only sent when [CookProfileModel.avatarUrl]
+  /// is a local file path (a freshly picked-and-cropped photo, per
+  /// [_isLocalPath]) — an already-`http(s)://` value means the cook didn't
+  /// touch the avatar this edit, so there's nothing new to upload.
+  ///
+  /// Deliberately kept out of the request above rather than bundled in as
+  /// one multipart call — `multipart/form-data` has no numeric type, so
+  /// `latitude`/`longitude` would arrive at the backend as strings and
+  /// fail its `@IsNumber` validation ("latitude/longitude must be a
+  /// number") if sent alongside the image. Two PATCHes (both partial
+  /// updates) sidesteps that instead of guessing at a dedicated upload
+  /// endpoint that isn't confirmed to exist.
   Future<CookProfileModel> updateProfile(CookProfileModel profile) async {
     final timeParts = profile.availabilityTime.split('-');
     final startIso = timeParts.length == 2 ? _hhmmToIsoDateTime(timeParts[0]) : null;
@@ -52,9 +64,21 @@ class CookProfileRemoteDataSource {
       if (endIso != null) 'endAvailabilityTime': endIso,
     });
 
+    final avatarPath = profile.avatarUrl;
+    final hasNewAvatar = avatarPath != null && avatarPath.isNotEmpty && _isLocalPath(avatarPath);
+    if (hasNewAvatar) {
+      await _apiClient.patch(
+        '/users/profile',
+        data: {'image': await MultipartFile.fromFile(avatarPath)},
+        isFormData: true,
+      );
+    }
+
     // No response body documented — echo the submitted profile back.
     return profile;
   }
+
+  bool _isLocalPath(String path) => !path.startsWith('http://') && !path.startsWith('https://');
 
   /// `"HH:mm"` → a fixed-date UTC ISO datetime, matching the confirmed
   /// `startAvailabilityTime`/`endAvailabilityTime` shape (only the

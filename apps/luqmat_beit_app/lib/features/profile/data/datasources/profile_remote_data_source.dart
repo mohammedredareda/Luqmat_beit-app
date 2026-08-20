@@ -1,4 +1,5 @@
 import 'package:core/core.dart';
+import 'package:dio/dio.dart' show MultipartFile;
 
 import '../../domain/entities/customer_profile_entity.dart';
 import 'profile_data_source.dart';
@@ -14,8 +15,8 @@ import 'profile_data_source.dart';
 ///
 /// `completedOrdersCount`/`favoritesCount` have no backend source at all
 /// yet and stay at 0 — same honest gap the cook role has for its own
-/// stats. `avatarUrl` comes from the response's `image` field with no
-/// upload endpoint to write it back (see `updateProfile`'s doc comment).
+/// stats. `avatarUrl` comes from the response's `image` field (see
+/// `updateProfile`'s doc comment for how it's written back).
 class ProfileRemoteDataSource implements ProfileDataSource {
   ProfileRemoteDataSource(this._apiClient, this._profileCache);
 
@@ -45,14 +46,22 @@ class ProfileRemoteDataSource implements ProfileDataSource {
   /// (minus the cook-only ones). No response body documented, so this
   /// re-fetches rather than fabricating one.
   ///
-  /// TODO(backend): avatar upload has no confirmed endpoint on either
-  /// role — not sent here.
+  /// Avatar upload: a *second*, separate `PATCH` carrying only the `image`
+  /// multipart field, sent only when [avatarPath] is a local file path
+  /// (not an already-uploaded `http(s)://` URL). Deliberately kept out of
+  /// the request above — `multipart/form-data` has no numeric type, so
+  /// `latitude`/`longitude` would arrive at the backend as strings and
+  /// fail its `@IsNumber` validation ("latitude/longitude must be a
+  /// number") if bundled into the same multipart request. Two PATCHes
+  /// (both partial updates) sidesteps that instead of guessing at a
+  /// dedicated upload endpoint that isn't confirmed to exist.
   @override
   Future<CustomerProfileEntity> updateProfile({
     required String name,
     required String address,
     double? latitude,
     double? longitude,
+    String? avatarPath,
   }) async {
     await _apiClient.patch('/users/profile', data: {
       'name': name,
@@ -60,6 +69,15 @@ class ProfileRemoteDataSource implements ProfileDataSource {
       if (latitude != null) 'latitude': latitude,
       if (longitude != null) 'longitude': longitude,
     });
+
+    final hasNewAvatar = avatarPath != null && avatarPath.isNotEmpty && _isLocalPath(avatarPath);
+    if (hasNewAvatar) {
+      await _apiClient.patch(
+        '/users/profile',
+        data: {'image': await MultipartFile.fromFile(avatarPath)},
+        isFormData: true,
+      );
+    }
 
     await _profileCache.save(
       name: name,
@@ -69,4 +87,6 @@ class ProfileRemoteDataSource implements ProfileDataSource {
     );
     return getProfile();
   }
+
+  bool _isLocalPath(String path) => !path.startsWith('http://') && !path.startsWith('https://');
 }

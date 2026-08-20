@@ -89,6 +89,7 @@ export 'src/blocs/connectivity/connectivity_cubit.dart';
 // Shared widgets
 export 'src/widgets/meal_card.dart';
 export 'src/widgets/confirmation_dialog.dart';
+export 'src/widgets/text_input_dialog.dart';
 export 'src/widgets/loading_skeleton.dart';
 export 'src/widgets/empty_state.dart';
 export 'src/widgets/form_section_card.dart';

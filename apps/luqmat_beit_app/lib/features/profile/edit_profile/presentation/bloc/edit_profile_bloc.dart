@@ -98,15 +98,12 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
 
     emit(EditProfileState.form(data.copyWith(submitStatus: const ProfileSubmitStatus.submitting())));
 
-    // `avatarPath` is deliberately not sent — no confirmed avatar-upload
-    // endpoint on either role (see `ProfileRemoteDataSource.updateProfile`'s
-    // doc comment); the picker stays wired up client-side for when one
-    // exists.
     final result = await _updateProfile(
       name: data.name,
       address: data.address,
       latitude: data.latitude,
       longitude: data.longitude,
+      avatarPath: data.avatarPath,
     );
     result.fold(
       (profile) => emit(
